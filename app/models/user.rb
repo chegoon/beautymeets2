@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
 	def apply_omniauth(omniauth)
 		puts "apply_omniauth() called"
-		puts "ominauth['info'] : #{ominauth['info']}"
+		puts "omniauth['info'] : #{omniauth['info']}"
 		self.email = omniauth['info']['email'] if email.blank?
 		self.name = omniauth['info']['name'] if name.blank?
 		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
