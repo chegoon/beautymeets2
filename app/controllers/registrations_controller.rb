@@ -81,7 +81,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+  def build_resource(*args)
+    super
+    if session[:omniauth]
+      @user.apply_omniauth(session[:omniauth])
+      @user.valid?
+    end
+  end
 
+  private
   # check if we need password to update user data
   # ie if password or email was changed
   # extend this as needed
