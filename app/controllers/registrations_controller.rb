@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_filter :set_account
+ #before_filter :set_account
 =begin
   def create
     super
@@ -90,6 +90,7 @@ class RegistrationsController < Devise::RegistrationsController
       params[:user][:password].present?
   end
 
+=begin
   private 
   def set_account
     if @user.has_role? :member 
@@ -99,4 +100,5 @@ class RegistrationsController < Devise::RegistrationsController
     else
     end
   end
+=end
 end
