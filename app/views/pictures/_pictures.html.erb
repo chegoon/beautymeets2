@@ -1,0 +1,9 @@
+<div id="pictures">
+	<% if !@pictures.nil? %>
+	  <% @pictures.each do |p| %>
+	    <div class="picture">
+	      <%= image_tag p.image_url %>
+	    </div>
+	  <% end %>
+  <% end %>
+</div>

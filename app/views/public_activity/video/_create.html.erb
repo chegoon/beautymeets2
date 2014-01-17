@@ -1,0 +1,9 @@
+<% if activity.trackable %>
+<%= link_to image_tag (activity.trackable.commentable.thumb_url), activity.trackable.commentable %>ㅎ
+<%= link_to activity.trackable.commentable.title, activity.trackable.commentable %>
+이 생성되었습니다.
+
+		
+
+	<span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>
+<% end %>

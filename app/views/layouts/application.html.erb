@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+
+    <!-- facebook share info set start -->
+    <meta http-equiv="content-language" content="ko">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta property="og:site_name" content="BEAUTYMEETS" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:title" content="<%=  yield(:page_title) || 'BEAUTYMEETS' %>" />
+    <meta property="og:description" content="<%= yield(:page_desc) || 'BEAUTYMEETS' %>" />
+    <meta property="og:image" content="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
+    
+    <link rel="image_src" href="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
+    <!-- facebook share infor set end -->
+    
+    
+    <title><%= yield(:page_title) || "BEAUTYMEETS" %></title>
+
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+      <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+      <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Foundation 3 for IE 8 and earlier -->
+    <!--[if lt IE 9]>
+      <%= stylesheet_link_tag "foundation3/normalize.css" %>
+      <%= stylesheet_link_tag "foundation3/foundation.min.css" %>
+      <%= stylesheet_link_tag "foundation3/app.css" %>
+    <![endif]-->
+    <!-- Foundation 4 for IE 9 and earlier -->
+    <!--[if gt IE 8]><!-->
+      <%= stylesheet_link_tag "foundation4/normalize.css" %>
+      <%= stylesheet_link_tag "foundation4/foundation.min.css" %>
+    <!--<![endif]-->
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+
+    <style type="text/css">
+      html, body, p {
+          background-color: #eee;
+          height: 100%; 
+          font-size: 0.9rem;
+      } 
+
+      .breadcrumbs a, .breadcrumbs  span {
+        color: #ff8008;
+      }
+      
+      a:link { color: #333;}
+      a:visited { color: #666; }
+      a:hover { color: #ff8008; }
+    </style>
+
+    <%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && current_user.is_admin?)  %>
+  </head>
+
+  <body>
+
+    <%= render :partial => "layouts/fb" if Rails.env.production?   %>
+
+
+
+    <div class="off-canvas-wrap" >
+      <div class="inner-wrap">
+
+        <%= render "layouts/tab_bar" %>
+
+        <%= render "layouts/left_off_canvas_menu" %>
+    
+        <section class="main-section" >
+          <!-- content goes here -->
+
+          <% flash.each do |name, msg| %>
+            <div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
+              <%= msg  %>
+              <a href="#" class="close">&times;</a>
+            </div>
+          <% end %>
+            <div class="row" >
+              <div class="small-12 small-centered columns" >
+                <div id="wrapper" >
+                  
+                  <%= yield %>
+                  <%= yield :scripts %>
+                  <!-- dif for static footer-position -->
+                  <div id="push"></div>
+                </div>
+
+                <div id="footer" class="text-center" >
+                    Discover, Learn, and Be beautiful in BEAUTYMEETS<br/>
+              
+            상호 : 리올플레이 | 대표 : 윤미진 | 서울시 서초구 우면동 17번지 KT 연구개발센터 4층 <br/> 사업자등록번호 : 220-09-31513 | 통신판매업:제 2013-서울서초-0785 | 전화 : 070-8260-6119(10 AM ~ 7 PM OPEN) | email : hellobeauty@reallplay.com  <br/>
+            
+      Copyright 2013 <strong>BEAUTYMEETS</strong> All Rights Reserved.
+                </div>
+              </div>
+            </div>
+
+        </section>
+
+        <a class="exit-off-canvas"></a>
+
+      </div>
+    </div>
+    <%= javascript_include_tag "application" %>
+
+    <!-- Foundation 3 for IE 8 and earlier -->
+    <!--[if lt IE 9]>
+        <%= javascript_include_tag "foundation3/foundation.min.js" %>
+        <%= javascript_include_tag "foundation3/app.js" %>
+    <![endif]-->
+
+    <!-- Foundation 4 for IE 9 and later -->
+    <!--[if gt IE 8]>
+        <%= javascript_include_tag "foundation4/foundation.min.js" %>
+        <script>
+            $(document).foundation();
+        </script>
+    <![endif]-->
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<%= image_tag (activity.trackable.pictureable.thumbnail.image_url(:medium) || activity.trackable.pictureable.image_url) %>
+<div class="row">
+	<div class="small-2 columns text-right">
+		<%= image_tag activity.owner.image_url(:small) if activity.owner.present? %>
+	</div>
+	<div class="small-10 columns">
+		<%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
+		<% if activity.trackable %>
+		님이
+			<% if (activity.trackable.pictureable_type == "Tutorial" || activity.trackable.pictureable_type == 	"Beautyclass" || activity.trackable.pictureable_type ==  "Video") %>
+				<%= #image_tag activity.trackable.pictureable.concept_image_url(:thumb) 
+				%>
+				<%= link_to activity.trackable.pictureable.title, activity.trackable.pictureable %>
+			<% else %>
+				<%= #image_tag activity.trackable.pictureable.image_url(:thumb) 
+				%> 
+				<%= link_to activity.trackable.pictureable.name, activity.trackable.pictureable %>
+			<% end %>
+			에 사진을 추가하였습니다.<br/>
+			<%= image_tag activity.trackable.image_url(:small) %>
+
+			<span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>
+		<% else %>
+		이 작성한 댓글이 삭제되었습니다.
+		<% end %>
+	</div>
+</div>

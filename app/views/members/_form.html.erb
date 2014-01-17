@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@member) do |f| %>
+        
+  <%= f.error_notification %>
+  <%= f.association :gender, :as => :radio  %>
+  <%= f.input :year_of_birth, start_year: 1970, end_year: Date.today.year %>
+  <hr>
+  <%= f.input :skin_type_list, :as => :check_boxes, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply"%>
+  <hr>
+  <%= #f.input :skin_tone_list, :as => :check_boxes, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply"
+  %>
+  <%= f.input :skin_tone_list %>
+  <hr>
+  <%= f.input :skin_trouble_list, :as => :check_boxes, :collection => Member.tag_counts_on("skin_troubles").map(&:name), :hint => "Please check all that apply"%>
+  <%= f.button :submit, :class => "expand" %>
+
+<% end %>

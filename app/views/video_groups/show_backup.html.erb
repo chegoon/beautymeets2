@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @video_group.name %>
+</p>
+
+<p>
+  <b>Home url:</b>
+  <%= @video_group.home_url %>
+</p>
+
+<p>
+  <b>Thumb url:</b>
+  <%= @video_group.thumb_url %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= @video_group.image %>
+</p>
+
+<p>
+  <b>Youtube:</b>
+  <%= @video_group.youtube_id %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @video_group.view_count %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_group_path(@video_group) %> |
+<%= link_to 'Back', video_groups_path %>

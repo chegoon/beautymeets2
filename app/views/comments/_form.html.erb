@@ -1,0 +1,22 @@
+<%= simple_form_for [@commentable, @comment] do |f| %>
+  <% if @comment.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="row">
+      <div class="large-9 columns">
+        <%= f.text_area :body, rows: 4, :placeholder => "궁금한 점을 남겨주세요" %>
+      </div>
+      <div class="large-3 columns">
+        <%= f.button :submit, "Comment It", :class => "right" %>
+      </div>
+    </div>
+
+<% end %>

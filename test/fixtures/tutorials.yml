@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  desc: MyText
+  vimeo_url: MyString
+  user: 
+  view_count: 1
+  published: false
+
+two:
+  title: MyString
+  desc: MyText
+  vimeo_url: MyString
+  user: 
+  view_count: 1
+  published: false

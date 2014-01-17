@@ -1,0 +1,8 @@
+<%= simple_form_for [@itemizable, @item] do |f| %>
+  <%= f.error_notification %>
+
+    
+    <%= f.input :name, :url => autocomplete_item_name_tutorials_path, :as => :autocomplete %>
+    <%= f.button :submit %>
+
+<% end %>

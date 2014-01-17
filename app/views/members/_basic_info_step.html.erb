@@ -1,0 +1,2 @@
+    <%= f.input :gender_id, label: 'What is your gender?', collection: Gender.all, as: :radio_buttons,  checked: @member.gender_id, item_wrapper_class: 'inline'  %>
+    <%= f.input :birth_of_year %>

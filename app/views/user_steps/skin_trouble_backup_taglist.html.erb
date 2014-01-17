@@ -1,0 +1,9 @@
+<div class="progress small-12 success radius" style="border:0;">
+  <span class="meter" style="width: 90%"></span>
+</div>
+<%= simple_form_for @member, url: wizard_path do |f| %>
+	<%= f.input :skin_trouble_list, :as => :check_boxes, :collection => Member.skin_trouble_counts, :hint => "Please check all that apply"%>
+	<%= f.input :skin_trouble_list %>
+	<%= f.button :submit, "Continue" %>
+	<%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
+<% end %>

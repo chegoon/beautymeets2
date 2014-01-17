@@ -1,0 +1,10 @@
+<div class="progress small-12 success radius" style="border:0;">
+  <span class="meter" style="width: 60%"></span>
+</div>
+<%= simple_form_for @member, url: wizard_path do |f| %>
+
+	<%= f.input :skin_type_list, :as => :check_boxes, :collection => ActsAsTaggableOn::Tag.all.map(&:name), :hint => "Please check all that apply"%>
+	<%= f.input :skin_type_list %>
+	<%= f.button :submit, "Continue" %>
+  <%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
+<% end %>

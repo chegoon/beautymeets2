@@ -1,0 +1,14 @@
+<%= simple_form_for [@itemizable, @item] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :brand %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+<% 
+if category.slug == params[:id]
+	color = "#ff8008"
+else
+	collor = "#666"
+end
+%>
+
+<% if category.parent_id.present? %>
+	<li ><a href="<%= category_path(category) %>" style="color:<%= color %>;"><%= category.try(:name) %></a></li>
+<% else %>
+	<% if Category.exists?(:parent_id => category.id) %>
+		<li><a href="<%= category_path(category) %>" style="font-size:0.9rem; font-weight:bold; color:<%= color %>;" data-dropdown="drop-<%= category.id %>" >
+			<%=  category.try(:name) %><i class="fa fa-sort-asc fa-fw"></i></a>
+		</li>
+		<ul id="drop-<%= category.id %>" class="f-dropdown" data-dropdown-content>
+			<% Category.where("parent_id = ?", category.id).all.each do |cat| %>
+				<li><%= link_to cat.name, cat %></a></li>
+			<% end %>
+		</ul>
+	<% else %>
+		<li><a href="<%= category_path(category) %>" style="font-size:0.9rem; font-weight:bold; color: <%= color %>;">
+			<%=  category.try(:name) %></a>
+		</li>
+	<% end %>
+<% end %>

@@ -1,0 +1,39 @@
+<div class="row" style="" >
+	<div class="large-12 columns" style="">  
+		<h3 style="letter-spacing:-0.5px;">Beautyclass</h3>    			
+		<hr>
+	</div>
+</div>
+
+<%= link_to 'New Beauclass', new_beautyclass_path  if can? :manage, Beautyclass %>
+
+<div class="row">
+	<div class="small-12 columns">
+			<% Beautyclass.joins(:categories).all.each do |cat| %>
+				<%= cat.name %>
+			<% end %>
+
+		</div>
+	</div>
+<% 
+if @beautyclasses.present? 
+%>
+<%= @beautyclasses.each do |bclass| %>
+	<div class="row">
+		<div class="small-12 columns">
+			<p>
+		<%= link_to bclass.title, beautyclass_path(bclass) %>
+		<%= truncate(bclass.description, 35) %>
+		<%= current_user.checkouts.where(beautyclass_id: bclass.id) if user_signed_in? %>
+		<%= bclass.closed %>
+		<%= bclass.author %>
+		<%= bclass.start_date %>
+		<%= bclass.end_date %>
+			</p>
+		</div>
+	</div>
+<%
+	end 
+
+end 
+%>

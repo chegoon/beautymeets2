@@ -1,0 +1,66 @@
+      #notification {
+          display: none;
+          position: fixed;
+          cursor: pointer;
+          width: 100%;
+          background: #EFEFEF;
+          text-align: center;
+          /* border-top: 2px solid #FFF; */
+          z-index:9999;
+      }
+/*
+아래 코드 삽입시 scroll locking 발생
+      .off-canvas-wrap {
+        height:100%;   
+      }
+
+
+      .off-canvas-wrap .inner-wrap {
+        height:100%;   
+      }  
+
+      .off-canvas-wrap .inner-wrap .main-section{
+        height:100%;   
+      }  
+*/
+      #wrapper {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        margin: 0 auto -3.0em;
+      }
+
+      #push, #footer {
+          height: 3.0em;
+      }  
+
+      #footer {
+      	margin:10px 0;
+      	padding:15px 0;
+    	}
+      
+.purr {
+  position: fixed;
+  top: 30px;
+  right: 100px;
+  width: 250px;
+  padding: 20px;
+  background-color: #FCC;
+  border: solid 2px #666;
+  &:first-letter { text-transform: uppercase };
+}
+
+.circular {
+  border-radius:50% 50% 50% 50%;    
+  -webkit-border-radius: 50% 50% 50% 50% ;
+  -moz-border-radius: 50% 50% 50% 50% ;
+  padding:5px;
+  }
+
+.circular img {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  }
+.left-off-canvas-menu .off-canvas-list li {
+  font-size:0.875rem;
+}  

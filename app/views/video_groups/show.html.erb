@@ -1,0 +1,69 @@
+<% if !@video.nil? %>
+<% page_thumb "#{@videos.order('view_count DESC').last.thumb_url}" %>
+<% end %>
+<% page_title "BEAUDEO > #{@video_group.name}" %>
+
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS에서 #{@video_group.name} 이 만든 #{@videos.count}개의 비디오가 당신을 기다리고 있습니다. " %>
+
+ 
+
+			<div id="page-head" class=" head-cover" >
+			  	<h2 class="head-title subheader" style="margin:0 auto 20px auto; text-align:center; color:#FFF;"><%= image_tag "/assets/beautymeets_logo.png", :style => "height:50px;" %></h2>
+
+				<h3 class="head-sub-title" style="color:white; margin:20px; text-align:center; " class="subheader">
+					<% if @video_group.image? %>
+			            <%= image_tag @video_group.image_url(:small).to_s, :style => "width:44px; height:44px;" %>
+			          <% else %>
+			            <%= image_tag @video_group.thumb_url.to_s, :style => "width:44px; height:44px;" if @video_group.thumb_url.present? %>
+			          <% end %>
+
+				  		&nbsp;<%= @video_group.name %>
+				</h3>	
+			 	<div style="max-width:480px; height:auto; margin:0 auto; padding:0 10px;">
+			      <div class="flex-video widescreen" style="display:block;">
+			        <iframe  width="100%" height="280px;" src='<%= @video.video_url %>?autohide=1' frameborder="0" allowfullscreen></iframe>
+			      </div>
+			      <p class="text-center"><small>영상이 재생되지 않을 경우, 영상 내 우측하단의 <strong>전체 화면 아이콘</strong>을 클릭 해주세요 :)</small></p>
+			    </div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="small-12 small-centered columns" style="padding:0;">
+					<%= link_to 'Edit', edit_video_group_path(@video_group) if user_signed_in? && current_user.is_admin? %> 
+					<hr>
+					<%= @video_group.try(:description) %>
+					<div class="hide-for-small-only">
+						<%= render "categories/categories" %>      
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="small-12 small-centered columns" style="padding:0;">
+
+				<!-- <div id="container" > -->
+					<div id="videos">	
+						<div data-magellan-expedition="fixed" style="background: #eee; padding:0; margin:0;">
+							<ul class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
+							  <li><a class="small button <%= 'secondary' if params[:order].nil? ||  params[:order] == 'newly' %>  sort"  data-sort="view_count" href=<%= "#{video_group_path(@video_group)}?order=popular" %>>Popular</a></li>
+							  <li><a class="small button  <%= 'secondary' if params[:order].nil? ||  params[:order] == 'popular' %> sort" data-sort="published_at" href=<%= "#{video_group_path(@video_group)}?order=newly" %>>Newly</a></li>
+							</ul>
+						</div>
+						<div class="list">	  
+						<%= render @videos %>
+						</div>
+					</div>
+					<div style="display:unvisible"><%= will_paginate @videos, previous_label: h("<"), next_label: h(">") %></div>
+					<script type="text/javascript">
+						var options = {
+						  valueNames: [  'video_view_count', 'video_published_at' ]
+						   //item: '<div class="small-12 medium-6 large-4 columns" style="text-align:center"><div class="video-card"><div class="row "><div class="small-12 columns " style="text-align:center; padding:5px;"><div><a class="video-card-thumb " href="" style=background-image: url();></a></div></div></div><div class="row " ><div class="small-12 columns" style="text-align:left; "><h6 class="born title subheader " style="line-height:120%; margin:0 10px; "></h6><h6 class="subheader" style="font-size: 0.8em; margin:5px 10px;  color:#999; "></h6></div></div></div></div>'
+						};
+
+						var videoList = new List('videos', options);
+					</script>
+				<!-- </div>		-->
+			  </div>
+			</div>

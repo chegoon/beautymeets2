@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  description: MyText
+  view_count: 1
+  video_group: 
+
+two:
+  title: MyString
+  description: MyText
+  view_count: 1
+  video_group: 

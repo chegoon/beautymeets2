@@ -1,0 +1,15 @@
+class CheckoutsController < InheritedResources::Base
+	before_filter :authenticate_user!
+
+  def create
+    @beautyclass = Beautyclass.find(params[:beautyclass_id])
+    @checkout = @beautyclass.checkouts.create(params[:checkout])
+    @checkout.user = current_user
+    @checkout.user.save
+    @checkout.save
+
+    UserMailer.beautyclass_request(@beautyclass, @checkout, @beautyclass.user, current_user).deliver
+
+    redirect_to beautyclass_path(@beautyclass)
+  end
+end

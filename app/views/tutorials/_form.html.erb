@@ -1,0 +1,34 @@
+<%= simple_form_for(@tutorial) do |f| %>
+  <% if @tutorial.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tutorial.errors.count, "error") %> prohibited this tutorial from being saved:</h2>
+      <ul>
+      <% @tutorial.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <%= f.input :title %>
+    <%= f.input :published %>
+
+    <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
+
+    <%= f.text_area :description, :as => :text, :placeholder => "뷰토리얼에 대한 상세 설명을 작성해주세요.",  :input_html => {}, :class => "span10"  %><br/>
+
+    <%= f.input :vimeo_url %>
+
+    <%= hidden_field_tag "tutorial[category_ids][]", nil %>
+
+      <% Category.all.each do |category| %>
+        <%= check_box_tag "tutorial[category_ids][]", category.id, @tutorial.category_ids.include?(category.id), id: dom_id(category)  %>
+        <%= #best_in_place_if tutorial.tutorial_category_ids.include?(tutorial_category.id), tutorial_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
+        %>
+        <%= label_tag dom_id(category), category.name %>
+        <br/>
+      <% end %>
+    <%= f.button :submit, :class => "expand" %>
+
+<% end %>

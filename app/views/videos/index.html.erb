@@ -1,0 +1,63 @@
+<%= link_to 'New', new_video_path if user_signed_in? && (current_user.has_role? :admin) %>
+
+
+					<div id="page-head" class=" head-cover" >
+					  <h2 class="head-title subheader" style="margin:0 auto 20px auto; text-align:center; color:#FFF;"><%= "#{@videos.count} Videos " %></h2>
+					  <div style="max-width:480px; height:auto; margin:0 auto; z-index:5;">
+					    <div id="head-video" style="box-shadow:0 10px 10px #CCC;" >    	
+					      <div class="flex-video widescreen" style="display:block;">
+					      	<% if @head_video.present? %>
+					        <iframe id='<%= "video-head" %>'width="360px" height="180px" src='<%= @head_video.video_url  %>?autohide=1' frameborder="0" allowfullscreen></iframe>
+					        <% end %>
+					      </div>
+					    </div>
+					  </div>					  
+					</div>
+
+					<div id="head-dummy-div" ></div>
+
+
+			<div class="row">
+				<div class="small-12 small-centered columns" style="padding:0;">
+					<hr>
+					<div class="hide-for-small-only">
+						<%= render "categories/categories" %>      
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 small-centered columns" style="padding:0;">
+
+				<!-- <div id="container" > -->
+					<div id="videos">		
+						<!-- <div style="padding:0 2px;"><input type="text" class="search" placeholder="Search" /></div> -->
+						<!--
+						<button class="small sort" data-sort="video_view_count">
+					      <i class="fa fa-sort-amount-desc fa-lg"></i>
+					    </button>
+						<button class="small sort" data-sort="video_published_at">
+					      <i class="fa fa-sort-amount-desc fa-lg"></i>
+					    </button>
+						-->
+						<div data-magellan-expedition="fixed" style="background: #eee; padding:0; margin:0;">
+							<ul class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
+						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>Popular</a></li>
+						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>Newly</a></li>
+							</ul>
+						</div>
+						<div class="list">	  
+							<%= render @videos %>
+  						</div>						
+					</div>
+					<div style="display:unvisible"><%= will_paginate @videos %></div>
+					<script type="text/javascript">
+						var options = {
+						  valueNames: [  'view_count', 'published_at' ]
+						   //item: '<div class="small-12 medium-6 large-4 columns" style="text-align:center"><div class="video-card"><div class="row "><div class="small-12 columns " style="text-align:center; padding:5px;"><div><a class="video-card-thumb " href="" style=background-image: url();></a></div></div></div><div class="row " ><div class="small-12 columns" style="text-align:left; "><h6 class="born title subheader " style="line-height:120%; margin:0 10px; "></h6><h6 class="subheader" style="font-size: 0.8em; margin:5px 10px;  color:#999; "></h6></div></div></div></div>'
+						};
+
+						var videoList = new List('videos', options);
+					</script>
+				<!-- </div>		-->
+			  </div>
+			</div>

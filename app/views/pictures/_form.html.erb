@@ -1,0 +1,16 @@
+<%= simple_form_for [@pictureable, @picture] do |f| %>
+  <% if @picture.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @picture.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.input :image, :as => "file" %>
+    <%= f.button :submit %>
+
+<% end %>

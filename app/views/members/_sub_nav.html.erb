@@ -1,0 +1,18 @@
+
+		<div class="row">
+			<div class="small-12 columns show-for-small-only text-center" style="padding:20px 10px 10px 10px;" >
+				<img data-interchange="[<%= @member.user.image_url(:small) %>, (small)]">
+				<h1><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
+				<h5>Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
+			</div>
+		</div>
+		<div class="show-for-medium-up" >
+			<h1><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
+			<h5>Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
+		</div>
+		<ul class="breadcrumbs">
+  		<li><a href="#">Profile</a></li>
+  		<li><a href="#">Notification</a></li>
+  		<li><a href="#">My Tutorial</a></li>
+  		<li><a href="#">My Beautyclass</a></li>
+  	</ul>	

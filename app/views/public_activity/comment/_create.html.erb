@@ -1,0 +1,29 @@
+
+<div class="row">
+	<div class="small-12  columns ">
+		<%= image_tag activity.owner.image_url(:small), :class => "circular", :style => "width:auto; height:40px;" if activity.owner.present? %>
+		<%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
+		<% if activity.trackable %>
+		님이
+			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video") %>
+				<%= #image_tag activity.trackable.commentable.concept_image_url(:thumb) 
+				%>
+				<%= link_to activity.trackable.commentable.title, activity.trackable.commentable %>
+			<% else %>
+				<%= #image_tag activity.trackable.commentable.image_url(:thumb) 
+				%> 
+				<%= link_to activity.trackable.commentable.name, activity.trackable.commentable %>
+			<% end %>
+			에 댓글을 달았습니다.
+	</div>
+</div>
+<div class="row">
+	<div class="small-10 small-offset-1 columns">
+			<%= activity.trackable.body %><br/>
+			<%= image_tag (activity.trackable.commentable.thumbnail.image_url(:small) || activity.trackable.commentable.image_url) %>
+			<span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>
+		<% else %>
+		이 작성한 댓글이 삭제되었습니다.
+		<% end %>
+	</div>
+</div>

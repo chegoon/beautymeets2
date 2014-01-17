@@ -1,0 +1,102 @@
+class RegistrationsController < Devise::RegistrationsController
+  before_filter :set_account
+=begin
+  def create
+    super
+    @user.save
+		@user.profile = Member.create!
+    @user.add_role :member
+		@user.add_role :author, @user.profile
+
+    UserMailer.welcome(@user).deliver unless @user.invalid?
+    
+    redirect_to user_steps_path
+  end
+=end
+
+  def create
+    build_resource(sign_up_params)
+
+    if resource.save
+     
+      resource.profile = Member.create!
+      resource.add_role :member
+
+      yield resource if block_given?
+      if resource.active_for_authentication?
+        set_flash_message :notice, :signed_up if is_flashing_format?
+        sign_up(resource_name, resource)
+        respond_with resource, :location => after_sign_up_path_for(resource)
+      else
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+        expire_data_after_sign_in!
+        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      respond_with resource
+    end
+  end
+
+  def update
+    # For Rails 4
+    #account_update_params = devise_parameter_sanitizer.sanitize(:account_update)
+    # For Rails 3
+    account_update_params = params[:user]
+
+    # required for settings form to submit when password is left blank
+    if account_update_params[:password].blank?
+      account_update_params.delete("password")
+      account_update_params.delete("password_confirmation")
+    end
+
+    @user = User.find(current_user.id)
+    if @user.update_attributes(account_update_params)
+      set_flash_message :notice, :updated
+      # Sign in the user bypassing validation in case his password changed
+      sign_in @user, :bypass => true
+      redirect_to after_update_path_for(@user)
+    else
+      render "edit"
+    end
+  end
+
+  def edit_name
+  end
+
+  def edit_password
+  end
+
+  def edit_avatar
+  end
+
+  private
+  def after_sign_up_path_for(resource)
+    user_steps_path
+  end
+
+  private
+  def after_inactive_sign_up_path_for(resource)
+    user_steps_path
+  end
+
+  private
+
+  # check if we need password to update user data
+  # ie if password or email was changed
+  # extend this as needed
+  def needs_password?(user, params)
+    user.email != params[:user][:email] ||
+      params[:user][:password].present?
+  end
+
+  private 
+  def set_account
+    if @user.has_role? :member 
+      @member = @user.profile
+    elsif @user.has_role? :beautystar
+      @beautystar = @user.profile
+    else
+    end
+  end
+end

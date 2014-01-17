@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @tutorial.title %>
+</p>
+
+<p>
+  <b>Desc:</b>
+  <%= @tutorial.desc %>
+</p>
+
+<p>
+  <b>Vimeo url:</b>
+  <%= @tutorial.vimeo_url %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @tutorial.user %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @tutorial.view_count %>
+</p>
+
+<p>
+  <b>Published:</b>
+  <%= @tutorial.published %>
+</p>
+
+
+<%= link_to 'Edit', edit_tutorial_path(@tutorial) %> |
+<%= link_to 'Back', tutorials_path %>

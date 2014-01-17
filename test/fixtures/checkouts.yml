@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  beautyclass: 
+  checkout_status: 
+  description: MyText
+
+two:
+  user: 
+  beautyclass: 
+  checkout_status: 
+  description: MyText

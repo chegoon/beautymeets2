@@ -1,0 +1,35 @@
+<%= simple_form_for(@video_group) do |f| %>
+  <%= f.error_notification %>
+
+
+    <%= f.input :name %>
+    <%= f.input :youtube_id %>
+    <%= f.input :home_url %>
+    <%= f.input :header_bg_url %>    
+	
+	<%= f.input :image, :class => "file", :type => "file" %>    
+    Image uploaded <%= image_tag f.object.image_url if f.object.image? %><br/>
+
+    <div class="upload-preview">
+        <img width="300" />
+    </div>
+    
+    <%= f.button :submit %>
+
+<% end %>
+
+<script type="text/javascript">
+
+    var preview = $(".upload-preview img");
+
+    $(".file").change(function(event){
+       var input = $(event.currentTarget);
+       var file = input[0].files[0];
+       var reader = new FileReader();
+       reader.onload = function(e){
+           image_base64 = e.target.result;
+           preview.attr("src", image_base64);
+       };
+       reader.readAsDataURL(file);
+    });
+</script>

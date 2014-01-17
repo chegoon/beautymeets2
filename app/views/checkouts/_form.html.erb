@@ -1,0 +1,14 @@
+<%= simple_form_for(@checkout) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :user %>
+    <%= f.association :beautyclass %>
+    <%= f.input :checkout_status %>
+    <%= f.input :description %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

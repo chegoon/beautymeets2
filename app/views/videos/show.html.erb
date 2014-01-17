@@ -1,0 +1,141 @@
+<% page_title "BEAUTYMEETS > #{@video.title}" %>
+<% page_thumb "#{@video.thumb_url}" %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!! [#{@video.video_group.name}] #{@video.title} 영상을 만나보세요." %>
+
+			<div class="row">
+				<div style="margin-bottom:10px; padding: 10px 0; "><%= render "layouts/go_back" %></div>
+				<div class="small-12 large-10 large-offset-1 columns" style="margin-top:10px;">
+					<h3>
+						<%= @video.title %>
+					</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 large-10 large-offset-1 columns">
+					<h5><%= link_to image_tag(@video.video_group.try(:thumb_url), :style => "width:32px; height:32px;"), video_group_path(@video.video_group) %>&nbsp;<%= link_to @video.video_group.try(:name), video_group_path(@video.video_group) %></h5>
+					<h6 class="subheader right">
+						<% if @video.categories.present? %>
+							<small>Category : </small><% @video.categories.each do |category| %>
+								&nbsp;<span class=" secondary radius label"><%= link_to category.name, category_path(category) %></span>
+							<% end %>
+						<% end %>
+					</h6>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="span-12 large-10 large-centered columns">
+					
+				  	<hr>
+				    <div class="flex-video widescreen" >
+				      <iframe id='<%= "video-#{@video.id}" %>' width="100%" height="280px;" src="<%= @video.video_url %>" frameborder="0" allowfullscreen></iframe>	      
+				    </div>
+				    <hr>
+				    <i class="fa fa-youtube fa-lg fa-fw"></i><span style="color:#666; "><small><%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %></small></span>&nbsp;<a href='<%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %>'><i class="fa fa-external-link-square"></i></a>
+				    <p><small>영상이 재생되지 않을 경우, 영상 내 우측하단의 <strong>전체 화면 아이콘</strong>을 클릭 해주세요 :)</small></p>
+				    Tags: 
+				    	<% @video.tag_list.each do |t| %>
+				    	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+				    	<% end %>
+						<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+						<dl class=" accordion" data-accordion >
+							<dd >
+	    						<a href="#video-description"><i class="fa fa-info-circle"></i>&nbsp;<em><%=  truncate(strip_tags(@video.description), 58) if !@video.description.nil? %></em><i class="right fa fa-chevron-down"></i></a>
+	    						<div class="content" id="video-description">
+									<p><%=  simple_format(@video.try(:description)) %></p><cite>from <%= @video.video_group.try(:name) %></cite>
+								</div>
+							</dd>
+						</dl>
+
+				</div>
+			</div>
+
+Comments(<%= @video.comments.count %>)
+<%= render "comments/form"  %>    
+<%= render "comments/comments" %>
+
+			<div class="row" >
+			  <div class="span-12 large-10 large-centered columns">
+			  	<hr>
+			  	<h6 style="padding-bottom:10px;"><% @video.categories.each do |category| %><span class=" secondary radius label"><%=  category.name %></span>&nbsp;<% end %> <strong>인기</strong> 비디오</h6>
+				<div class="row" >			
+					<% @video.most_popular_in_categories(params[:category]).each do |rec| %>	  	
+						<%= render :partial => "recommendation", :locals => {:rec => rec } %>
+					<% end %>
+			  	</div>
+			  </div>
+			</div>
+
+			<div class="row">
+			  <div class="span-12 large-10 large-centered columns">
+			  	<hr>
+			  	<h6 style="padding-bottom:10px;"><% @video.categories.each do |category| %><span class=" secondary radius label"><%=  category.name %></span>&nbsp;<% end %> <strong>최신</strong> 비디오</h6>
+				<div class="row">				  	
+					
+			  		<% @video.latest_in_categories(params[:category]).each do |rec| %>  	
+						<%= render :partial => "recommendation", :locals => {:rec => rec } %>
+			  		<% end %>
+			  	</div>
+			  </div>
+			</div>
+
+			<div class="row">
+			  <div class="span-12 large-10 large-centered columns" >
+			  	<hr>
+			  	<h6 style="padding-bottom:10px;"><strong><%= @video.video_group.try(:name) %>'s</strong> <strong>인기</strong> 비디오</h6>
+				<div class="row">				  	
+					
+			  		<% @video.most_popular_in_groups.each do |rec| %>  	
+						<%= render :partial => "recommendation", :locals => {:rec => rec } %>
+			  		<% end %>
+			  	</div>
+			  </div>
+			</div>
+
+			<div class="row">
+			  <div class="span-12 large-10 large-centered columns">
+			  	<hr>
+			  	<h6 style="padding-bottom:10px;"><strong><%= @video.video_group.try(:name) %>'s</strong> <strong>최신</strong> 비디오</h6>
+				<div class="row">				  	
+					
+			  		<% @video.latest_in_groups.each do |rec| %>  	
+						<%= render :partial => "recommendation", :locals => {:rec => rec } %>
+			  		<% end %>
+			  	</div>
+			  </div>
+			</div>
+
+			<%= link_to 'Edit', edit_video_path(@video) if user_signed_in? && (current_user.has_role? :admin) %>
+			<%= link_to 'Destroy', video_path(@video), confirm: 'Are you sure?', method: :delete  if user_signed_in? && (current_user.has_role? :admin) %>
+
+
+	<div class="row">
+		<div class="small-12 large-10 small-centered columns">
+		<a href="#" id="to_top" style="margin:30px auto 10px auto; padding:10px 20px;" class="button expand">Top<i class="right fa fa-chevron-up"></i></a>
+	</div>
+	</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+
+		// Hide scroll top button
+		var top = $('#to_top');
+		top.hide();
+ 
+        $(window).scroll(function(){
+
+            if ($(this).scrollTop() > 100) {
+                top.fadeIn();
+            } else {
+                top.fadeOut();
+            }
+        }); 
+ 
+        top.click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 1000);
+            return false;
+        });
+ 
+    });
+</script>

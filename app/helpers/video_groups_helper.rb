@@ -1,0 +1,2 @@
+module VideoGroupsHelper
+end

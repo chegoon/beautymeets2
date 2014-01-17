@@ -1,0 +1,33 @@
+<h1>Listing video_groups</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Home url</th>
+    <th>Thumb url</th>
+    <th>Image</th>
+    <th>Youtube</th>
+    <th>View count</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @video_groups.each do |video_group| %>
+  <tr>
+    <td><%= video_group.name %></td>
+    <td><%= video_group.home_url %></td>
+    <td><%= video_group.thumb_url %></td>
+    <td><%= video_group.image %></td>
+    <td><%= video_group.youtube_id %></td>
+    <td><%= video_group.view_count %></td>
+    <td><%= link_to 'Show', video_group %></td>
+    <td><%= link_to 'Edit', edit_video_group_path(video_group) %></td>
+    <td><%= link_to 'Destroy', video_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Video group', new_video_group_path %>

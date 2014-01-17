@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  company: 
+  name: MyString
+  description: MyText
+  image: MyString
+  view_count: 1
+
+two:
+  company: 
+  name: MyString
+  description: MyText
+  image: MyString
+  view_count: 1

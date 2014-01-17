@@ -1,0 +1,101 @@
+<div class="row" style="">
+  <div class="large-12 columns"> 
+		<h4 style="letter-spacing:-0.5px;">Beautorials </h4>
+  </div>    
+</div>
+<div class="row">
+	<div class="small-12 medium-4 columns">
+		<%= image_tag @tutorial.thumbnail.image_url(:large) if @tutorial.thumbnail.present? %>
+	</div>
+	<div class="small-12 medium-8 columns">
+      <h2 class="subheader"><%= best_in_place @tutorial, :title %></h2>
+      <h6 class="subheader ">
+				<% if @tutorial.categories.present? %>
+					<small>Category : </small>
+					<% @tutorial.categories.each do |category| %>
+						&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
+					<% end %>
+				<% end %>
+			</h6>
+      <div class="text-right"><%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %></div>
+      <div><%= link_to image_tag(@tutorial.author.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), beautystar_path(@tutorial.author.profile) if @tutorial.author.present? %> <strong><%= link_to @tutorial.author.profile.try(:fullname), beautystar_path(@tutorial.author.profile) %><%= "BEAUTYMEETS" if (@tutorial.author.has_role? :admin) %></strong>&nbsp;<small><%= @tutorial.author.profile.try(:job_title) %></small>
+      </div>
+      
+
+			<p><%= @tutorial.description %></p>
+
+    	<p>
+    		<% @tutorial.tag_list.each do |t| %>
+	  	  	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+		   	<% end %>
+			</p>
+  </div>
+</div>
+
+<% if @tutorial.vimeo_url.present? %>
+<div class="row">
+	<div class="small-12 columns">
+  	<hr> 
+		<div class="flex-video widescreen vimeo">
+			<iframe width="420" height="315" src="<%= @tutorial.vimeo_url %>" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<hr> 
+	</div>
+</div>
+<% end %>
+
+<div class="row" style="">
+	<div class="small-12 columns " >
+		<%= render 'pictures/gallery' %>
+		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
+	</div>
+</div>
+
+<% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>
+<div class="row" style="">
+	<div class="large-12 columns" style="margin:20px 0 0 0;">		
+		<h5>사용된 주요 제품</h5>
+		<ul id="item-card" class="elastislide-list" >
+		<% @tutorial.items.each do |tutorial_item| %>			
+			<li>
+					<div class="tutorial-item-card" style="float:left; margin:0 10px 0 0;">
+						<div class="" style="margin: 0; width:100px ; height:80px; font-size:11px; color:#666; text-align:center;">
+							<%= link_to tutorial_item.try(:name), item_path(tutorial_item) %>
+							<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
+							
+							
+						</div>
+					</div>
+				</li>
+		<% end %>					
+		</ul>
+
+				<script type="text/javascript">
+				
+					$( '#item-card' ).elastislide();
+					
+				</script>
+			</div>
+		<% end %>
+
+			<% if can? :manager, @tutorial %>
+			<div>
+			<p><h4>Add Product</h4></p>
+			<%= #render 'items/small_form' 
+			%>
+			<%= simple_form_for [@itemizable] do |f| %>
+			  <%= f.error_notification %>
+
+			    <%= f.input :item_name, :url => autocomplete_item_name_tutorials_path, :as => :autocomplete %>
+			    <%= f.button :submit, 'Add It' %>
+
+			<% end %>
+			<% end %>
+		<hr>
+	</div>
+</div>
+
+
+Comments(<%= @tutorial.comments.count %>)
+<%= render "comments/form"  %>    
+<%= render "comments/comments" %>

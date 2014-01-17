@@ -1,0 +1,9 @@
+<div class="progress small-12 success radius" style="border:0;">
+  <span class="meter" style="width: 50%"></span>
+</div>
+<h3>피부타입을 체크해주세요.</h3>
+<%= simple_form_for @member, url: wizard_path do |f| %>
+	<%= f.input :skin_type_list, :as => :check_boxes, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply"%>
+	<%= f.button :submit, "Continue" %>
+  <%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
+<% end %>

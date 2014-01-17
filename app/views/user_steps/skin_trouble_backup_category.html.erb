@@ -1,0 +1,14 @@
+<div class="progress small-12 success radius" style="border:0;">
+  <span class="meter" style="width: 90%"></span>
+</div>
+<%= simple_form_for @member, url: wizard_path do |f| %>
+  <%= hidden_field_tag "member[category_ids][]", nil %>
+
+    <% Category.where(parent_id: Category.find_by_name("Skin Trouble").id).each do |category| %>
+      <%= check_box_tag "member[category_ids][]", category.id, @member.category_ids.include?(category.id), id: dom_id(category)  %>
+      <%= label_tag dom_id(category), category.name %>
+      <br/>
+    <% end %>
+	<%= f.button :submit, "Continue" %>
+	<%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
+<% end %>

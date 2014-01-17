@@ -1,0 +1,28 @@
+<%= simple_nested_form_for(@beautyclass) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
+    <%= f.input :description %>
+    <%= f.input :capacity %>
+    <%= f.input :price %>
+    <%= f.input :closed %>
+    <%= f.input :published %>
+
+    <%= hidden_field_tag "beautyclass[category_ids][]", nil %>
+
+      <% Category.all.each do |category| %>
+        <%= check_box_tag "beautyclass[category_ids][]", category.id, @beautyclass.category_ids.include?(category.id), id: dom_id(category)  %>
+        <%= #best_in_place_if beautyclass.beautyclass_category_ids.include?(beautyclass_category.id), beautyclass_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
+        %>
+        <%= label_tag dom_id(category), category.name %>
+        <br/>
+      <% end %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

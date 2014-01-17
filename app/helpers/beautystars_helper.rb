@@ -1,0 +1,2 @@
+module BeautystarsHelper
+end

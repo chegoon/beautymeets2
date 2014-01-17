@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<%= link_to '계정 수정', edit_user_registration_path(current_user) %>
+<p>
+  <b>Introduction:</b>
+  <%= @beautystar.introduction %>
+</p>
+
+<p>
+  <b>Fullname:</b>
+  <%= @beautystar.fullname %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @beautystar.view_count %>
+</p>
+
+<p>
+  <b>Job title:</b>
+  <%= @beautystar.job_title %>
+</p>
+
+<p>
+  <b>Vimeo url:</b>
+  <%= @beautystar.vimeo_url %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @beautystar.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_beautystar_path(@beautystar) %> |
+<%= link_to 'Back', beautystars_path %>

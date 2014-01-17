@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @beautyclass.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @beautyclass.description %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @beautyclass.view_count %>
+</p>
+
+<p>
+  <b>Capacity:</b>
+  <%= @beautyclass.capacity %>
+</p>
+
+<p>
+  <b>Soldout:</b>
+  <%= @beautyclass.closed %>
+</p>
+
+<p>
+  <b>Published:</b>
+  <%= @beautyclass.published %>
+</p>
+
+
+<%= link_to 'Edit', edit_beautyclass_path(@beautyclass) %> |
+<%= link_to 'Back', beautyclasses_path %>

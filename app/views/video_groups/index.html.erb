@@ -1,0 +1,30 @@
+
+
+          <div id="page-head" class="head-cover">
+            <h1 style="margin:0 auto 20px auto; text-align:center; color:#FFF;"><%= image_tag "/assets/beaudeo_logo_beta.png", :style => "height:50px;" %></h1>
+            <div style="text-align:center;">
+              <h3 class="subheader" style="color:#FFF;">All <%= @video_groups.count %> channels, <%= @videos.count %> videos.</h3>
+            </div>
+          </div>
+
+          <div class="row">
+
+          <% @video_groups.each do |video_group| %>
+            <div class="small-6 medium-4 large-4 columns">
+              <div class="panel">
+                <div class="row">
+                  <div class="small-12 large-5 columns">
+                    <div class=""><%= image_tag video_group.try(:thumb_url), :style => "width:88px; height:88px;" %></div>
+                    
+                  </div>
+                  <div class="small-12 large-7 columns">
+                    <h5 class="subheader "><%= link_to video_group.name, video_group %></h5>
+                    <h6 class="subheader " style="font-size:0.875rem;"><%= video_group.videos.where("published=TRUE").count %> videos</h6>
+                  </div>
+                </div>
+            </div>
+            </div>
+          <% end %>
+          </div>
+
+<%= link_to 'New Video group', new_video_group_path %>

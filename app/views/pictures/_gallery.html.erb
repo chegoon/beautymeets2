@@ -1,0 +1,18 @@
+<div id="pictures">
+	<% if !@pictures.nil? %>
+	  <% @pictures.each do |p| %>
+	    <div class="picture">
+	      <% if can? :author, p %>
+		      <%= simple_form_for [@pictureable] do |f| %>
+		      	<%= image_tag p.image_url(:medium) %>
+		      	<%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+		      	<%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+		      	<%= f.button :submit, "Pick for Thumbnail", :class => "secondary tiny" %>
+		      <% end %>
+	      <% else %>
+	      	<%= image_tag p.image_url(:medium) %>
+	      <% end %>
+	    </div>
+	  <% end %>
+  <% end %>
+</div>

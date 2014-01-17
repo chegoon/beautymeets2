@@ -1,0 +1,35 @@
+<%= simple_form_for(@member) do |f| %>
+    
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+
+      <ul>
+      <% @member.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+    <%= f.input :gender_id, label: 'What is your gender?', collection: Gender.all, as: :radio_buttons,  checked: @member.gender_id, item_wrapper_class: 'inline'  %>
+    <%= f.input :year_of_birth, start_year: 1970, end_year: Date.today.year %>
+
+    <%= hidden_field_tag "member[category_ids][]", nil %>
+    <p>
+    <% Category.where(parent_id: Category.find_by_name("Skin Type").id).each do |category| %>
+      <%= check_box_tag "member[category_ids][]", category.id, @member.category_ids.include?(category.id), id: dom_id(category)  %>
+      <%= label_tag dom_id(category), category.name %>
+    <% end %>
+    </p>
+    <p>
+    <% Category.where(parent_id: Category.find_by_name("Skin Trouble").id).each do |category| %>
+      <%= check_box_tag "member[category_ids][]", category.id, @member.category_ids.include?(category.id), id: dom_id(category)  %>
+      <%= label_tag dom_id(category), category.name %>
+    <% end %>
+    </p>
+    <%= f.input :skin_type_list %>
+    <%= f.input :skin_trouble_list %>
+    <%= f.button :submit, :class => "expand" %>
+
+<% end %>

@@ -1,0 +1,33 @@
+<h1>Listing beautystars</h1>
+
+<table>
+  <tr>
+    <th>Introduction</th>
+    <th>Fullname</th>
+    <th>View count</th>
+    <th>Job title</th>
+    <th>Vimeo url</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @beautystars.each do |beautystar| %>
+  <tr>
+    <td><%= beautystar.introduction %></td>
+    <td><%= beautystar.fullname %></td>
+    <td><%= beautystar.view_count %></td>
+    <td><%= beautystar.job_title %></td>
+    <td><%= beautystar.vimeo_url %></td>
+    <td><%= beautystar.user %></td>
+    <td><%= link_to 'Show', beautystar %></td>
+    <td><%= link_to 'Edit', edit_beautystar_path(beautystar) %></td>
+    <td><%= link_to 'Destroy', beautystar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Beautystar', new_beautystar_path %>

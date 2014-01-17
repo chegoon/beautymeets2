@@ -1,0 +1,49 @@
+
+<h2>Sign up</h2>
+
+<div class="progress small-12 success radius" style="border:0;">
+  <span class="meter" style="width: 30%"></span>
+</div>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  <% if f.object.email_required? %>
+    <%= f.input :email, :required => true, :autofocus => true %>
+  <% end %>
+    <%= f.input :username, :required => false %>
+    <%= f.input :image, :required => false, :class => "file", :type => "file" %> 
+    업로드된 이미지 <%= image_tag f.object.image_url(:medium) if f.object.image? %><br/>
+
+    <div class="upload-preview">
+        <img width="300" />
+    </div>
+
+  <% if f.object.password_required? %>
+    <%= f.input :password, :required => true %>
+    <%= f.input :password_confirmation, :required => true %>
+  <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+<script type="text/javascript">
+    var preview = $(".upload-preview img");
+
+    $(".file").change(function(event){
+       var input = $(event.currentTarget);
+       var file = input[0].files[0];
+       var reader = new FileReader();
+       reader.onload = function(e){
+           image_base64 = e.target.result;
+           preview.attr("src", image_base64);
+       };
+       reader.readAsDataURL(file);
+    });
+</script>

@@ -1,0 +1,33 @@
+<h1>Beautyclasses</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>View count</th>
+    <th>Capacity</th>
+    <th>Soldout</th>
+    <th>Published</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @beautyclasses.each do |beautyclass| %>
+  <tr>
+    <td><%= beautyclass.title %></td>
+    <td><%= beautyclass.description %></td>
+    <td><%= beautyclass.view_count %></td>
+    <td><%= beautyclass.capacity %></td>
+    <td><%= beautyclass.soldout %></td>
+    <td><%= beautyclass.published %></td>
+    <td><%= link_to 'Show', beautyclass %></td>
+    <td><%= link_to 'Edit', edit_beautyclass_path(beautyclass) %></td>
+    <td><%= link_to 'Destroy', beautyclass, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Beautyclass', new_beautyclass_path %>
