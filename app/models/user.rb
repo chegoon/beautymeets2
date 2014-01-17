@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable,:omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :trackable, :validatable #,:omniauthable, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :image
@@ -39,6 +39,13 @@ class User < ActiveRecord::Base
 			user.uid = auth.uid
 			user.username = auth.info.name
 		end
+	end
+
+	def apply_omniauth(omniauth)
+
+		self.email = omniauth['info']['email'] if email.blank?
+		self.name = omniauth['info']['name'] if name.blank?
+		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
 	end
 
 	def self.new_with_session(params, session)
