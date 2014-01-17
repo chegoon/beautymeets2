@@ -27,11 +27,16 @@ class AuthenticationsController < InheritedResources::Base
 		if authentication
 			flash[:notice] = "Signed in successfully."
 			sign_in_and_redirect(:user, authentication.user)
+			
 		elsif current_user
+			puts "user logged previously, and trying to login with new authentication"
+			puts "guide user to select among login authentications"
 			current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
 			flash[:notice] = "Authentication successful."
 			redirect_to authentications_url
+
 		else
+			puts  "brand new user."
 			user = User.new
 			user.apply_omniauth(omniauth)
 
@@ -48,7 +53,7 @@ class AuthenticationsController < InheritedResources::Base
 			end
 		end
 	end
-	
+
 	# DELETE /authentications/1
 	# DELETE /authentications/1.json
 	def destroy
