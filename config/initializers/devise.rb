@@ -11,7 +11,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = "hellobeauty@reallplay.com"
-  config.omniauth :facebook, '550803185011643','69a53cecf6e1ca905711b03b1cde518c'
+  #config.omniauth :facebook, '550803185011643','69a53cecf6e1ca905711b03b1cde518c'
   #config.omniauth :twitter, 'xfpJBsdxfbtngcAaJgL7VQ', 'soPkpZEddjI4R7oiwMXfWB6AmmoAAHp2FjURcRTyaT0'  
 
   # Configure the class responsible to send e-mails.
