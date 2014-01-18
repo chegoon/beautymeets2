@@ -44,6 +44,7 @@ class AuthenticationsController < InheritedResources::Base
 	      UserMailer.welcome(user).deliver
 	      user.profile = Member.create!
 	      user.add_role :member
+				user.save
 				
 				flash[:notice] = "Signed in successfully."
 
