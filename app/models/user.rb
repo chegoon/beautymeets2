@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
 
 	# if user regists through omniauth, user be able to pass password field
 	def password_required?
-	  super && provider.blank?
+		(authentications.empty? || !password.blank?) && super
 	end
 	
 	# if user regsits through omniauth, user can update their profile with password or without password
