@@ -14,7 +14,7 @@ class Member < ActiveRecord::Base
   
   belongs_to :gender
   has_one :user, as: :profile#, dependent: :destroy
-  #belongs_to :user
+  
   #has_many :skin_types, through: :skin_type_maps
   #has_many :skin_type_maps
 

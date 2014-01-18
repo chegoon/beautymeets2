@@ -46,7 +46,10 @@ class AuthenticationsController < InheritedResources::Base
 	      user.add_role :member
 				
 				flash[:notice] = "Signed in successfully."
-				sign_in_and_redirect(:user, user)
+
+				# user_steps redirect
+        respond_with user, :location => user_steps_path
+				#sign_in_and_redirect(:user, user)
 			else
 				session[:omniauth] = omniauth.except('extra')
 				redirect_to new_user_registration_url
