@@ -20,10 +20,6 @@ class AuthenticationsController < InheritedResources::Base
 		omniauth = request.env["omniauth.auth"]
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
-		@email_verified  = omniauth.info["email"]
-		@user_name_verified = omniauth.info["name"]
-		@user_remote_image_url_verified = omniauth.info["image"]
-
 		if authentication
 			flash[:notice] = "Signed in successfully."
 			sign_in_and_redirect(:user, authentication.user)
@@ -45,7 +41,7 @@ class AuthenticationsController < InheritedResources::Base
 	      user.profile = Member.create!
 	      user.add_role :member
 				user.save
-				
+
 				flash[:notice] = "Signed in successfully."
 
 				# user_steps redirect
