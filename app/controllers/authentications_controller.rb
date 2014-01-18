@@ -49,7 +49,7 @@ class AuthenticationsController < InheritedResources::Base
 
 				# user_steps redirect
 				sign_in(:user, user)
-				redirect_to user_steps_path
+				redirect_to user_steps_url
 				#sign_in_and_redirect(:user, user)
 			else
 				session[:omniauth] = omniauth.except('extra')
