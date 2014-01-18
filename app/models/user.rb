@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable #,:omniauthable, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :image
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :image, :remote_image_url
 
   belongs_to :profile, polymorphic: true, dependent: :destroy
   has_many :tutorials
@@ -42,12 +42,9 @@ class User < ActiveRecord::Base
 	end
 
 	def apply_omniauth(omniauth)
-		puts "apply_omniauth() called"
-		puts "omniauth['info'] : #{omniauth['info']}"
 		self.email = omniauth['info']['email'] if email.blank?
-		self.name = omniauth['info']['name'] if name.blank?
+		self.username = omniauth['info']['name'] if username.blank?
 		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
-		puts "apply_omniauth() done"
 	end
 
 	def self.new_with_session(params, session)

@@ -48,7 +48,8 @@ class AuthenticationsController < InheritedResources::Base
 				flash[:notice] = "Signed in successfully."
 
 				# user_steps redirect
-        respond_with user, :location => user_steps_path
+				sign_in(:user, user)
+				redirect_to user_steps_path
 				#sign_in_and_redirect(:user, user)
 			else
 				session[:omniauth] = omniauth.except('extra')

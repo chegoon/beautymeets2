@@ -7,19 +7,19 @@
 		<%= render 'sub_nav' %>
 		<h4>프로필</h4>
 		<h6><strong>로긴 정보</strong></h6>
-		<%= link_to '수정', edit_user_registration_path, :class => "right button tiny secondary" if (can? :manager, current_user) %>
+		<%= link_to '수정', edit_user_registration_path(@member.user), :class => "right button tiny secondary" if (can? :manager, current_user) %>
 		<ul class="square">
 			<li>User name : <%= @member.user.name %></li>
 			<li>Email : <%= @member.user.email %>&nbsp;</li>
 		</ul>
 		<h6><strong>기본 정보</strong></h6>
-		<%= link_to '수정', edit_member_path(current_user.profile_id), :class => "right button tiny secondary"  if (can? :manager, @member) %>
+		<%= link_to '수정', edit_member_path(current_user.profile), :class => "right button tiny secondary"  if (can? :manager, @member) %>
 		<ul class="square">
 			<li>성별 <%= @member.gender.name if @member.gender.present? %></li>
 			<li>출생년도 <%= best_in_place @member, :year_of_birth, type: :integer if @member.year_of_birth.present?%></li>
 		</ul>
 		<hr>
-		<%= link_to '프로필 수정', edit_member_path(current_user.profile_id), :class => "right button tiny secondary"  if (can? :manager, @member) %>
+		<%= link_to '프로필 수정', edit_member_path(current_user.profile), :class => "right button tiny secondary"  if (can? :manager, @member) %>
 		<h4>피부 타입</h4>		
 		<ul class="inline-list">
 		<% @member.skin_type_list.each do |t| %>

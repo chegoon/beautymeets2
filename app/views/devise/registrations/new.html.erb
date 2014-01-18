@@ -15,7 +15,6 @@
     <%= f.input :username, :required => false %>
     <%= f.input :image, :required => false, :class => "file", :type => "file" %> 
     업로드된 이미지 <%= image_tag f.object.image_url(:medium) if f.object.image? %><br/>
-
     <div class="upload-preview">
         <img width="300" />
     </div>

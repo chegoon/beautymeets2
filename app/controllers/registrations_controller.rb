@@ -64,13 +64,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def edit_name
-  end
-
-  def edit_password
-  end
-
-  def edit_avatar
+  def edit
+    @user = User.find(current_user.id)
+    @member = @user.profile if @user.has_role? :member
+    @beautystar = @user.profile if @user.has_role? :beautystar
+    super
   end
 
   private

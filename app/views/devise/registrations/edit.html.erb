@@ -37,6 +37,7 @@
               <label>Thumnail image </label>
               업로드된 이미지 <%= image_tag f.object.image_url(:small) if f.object.image? %><br/>
               <%= f.file_field :image, :required => false, :class => "file", :type => "file" %> 
+              <%= f.input :remote_image_url %> 
               <div class="upload-preview">
                   <img width="300" />
               </div>
