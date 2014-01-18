@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 	def apply_omniauth(omniauth)
 		self.email = omniauth['info']['email'] if email.blank?
 		self.username = omniauth['info']['name'] if username.blank?
+		self.remote_image_url = omniauth.info["image"] if remote_image_url.blank?
+		
 		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
 	end
 
