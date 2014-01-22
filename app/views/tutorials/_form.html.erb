@@ -22,7 +22,7 @@
 
     <%= hidden_field_tag "tutorial[category_ids][]", nil %>
 
-      <% Category.all.each do |category| %>
+      <% Category.where(parent_id: Category.find_by_name("tutorial").id).each do |category| %>
         <%= check_box_tag "tutorial[category_ids][]", category.id, @tutorial.category_ids.include?(category.id), id: dom_id(category)  %>
         <%= #best_in_place_if tutorial.tutorial_category_ids.include?(tutorial_category.id), tutorial_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
         %>

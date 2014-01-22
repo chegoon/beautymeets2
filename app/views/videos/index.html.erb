@@ -17,28 +17,12 @@
 					<div id="head-dummy-div" ></div>
 
 
-			<div class="row">
-				<div class="small-12 small-centered columns" style="padding:0;">
-					<hr>
-					<div class="hide-for-small-only">
-						<%= render "categories/categories" %>      
-					</div>
-				</div>
-			</div>
+			
 			<div class="row">
 				<div class="small-12 small-centered columns" style="padding:0;">
 
 				<!-- <div id="container" > -->
 					<div id="videos">		
-						<!-- <div style="padding:0 2px;"><input type="text" class="search" placeholder="Search" /></div> -->
-						<!--
-						<button class="small sort" data-sort="video_view_count">
-					      <i class="fa fa-sort-amount-desc fa-lg"></i>
-					    </button>
-						<button class="small sort" data-sort="video_published_at">
-					      <i class="fa fa-sort-amount-desc fa-lg"></i>
-					    </button>
-						-->
 						<div data-magellan-expedition="fixed" style="background: #eee; padding:0; margin:0;">
 							<ul class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
 						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>Popular</a></li>
@@ -50,14 +34,6 @@
   						</div>						
 					</div>
 					<div style="display:unvisible"><%= will_paginate @videos %></div>
-					<script type="text/javascript">
-						var options = {
-						  valueNames: [  'view_count', 'published_at' ]
-						   //item: '<div class="small-12 medium-6 large-4 columns" style="text-align:center"><div class="video-card"><div class="row "><div class="small-12 columns " style="text-align:center; padding:5px;"><div><a class="video-card-thumb " href="" style=background-image: url();></a></div></div></div><div class="row " ><div class="small-12 columns" style="text-align:left; "><h6 class="born title subheader " style="line-height:120%; margin:0 10px; "></h6><h6 class="subheader" style="font-size: 0.8em; margin:5px 10px;  color:#999; "></h6></div></div></div></div>'
-						};
-
-						var videoList = new List('videos', options);
-					</script>
 				<!-- </div>		-->
 			  </div>
 			</div>

@@ -5,6 +5,7 @@
     <%= f.input :title %>
     <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
     <%= f.input :description %>
+    <%= f.input :location_name,  :url => autocomplete_location_name_beautyclasses_path, :as => :autocomplete %>
     <%= f.input :capacity %>
     <%= f.input :price %>
     <%= f.input :closed %>
@@ -12,7 +13,7 @@
 
     <%= hidden_field_tag "beautyclass[category_ids][]", nil %>
 
-      <% Category.all.each do |category| %>
+      <% Category.where(parent_id: Category.find_by_name("beautyclass").id).each do |category| %>
         <%= check_box_tag "beautyclass[category_ids][]", category.id, @beautyclass.category_ids.include?(category.id), id: dom_id(category)  %>
         <%= #best_in_place_if beautyclass.beautyclass_category_ids.include?(beautyclass_category.id), beautyclass_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
         %>

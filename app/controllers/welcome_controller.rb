@@ -17,16 +17,17 @@ class WelcomeController < ApplicationController
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(4)
 	    @best_videos = Video.where(published: true).order("view_count DESC, created_at DESC").limit(4)
 	    @lastest_videos = Video.where(published: true).order("created_at DESC").limit(4)
-	    @items = Item.order("view_count DESC, created_at DESC").limit(4)
-	    	    
+	    @best_items = Item.order("view_count DESC, created_at DESC").limit(4)
+			@latest_items = Item.order("created_at DESC, updated_at DESC").limit(4)
+	    
 	    @bookmars = Bookmark.where(user_id: @user.id)
 	  else
 	    @best_tutorials = Tutorial.where(published: true).order("view_count DESC, created_at DESC").limit(4)
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(4)
 	    @best_videos = Video.where(published: true).order("view_count DESC, created_at DESC").limit(4)
 	    @lastest_videos = Video.where(published: true).order("created_at DESC").limit(4)
-	    @items = Item.order("view_count DESC, created_at DESC").limit(4)
-
+	    @best_items = Item.order("view_count DESC, created_at DESC").limit(4)
+			@latest_items = Item.order("created_at DESC, updated_at DESC").limit(4)
 	  end
   end
 end

@@ -34,14 +34,10 @@ class VideosController < InheritedResources::Base
         end
       end
     end
+
     @head_video = @videos.sample(1).first
     @categories = Video.joins(:categories).where("parent_id IS NULL ").all
-=begin
-    if params[:page].present? && (params[:page].to_i >= 2) && !(user_signed_in? && (current_user.has_role? :admin))
-      puts "page scrolled"
-      @videos.first.increment_page_count          
-    end 
-=end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @videos }

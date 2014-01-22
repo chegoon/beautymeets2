@@ -1,18 +1,20 @@
-<div id="pictures">
+<div class="row " style="">
+	<div class="large-12 columns">
 	<% if !@pictures.nil? %>
+		<ul class="clearing-thumbs" data-clearing>
 	  <% @pictures.each do |p| %>
-	    <div class="picture">
-	      <% if can? :author, p %>
+				<% if can? :author, p %>
 		      <%= simple_form_for [@pictureable] do |f| %>
-		      	<%= image_tag p.image_url(:medium) %>
+		      	<%= image_tag p.image_url(:small) %>
 		      	<%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
 		      	<%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
-		      	<%= f.button :submit, "Pick for Thumbnail", :class => "secondary tiny" %>
+		      	<%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
 		      <% end %>
 	      <% else %>
-	      	<%= image_tag p.image_url(:medium) %>
+	      	<li style="padding:0 0 10px 0;"><a href="<%= p.image_url(:large)%>"><img data-caption="<%= p.description %>" src="<%= p.image_url(:small).to_s %>"></a></li>
 	      <% end %>
-	    </div>
 	  <% end %>
+		</ul>
   <% end %>
+	</div>
 </div>

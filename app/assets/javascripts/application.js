@@ -20,6 +20,7 @@
 //= require underscore
 //= require gmaps/google
 //= require jquery_nested_form
+//= require sticky_footer.js
 
 $(function(){ $(document).foundation(); });
 

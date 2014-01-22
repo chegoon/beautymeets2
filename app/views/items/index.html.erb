@@ -13,11 +13,11 @@
 
 <% @items.each do |item| %>
   <tr>
-    <td><%= item.brand %></td>
-    <td><%= item.name %></td>
-    <td><%= item.description %></td>
+    <td><%= link_to item.brand.try(:name), brand_path(item.brand) %></td>
+    <td><%= item.id %> <%= item.name %></td>
+    <td><%= image_tag item.thumbnail.image_url(:small) if item.thumbnail.present? %><%= item.description %></td>
     <td><%= item.view_count %></td>
-    <td><%= link_to 'Show', item %></td>
+    <td><%= link_to 'Show', item_path(item.id) %></td>
     <td><%= link_to 'Edit', edit_item_path(item) %></td>
     <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

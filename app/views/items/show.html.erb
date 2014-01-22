@@ -1,30 +1,33 @@
 <div class="row" >
   <div class="small-12 large-12 columns"> 
-      <h3 style="letter-spacing:-0.5px; color:#999;"><%= @item.name %>&nbsp;<small class="small ">제품 상세정보 </small></h3>
+      <h3 style="letter-spacing:-0.5px; color:#999;"><small class="small ">제품 상세정보 </small></h3>
   </div>
 </div>
 <div class="row" style="">
   <div class="small-12 large-12 columns" > 
-    <h4 class="subheader"><small><%= @item.brand.try(:name) %> > <%= @item.name %></small>
+    <h4 class="subheader"><small><%= link_to "#{@item.brand.try(:name)} > ", brand_path(@item.brand) if @item.brand.present? %> <%= @item.name %></small>
     </h4>
   </div>
 </div>
 <div class="row" >
   <div class="small-12 medium-4 columns item-show-thumb" >
     <div class="item-show-thumb">
-      <%= image_tag @item.thumbnail.image_url(:large) if @item.thumbnail.present? %>
+      <%= image_tag @item.thumbnail.image_url(:medium) if @item.thumbnail.present? %>
     </div>
   </div>
-  <div class="small-12 medium-8 columns">
+  <div class="small-12 medium-8 columns" >
 
           <h2 style=" letter-spacing:-1px;"><%= @item.name %></h2>
           <div style="color: #666; margin-top:20px; font-size:14px;"><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %>
-            Tags: 
               <% @item.tag_list.each do |t| %>
               <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
               <% end %>
 
           </div>  
+          <div>
+            <h4 class="subheader"><small>다른 이미지</small></h4>
+            <%= render 'pictures/gallery' %>
+          </div>
 
 
 
@@ -32,11 +35,10 @@
 </div>
 <div class="row" style="">
   <div class="small-12 columns " >
-    <%= render 'pictures/gallery' %>
     <%= render 'pictures/form' if (can? :manage, @item)  %>
   </div>
 </div>
-<div class="row" style="margin:0 auto; float:none; ">
+<div class="row" >
   <div class="small-12 large-12 columns"> 
       <hr>
   </div>
@@ -51,7 +53,7 @@ Comments(<%= @item.comments.count %>)
 
 
     <div id="tutorial-card-group">
-    <h6 class="subheader"><%= @item.name %>이 사용된 뷰토리얼</h6>
+    <h6 class="subheader"><strong><%= @item.name %>&nbsp;이 사용된 튜토리얼</strong></h6>
 
     <%= render partial: "tutorials/tutorials" %>
 
@@ -59,7 +61,8 @@ Comments(<%= @item.comments.count %>)
     </div>
 
   <div class="small-12 medium-4 columns">   
-    <h6 class="subheader"><%= @item.name %>과 함께 사용하면 좋은 제품</h6>
+    <h6 class="subheader" style="line-height:101%;"><strong><%= @item.name %>과 함께 사용하면 좋은 제품</strong></h6>
+    <h5 class="subheader right" style="line-height:100%;"><small><%= @item.name %>이 사용된 영상들 중에 가장 조회수가 높은 튜토리얼에 사용된 화장품입니다.</small></h5>
     <%= render partial: "items" %>
   </div>
 </div>

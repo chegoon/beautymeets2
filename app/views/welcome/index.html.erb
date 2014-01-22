@@ -1,16 +1,18 @@
+
 <div class="row">
-	<div class="small-12 columns">
+	<div class="small-12 columns" style="background-color: #eee;">
 		<h4>Hello, Welcome to BEAUTYMEETS</h4>
 	</div>
 </div>
 <div class="row">
 	<% if user_signed_in? %>
-		<div class="large-2 columns">
+		<div class="medium-2 columns">
 			<div class="panel">
 				<% if user_signed_in? %>
 	            <% 
 	            if (current_user.has_role? :member) 
 	            %>
+          
 	              <div><%= link_to image_tag(current_user.image_url(:small)) if current_user.image.present? %></div>
 	              <h5> Hi, <%= current_user.name.present? ? current_user.name : current_user.email  %></h5>
 	              <h6>
@@ -32,117 +34,50 @@
 			</div>
 		</div>
 	<% end %>
-	<div class="<%= 'large-8' if user_signed_in? %> <%= 'large-10' if !user_signed_in? %> columns">
-		<h5>뷰티밋츠에서는 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.</h5>
-		<% if !user_signed_in? %>
-
-            <%= link_to "가입하기", new_user_registration_path, :class => "button large" %>
-            <%= link_to "로그인하기", new_user_session_path,  :class => "button large secondary"  %>
-		<% end %>
-		<% if @activities.present? %>
-			<% @activities.each do |activity| %>
-			  <div class="activity" style="margin-bottom:20px;">
-			  <%= render_activity activity %>
-			  </div>
-			<% end %>
-		<% end %>
-		<% if @bookmarks.present? %>
-
-			<h5>최근에 추가한 북마크</h5>
-				<% @bookmarks.each do |bookmark| %>
-					<h6><%= bookmark %></h6>
-				<% end %>
-		<% end %>
-
-		<% if @best_tutorials.present? %>
-			<h5>가장 많이 보는 튜토리얼</h5>
-			<div class="row">
-			<% @best_tutorials.each do |tutorial| %>
-					<div class="small-12 medium-4 large-4 columns">
-						<div class="row" style="padding:0 10px 4px 10px;">
-							<div class="small-5 medium-12 columns" style="text-align:center; ">
-								<a class="video-card-thumb th" href="<%= tutorial_path(tutorial) %>" style='
-              background-position: center; border:0; width:100%; min-width:110px; max-width:150px; height:68px; background-size: 100%; background-image: url(<%= "#{tutorial.thumbnail.image_url(:medium)}" %>);'></a>
-							</div>
-							<div class="small-7 medium-12 columns" >
-								<h6 style="line-height:101%; width:auto; "><%= link_to truncate(tutorial.title, 44), tutorial_path(tutorial) %></h6>
-							</div>
+	<div class="<%= 'medium-10' if user_signed_in? %> <%= 'medium-12' if !user_signed_in? %> columns" style="padding:0; ">
+		<% if user_signed_in? %>
+			
+		<% else %>
+			<div class="panel" style="
+	              -moz-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
+	              -webkit-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
+	              box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9); 
+	              height:22rem; 
+	              background:#dfdfdf; background-position:center; background-image: url('/assets/_1020926.JPG');">
+	      <div class="row">
+	      	<div class="small-12 medium-9 columns">
+						<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.</h2>
+						<div style="margin:1.2rem 0.5rem;">
+						<% if !user_signed_in? %>
+				            <%= link_to "가입하기", new_user_registration_path, :class => "button " %>
+				            <%= link_to "로그인하기", new_user_session_path,  :class => "button  secondary"  %>
+						<% end %>
 						</div>
 					</div>
-			<% end %>
-			</div>
-		<% end %>
-
-		<% if @latest_tutorials.present? %>
-			<h5>신규 튜토리얼</h5>
-			<div class="row">
-			<% @latest_tutorials.each do |tutorial| %>
-					<div class="small-12 medium-4 large-4 columns">
-						<div class="row" style="padding:0 10px 4px 10px;">
-							<div class="small-5 medium-12 columns" style="text-align:center; ">
-								<a class="video-card-thumb th" href="<%= tutorial_path(tutorial) %>" style='
-              background-position: center; border:0; width:100%; min-width:110px; max-width:150px; height:68px; background-size: 100%; background-image: url(<%= "#{tutorial.thumbnail.image_url(:medium)}" %>);'></a>
-							</div>
-							<div class="small-7 medium-12 columns" >
-								<h6 style="line-height:101%; width:auto; "><%= link_to truncate(tutorial.title, 44), tutorial_path(tutorial) %></h6>
-							</div>
-						</div>
-					</div>
-			<% end %>
-			</div>
-		<% end %>
-		<% if @best_videos.present? %>
-
-			<h5>가장 많이 보는 Video</h5>
-				<div class="row">
-				<% @best_videos.each do |video| %>
-					<div class="small-12 medium-4 large-4 columns">
-						<div class="row" style="padding:0 10px 4px 10px;">
-							<div class="small-5 medium-12 columns" style="text-align:center; ">
-								<a class="video-card-thumb th" href="<%= video_path(video) %>" style='
-              background-position: center; border:0; width:100%; min-width:110px; max-width:150px; height:68px; background-size: 100%; background-image: url(<%= "#{video.thumb_url}" %>);'></a>
-							</div>
-							<div class="small-7 medium-12 columns" >
-								<h5 style="line-height:101%; width:auto; "><%= link_to truncate(video.title, 44), video_path(video) %></h5>
-							</div>
-						</div>
-					</div>
-				<% end %>
-			</div>
-		<% end %>
-		<% if @latest_videos.present? %>
-			<h5>신규 Video</h5>
-				<div class="row">
-				<% @latest_videos.each do |video| %>
-					<div class="small-12 medium-4 large-4 columns">
-						<div class="row" style="padding:0 10px 4px 10px;">
-							<div class="small-5 medium-12 columns" style="text-align:center; ">
-								<a class="video-card-thumb th" href="<%= video_path(video) %>" style='
-              background-position: center; border:0; width:100%; min-width:110px; max-width:150px; height:68px; background-size: 100%; background-image: url(<%= "#{video.thumb_url}" %>);'></a>
-							</div>
-							<div class="small-7 medium-12 columns" >
-								<h5 style="line-height:101%; width:auto; "><%= link_to truncate(video.title, 44), video_path(video) %></h5>
-							</div>
-						</div>
-					</div>
-					<h6><%= video.title %></h6>
-				<% end %>
+				</div>
 			</div>
 		<% end %>
 	</div>
-	<div class="large-2 columns" style="background:#FFF; padding:6px;">
-		<h6 class="text-center"><strong>가장 많이 보는 화장품</strong></h6>
-			<% if @items.present? %>
-				<div class="row">
-				<% @items.each do |item| %>
-					<div class="small-6 medium-3 large-12 columns">
-						<div class="text-center" style="margin-bottom:10px;">
-						<%= link_to image_tag(item.thumbnail.image_url(:small)), item_path(item) if item.thumbnail.present? %><br/>
-						<h6 style="line-height:101%; width:auto; "><%= link_to truncate(item.name, 30), item_path(item) %></h6>
-						</div>
-					</div>
-				<% end %>
-				</div>	
-			<% end %>
+</div>
+<div class="row">
+	<div class="<%= 'medium-10 medium-offset-2 large-7 large-offset-2' if user_signed_in? %> <%= 'medium-9 large-9' if !user_signed_in? %> columns" >
+		<%= render 'activities' %>
+		
+		<%= render 'bookmarks' %>
+
+		<%= render 'best_tutorials' %>
+		
+		<%= render 'latest_tutorials' %>
+		
+		<%= render 'best_videos' %>
+
+		<%= render 'latest_videos' %>
+		
+	</div>
+	<div class="medium-12 large-3 columns" >
+		<%= render 'best_items' %>
+		<br/>
+		<%= render 'latest_items' %>
+		
 	</div>
 </div>

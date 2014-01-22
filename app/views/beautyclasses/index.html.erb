@@ -5,35 +5,27 @@
 	</div>
 </div>
 
-<%= link_to 'New Beauclass', new_beautyclass_path  if can? :manage, Beautyclass %>
-
 <div class="row">
 	<div class="small-12 columns">
-			<% Beautyclass.joins(:categories).all.each do |cat| %>
-				<%= cat.name %>
+		<ul class="breadcrumbs">
+			<% Category.where(parent_id: Category.find_by_name("beautyclass").id).each do |cat| %>
+				<li><%= link_to cat.name, { controller: "beautyclasses", cat: cat.id } %></li>
 			<% end %>
-
-		</div>
+		</ul>
 	</div>
+</div>
+<div class="row">
+	<div class="small-12 columns">
+		<%= link_to 'New Beauclass', new_beautyclass_path, :class => "button secondary radius tiny"   if can? :manage, Beautyclass %>
+
+		<%= link_to "개설중인 클래스 살펴보기", {  controller: "beautyclasses", closed: 0 }, :class => "button secondary radius tiny " %>
+		<%= link_to "종료된 클래스 살펴보기", {  controller: "beautyclasses", closed: 1 }, :class => "button secondary radius tiny right" %>
+	</div>
+</div>
+
 <% 
 if @beautyclasses.present? 
 %>
-<%= @beautyclasses.each do |bclass| %>
-	<div class="row">
-		<div class="small-12 columns">
-			<p>
-		<%= link_to bclass.title, beautyclass_path(bclass) %>
-		<%= truncate(bclass.description, 35) %>
-		<%= current_user.checkouts.where(beautyclass_id: bclass.id) if user_signed_in? %>
-		<%= bclass.closed %>
-		<%= bclass.author %>
-		<%= bclass.start_date %>
-		<%= bclass.end_date %>
-			</p>
-		</div>
-	</div>
-<%
-	end 
-
-end 
-%>
+<div class="row" >
+	<%= render @beautyclasses %>
+<% end %>

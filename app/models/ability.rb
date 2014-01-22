@@ -8,7 +8,7 @@ class Ability
     else
         can :read, :all
         can :manage, Comment, :id => Comment.with_role(:author, user).pluck("comments.id") if !user.nil?
-        can :manage, Picture, :id => Picture.with_role(:author, user).pluck("Pictures.id") if !user.nil? && (user.has_role? :beautystar)
+        can :manage, Picture, :id => Picture.with_role(:author, user).pluck("pictures.id") if !user.nil? && (user.has_role? :beautystar)
         
         can :create, Tutorial if !user.nil? && (user.has_role? :beautystar)
         can :manage, Tutorial, :id => Tutorial.with_role(:author, user).pluck("tutorials.id")  if !user.nil? && (user.has_role? :beautystar)

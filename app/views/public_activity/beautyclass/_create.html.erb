@@ -3,7 +3,7 @@
 <div class="row">
   <div class="small-12  columns ">
 
-    <%= link_to image_tag(activity.owner.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), beautystar_path(activity.owner.profile) %>
+    <%= link_to image_tag(activity.owner.image_url(:small), :class => "circular", :style => "width:40px; height:40px;"), beautystar_path(activity.owner.profile) %>
 
     <%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, beautystar_path(activity.owner.profile) if activity.owner %>님이 <%= link_to activity.trackable.title, tutorial_path(activity.trackable) %>를 개설하였습니다.
 
@@ -11,7 +11,7 @@
 </div>
 <div class="row">
   <div class="small-10 small-offset-1 columns">
-    <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small)), tutorial_path(activity.trackable) %>
+    <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small)), tutorial_path(activity.trackable) if activity.trackable.thumbnail.present? %>
     구경하러 가기 | 공유하기
     <div class="fb-like" data-href="<%= tutorial_path(activity.trackable) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 	 <span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>

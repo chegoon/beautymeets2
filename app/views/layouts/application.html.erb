@@ -44,19 +44,20 @@
     <%= csrf_meta_tags %>
 
     <style type="text/css">
-      html, body, p {
-          background-color: #eee;
+      html, body {
+          background-color: #efefef;
           height: 100%; 
           font-size: 0.9rem;
       } 
+
+      p {
+          font-size: 0.9rem;        
+      }
 
       .breadcrumbs a, .breadcrumbs  span {
         color: #ff8008;
       }
       
-      a:link { color: #333;}
-      a:visited { color: #666; }
-      a:hover { color: #ff8008; }
     </style>
 
     <%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && current_user.is_admin?)  %>
@@ -85,22 +86,16 @@
             </div>
           <% end %>
             <div class="row" >
-              <div class="small-12 small-centered columns" >
-                <div id="wrapper" >
+              <div class="small-12 small-centered columns" style="background:#f6f6f6">
+
                   
                   <%= yield %>
                   <%= yield :scripts %>
                   <!-- dif for static footer-position -->
-                  <div id="push"></div>
-                </div>
 
-                <div id="footer" class="text-center" >
-                    Discover, Learn, and Be beautiful in BEAUTYMEETS<br/>
-              
-            상호 : 리올플레이 | 대표 : 윤미진 | 서울시 서초구 우면동 17번지 KT 연구개발센터 4층 <br/> 사업자등록번호 : 220-09-31513 | 통신판매업:제 2013-서울서초-0785 | 전화 : 070-8260-6119(10 AM ~ 7 PM OPEN) | email : hellobeauty@reallplay.com  <br/>
-            
-      Copyright 2013 <strong>BEAUTYMEETS</strong> All Rights Reserved.
-                </div>
+
+                <%= render "layouts/footer" %>
+                
               </div>
             </div>
 
@@ -110,8 +105,8 @@
 
       </div>
     </div>
-    <%= javascript_include_tag "application" %>
 
+    <%= javascript_include_tag "application" %>
     <!-- Foundation 3 for IE 8 and earlier -->
     <!--[if lt IE 9]>
         <%= javascript_include_tag "foundation3/foundation.min.js" %>

@@ -1,5 +1,5 @@
 <% if activity.trackable %>
-<%= link_to image_tag(activity.trackable.thumbnail.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), activity.trackable %>
+<%= link_to image_tag(activity.trackable.thumbnail.image_url(:small), :class => "circular", :style => "width:40px; height:40px;"), activity.trackable %>
 <%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, beautystar_path(activity.owner.profile) if activity.owner %>님이 새롭게 뷰티스타로 함께하게 되었습니다.
 <%= link_to image_tag(activity.trackable.thumbnail.image_url(:medium)), tutorial_path(activity.trackable) %>
 

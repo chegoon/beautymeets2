@@ -1,8 +1,9 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :load_itemizable
+  before_filter :load_itemizable, except: [:index, :edit, :new]
   
   autocomplete :item, :name
+  autocomplete :brand, :name
 	
   # GET /items/1
   # GET /items/1.json
@@ -45,7 +46,11 @@ class ItemsController < InheritedResources::Base
 =end
     @item = Item.new(params[:item])
     if @item.save
-      redirect_to @itemizable, notice: "Item created."
+      if @itemizable
+        redirect_to @itemizable, notice: "Item created."
+      else
+        respond_to @item, notice: "Item created."
+      end
     else
       render :new
     end

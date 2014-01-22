@@ -14,7 +14,6 @@
         height:100%;   
       }
 
-
       .off-canvas-wrap .inner-wrap {
         height:100%;   
       }  
@@ -23,22 +22,24 @@
         height:100%;   
       }  
 */
+/* 
+footer css이나 off-canvas와는 conflicty, js로 대체(sticky-footer.js) 
       #wrapper {
         min-height: 100%;
         height: auto !important;
         height: 100%;
-        margin: 0 auto -3.0em;
+        margin: 0 auto -3.0rem;
       }
 
       #push, #footer {
-          height: 3.0em;
+          height: 3.0rem;
       }  
 
       #footer {
       	margin:10px 0;
       	padding:15px 0;
     	}
-      
+ */     
 .purr {
   position: fixed;
   top: 30px;

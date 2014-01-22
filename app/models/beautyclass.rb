@@ -16,7 +16,7 @@ class Beautyclass < ActiveRecord::Base
   has_many :bookmarks, :as => :bookmarkable
 
   belongs_to :author, class_name: "User", :foreign_key => "user_id"
-  attr_accessible :price, :capacity, :description, :published, :closed, :title, :view_count, :picture_id, :tag_list, :category_ids, :location_attributes, :where, :picture_id
+  attr_accessible :price, :capacity, :description, :published, :closed, :title, :view_count, :picture_id, :tag_list, :category_ids, :location_attributes, :where, :picture_id, :location_name
 
 	has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
@@ -29,6 +29,8 @@ class Beautyclass < ActiveRecord::Base
   belongs_to :location
 
   has_many :checkouts
+
+  mount_uploader :image, ImageUploader
 	
   def increment_view_count(by = 1)
 	  self.view_count ||= 0
@@ -46,6 +48,14 @@ class Beautyclass < ActiveRecord::Base
   end
 
   def seats_available
-    self.capacity - self.checkouts.where(checkout_status_id: CheckoutStatus.find_by_name("Payment Confirmed").id).count
+    (self.capacity || 0) - (self.checkouts.where(checkout_status_id: CheckoutStatus.find_by_name("Payment Confirmed").try(:id)).count || 0)
+  end
+
+  def location_name
+    self.location.try(:name)
+  end
+
+  def location_name=(name)
+    self.location = Location.find_or_create_by_name(name) if name.present?
   end
 end

@@ -15,22 +15,22 @@ class TutorialsController < InheritedResources::Base
         #tutorial_categorized_ids = Tutorial.joins(:tutorial_categorizations)
         #@tutorials = Tutorial.joins(:tutorial_categories).where("tutorials.id NOT in (?)", tutorial_categorized_ids.map(&:id)).page(params[:page]).per_page(10)
       if params[:tag]
-        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).tagged_with(params[:tag]).order("creatd_at DESC").page(params[:page]).per_page(20)
+        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).tagged_with(params[:tag]).order("creatd_at DESC").page(params[:page]).per_page(21)
       else
-        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(20)
+        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(21)
       end        
 
     elsif (params[:order].present?) && (params[:order] == "popular")
       if params[:tag]
-        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(20)
+        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(21)
       else
-        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(20)
+        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(21)
       end
     else      
       if params[:tag]
-        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(20)
+        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(21)
       else
-        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(20)
+        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(21)
       end
     end
     @categories = Tutorial.joins(:categories).where("parent_id IS NULL ").all

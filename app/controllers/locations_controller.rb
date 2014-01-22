@@ -11,6 +11,9 @@ class LocationsController < InheritedResources::Base
 
 	def show
 		@location = Location.find(params[:id])
+		@beautyclasses = @location.beautyclasses
+
+    @pictures = Picture.where("pictureable_type = 'Beautyclass' AND pictureable_id IN (?)", @beautyclasses.map(&:id)).order("created_at DESC")
 
 		@hash = Gmaps4rails.build_markers(@location) do |location, marker|
 		  marker.lat location.latitude

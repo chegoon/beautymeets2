@@ -1,14 +1,25 @@
 class BeautyclassesController < InheritedResources::Base
+
+  # Load authorizing from cancan
+  load_and_authorize_resource
+  
   respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
   
   autocomplete :location, :name
 
 	def index
+
 		if can? :manage, Beautyclass
-			@beautyclasses = Beautyclass.where("published = ? AND closed = ? ", true, (params[:closed] || false)).order("created_at DESC")
+			if params[:cat].present?
+				@beautyclasses = Beautyclass.where("published = ? AND closed = ? AND id IN (?)", true, (params[:closed] || false), Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
+			else
+				@beautyclasses = Beautyclass.where("published = ? AND closed = ? ", true, (params[:closed] || false)).order("created_at DESC")
+			end
+		elsif params[:cat].present?
+			@beautyclasses = Beautyclass.where("published = true AND closed = ? AND id IN (?)",  (params[:closed] || false), Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
 		else
-			@beautyclasses = Beautyclass.where("closed = ? ",  (params[:closed] || false)).order("created_at DESC")
+			@beautyclasses = Beautyclass.where("published = true AND closed = ?",  (params[:closed] || false)).order("created_at DESC")
 		end
 
 		respond_to do |format|

@@ -1,6 +1,12 @@
 <div class="row" style="">
   <div class="large-12 columns"> 
 		<h4 style="letter-spacing:-0.5px;">Beautorials </h4>
+
+		<h5 class="subheader"><small>TUTORIAL > 
+		<% @tutorial.categories.each do |category| %>
+			<%= category.name %>
+		<% end %>
+		</small></h5>
   </div>    
 </div>
 <div class="row">
@@ -23,7 +29,6 @@
       
 
 			<p><%= @tutorial.description %></p>
-
     	<p>
     		<% @tutorial.tag_list.each do |t| %>
 	  	  	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
@@ -46,38 +51,40 @@
 
 <div class="row" style="">
 	<div class="small-12 columns " >
+		<h5>다른 이미지</h5>
 		<%= render 'pictures/gallery' %>
 		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
 	</div>
 </div>
 
 <% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>
+
 <div class="row" style="">
 	<div class="large-12 columns" style="margin:20px 0 0 0;">		
-		<h5>사용된 주요 제품</h5>
-		<ul id="item-card" class="elastislide-list" >
-		<% @tutorial.items.each do |tutorial_item| %>			
-			<li>
-					<div class="tutorial-item-card" style="float:left; margin:0 10px 0 0;">
-						<div class="" style="margin: 0; width:100px ; height:80px; font-size:11px; color:#666; text-align:center;">
-							<%= link_to tutorial_item.try(:name), item_path(tutorial_item) %>
-							<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
-							
-							
-						</div>
+
+		<dl class=" accordion" data-accordion >
+			<dd >
+					<a href="#video-description">사용된 화장품 보기<i class="right fa fa-chevron-down"></i></a>
+					<div class="content" id="video-description">
+
+						<h4 class="subheader" ><strong><small>사용된 주요 제품</small></strong></h4>
+						<ul class="inline-list">
+						<% @tutorial.items.each do |tutorial_item| %>			
+							<li style="margin-bottom:15px;" >
+								<span style="height:1px;"></span>
+								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:medium), :style => "width:100px; height:100px;"), item_path(tutorial_item), :class => "th", :style => "" %>
+								<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= tutorial_item.brand.try(:name) %></span>
+								<span  style="font-size:0.8rem; "><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong></span>
+								<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
+								
+							</li>
+						<% end %>					
+						</ul>
 					</div>
-				</li>
-		<% end %>					
-		</ul>
-
-				<script type="text/javascript">
-				
-					$( '#item-card' ).elastislide();
-					
-				</script>
-			</div>
-		<% end %>
-
+			</dd>
+		</dl>
+</div>
+<% end %>
 			<% if can? :manager, @tutorial %>
 			<div>
 			<p><h4>Add Product</h4></p>
@@ -95,7 +102,11 @@
 	</div>
 </div>
 
+<div class="row" style="">
+	<div class="large-12 columns" style="margin:20px 0 0 0;">		
 
-Comments(<%= @tutorial.comments.count %>)
-<%= render "comments/form"  %>    
-<%= render "comments/comments" %>
+		Comments(<%= @tutorial.comments.count %>)
+		<%= render "comments/form"  %>    
+		<%= render "comments/comments" %>
+	</div>
+</div>

@@ -13,7 +13,7 @@ class Item < ActiveRecord::Base
   friendly_id :name, use: :slugged
   
   belongs_to :brand
-  attr_accessible :description, :name, :view_count, :picture_id
+  attr_accessible :description, :name, :view_count, :picture_id, :brand_name, :tag_list
   
   has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"

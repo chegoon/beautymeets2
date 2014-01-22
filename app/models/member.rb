@@ -15,11 +15,6 @@ class Member < ActiveRecord::Base
   belongs_to :gender
   has_one :user, as: :profile#, dependent: :destroy
   
-  #has_many :skin_types, through: :skin_type_maps
-  #has_many :skin_type_maps
-
-  #has_many :skin_troubles, through: :skin_trouble_maps
-  #has_many :skin_trouble_maps
   has_many :categorizations, as: :categorizeable
   has_many :categories, through: :categorizations
 

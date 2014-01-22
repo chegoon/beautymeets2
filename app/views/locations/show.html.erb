@@ -34,6 +34,14 @@
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
 
+<% @beautyclasses.each do |bclass| 
+  @pictureable = bclass
+  @pictures = bclass.pictures
+  %>
+  <%= render :partial => 'pictures/gallery' %>
+<% end %>
+
+<%= render @beautyclasses %>
 <script type="text/javascript">
 handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){

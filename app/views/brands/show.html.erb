@@ -1,30 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="row" >
+  <div class="small-12 large-12 columns"> 
+      <h3 style="letter-spacing:-0.5px; color:#999;"><small class="small ">브랜드 상세정보 </small></h3>
+  </div>
+</div>
+<div class="row" style="">
+  <div class="small-12 large-12 columns" > 
+    <h4 class="subheader"><small><%= "#{@brand.company.try(:name)} > " if @brand.company.present? %><%= @brand.name %></small>
+    </h4>
+  </div>
+</div>
+<div class="row" >
+  <div class="small-12 medium-4 columns item-show-thumb" >
+    <div class="item-show-thumb">
+      <%= image_tag @brand.thumbnail.image_url(:medium) if @brand.thumbnail.present? %>
+    </div>
+  </div>
+  <div class="small-12 medium-8 columns" >
 
-<p>
-  <b>Company:</b>
-  <%= @brand.company %>
-</p>
+          <h2 style=" letter-spacing:-1px;"><%= @brand.name %></h2>
+          <div style="color: #666; margin-top:20px; font-size:14px;"><%= @brand.description.gsub(/\n/, '<br/>').html_safe if @brand.description.present? %>
 
-<p>
-  <b>Name:</b>
-  <%= @brand.name %>
-</p>
+          </div>  
+          <div>
+            <h4 class="subheader"><small>다른 이미지</small></h4>
+            <%= render 'pictures/gallery' %>
+          </div>
+  </div>
+</div>
+<div class="row" >
+  <div class="small-12 large-12 columns"> 
+    <hr>
+  </div>
+</div>
+<div class="row" >
+  <div class="small-12 large-8 columns"> 
+    <h6 class="subheader"><strong><%= @brand.name %> 제품들이 사용된 튜토리얼</strong></h6>
+    <%= render 'tutorials/tutorials' %>
+  </div>
+  <div class="small-12 large-4 columns"> 
+    <h6 class="subheader"><strong>튜토리얼에서 사용된 <%= @brand.name %></strong> 제품</h6>
+    <%= render 'items/items' %>
+  </div>
+</div>
 
-<p>
-  <b>Description:</b>
-  <%= @brand.description %>
-</p>
-
-<p>
-  <b>Image:</b>
-  <%= @brand.image %>
-</p>
-
-<p>
-  <b>View count:</b>
-  <%= @brand.view_count %>
-</p>
-
-
-<%= link_to 'Edit', edit_brand_path(@brand) %> |
-<%= link_to 'Back', brands_path %>

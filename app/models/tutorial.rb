@@ -28,6 +28,8 @@ class Tutorial < ActiveRecord::Base
   
   has_many :comments, :as => :commentable
   
+  mount_uploader :image, ImageUploader
+  
 	def increment_view_count(by = 1)
 	  self.view_count ||= 0
 	  self.view_count += by
