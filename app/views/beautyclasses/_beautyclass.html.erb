@@ -1,0 +1,32 @@
+	<div class="small-12 medium-6 columns" >
+		<div class="panel" style="border:0; background:#FFF;">
+			<div class="row">
+				<div class="small-12 columns">
+					<%= link_to "", beautyclass.closed? ? "#" : beautyclass_path(beautyclass), :class => "button radius #{ 'disabled' if beautyclass.closed? }", :style => "min-width:20rem; max-width:30rem; width:100%; height:200px; background-position:center; background-image: url(#{beautyclass.thumbnail.present? ? beautyclass.thumbnail.image_url(:large) : beautyclass.image_url(:large)});" %>
+					<h3><%= link_to truncate(beautyclass.title, 24), beautyclass_path(beautyclass) %></h3>
+					<%= render partial: 'users/avatar', locals: { user: beautyclass.author } if beautyclass.author.present? && beautyclass.author.image.present? %>
+					<div style="margin:5px;"><%= truncate(beautyclass.description, 70) %></div>
+					
+					<% if user_signed_in? && (current_user.has_role? :member) %>
+						<% current_user.checkouts.where(beautyclass_id: beautyclass.id).each do |co|  %>
+							<%= co.status_name %>
+						<% end %>
+					<% end %>
+					<div class="row">
+						<div class="small-4 columns">
+							<div class="panel radius <%= 'callout' if !beautyclass.closed? %> text-center" style=" border:0; padding:6px; max-width:80px;">
+								<small><%= beautyclass.try(:start_date).strftime("%Y.%m") %></small>
+								<h2 ><%= beautyclass.try(:start_date).strftime("%d") %></h2>
+								<small><%= beautyclass.try(:start_date).strftime("%H:%M") %>~<%= beautyclass.try(:end_date).strftime("%H:%M")  %></small>
+							</div>
+						</div>
+
+						<div class="small-8 columns" style="position:relative; height:100px;">
+							<%= '<span class="label alert radius right">sold out</span>'.html_safe if beautyclass.closed? %>
+							<h5 class="subheader right" style="position:absolute; bottom:0; right:10px; "><small><i class="fa fa-eye"></i> <%=  beautyclass.view_count.nil? ? "0" : number_with_delimiter(beautyclass.view_count) %></small></h5>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
