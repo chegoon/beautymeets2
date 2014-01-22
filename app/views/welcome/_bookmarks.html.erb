@@ -1,0 +1,7 @@
+<% if @bookmarks.present? %>
+
+			<h5>최근에 추가한 북마크</h5>
+				<% @bookmarks.each do |bookmark| %>
+					<h6><%= bookmark %></h6>
+				<% end %>
+		<% end %>

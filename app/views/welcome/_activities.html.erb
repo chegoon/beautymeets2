@@ -1,0 +1,7 @@
+		<% if @activities.present? %>
+			<% @activities.each do |activity| %>
+			  <div class="activity" style="margin-bottom:20px;">
+			  <%= render_activity activity %>
+			  </div>
+			<% end %>
+		<% end %>
