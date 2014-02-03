@@ -28,7 +28,6 @@ module ApplicationHelper
 	end
 	
 	def truncate(text, len, tail = '..')
-		puts "truncate helper called"
 		if text.present?
 			unpacked = text.unpack('U*') 
 			unpacked.length > len ? unpacked[0..len-1].pack('U*') + tail : text

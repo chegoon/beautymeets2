@@ -5,12 +5,12 @@
 
 	<div style="text-align:left !important; width:80%; min-width:300px; max-width:600px;margin:0 auto;">
 		<div class="page-header">
-			<h1>Beautyclass Request from <%= @user.try(:name) %></h1>
+			<h1>Beautyclass Request from <%= @user.try(:name) || @user.try(:email) %></h1>
 		</div>
 
 		<p>안녕하세요, 뷰티밋츠입니다. </p>
 		<p>
-			뷰티밋츠(BEAUTYMEETS)에서 <%= @user.try(:name) %>(<%= @user.email %>)님께서 beaulty class를 요청하셨습니다. 
+			뷰티밋츠(BEAUTYMEETS)에서 <%= @user.try(:name) || @user.try(:email) %>(<%= @user.email %>)님께서 beauty class를 요청하셨습니다. 
 			요청정보는 아래와 같습니다.
 		</p>
 
@@ -24,4 +24,4 @@
  		<div style="text-align:right; margin:20px 20px;">-  뷰티밋츠 팀(hellobeauty@reallplay.com) -</div>
 
 	</div>
-</div>a
+</div>

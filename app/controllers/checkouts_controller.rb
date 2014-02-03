@@ -8,8 +8,8 @@ class CheckoutsController < InheritedResources::Base
     @checkout.user.save
     @checkout.save
 
-    UserMailer.beautyclass_request(@beautyclass, @checkout, @beautyclass.user, current_user).deliver
+    UserMailer.beautyclass_request(@beautyclass, @checkout, @beautyclass.author, current_user).deliver
 
-    redirect_to beautyclass_path(@beautyclass)
+    redirect_to beautyclass_path(@beautyclass), notice: "Class request done"
   end
 end

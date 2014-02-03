@@ -15,9 +15,9 @@
 						</div>
 						<div class="list">	  
 							<%= render @tutorials %>
-  						</div>						
+  					</div>						
 					</div>
-					<div style="display:unvisible"><%= will_paginate @tutorials %></div>
-
 			  </div>
 			</div>
+
+			<div class="pagination-centered"><%= will_paginate @tutorials, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %></div>

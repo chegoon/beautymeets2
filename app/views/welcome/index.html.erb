@@ -1,42 +1,11 @@
 
 <div class="row">
-	<div class="small-12 columns" style="background-color: #eee;">
-		<h4>Hello, Welcome to BEAUTYMEETS</h4>
-	</div>
-</div>
-<div class="row">
-	<% if user_signed_in? %>
-		<div class="medium-2 columns">
-			<div class="panel">
-				<% if user_signed_in? %>
-	            <% 
-	            if (current_user.has_role? :member) 
-	            %>
-          
-	              <div><%= link_to image_tag(current_user.image_url(:small)) if current_user.image.present? %></div>
-	              <h5> Hi, <%= current_user.name.present? ? current_user.name : current_user.email  %></h5>
-	              <h6>
-	              	<strong><%= link_to "See Profile", member_path(current_user.profile) %></strong>
-	              </h6>
-	            <%
-	            elsif (current_user.has_role? :beautystar) 
-	            %>     
-	              <strong><%= link_to current_user.name.present? ? current_user.name : current_user.email, beautystar_path(current_user.profile) %></strong>
-	            <% 
-	          	elsif (current_user.has_role? :admin)
-	            %>
-	            	Admin
-	            <%
-
-	            end
-	              %>
-	      <% end %>      
-			</div>
-		</div>
-	<% end %>
-	<div class="<%= 'medium-10' if user_signed_in? %> <%= 'medium-12' if !user_signed_in? %> columns" style="padding:0; ">
+	<div class="medium-12 columns">
 		<% if user_signed_in? %>
-			
+			<div class="panel callout" style="border:0; padding:2rem;">
+				<h2>Hi, <%= current_user.name || current_user.email  %></h2>
+				<h4>There are <%= "4" %> notifications you need to check</h4>
+			</div>
 		<% else %>
 			<div class="panel" style="
 	              -moz-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
@@ -49,8 +18,8 @@
 						<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.</h2>
 						<div style="margin:1.2rem 0.5rem;">
 						<% if !user_signed_in? %>
-				            <%= link_to "가입하기", new_user_registration_path, :class => "button " %>
-				            <%= link_to "로그인하기", new_user_session_path,  :class => "button  secondary"  %>
+				            <%= link_to "가입하기", new_user_registration_path, :class => "button radius" %>
+				            <%= link_to "로그인하기", new_user_session_path,  :class => "button secondary radius"  %>
 						<% end %>
 						</div>
 					</div>
@@ -60,24 +29,27 @@
 	</div>
 </div>
 <div class="row">
-	<div class="<%= 'medium-10 medium-offset-2 large-7 large-offset-2' if user_signed_in? %> <%= 'medium-9 large-9' if !user_signed_in? %> columns" >
-		<%= render 'activities' %>
-		
-		<%= render 'bookmarks' %>
-
-		<%= render 'best_tutorials' %>
-		
-		<%= render 'latest_tutorials' %>
-		
-		<%= render 'best_videos' %>
-
-		<%= render 'latest_videos' %>
-		
-	</div>
-	<div class="medium-12 large-3 columns" >
-		<%= render 'best_items' %>
-		<br/>
-		<%= render 'latest_items' %>
-		
+	<div class="small-12 columns" >
+		<h3 class="subheader">최신 튜토리얼&nbsp;<small>뷰티밋츠가 제작한 최신 뷰티 튜토리얼입니다.</small></h3>
+		<%= render @latest_tutorials %>
+		<h3 class="subheader">인기 튜토리얼&nbsp;<small>뷰티밋츠에서 가장 인기가 많은 뷰티 튜토리얼입니다.</small></h3>
+		<%= render @best_tutorials %>
+		<div class="text-center">
+			<%= link_to "튜토리얼 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, tutorials_path, :class => "button radius" %>
+		</div>
+		<hr>
+		<h3 class="subheader">인기 뷰티 클래스&nbsp;<small>뷰티전문가 뷰티스타의 인기 뷰티클래스를 만나보세요.</small></h3>
+		<%= render @best_beautyclasses %>
+		<div class="text-center">
+			<%= link_to "뷰티클래스 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, beautyclasses_path, :class => "button radius" %>
+		</div>
+		<hr>
+		<h4 class="subheader">인기 뷰티 비디오&nbsp;<small></small></h4>
+		<%= render @best_videos %>
+		<h4 class="subheader">최신 뷰티 비디오&nbsp;<small></small></h4>
+		<%= render @latest_videos %>
+		<div class="text-center">
+			<%= link_to "뷰티 비디오 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, videos_path, :class => "button secondary radius" %>
+		</div>
 	</div>
 </div>

@@ -276,6 +276,8 @@ GEM
     wicked (1.0.2)
       rails (>= 3.0.7)
     will_paginate (3.0.5)
+    will_paginate-foundation (5.3.3)
+      will_paginate (>= 3.0.3)
     youtube_it (2.3.2)
       builder
       excon
@@ -331,4 +333,5 @@ DEPENDENCIES
   whenever
   wicked
   will_paginate (= 3.0.5)
+  will_paginate-foundation
   youtube_it

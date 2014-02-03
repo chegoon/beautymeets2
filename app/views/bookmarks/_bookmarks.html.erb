@@ -1,0 +1,15 @@
+<% if !@bookmarks.blank? %>
+        <% count = 0 %>
+        <p>Below are the pages that you have bookmarked.</p>
+        <br />
+        <% @bookmarks.each do |bookmark| %>
+            <div id="horizontal_line"></div>
+            <div id="bookmark_list">
+                <% count = count + 1 %>
+                <%= render patial: 'bookmark', locals: {count: count} %>
+            </div>
+        <% end %>
+        <div id="horizontal_line"></div>
+    <% else %>
+      You currently have no items bookmarked.
+    <% end %>

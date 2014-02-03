@@ -1,27 +1,24 @@
-<h1>Listing bookmarks</h1>
-
-<table>
-  <tr>
-    <th>User</th>
-    <th>Bookmarkable</th>
-    <th>Note</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @bookmarks.each do |bookmark| %>
-  <tr>
-    <td><%= bookmark.user %></td>
-    <td><%= bookmark.bookmarkable %></td>
-    <td><%= bookmark.note %></td>
-    <td><%= link_to 'Show', bookmark %></td>
-    <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
-    <td><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Bookmark', new_bookmark_path %>
+<div class="middle_back">
+    <p>To bookmark a page or remove a bookmark, just click the star.</p>
+    <i class='fa fa-star fa-lg'></i> Bookmarked<br />
+    <i class='fa fa-star-o fa-lg'></i> Not Bookmarked<br />
+    <br />
+    <% if !@bookmarks.blank? %>
+        <% count = 0 %>
+        <p>Below are the pages that you have bookmarked.</p>
+        <br />
+        <% @bookmarks.each do |bookmark| %>
+            <div id="horizontal_line"></div>
+            <div id="bookmark_list">
+                <% count = count + 1 %>
+                <span id="bookmarkLink"><%= link_to_bookmark(count, bookmark) %></span><br />
+                <span id="bookmarkType"><%= print_bookmark_type(bookmark.model_type_id) %></span><br />
+                <span id="bookmarkDescription"><%= print_bookmark_desc(bookmark) %></span><br />
+                <span id="bookmarkAddedDate">Added <%= bookmark.created_at %></span>
+            </div>
+        <% end %>
+        <div id="horizontal_line"></div>
+    <% else %>
+      You currently have no items bookmarked.
+    <% end %>
+</div>

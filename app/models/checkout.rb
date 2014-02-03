@@ -5,7 +5,7 @@ class Checkout < ActiveRecord::Base
   belongs_to :user
   belongs_to :status, class_name: "CheckoutStatus", foreign_key: "checkout_status_id"
   
-  attr_accessible :checkout_status, :description, :user, :buyer_name, :buyer_tel, :checkout_status_id
+  attr_accessible :checkout_status, :description, :user, :buyer_name, :buyer_tel, :checkout_status_id, :request_note
 
   def set_default_status
   	self.status = CheckoutStatus.find_by_name("Register")

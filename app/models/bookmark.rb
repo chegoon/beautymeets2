@@ -1,5 +1,5 @@
 class Bookmark < ActiveRecord::Base
-  attr_accessible :bookmarkable, :note, :user
+  attr_accessible :bookmarkable, :note, :user_id, :model_type_id, :model_id
 
   belongs_to :bookmarkable, :polymorphic => true
   belongs_to :user

@@ -16,8 +16,7 @@
     
     <link rel="image_src" href="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
     <!-- facebook share infor set end -->
-    
-    
+
     <title><%= yield(:page_title) || "BEAUTYMEETS" %></title>
 
     <!--[if lt IE 9]>
@@ -57,9 +56,24 @@
       .breadcrumbs a, .breadcrumbs  span {
         color: #ff8008;
       }
+.wrap{
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+  position: relative;
+}
+h1{
+  font-size: 5em; 
+  font-family: arial,helvetica;
+}
+.section{
+  text-align:center;
+}
+
       
     </style>
 
+  
     <%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && current_user.is_admin?)  %>
   </head>
 
@@ -86,7 +100,7 @@
             </div>
           <% end %>
             <div class="row" >
-              <div class="small-12 small-centered columns" style="background:#f6f6f6">
+              <div class="small-12 small-centered " >
 
                   
                   <%= yield %>

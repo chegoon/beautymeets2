@@ -7,12 +7,12 @@
             if (current_user.has_role? :member) 
             %>
               <%= link_to image_tag(current_user.image_url(:medium), :class => "circular", :style => "width:128px; height:128px;") if current_user.image.present? %>
-              <span style="color:#FFF;"> Hi, <%= current_user.name.present? ? current_user.name : current_user.email  %></span>
+              <span style="color:#FFF;"> Hi, <%=  current_user.name || current_user.email  %></span>
               <strong><%= link_to "See Profile", member_path(current_user.profile) %></strong>
             <%
             elsif (current_user.has_role? :beautystar) 
             %>     
-              <strong><%= link_to current_user.name.present? ? current_user.name : current_user.email, beautystar_path(current_user.profile) %></strong>
+              <strong><%= link_to current_user.name || current_user.email, beautystar_path(current_user.profile) %></strong>
             <% 
             elsif  (current_user.has_role? :admin) 
               %>

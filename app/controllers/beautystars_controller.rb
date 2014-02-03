@@ -9,7 +9,8 @@ class BeautystarsController < InheritedResources::Base
 	  @pictures = @pictureable.pictures
 	  @picture = Picture.new
 
-	  @tutorials = @beautystar.user.tutorials
+	  @tutorials = @beautystar.user.tutorials.last(6)
+	  @beautyclasses = @beautystar.user.beautyclasses.last(4)
 	end
 
 	def create

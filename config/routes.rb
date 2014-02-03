@@ -1,5 +1,6 @@
 Beautymeets2::Application.routes.draw do
 
+  get 'bookmarks/toggle', to: "bookmarks#toggle"
 
   match '/auth/:provider/callback' => 'authentications#create'
   
@@ -7,9 +8,11 @@ Beautymeets2::Application.routes.draw do
 
   resources :bookmarks
 
-  get 'members/:id/tutorials', to: 'members#tutorials', as: :member_tutorial
-  get 'members/:id/beautyclasses', to: 'members#beautyclasses', as: :member_beautyclass
-
+  get 'members/:id/tutorials', to: 'members#tutorials', as: :member_tutorials
+  get 'members/:id/beautyclasses', to: 'members#beautyclasses', as: :member_beautyclasses
+  get 'members/:id/bookmarks', to: 'members#bookmarks', as: :member_bookmarks
+  get 'members/:id/activities', to: 'members#activities', as: :member_activities
+  
   get "activities/index"
 
   get "welcome/index"

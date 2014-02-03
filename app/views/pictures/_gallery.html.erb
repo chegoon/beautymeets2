@@ -1,20 +1,23 @@
 <div class="row " style="">
 	<div class="large-12 columns">
 	<% if !@pictures.nil? %>
-		<ul class="clearing-thumbs" data-clearing>
+	<!-- data-clearing을 쓰면 modal과 conflict 일어남 -->
+		<!-- <ul class="clearing-thumbs " data-clearing> -->
 	  <% @pictures.each do |p| %>
-				<% if can? :author, p %>
+				<% if can? :author, @pictureable %>
 		      <%= simple_form_for [@pictureable] do |f| %>
-		      	<%= image_tag p.image_url(:small) %>
+		      	<%= link_to image_tag(p.image_url(:small)), p.image_url(:large) %>
 		      	<%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
 		      	<%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
 		      	<%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
 		      <% end %>
 	      <% else %>
-	      	<li style="padding:0 0 10px 0;"><a href="<%= p.image_url(:large)%>"><img data-caption="<%= p.description %>" src="<%= p.image_url(:small).to_s %>"></a></li>
+	      	<!--  <li style="padding:0 0 10px 0;"> -->
+	      		<a class="th" style="border:0;" href="<%= p.image_url(:large)%>"><img src="<%= p.image_url(thumb_size).to_s %>"></a>
+	      	<!-- </li> -->
 	      <% end %>
 	  <% end %>
-		</ul>
+		<!-- </ul> -->
   <% end %>
 	</div>
 </div>

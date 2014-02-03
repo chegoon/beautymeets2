@@ -1,11 +1,18 @@
-
-<div class="row" style="">
-	<div class="large-12 columns">	
-		  <h4 class="subheader">안녕하세요, <%= @beautystar.fullname %> 입니다. <span class="right"><small>BEAUTYMEETS BEAUTYSTAR </small></span></h4>
-	</div>
-</div>
 <%= link_to '프로필 수정', edit_beautystar_path(@beautystar) if (can? :manage, @beautystar) %>
 <%= link_to '계정 수정', edit_user_registration_path(@beautystar.user) if (can? :manage, @beautystar)  %>
+<div class="row" style="">
+	<div class="large-12 columns">	
+		<h4 class="subheader" >안녕하세요, <%= @beautystar.user.name %> 입니다. </h4>
+		<div class="panel" style="background-image: url(<%= @beautystar.image_url %>);">
+		  <h5 class="subheader " style="color:#FFF;">
+		  	<%= image_tag(@beautystar.user.image_url(:medium), :class => "circular", :style => "width:10rem; height:auto;") %>
+		  	<strong><%= "#{@beautystar.user.name}"%></strong>
+		  	<%= " | #{@beautystar.job_title}" %> 
+		  	<span class="right"><small>BEAUTYMEETS BEAUTYSTAR </small></span>
+		  </h5>
+		</div>
+	</div>
+</div>
 <% if @beautystar.vimeo_url.present? %>
 <div class="row">
 	<div class="large-12 columns">
@@ -16,8 +23,11 @@
 </div>
 <% end %>
 <div class="row">
-	<div class="large-12 columns">
-		<div class="panel" >
+	<div class="small-12 medium-2 columns text-center">
+		<%= image_tag(@beautystar.user.image_url(:medium), :class => "circular", :style => "width:10rem; height:auto;") %>
+	</div>
+	<div class="small-12 medium-10 columns">
+		<div class="panel" style="border:0;">
 			<div class="beautystar-show-description">
 				<i class="fa fa-quote-left fa-lg "></i><p><%= simple_format(@beautystar.try(:introduction)) %></p> <i class="fa fa-quote-right fa-lg "></i>
 			</div>
@@ -34,13 +44,7 @@
 			<% end %>
 	</div>
 </div>
-<!-- BEAUTYSTAR Tag END -->
-
-<div class="row">
-	<div class="large-12 columns">
-		<hr>
-	</div>
-</div>
+<hr>
 
 <!-- BEAUTYSTAR Portfolio -->
 
@@ -49,17 +53,26 @@
 		<h4 class="subheader">BEAUTYSTAR Portfolio </h4>
 	</div>
 </div>
-
+<hr>
 <!-- BEAUTYSTAR Portfolio -->
 <%= render 'pictures/portfolio' %>
 <%= render 'pictures/form' if (can? :manage, @beautystar)  %>
 
+
 <div class="row " style="margin:0 auto; float:none; ">
 	<div class="large-12 columns">	
-		<hr>
+		<h4 class="subheader">Tutorials</h4>
 	</div>
 </div>
-
-
+<hr>
 <!-- BEAUTYSTAR Beautorials -->
 <%= render 'tutorials/tutorials' %>
+
+<div class="row " style="margin:0 auto; float:none; ">
+	<div class="large-12 columns">	
+		<h4 class="subheader">Beautyclasses</h4>
+	</div>
+</div>
+<hr>
+<!-- BEAUTYSTAR Beautyclass -->
+<%= render 'beautyclasses/beautyclasses' %>

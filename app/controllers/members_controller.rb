@@ -8,21 +8,42 @@ class MembersController < InheritedResources::Base
   end
 
   def beautyclasses
+    @member = Member.find(params[:id])
+    @checkouts = @member.user.checkouts.order("created_at DESC")
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @checkouts }
+    end
+  end
+
+  def activities
+    @member = Member.find(params[:id])
+    @activities = PublicActivity::Activity.where(owner_id: @member.user, owner_type: "User").order("created_at desc")
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @activities }
+    end
+  end
+
+  def bookmarks
   	@member = Member.find(params[:id])
+    @bookmarks = @member.user.bookmarks
 
 		respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @member }
+      format.json { render json: @bookmarks }
     end
-
   end
 
   def tutorials
-  	@member = Member.find(params[:id])
+    @member = Member.find(params[:id])
+    @tutorials = Tutorial.where("id NOT IN (?)", Tutorial.unread_by(@member.user).map(&:id)).order("created_at DESC")
 
-		respond_to do |format|
+    respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @member }
+      format.json { render json: @tutorials }
     end
   end
 end

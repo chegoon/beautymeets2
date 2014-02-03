@@ -1,0 +1,22 @@
+<% item = BookmarkType.find(bookmark.model_type_id).model.capitalize.constantize.find_by_id(bookmark.model_id) %>
+<div class="panel" style="border:0;">
+	<div class="row">
+		<div class="small-3 columns">
+			<img data-interchange="[<%= item.thumbnail.image_url(:small)  %>, (small)], [<%= item.thumbnail.image_url(:medium) %>, (large)]">
+		</div>
+		<div class="small-9 columns">
+
+			<h5 class="subheader">
+				<span><%= print_bookmark_type(bookmark.model_type_id) %></span> | 
+				<span><%= link_to_bookmark(bookmark) %></span>
+			</h5>
+			<p>
+				<span><%= truncate(print_bookmark_desc(bookmark), 100) %></span>
+
+			</p>
+			<h5 class="text-right"> 
+				<small><%= time_ago_in_words(bookmark.created_at) %> ago</small>
+			</h5>
+		</div>
+	</div>
+</div>

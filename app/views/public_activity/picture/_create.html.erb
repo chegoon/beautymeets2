@@ -4,7 +4,7 @@
 		<%= image_tag activity.owner.image_url(:small) if activity.owner.present? %>
 	</div>
 	<div class="small-10 columns">
-		<%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
+		<%= link_to activity.owner.name || activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
 		<% if activity.trackable %>
 		님이
 			<% if (activity.trackable.pictureable_type == "Tutorial" || activity.trackable.pictureable_type == 	"Beautyclass" || activity.trackable.pictureable_type ==  "Video") %>

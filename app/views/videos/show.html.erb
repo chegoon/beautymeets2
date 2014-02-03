@@ -5,9 +5,10 @@
 			<div class="row">
 				<div style="margin-bottom:10px; padding: 10px 0; "><%= render "layouts/go_back" %></div>
 				<div class="small-12 large-10 large-offset-1 columns" style="margin-top:10px;">
-					<h3>
+					<h2>
 						<%= @video.title %>
-					</h3>
+					</h2>
+					<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
 				</div>
 			</div>
 			<div class="row">
@@ -33,12 +34,13 @@
 				    <hr>
 				    <i class="fa fa-youtube fa-lg fa-fw"></i><span style="color:#666; "><small><%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %></small></span>&nbsp;<a href='<%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %>'><i class="fa fa-external-link-square"></i></a>
 				    <p><small>영상이 재생되지 않을 경우, 영상 내 우측하단의 <strong>전체 화면 아이콘</strong>을 클릭 해주세요 :)</small></p>
+						<% if @video.tag_list.present? %>
 				    Tags: 
 				    	<% @video.tag_list.each do |t| %>
 				    	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
 				    	<% end %>
 						<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-
+						<% end %>
 						<dl class=" accordion" data-accordion >
 							<dd >
 	    						<a href="#video-description"><i class="fa fa-info-circle"></i>&nbsp;<em><%=  truncate(strip_tags(@video.description), 58) if !@video.description.nil? %></em><i class="right fa fa-chevron-down"></i></a>
@@ -47,17 +49,24 @@
 								</div>
 							</dd>
 						</dl>
-
 				</div>
 			</div>
-
-Comments(<%= @video.comments.count %>)
-<%= render "comments/form"  %>    
-<%= render "comments/comments" %>
-
+			<div class="row" style="margin:2.5rem 0 0 0;">
+				<div class="small-12 medium-10 medium-centered columns">		
+					<h3 class="subheader">Q&A&nbsp;<small>다양한 궁금증은 이곳에 남겨주세요.</small>
+					</h3>
+					Comments(<%= @video.comments.count %>)
+					<%= render "comments/form"  %>    
+					<%= render "comments/comments" %>
+				</div>
+			</div>
 			<div class="row" >
 			  <div class="span-12 large-10 large-centered columns">
+					<h4>추천 튜토리얼&nbsp;<small>뷰티밋츠가 제작한 리얼 뷰티 튜토리얼</small>
+					</h4>
 			  	<hr>
+			  	<%= render @tutorials %>
+			  	
 			  	<h6 style="padding-bottom:10px;"><% @video.categories.each do |category| %><span class=" secondary radius label"><%=  category.name %></span>&nbsp;<% end %> <strong>인기</strong> 비디오</h6>
 				<div class="row" >			
 					<% @video.most_popular_in_categories(params[:category]).each do |rec| %>	  	
@@ -80,31 +89,6 @@ Comments(<%= @video.comments.count %>)
 			  </div>
 			</div>
 
-			<div class="row">
-			  <div class="span-12 large-10 large-centered columns" >
-			  	<hr>
-			  	<h6 style="padding-bottom:10px;"><strong><%= @video.video_group.try(:name) %>'s</strong> <strong>인기</strong> 비디오</h6>
-				<div class="row">				  	
-					
-			  		<% @video.most_popular_in_groups.each do |rec| %>  	
-						<%= render :partial => "recommendation", :locals => {:rec => rec } %>
-			  		<% end %>
-			  	</div>
-			  </div>
-			</div>
-
-			<div class="row">
-			  <div class="span-12 large-10 large-centered columns">
-			  	<hr>
-			  	<h6 style="padding-bottom:10px;"><strong><%= @video.video_group.try(:name) %>'s</strong> <strong>최신</strong> 비디오</h6>
-				<div class="row">				  	
-					
-			  		<% @video.latest_in_groups.each do |rec| %>  	
-						<%= render :partial => "recommendation", :locals => {:rec => rec } %>
-			  		<% end %>
-			  	</div>
-			  </div>
-			</div>
 
 			<%= link_to 'Edit', edit_video_path(@video) if user_signed_in? && (current_user.has_role? :admin) %>
 			<%= link_to 'Destroy', video_path(@video), confirm: 'Are you sure?', method: :delete  if user_signed_in? && (current_user.has_role? :admin) %>

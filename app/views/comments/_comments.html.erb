@@ -2,30 +2,36 @@
 <div id="comments">
 	<% @comments.each do |comment| %>
 	<div class="row comment">
-		<div class="small-2 large-2 columns">
-			<%= image_tag(comment.user.image_url(:thumb) ) %>
+		<div class="small-12 medium-12 columns">
+			<h6 class="subheader">
+				<%= render partial: 'users/avatar_thumb', locals: { user: comment.author } if comment.author.present? && comment.author.image.present? %><strong><%= comment.author.name || comment.author.email %></strong> :</h6>
 		</div>
-		
-		<div class="small-10 large-10 columns" style="padding-left:0;">
+	</div>
+	<div class="row comment">
+		<div class="small-11 small-offset-1 medium-10 medium-offset-2 columns">
 			<div class="row">
-				<div class="large-12 columns">
-					<h6 class="subheader"><%= comment.user.name.blank? ? comment.user.email : comment.user.name %> :</h6>
+				<div class="large-12 columns">					
 					<div style="height:auto;">
-						<p><%= simple_format comment.body %></p>
-						<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete  if can? :manage, comment %>
-						<span class="right" style="color:#CCC;font-size:10px;"><%= time_ago_in_words(comment.created_at) %> ago</span>
+						<%=  comment.body %>
+						<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete  if can? :author, comment %>
+						<span class="right" style="color:#CCC; font-size:0.8rem;"><%= time_ago_in_words(comment.created_at) %> ago</span>
 					</div>
 				</div>
 			</div>
-			<hr>
 			<% comment.children.each do |reply| %>
 				<div class="row" style="margin-bottom:5px;">
-					<div class="small-2 large-2 columns">
-						<%= image_tag(comment.user.image_url(:thumb)) %>
+					<div class="small-12 medium-12 columns">
+						<h6 class="subheader">
+						<%= render partial: 'users/avatar_thumb', locals: { user: reply.author } if reply.author.present? && reply.author.image.present? %><strong><%= reply.author.name || reply.author.email %></strong> :
+						</h6>
 					</div>
-					<div class="small-10 large-10 columns" style="padding-left:0;">
-						<p><%= simple_format reply.body %></p>
-						<span class="right" style="color:#CCC; font-size:10px;"><%= time_ago_in_words(reply.created_at) %> ago</span>
+				</div>
+				<div class="row">
+					<div class="small-11 small-offset-1 medium-11 medium-offset-1 columns">
+						<%= reply.body %>
+						<%= link_to "&nbsp;X".html_safe, [@commentable, reply], confirm: 'Are you sure?', method: :delete  if can? :author, reply %>
+						
+						<span class="right" style="color:#CCC; font-size:0.8rem;"><%= time_ago_in_words(reply.created_at) %> ago</span>
 					</div>
 				</div>
 			<% end %>

@@ -1,3 +1,4 @@
+
 <div class="row" style="">
 	<div class="small-12 columns " >
 		<h6 class="subheader"><%= render "layouts/go_back" %></h6>
@@ -8,25 +9,25 @@
 <div class="row" >
 	<div class="small-12 medium-12 columns">
 		<div class="" style="width:100%; font-size:9px; color: #666; "></div>
-		<h2><%= @beautyclass.title %><small><%= '<span class="radius secondary label">CLOSED</span>&nbsp;'.html_safe if @beautyclass.closed? %></small></h2>
-
-
+		
+		<h2><%= @beautyclass.title %></h2>
+		<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
 	</div>
 </div>
 <div class="row" >
 	<div class="small-12 medium-12 columns" >
-				<% if @beautyclass.categories.present? %>
-					<small>Category : </small>
-					<% @beautyclass.categories.each do |category| %>
-						&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
-					<% end %>
-				<% end %>
-				<% if @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
-				<div class="right">
-					<span class="right" style=" color:#000; "><strong>정원 <%= @beautyclass.capacity %> 명</strong></span><br/>
-					<span class="right" style="  color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능</span>
-				</div>
-				<% end %>
+		<% if @beautyclass.categories.present? %>
+			<small>Category : </small>
+			<% @beautyclass.categories.each do |category| %>
+				&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
+			<% end %>
+		<% end %>
+		<% if !@beautyclass.closed? && @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
+		<div class="right">
+			<span class="right" style=" color:#000; "><strong>정원 <%= @beautyclass.capacity %> 명</strong></span><br/>
+			<span class="right" style="  color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능</span>
+		</div>
+		<% end %>
 	</div>
 </div>
 <div class="row" >
@@ -36,11 +37,14 @@
 </div>
 <div class="row" >
 	<div class="small-12 medium-4 columns" > 
-		<div class="" style='<%= "opacity: 0.5; filter: alpha(opacity=50); " if @beautyclass.closed? %>'>
-			<%= image_tag @beautyclass.try(:thumbnail).image_url(:large) if @beautyclass.thumbnail.present? %>
-			<%= render 'pictures/gallery' %>
-			<%= render 'pictures/form' if (can? :author, @beautyclass)  %>
+		<div class="" >
+			<%= image_tag @beautyclass.thumbnail.image_url(:large) if @beautyclass.thumbnail.present? %>
 		</div>
+	</div>
+	<div class="small-12 medium-8 columns" > 
+
+			<%= render :partial => 'pictures/gallery', locals: { :thumb_size => :small } %>
+			<%= render 'pictures/form' if (can? :author, @beautyclass)  %>
 	</div>
 </div>
 <div class="row" >
@@ -52,10 +56,10 @@
 	<div class="small-12 medium-8 columns" style="">
 		<div class="panel" style="border:0;">	
 	      <% if @beautyclass.closed? %>
-					<span class="radius alert label">SOLD OUT</span>&nbsp;클래스가 마감되었습니다. 
+					<span class="radius alert label">SOLD OUT</span> 클래스가 마감되었습니다. 
 				<% end %>
 				<p>
-					<%= simple_format(@beautyclass.try(:description)) %><br/><%= link_to "후기 보러 가기", @beautyclass.review_url, :class => "button secondary", :target => "_blank" if @beautyclass.review_url.present? %>
+					<%= simple_format(@beautyclass.try(:description)) %><br/><%= link_to "후기 보러 가기", @beautyclass.review_url, :class => "button secondary tiny", :target => "_blank" if @beautyclass.review_url.present? %>
 				</p>
 	    	<p>
 	    		<% @beautyclass.tag_list.each do |t| %>
@@ -66,21 +70,21 @@
 		<div class="panel"  style="border:0;">
 			<% if @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
 				<p>
-					<span >장소</span><br/>
-					<span class="" style=" color:#666; font-weight:bold;"><%= link_to @beautyclass.try(:location_name), location_path(@beautyclass.location) if @beautyclass.location.present? %></span>
-				</p>
-			
-
-				<p>
-					<span >일시</span><br/>
+					<span ><i class="fa fa-calendar-o"></i> 일시</span><br/>
 					<span style=" font-weight:bold;;">
 					<%= @beautyclass.start_date.strftime("%Y.%m.%e") if @beautyclass.start_date.present? %>, <%= @beautyclass.start_date.strftime("%I:%M %p") if @beautyclass.start_date.present? %> ~ <%= @beautyclass.end_date.strftime("%I:%M %p") if @beautyclass.end_date.present? %></span>
 				</p>	
 			<% end %>
-
+			<% if @beautyclass.location.present? %>
+				<p>
+					<span ><i class="fa fa-map-marker"></i> 장소</span><br/>
+					<span class="" style=" color:#666; font-weight:bold;"><%= link_to @beautyclass.try(:location_name), location_path(@beautyclass.location) if @beautyclass.location.present? %></span>
+					<%= render :partial => 'locations/location', locals: { location: @beautyclass.location } %>
+				</p>
+			<% end %>
 			<% if @beautyclass.supply.present? %>
 				<p>
-					<span >준비물</span><br/>
+					<span ><i class="fa fa-check-square-o"></i> 준비물</span><br/>
 					<span style="">
 					<%= @beautyclass.supply %></span>
 				</p>
@@ -110,70 +114,61 @@
 							<div>							
 								<span class="left" style="color:#666;  ">현재 <%= @beautyclass.capacity %>명중&nbsp;</span>
 								<span class="left" style="color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능 합니다.</span>				
-								
 							</div>
 						</div>
 					<% end %>
 					<div class="small-12 columns">
 
-						<% if @beautyclass.price.nil? || @beautyclass.price == 0 %>
+						<% if @beautyclass.price.nil? || @beautyclass.price == 0 || @beautyclass.categories.first.name == "프라이빗 클래스" %>
 
 						<% else %>
-							<div class="right" style="color:#333; "><span class="right" style="font-size:30px; color:#666; font-family:'Nanum Gothic';  "><strong><%= number_with_delimiter(@beautyclass.price, :delimiter => ',') %></strong>&nbsp;<small>won</small></div>
+							<div class="right" style="color:#333; "><span class="right" style="font-size:30px; color:#666; font-family:'Nanum Gothic';  "><strong><%= number_with_delimiter(@beautyclass.price, :delimiter => ',') %></strong>&nbsp;<small>won</small>
+							</div>
 						<% end %>
 					</div>
 					<div class="small-12 columns">
-						<% if user_signed_in? && @check.present? && @checkout.present? %>
-							<% case @checkout.status.name
-							when "Register"
-								btn_msg = "이미 신청하신 클래스입니다. 확인하여 연락드립니다."
-							when "Register confirmed"
-								btn_msg = "등록이 확인되었습니다. 입금을 부탁드립니다."
-							when "Bill received"
-								btn_msg = "입급이 확인되었습니다."
-							when "Payment confirmed"
-								btn_msg = "등록이 확인되었습니다."							
-							end
-							%>
-							<a class="button secondary expand" ><%= "#{btn_msg} [#{@checkout.status.name}]" %></a>
-						<% else %>
-							<a href="#" data-reveal-id="modal-beautyclass-regist" class="button expand radius" ><strong>참여 신청서 작성</strong></a>
-						<% end %>
+						<%= render "checkout_status" %>
 					</div>
 				</div>
 			<% end %>
+
+		</div>
+
+
+		<div class="row" style="">
+			<div class="large-12 columns" style="margin:20px 0 0 0;">		
+
+				Comments(<%= @beautyclass.comments.count %>)
+				<%= render "comments/form"  %>    
+				<%= render "comments/comments" %>
+			</div>
 		</div>
 	</div>
 	<div class="small-12 medium-4 columns" > 
 		<div class="user-avatar "  style="margin:10px 0 0 0; height:44px;"> 
 			<h6 class="subheader" style="font-size: 0.8em;">
 				<%= render partial: 'users/avatar_thumb', locals: { user: @beautyclass.author } if @beautyclass.author.present? && @beautyclass.author.image.present? %>
-				<strong><%= @beautyclass.author.profile.try(:fullname) %><%= "BEAUTYMEETS" if @beautyclass.author.has_role? :admin %></strong>
-				<%= @beautyclass.author.profile.try(:job_title) %><%= "뷰티밋츠" if @beautyclass.author.has_role? :admin %>
+				<strong><%= link_to (@beautyclass.author.has_role? :admin) ? "BEAUTYMEETS " : @beautyclass.author.try(:name), beautystar_path(@beautyclass.author) %></strong>
+				<%= (@beautyclass.author.has_role? :admin) ? "| 뷰티밋츠" : " | #{@beautyclass.author.profile.try(:job_title)}" %>
 			</h6>	
 		</div>
-		<div class="beautyclass-show-description" style=" color:#666; margin:20px 0 0 0 ;">
+		<div  style=" color:#666; margin:20px 0 0 0 ;">
 			<%= simple_format(truncate(@beautyclass.author.profile.try(:introduction), 200)) %>
 		</div>
-		<% if !@beautyclass.closed?  %>
-		<ul class="pricing-table show-for-small ">
-		  <li class="title"><%= @beautyclass.title %></li>
-		  <li class="price"><%= "￦#{number_with_delimiter(@beautyclass.try(:price), :delimiter => ',')}" %></li>
-		  <li class="description "><%= truncate(strip_tags(@beautyclass.try(:description)), 40, '.. more') %></li>
-		  <li class="bullet-item"><span class="beautyclass-show-description"><%= @beautyclass.start_date.strftime("%Y.%m.%e") if @beautyclass.start_date.present? %>,<%= @beautyclass.start_date.strftime("%I:%M %p") if @beautyclass.start_date.present? %> ~ <%= @beautyclass.end_date.strftime("%I:%M %p") if @beautyclass.end_date.present? %></span></li>
-		  <li class="bullet-item beautyclass-show-description"><%= @beautyclass.try(:where) %></li>
-		  <li class="cta-button"><a href="#"  class="button secondary expand" ><%= "#{btn_msg} [#{@checkout.status.name}]" if user_signed_in? && @check.present? && @checkout.staus.present? %></a></li>
-		</ul>
-		<% end %>
+		
+		<%= render partial: "pricing_table" %>
 	</div>
 </div>
+
 <div id="modal-beautyclass-regist" class="reveal-modal medium"  data-reveal>	
-	<% if current_user.nil? %>
-	  	<%= render :template => "devise/sessions/new", locals: { resource: :user } %>
-	<% elsif @beautyclass.categories.first.present? && @beautyclass.categories.first.name == "스페셜 클래스" %>
-			<%= render :partial =>  "private_class_regist"  %>
+	<% if user_signed_in? %>
+		<% if @beautyclass.categories.first.present? && (@beautyclass.categories.first.name == "프라이빗 클래스") %>
+				<%= render :partial =>  "private_class_regist"  %>
+		<% elsif @beautyclass.categories.first.name != "프라이빗 클래스" %> 
+				<%= render :partial =>  "regular_class_regist"  %>
+		<% end %>
 	<% else %>
-			<%= render :partial =>  "regular_class_regist"  %>
+	  	<%= render :template => "devise/sessions/new", locals: { resource: :user } %>
 	<% end %>
 	<a class="close-reveal-modal">&#215;</a>
 </div>

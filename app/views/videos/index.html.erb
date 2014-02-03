@@ -33,7 +33,8 @@
 							<%= render @videos %>
   						</div>						
 					</div>
-					<div style="display:unvisible"><%= will_paginate @videos %></div>
 				<!-- </div>		-->
 			  </div>
 			</div>
+
+					<div class="pagination-centered"><%= will_paginate @videos, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %></div>

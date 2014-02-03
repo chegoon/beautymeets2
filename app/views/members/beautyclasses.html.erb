@@ -5,6 +5,9 @@
 	</div>
 	<div class="small- medium-9 columns" style="background:#FFF;">
 		<%= render 'sub_nav' %>
-		
+		<h3><%= @checkouts.count %> Beautyclasses you've taken.&nbsp;<small>View more <%= link_to "Beautyclasses.", beautyclasses_path %></small></h3> 
+		<% @checkouts.each do |co| %>
+			<%= render partial: 'beautyclasses/beautyclass', locals: { beautyclass: co.beautyclass } %>
+		<% end %>
 	</div>
 </div>

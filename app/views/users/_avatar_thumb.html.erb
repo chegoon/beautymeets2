@@ -1,0 +1,7 @@
+<% if user.has_role? :member %>
+	<%= link_to image_tag(user.image_url(:small), :class => "circular", :style => "width:40px; height:40px;"), member_path(user.profile) %>
+<% elsif user.has_role? :beautystar %>
+	<%= link_to image_tag(user.image_url(:small), :class => "circular", :style => "width:40px; height:40px;"), (user.has_role? :admin) ? "#" : beautystar_path(user.profile) %>
+<% else %>
+	<%= image_tag(user.image_url(:small), :class => "circular", :style => "width:40px; height:40px;") %>
+<% end %>

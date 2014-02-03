@@ -13,10 +13,8 @@ class Beautyclass < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  has_many :bookmarks, :as => :bookmarkable
-
   belongs_to :author, class_name: "User", :foreign_key => "user_id"
-  attr_accessible :price, :capacity, :description, :published, :closed, :title, :view_count, :picture_id, :tag_list, :category_ids, :location_attributes, :where, :picture_id, :location_name
+  attr_accessible :price, :capacity, :description, :published, :closed, :title, :view_count, :picture_id, :tag_list, :category_ids, :location_attributes, :where, :picture_id, :location_name, :review_url, :start_date, :end_date
 
 	has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
@@ -57,5 +55,20 @@ class Beautyclass < ActiveRecord::Base
 
   def location_name=(name)
     self.location = Location.find_or_create_by_name(name) if name.present?
+  end
+  
+  # Method for bookmark
+  def self.get_title(id)
+    #self.try(:name)
+    (find_by_slug(id) || find_by_id(id)).title
+  end
+
+  def self.get_description(id)
+    (find_by_slug(id) || find_by_id(id)).description
+  end
+  
+  def self.find_id_by_site_url(site_url)
+    url = site_url.split(%r{/})
+    (find_by_slug(url[2]) && find_by_slug(url[2]).id) || site_url.split(%r{/})[2]
   end
 end

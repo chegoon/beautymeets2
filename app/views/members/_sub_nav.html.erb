@@ -2,17 +2,19 @@
 		<div class="row">
 			<div class="small-12 columns show-for-small-only text-center" style="padding:20px 10px 10px 10px;" >
 				<img data-interchange="[<%= @member.user.image_url(:small) %>, (small)]">
-				<h1><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
+				<h1 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
 				<h5>Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
 			</div>
 		</div>
 		<div class="show-for-medium-up" >
-			<h1><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
-			<h5>Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
+			<h1 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
+			<h5 class="subheader">Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
 		</div>
 		<ul class="breadcrumbs">
-  		<li><a href="#">Profile</a></li>
-  		<li><a href="#">Notification</a></li>
-  		<li><a href="#">My Tutorial</a></li>
-  		<li><a href="#">My Beautyclass</a></li>
+  		<li><%= link_to "Profile", member_path(@member) %></li>
+  		<li><%= link_to "Notification", member_activities_path(@member) %></li>
+  		<li><%= link_to "My Bookmark", member_bookmarks_path(@member) %></li>
+  		<li><%= link_to "My Tutorial", member_tutorials_path(@member) %></li>
+  		<li><%= link_to "My Beautyclass", member_beautyclasses_path(@member) %></li>
   	</ul>	
+

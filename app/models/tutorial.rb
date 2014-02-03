@@ -12,8 +12,6 @@ class Tutorial < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
   
-  has_many :bookmarks, :as => :bookmarkable
-  
   belongs_to :author, class_name: "User", :foreign_key => "user_id"
   attr_accessible :desc, :published, :title, :view_count, :vimeo_url, :tag_list, :description, :category_ids, :picture_id, :item_name
 	
@@ -47,5 +45,20 @@ class Tutorial < ActiveRecord::Base
     else
       item = self.items.create(name: name)
     end
+  end
+
+  # Method for bookmark
+  def self.get_title(id)
+    #self.try(:name)
+    (find_by_slug(id) || find_by_id(id)).title
+  end
+
+  def self.get_description(id)
+    (find_by_slug(id) || find_by_id(id)).description
+  end
+  
+  def self.find_id_by_site_url(site_url)
+    url = site_url.split(%r{/})
+    (find_by_slug(url[2]) && find_by_slug(url[2]).id) || site_url.split(%r{/})[2]
   end
 end

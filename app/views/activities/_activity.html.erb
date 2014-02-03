@@ -1,0 +1,6 @@
+<% if activity.present? && activity.owner.present? %>
+<div class="activity">
+  <h6><%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
+	<%= render_activity activity %></h6>
+</div>
+<% end %>

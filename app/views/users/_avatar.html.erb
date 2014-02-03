@@ -1,11 +1,11 @@
 <h6 class="subheader" style="font-size: 0.8em">
 	<strong>
 <% if user.has_role? :member %>
-	<%= link_to image_tag(user.image_url(:small), :class => "circular", :style => "width:40px; height:40px;"), member_path(user.profile) %>
+	<%= link_to image_tag(user.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), member_path(user.profile) %>
 	<%= link_to user.try(:name) %>
 <% elsif user.has_role? :beautystar %>
-	<%= link_to image_tag(user.image_url(:small), :class => "circular", :style => "width:40px; height:40px;"), beautystar_path(user.profile) %>
-	<%= link_to user.profile.try(:fullname) %>
+	<%= link_to image_tag(user.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), (user.has_role? :admin) ? "#" : beautystar_path(user.profile) %>
+	<%= link_to user.try(:name), (user.has_role? :admin) ? "#" : beautystar_path(user.profile) %>
 <% end %>
 </strong>
 </h6>

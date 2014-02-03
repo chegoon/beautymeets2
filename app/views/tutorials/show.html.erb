@@ -15,6 +15,7 @@
 	</div>
 	<div class="small-12 medium-8 columns">
       <h2 class="subheader"><%= best_in_place @tutorial, :title %></h2>
+      <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
       <h6 class="subheader ">
 				<% if @tutorial.categories.present? %>
 					<small>Category : </small>
@@ -24,10 +25,10 @@
 				<% end %>
 			</h6>
       <div class="text-right"><%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %></div>
-      <div><%= link_to image_tag(@tutorial.author.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), beautystar_path(@tutorial.author.profile) if @tutorial.author.present? %> <strong><%= link_to @tutorial.author.profile.try(:fullname), beautystar_path(@tutorial.author.profile) %><%= "BEAUTYMEETS" if (@tutorial.author.has_role? :admin) %></strong>&nbsp;<small><%= @tutorial.author.profile.try(:job_title) %></small>
+      <div><%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>
+              &nbsp;<span class="group_name" ><strong><%=  link_to @tutorial.author.try(:name), beautystar_path(@tutorial.author.profile) %></strong>&nbsp;<small><%= " | #{@tutorial.author.profile.try(:job_title)}" %></small></span>
       </div>
       
-
 			<p><%= @tutorial.description %></p>
     	<p>
     		<% @tutorial.tag_list.each do |t| %>
@@ -52,7 +53,7 @@
 <div class="row" style="">
 	<div class="small-12 columns " >
 		<h5>다른 이미지</h5>
-		<%= render 'pictures/gallery' %>
+		<%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
 		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
 	</div>
 </div>
@@ -98,15 +99,28 @@
 
 			<% end %>
 			<% end %>
-		<hr>
-	</div>
-</div>
+		</div>
 
-<div class="row" style="">
-	<div class="large-12 columns" style="margin:20px 0 0 0;">		
-
+<div class="row" style="margin:2.5rem 0 0 0;">
+	<div class="small-12 medium-8 columns">		
+		<h3 class="subheader"><%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>&nbsp;Q&A&nbsp;<small><%= @tutorial.author.name %>님에게 궁금한 질문을 남겨주세요.</small>
+		</h3>
 		Comments(<%= @tutorial.comments.count %>)
 		<%= render "comments/form"  %>    
 		<%= render "comments/comments" %>
+	</div>
+</div>
+<div class="row" style="margin-bottom:5rem;">
+	<div class="small-12 medium-12 columns">		
+		<h3>추천 영상 보기&nbsp;<small><%= @tutorial.title %>과 함께 보면 좋은 영상들</small></h3>
+		<hr>
+		<h4>튜토리얼&nbsp;<small>뷰티밋츠가 직접 제작한 리얼 뷰티 튜토리얼입니다.</small></h4>
+			<div class="row" style="">
+				<%= render @tutorials %>
+			</div>
+		<h4>비디오&nbsp;<small>뷰티밋츠가 엄선한 뷰티 비디</small></h4>
+			<div class="row" style="">
+				<%= render @videos %>
+			</div>
 	</div>
 </div>

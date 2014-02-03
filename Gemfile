@@ -37,6 +37,7 @@ gem 'public_activity'
 # Will paginate for pagniation
 gem 'will_paginate', '3.0.5'
 #gem "kaminari", '0.14.1'
+gem  'will_paginate-foundation'
 
 # Gem for Perma link
 gem "friendly_id", "~> 4.0.10"

@@ -1,0 +1,26 @@
+
+<% if user_signed_in? && @checkouts.present? %>
+	<% @checkouts.each do |checkout| %>
+		<% 
+		case checkout.status.name
+		when "Register"
+			btn_msg = "이미 신청하신 클래스입니다. 확인하여 연락드립니다."
+		when "Register confirmed"
+			btn_msg = "등록이 확인되었습니다. 입금을 부탁드립니다."
+		when "Bill received"
+			btn_msg = "입급이 확인되었습니다."
+		when "Payment confirmed"
+			btn_msg = "등록이 확인되었습니다."	
+		when "Attended successfully"
+			btn_msg = "클래스를 성공적으로 참가하셨습니다. "							
+		end
+		%>
+		<a class="button secondary expand" ><%= "#{btn_msg}" %></a>
+	<% end %>
+	<% if (@checkouts.find_by_checkout_status_id(CheckoutStatus.find_by_name("Attended successfully").try(:id)).present?) && (@beautyclass.categories.first.name == "프라이빗 클래스") %>
+		그렇다면 다시 한번 더 들어보는 건 어떨까요?
+		<a href="#" data-reveal-id="modal-beautyclass-regist" class="button expand radius" ><strong>참여 신청서 작성</strong></a>
+	<% end %>							
+<% else %>
+	<a href="#" data-reveal-id="modal-beautyclass-regist" class="button expand radius" ><strong>참여 신청서 작성</strong></a>
+<% end %>

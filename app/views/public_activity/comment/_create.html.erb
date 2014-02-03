@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="small-12  columns ">
 		<%= image_tag activity.owner.image_url(:small), :class => "circular", :style => "width:40px; height:40px;" if activity.owner.present? %>
-		<%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
+		<%= activity.owner.name || activity.owner.email if activity.owner %>
 		<% if activity.trackable %>
 		님이
 			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video") %>

@@ -17,8 +17,8 @@ class Comment < ActiveRecord::Base
   attr_accessible :commentable, :body, :user_id
 
   # NOTE: Comments belong to a user
-  belongs_to :user
-
+  belongs_to :author, class_name: "User", :foreign_key => "user_id"
+  
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme

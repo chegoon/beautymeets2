@@ -10,27 +10,29 @@ class TutorialsController < InheritedResources::Base
   # GET /tutorials
   # GET /tutorials.json
   def index
+    cards_per_page = 12
+
     if (params[:cond].present?) && (params[:cond] == "uncategorized")
         #tutorials_categorized = Tutorial.where("id NOT in (?)", TutorialCategory.select("id")  )
         #tutorial_categorized_ids = Tutorial.joins(:tutorial_categorizations)
         #@tutorials = Tutorial.joins(:tutorial_categories).where("tutorials.id NOT in (?)", tutorial_categorized_ids.map(&:id)).page(params[:page]).per_page(10)
       if params[:tag]
-        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).tagged_with(params[:tag]).order("creatd_at DESC").page(params[:page]).per_page(21)
+        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).tagged_with(params[:tag]).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)
       else
-        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(21)
+        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)
       end        
 
     elsif (params[:order].present?) && (params[:order] == "popular")
       if params[:tag]
-        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(21)
+        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
       else
-        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(21)
+        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
       end
     else      
       if params[:tag]
-        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(21)
+        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
       else
-        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(21)
+        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(cards_per_page)
       end
     end
     @categories = Tutorial.joins(:categories).where("parent_id IS NULL ").all
@@ -52,6 +54,9 @@ class TutorialsController < InheritedResources::Base
     @itemizable = @tutorial
     @items = @itemizable.items
     @item = Item.new
+
+    @tutorials = Tutorial.all.last(3)
+    @videos = Video.all.last(4)
 
     if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
       @tutorial.increment_view_count 

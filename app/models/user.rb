@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
 	  self.username = u_name if u_name.present?
 	end
 
+# The below method was used before authentication model created
+=begin
 	def self.from_omniauth(auth)
 		where(auth.slice(:provider, :uid)).first_or_create do |user|
 			user.provider = auth.provider
@@ -40,6 +42,7 @@ class User < ActiveRecord::Base
 			user.username = auth.info.name
 		end
 	end
+=end
 
 	def apply_omniauth(omniauth)
 		self.email = omniauth['info']['email'] if email.blank?
@@ -78,7 +81,12 @@ class User < ActiveRecord::Base
 	    super
 	  end
 	end
-	
+
+	def facebook
+		fb_auth = self.authentications.where(provider: "facebook").last
+	  @facebook ||= Koala::Facebook::API.new(fb_auth.oauth_token)
+	end
+
 	# Not to send confirmation mail even if confirmable
 	protected
 	def confirmation_required?

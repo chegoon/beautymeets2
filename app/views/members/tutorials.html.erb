@@ -5,6 +5,7 @@
 	</div>
 	<div class="small- medium-9 columns" style="background:#FFF;">
 		<%= render 'sub_nav' %>
-		
+		<h3><%= @tutorials.count %> Tutorials you've seen.&nbsp;<small>View more <%= link_to "Tutorials.", tutorials_path %></small></h3> 
+		<%= render @tutorials %>
 	</div>
 </div>

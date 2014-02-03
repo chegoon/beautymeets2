@@ -5,8 +5,9 @@
 		<% end %>
 		<ul class="side-nav">
 		  <li class="active"><a href="#">Profile</a></li>
-		  <li><%= link_to "Notification", activities_path %></a></li>
+		  <li><%= link_to "Notification", member_activities_path(@member) %></a></li>
 		  <li class="divider"></li>
-		  <li><%= link_to "My Tutorial", member_tutorial_path(@member) %></li>
-		  <li><%= link_to "My Beautyclass", member_beautyclass_path(@member) %></li>
+		  <li><%= link_to "My Bookmark", member_bookmarks_path(@member) %></li>
+		  <li><%= link_to "My Tutorial", member_tutorials_path(@member) %></li>
+		  <li><%= link_to "My Beautyclass", member_beautyclasses_path(@member) %></li>
 		</ul>

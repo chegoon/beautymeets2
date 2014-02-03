@@ -14,7 +14,8 @@ class VideosController < InheritedResources::Base
         end
       else
         if user_signed_in?
-          @videos = Video.where("published=TRUE").order("view_count DESC").unread_by(current_user).page(params[:page]).per_page(20)
+          #@videos = Video.where("published=TRUE").order("view_count DESC").unread_by(current_user).page(params[:page]).per_page(20)
+          @videos = Video.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(20)
         else
           @videos = Video.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(20)
         end
@@ -28,7 +29,8 @@ class VideosController < InheritedResources::Base
         end
       else
         if user_signed_in?
-          @videos = Video.where("published=TRUE").order("created_at DESC").unread_by(current_user).page(params[:page]).per_page(20)
+          #@videos = Video.where("published=TRUE").order("created_at DESC").unread_by(current_user).page(params[:page]).per_page(20)
+          @videos = Video.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(20)
         else
           @videos = Video.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(20)
         end
@@ -54,6 +56,8 @@ class VideosController < InheritedResources::Base
     @commentable = @video
     @comments = @commentable.root_comments.order("created_at ASC")
     
+    @tutorials = Tutorial.all.last(3)
+
     if user_signed_in?
       @comment = Comment.build_from(@commentable, current_user.id, "") 
       @video.mark_as_read! :for => current_user

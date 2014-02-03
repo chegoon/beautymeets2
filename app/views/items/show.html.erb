@@ -18,15 +18,17 @@
   <div class="small-12 medium-8 columns" >
 
           <h2 style=" letter-spacing:-1px;"><%= @item.name %></h2>
+          <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
           <div style="color: #666; margin-top:20px; font-size:14px;"><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %>
               <% @item.tag_list.each do |t| %>
               <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
               <% end %>
 
           </div>  
+
           <div>
             <h4 class="subheader"><small>다른 이미지</small></h4>
-            <%= render 'pictures/gallery' %>
+            <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
           </div>
 
 
@@ -43,17 +45,21 @@
       <hr>
   </div>
 </div>
-
-Comments(<%= @item.comments.count %>)
-<%= render "comments/form"  %>    
-<%= render "comments/comments" %>
+<div class="row" style="">
+  <div class="small-12 medium-8 columns " >
+        
+    Comments(<%= @item.comments.count %>)
+    <%= render "comments/form"  %>    
+    <%= render "comments/comments" %>
+  </div>
+</div>
 
 <div class="row" style="">
   <div class="small-12 medium-8 columns">   
 
 
     <div id="tutorial-card-group">
-    <h6 class="subheader"><strong><%= @item.name %>&nbsp;이 사용된 튜토리얼</strong></h6>
+    <h5 class="subheader"><strong><%= @item.name %>&nbsp;이(가) 사용된 튜토리얼</strong></h5>
 
     <%= render partial: "tutorials/tutorials" %>
 
@@ -61,7 +67,7 @@ Comments(<%= @item.comments.count %>)
     </div>
 
   <div class="small-12 medium-4 columns">   
-    <h6 class="subheader" style="line-height:101%;"><strong><%= @item.name %>과 함께 사용하면 좋은 제품</strong></h6>
+    <h5 class="subheader" style="line-height:101%;"><strong><%= @item.name %>과(와)<br/> 함께 사용하면 좋은 제품</strong></h5>
     <h5 class="subheader right" style="line-height:100%;"><small><%= @item.name %>이 사용된 영상들 중에 가장 조회수가 높은 튜토리얼에 사용된 화장품입니다.</small></h5>
     <%= render partial: "items" %>
   </div>

@@ -21,6 +21,8 @@
 //= require gmaps/google
 //= require jquery_nested_form
 //= require sticky_footer.js
+//= require jquery.fullpage.min.js
+//= require jquery.slimscroll.min.js
 
 $(function(){ $(document).foundation(); });
 
@@ -40,16 +42,21 @@ $(function() {
 // The function for toggle bookmark
 function swapBookmarkImage()
 {
-    var origSrc = jQuery("img#bookmark_star").attr('src');
+    //$('#bookmark_star').toggleClass('fa-star fa-star-o');
+
+    var oriI = jQuery("#bookmark_star i");
+    var oriMsg = jQuery("#bookmark_star span");
+    //oriI.toggleClass('fa-star fa-star-o');
 
     // Change the image src toggle based on the current image
-    if ( origSrc == '/images/star_bookmark_disabled.png' ) {
-        var newSrc = '/images/star_bookmark_enabled.png';
+    if (oriI.hasClass("fa-star")) {
+        oriI.removeClass("fa-star")
+        oriI.addClass("fa-star-o")
+        oriMsg.text("Unstarred");
     }
     else {
-        var newSrc = '/images/star_bookmark_disabled.png';
+        oriI.removeClass("fa-star-o")
+        oriI.addClass("fa-star")
+        oriMsg.text("Starred");
     };
-    
-    // Swap out the image
-    jQuery("img#bookmark_star").attr('src', newSrc);
 }

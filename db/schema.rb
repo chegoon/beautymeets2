@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140118073232) do
+ActiveRecord::Schema.define(:version => 20140123090203) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
     t.integer  "price"
     t.integer  "location_id"
     t.integer  "picture_id"
+    t.string   "entry_code"
+    t.string   "image"
   end
 
   add_index "beautyclasses", ["location_id"], :name => "index_beautyclasses_on_location_id"
@@ -108,9 +110,16 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "slug"
+    t.string   "image"
   end
 
   add_index "beautystars", ["slug"], :name => "index_beautystars_on_slug"
+
+  create_table "bookmark_types", :force => true do |t|
+    t.string   "model"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -119,7 +128,11 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
     t.text     "note"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "model_id"
+    t.integer  "model_type_id"
   end
+
+  add_index "bookmarks", ["model_id", "model_type_id"], :name => "index_bookmarks_on_model_id_and_model_type_id"
 
   create_table "brands", :force => true do |t|
     t.integer  "company_id"
@@ -172,6 +185,10 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
     t.datetime "updated_at",         :null => false
     t.string   "buyer_name"
     t.string   "buyer_tel"
+    t.string   "request_note"
+    t.datetime "private_start_date"
+    t.datetime "private_end_date"
+    t.integer  "private_seat"
   end
 
   add_index "checkouts", ["beautyclass_id"], :name => "index_checkouts_on_beautyclass_id"
@@ -257,12 +274,13 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
   create_table "items", :force => true do |t|
     t.integer  "brand_id"
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.integer  "view_count"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "slug"
     t.integer  "picture_id"
+    t.string   "image"
   end
 
   add_index "items", ["brand_id"], :name => "index_items_on_brand_id"
@@ -412,7 +430,6 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
 
   create_table "tutorials", :force => true do |t|
     t.string   "title"
-    t.text     "desc"
     t.string   "vimeo_url"
     t.integer  "user_id"
     t.integer  "view_count"
@@ -423,6 +440,7 @@ ActiveRecord::Schema.define(:version => 20140118073232) do
     t.string   "slug"
     t.integer  "duration"
     t.integer  "picture_id"
+    t.string   "image"
   end
 
   add_index "tutorials", ["picture_id"], :name => "index_tutorials_on_picture_id"

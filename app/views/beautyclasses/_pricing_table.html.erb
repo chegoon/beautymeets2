@@ -1,0 +1,49 @@
+<% if !@beautyclass.closed?  %>
+		<ul class="pricing-table show-for-small ">
+		  <li class="title"><%= @beautyclass.title %>
+		  </li>
+		  <li class="description ">
+		  	<h6 class="subheader" style="font-size: 0.8em;">
+					<%= render partial: 'users/avatar_thumb', locals: { user: @beautyclass.author } if @beautyclass.author.present? && @beautyclass.author.image.present? %>
+					<strong><%= (@beautyclass.author.has_role? :admin) ? "BEAUTYMEETS " : @beautyclass.author.try(:name) %></strong>
+					<%= (@beautyclass.author.has_role? :admin) ? "| 뷰티밋츠" : " | #{@beautyclass.author.profile.try(:job_title)}" %>
+				</h6>	
+		  </li>
+		  <% if !@beautyclass.categories.first.name == "프라이빗 클래스" %>
+		  	<li class="price"><%= "#{number_with_delimiter(@beautyclass.try(:price), :delimiter => ',')} won" %>
+		  	</li>
+		  	<li class="bullet-item">
+		  		<span class="beautyclass-show-description"><%= @beautyclass.start_date.strftime("%Y.%m.%e") if @beautyclass.start_date.present? %>,<%= @beautyclass.start_date.strftime("%I:%M %p") if @beautyclass.start_date.present? %> ~ <%= @beautyclass.end_date.strftime("%I:%M %p") if @beautyclass.end_date.present? %></span>
+		  	</li>
+		  <% end %>
+		  <li class="description "><%= truncate(strip_tags(@beautyclass.try(:description)), 40, '.. more') %>
+		  </li>
+		  
+		  <li class="bullet-item beautyclass-show-description"><i class="fa fa-map-marker"></i> <%= @beautyclass.try(:where) %>
+		  </li>
+		  <li class="cta-button">
+		  	<% if user_signed_in? && @checkouts.present? %>
+							<% @checkouts.each do |checkout| %>
+								<% 
+								case checkout.status.name
+								when "Register"
+									btn_msg = "이미 신청하신 클래스입니다. 확인하여 연락드립니다."
+								when "Register confirmed"
+									btn_msg = "등록이 확인되었습니다. 입금을 부탁드립니다."
+								when "Bill received"
+									btn_msg = "입급이 확인되었습니다."
+								when "Payment confirmed"
+									btn_msg = "등록이 확인되었습니다."							
+								end
+								%>
+								<a class="button secondary expand" ><%= "#{btn_msg} [#{checkout.status.name}]" %></a>
+							<% end %>
+							<% if @beautyclass.categories.first.name == "프라이빗 클래스" %>
+								<a href="#" data-reveal-id="modal-beautyclass-regist" class="button expand radius" ><strong>참여 신청서 작성</strong></a>
+							<% end %>							
+						<% else %>
+							<a href="#" data-reveal-id="modal-beautyclass-regist" class="button expand radius" ><strong>참여 신청서 작성</strong></a>
+						<% end %>
+		  </li>
+		</ul>
+		<% end %>

@@ -48,7 +48,9 @@ class BeautyclassesController < InheritedResources::Base
 			@comment = Comment.build_from(@commentable, current_user.id, "") 
 			
 			if current_user.checkouts.present?
-				@checkout = current_user.checkouts.find_by_beautyclass_id(@beautyclass.id)
+				# 프라이빗 클래스는 다시 신청할 수 있으므로 쿼리 조건 변경
+				#@checkout = current_user.checkouts.find_by_beautyclass_id(@beautyclass.id)
+				@checkouts = current_user.checkouts.where(beautyclass_id: @beautyclass.id)
 			end
 		else
 			@comment = Comment.new
@@ -91,7 +93,7 @@ class BeautyclassesController < InheritedResources::Base
 
   def update
     super
-    @beautyclass.create_activity :create, owner: @beautyclass.author if @beautyclass.published?
+    @beautyclass.create_activity :create, owner: @beautyclass.author if @beautyclass.published? && Activity.where("trackable_id = ?  AND trackable_type = 'Beautyclass' AND owner_id = ? AND owner_type = 'User'", @beautyclass.id, @beautyclass.author).nil?
   end
 
 

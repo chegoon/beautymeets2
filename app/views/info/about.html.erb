@@ -1,2 +1,55 @@
-<h1>Info#about</h1>
-<p>Find me in app/views/info/about.html.erb</p>
+<div class="section active" id="section0">
+	<h2 class="subheader">Discover, Learn, and Be Beautiful!</h2>
+</div>
+
+<div class="section" id="section1">
+			<h2>WHAT IS <strong>BEAUTYMEETS</strong>?</h2>
+				뷰티밋츠에서는 메이크업을 더 쉽고 재미있게 배울 수 있습니다. 			
+</div>
+
+<div class="section" id="section2">
+    <div class="slide active">
+    	<h2>어떻게?</h2>
+    	<h6>(슬라이드를 넘겨보세요)</h6>
+    </div>
+    <div class="slide ">
+    	<h2>Lots of <strong>Experts</strong></h2>
+			대한민국에 내놓으라 하는 아티스트들이 모두 모였습니다.<br/>
+			온라인에 그 유명한 뷰티블로거들도 모였습니다.<br/>
+			이제는 그들을 만날시간입니다.
+    </div>
+    <div class="slide">
+    	<h2>Real <strong>Tutorials</strong></h2>
+			글로만 배운 화장은 이제 안녕, 케이블 TV에서만 보던 현실감 떨어지는 화장도 이제 안녕~.<br/>
+			전문적이고도 필요한 스킬들을 온라인에서 쉽고 상세하게 배우세요.
+    </div>
+    <div class="slide">
+    	<h2>Even <strong>Beautyclass</strong></h2>
+			온라인만으로는 부족하시다구요? <br/>
+			여기 오프라인 뷰티클래스가 있습니다.<br/>
+			같은 고민들을 가진 친구들과 함께 오프라인 메이크업 클래스에서 나에게 맞는 화장법을 배우세요.
+    </div>
+</div>
+<div class="section" id="section3">
+	<h2>CONTACT</h2>			
+		<p style="margin-bottom:2rem;">
+			<%= link_to '<i class="fa fa-rss-square fa-2x fa-fw"></i>'.html_safe, "http://blog.BEAUTYMEETS.com" %>
+			&nbsp;<%= link_to '<i class="fa fa-facebook-square fa-2x fa-fw"></i>'.html_safe, "http://facebook.com/BEAUTYMEETS.page" %>
+			&nbsp;<%= link_to '<i class="fa fa-twitter-square fa-2x fa-fw"></i>'.html_safe, "http://twitter.com/BEAUTYMEETS" %>
+		</p>
+		<i class="fa fa-envelope-o fa-fw"></i>&nbsp;제휴 및 문의 hellobeauty@reallplay.com		
+		</div>
+	</div>
+</div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>  
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.fn.fullpage({
+      slidesColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff'],
+				loopTop: true,
+				loopBottom: true
+    });
+	});
+</script>

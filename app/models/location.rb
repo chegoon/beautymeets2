@@ -7,8 +7,7 @@ class Location < ActiveRecord::Base
   friendly_id :name, use: :slugged
   
   geocoded_by :address
-  
-  
+
   attr_accessible :description, :gmaps, :latitude, :longitude, :name, :address, :shop_id
   
   has_many :beautyclasses
