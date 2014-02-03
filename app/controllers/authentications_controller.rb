@@ -22,6 +22,7 @@ class AuthenticationsController < ApplicationController
 		
 		if authentication
 			flash[:notice] = "Signed in successfully."
+			authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
 			sign_in_and_redirect(:user, authentication.user)
 			
 		# user logged in previously, and trying to login with new authentication
