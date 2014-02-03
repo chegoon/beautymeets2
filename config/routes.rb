@@ -2,7 +2,7 @@ Beautymeets2::Application.routes.draw do
 
   get 'bookmarks/toggle', to: "bookmarks#toggle"
 
-  match '/auth/:provider/callback' => 'authentications#create'
+  match '/users/auth/:provider/callback' => 'authentications#create'
   
   resources :authentications
 

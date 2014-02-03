@@ -9,6 +9,8 @@
 
 
     <%= f.button :submit, "Sign in", :class => "" %> 
+    <%= link_to "Sign in with FB", user_omniauth_authorize_path(:facebook), :class => "button secondary " %>
+    <%= link_to "Sign in with TW", user_omniauth_authorize_path(:twitter), :class => "button secondary " %>
     <%= link_to "Sign in with FB", "/auth/facebook", :class => "button secondary" %>
 
 <% end %>

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable #,:omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable#, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :image, :remote_image_url
@@ -45,11 +45,12 @@ class User < ActiveRecord::Base
 =end
 
 	def apply_omniauth(omniauth)
+		puts "omniauth : #{omniauth}"
 		self.email = omniauth['info']['email'] if email.blank?
 		self.username = omniauth['info']['name'] if username.blank?
-		self.remote_image_url = omniauth.info["image"] if remote_image_url.blank?
+		self.remote_image_url = omniauth['info']["image"] if remote_image_url.blank?
 		
-		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
+		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'], :oauth_token_secret => omniauth['credentials']['secret'])
 	end
 
 	def self.new_with_session(params, session)
@@ -64,9 +65,12 @@ class User < ActiveRecord::Base
 	end
 	
 	# if user regists through omniauth, user be able to pass email field
+=begin	
 	def email_required?
-	  super && provider.blank?
+	  (authentications.empty? || !email.blank?) && super
 	end
+=end
+
 
 	# if user regists through omniauth, user be able to pass password field
 	def password_required?
@@ -83,7 +87,7 @@ class User < ActiveRecord::Base
 	end
 
 	def facebook
-		fb_auth = self.authentications.where(provider: "facebook").last
+		fb_auth = self.authentications.find_by_provider("facebook")
 	  @facebook ||= Koala::Facebook::API.new(fb_auth.oauth_token)
 	end
 

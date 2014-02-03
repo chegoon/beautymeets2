@@ -1,5 +1,5 @@
 # encoding: utf-8
-class AuthenticationsController < InheritedResources::Base
+class AuthenticationsController < ApplicationController
 	# GET /authentications
 	# GET /authentications.json
 	def index
@@ -16,28 +16,36 @@ class AuthenticationsController < InheritedResources::Base
 	# POST /authentications
 	# POST /authentications.json
 	def create
-		
+
 		omniauth = request.env["omniauth.auth"]
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-
+		
 		if authentication
 			flash[:notice] = "Signed in successfully."
 			sign_in_and_redirect(:user, authentication.user)
 			
+		# user logged in previously, and trying to login with new authentication
+		# guide user to select among login authentications"
 		elsif current_user
-			puts "user logged previously, and trying to login with new authentication"
-			puts "guide user to select among login authentications"
-			current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'])
-			flash[:notice] = "Authentication successful."
-			redirect_to authentications_url
+			puts "user logged in previously, and trying to login with new authentication"
 
+			oauth_token = omniauth['credentials']['token']
+ 			oauth_token_secret = omniauth['credentials']['secret']
+ 
+			current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+			flash[:notice] = "Authentication successful."
+			redirect_to current_user
+
+		# brand new user
 		else
-			puts  "brand new user."
+			puts "brand new user"
 			user = User.new
+			# in case of facebook authentication, the below code might be needed
+ 			# user.email = omniauth['extra']['raw_info'].email
 			user.apply_omniauth(omniauth)
 
 			if user.save
-	      UserMailer.welcome(user).deliver
+	      #UserMailer.welcome(user).deliver
 	      user.profile = Member.create!
 	      user.add_role :member
 				user.save

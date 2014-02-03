@@ -15,8 +15,10 @@ class RegistrationsController < Devise::RegistrationsController
 =end
 
   def create
+    
     build_resource(sign_up_params)
-
+    session[:omniauth] = nil unless @user.new_record? 
+    
     if resource.save
      
       resource.profile = Member.create!
@@ -39,7 +41,7 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       respond_with resource
     end
-    session[:omniauth] = nil unless @user.new_record? 
+    
   end
 
   def update
