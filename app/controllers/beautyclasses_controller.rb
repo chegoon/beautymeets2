@@ -20,11 +20,7 @@ class BeautyclassesController < InheritedResources::Base
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def resource_class
-    @devise_mapping.to
-  end
-
-  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+  helper_method :resource_name, :resource, :devise_mapping
 
 	def index
 
