@@ -23,6 +23,8 @@
 //= require sticky_footer.js
 //= require jquery.fullpage.min.js
 //= require jquery.slimscroll.min.js
+//= require bootstrap-datetimepicker
+//= require_tree ../../../vendor/assets/javascripts/.
 
 $(function(){ $(document).foundation(); });
 
@@ -60,3 +62,12 @@ function swapBookmarkImage()
         oriMsg.text("Starred");
     };
 }
+
+$("#container").mason({
+    itemSelector: ".box",
+    ratio: 1.5,
+    sizes: [
+        [1,1],
+        [2,2]
+    ]
+});

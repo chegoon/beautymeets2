@@ -101,12 +101,15 @@
 			<% end %>
 		</div>
 
+    <div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    <div class="fb-share-button" data-href="<%= tutorial_url(@tutorial) %>" data-type="button_count"></div>
+
 <div class="row" style="margin:2.5rem 0 0 0;">
 	<div class="small-12 medium-8 columns">		
 		<h3 class="subheader"><%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>&nbsp;Q&A&nbsp;<small><%= @tutorial.author.name %>님에게 궁금한 질문을 남겨주세요.</small>
 		</h3>
 		Comments(<%= @tutorial.comments.count %>)
-		<%= render "comments/form"  %>    
+		<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대한 질문들을 남겨주세요." }    %>    
 		<%= render "comments/comments" %>
 	</div>
 </div>
@@ -118,7 +121,7 @@
 			<div class="row" style="">
 				<%= render @tutorials %>
 			</div>
-		<h4>비디오&nbsp;<small>뷰티밋츠가 엄선한 뷰티 비디</small></h4>
+		<h4>비디오&nbsp;<small>뷰티밋츠가 엄선한 뷰티 비디오입니다.</small></h4>
 			<div class="row" style="">
 				<%= render @videos %>
 			</div>

@@ -1,25 +1,23 @@
-<h1>Listing brands</h1>
+<h2 class="subheader text-center" style="margin:20px;">Brands</h2>
 
 <table>
   <tr>
-    <th>Company</th>
     <th>Name</th>
     <th>Description</th>
-    <th>Image</th>
+    <th>Item count</th>
     <th>View count</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @brands.each do |brand| %>
   <tr>
-    <td><%= brand.company %></td>
-    <td><%= brand.name %></td>
+    <td><%= image_tag brand.thumbnail.image_url(:very_small) if brand.thumbnail %><%= brand.company %>
+        <%= link_to brand.name, brand_path(brand) %>
+    </td>
     <td><%= brand.description %></td>
-    <td><%= brand.image %></td>
+    <td><%= brand.items.count %></td>
     <td><%= brand.view_count %></td>
-    <td><%= link_to 'Show', brand %></td>
     <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
     <td><%= link_to 'Destroy', brand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

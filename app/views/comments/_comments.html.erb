@@ -1,23 +1,21 @@
 <% if @comments.present? %>
-<div id="comments">
+<div id="comments" >
 	<% @comments.each do |comment| %>
-	<div class="row comment">
+	<div class="panel"  style="background:#FFF; border:0; padding:0.8rem;">
+	<div class="row comment" >
 		<div class="small-12 medium-12 columns">
 			<h6 class="subheader">
-				<%= render partial: 'users/avatar_thumb', locals: { user: comment.author } if comment.author.present? && comment.author.image.present? %><strong><%= comment.author.name || comment.author.email %></strong> :</h6>
+				<%= render partial: 'users/avatar_thumb', locals: { user: comment.author } if comment.author.present? && comment.author.image.present? %>
+				<strong><%= comment.author.try(:name) || comment.author.try(:email) %></strong> :
+			</h6>
 		</div>
-	</div>
-	<div class="row comment">
-		<div class="small-11 small-offset-1 medium-10 medium-offset-2 columns">
-			<div class="row">
-				<div class="large-12 columns">					
-					<div style="height:auto;">
-						<%=  comment.body %>
-						<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete  if can? :author, comment %>
-						<span class="right" style="color:#CCC; font-size:0.8rem;"><%= time_ago_in_words(comment.created_at) %> ago</span>
-					</div>
-				</div>
+		<div class="small-12 columns" style="padding-left:4rem;">
+			<div style="height:auto;">
+				<%=  comment.body %>
+				<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete  if can? :author, comment %>
+				<h5 class="right"><small><%= time_ago_in_words(comment.created_at) %> ago</small></h5>
 			</div>
+			<% if @commentable.reply_enabled %>
 			<% comment.children.each do |reply| %>
 				<div class="row" style="margin-bottom:5px;">
 					<div class="small-12 medium-12 columns">
@@ -27,7 +25,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="small-11 small-offset-1 medium-11 medium-offset-1 columns">
+					<div class="small-12 columns" style="padding-left:4rem;">
 						<%= reply.body %>
 						<%= link_to "&nbsp;X".html_safe, [@commentable, reply], confirm: 'Are you sure?', method: :delete  if can? :author, reply %>
 						
@@ -52,7 +50,9 @@
 				<% end %>
 				</div>
 			</div>
+			<% end %>
 		</div>
+	</div>
 	</div>
 	<% end %>
 </div>

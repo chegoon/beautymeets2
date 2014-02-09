@@ -8,6 +8,24 @@ class BeautyclassesController < InheritedResources::Base
   
   autocomplete :location, :name
 
+	def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  def resource_class
+    @devise_mapping.to
+  end
+
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
 	def index
 
 		if can? :manage, Beautyclass

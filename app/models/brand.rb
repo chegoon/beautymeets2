@@ -5,7 +5,7 @@ class Brand < ActiveRecord::Base
   friendly_id :name, use: :slugged
   
   belongs_to :company
-  attr_accessible :description, :name, :view_count, :image, :company_name
+  attr_accessible :description, :name, :view_count, :image, :company_name, :picture_id
   
   has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"

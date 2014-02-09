@@ -35,7 +35,7 @@ class AuthenticationsController < ApplicationController
  
 			current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 			flash[:notice] = "Authentication successful."
-			redirect_to current_user
+			redirect_to welcome_url
 
 		# brand new user
 		else

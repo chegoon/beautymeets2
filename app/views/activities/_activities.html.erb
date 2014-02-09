@@ -1,4 +1,5 @@
-
 		<% if @activities.present? %>
-			<%= render @activities %>
+			<% @activities.each do |activity| %>
+				<%= render partial: "activities/activity", locals: { activity: activity} %>
+			<% end %>
 		<% end %>

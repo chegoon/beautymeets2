@@ -36,10 +36,12 @@
     <!--[if gt IE 8]><!-->
       <%= stylesheet_link_tag "foundation4/normalize.css" %>
       <%= stylesheet_link_tag "foundation4/foundation.min.css" %>
+
     <!--<![endif]-->
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
+
     <%= csrf_meta_tags %>
 
     <style type="text/css">
@@ -100,7 +102,7 @@ h1{
             </div>
           <% end %>
             <div class="row" >
-              <div class="small-12 small-centered " >
+              <div class="small-12 small-centered columns" >
 
                   
                   <%= yield %>
@@ -134,5 +136,6 @@ h1{
             $(document).foundation();
         </script>
     <![endif]-->
+
   </body>
 </html>

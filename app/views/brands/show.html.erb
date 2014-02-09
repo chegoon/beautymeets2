@@ -27,19 +27,30 @@
           </div>
   </div>
 </div>
+<div class="row" style="">
+  <div class="small-12 columns " >
+    <%= render 'pictures/form' if (can? :manage, @brand)  %>
+  </div>
+</div>
 <div class="row" >
   <div class="small-12 large-12 columns"> 
     <hr>
   </div>
 </div>
 <div class="row" >
-  <div class="small-12 large-8 columns"> 
-    <h6 class="subheader"><strong><%= @brand.name %> 제품들이 사용된 튜토리얼</strong></h6>
-    <%= render 'tutorials/tutorials' %>
-  </div>
-  <div class="small-12 large-4 columns"> 
-    <h6 class="subheader"><strong>튜토리얼에서 사용된 <%= @brand.name %></strong> 제품</h6>
-    <%= render 'items/items' %>
+  <div class="small-12 columns"> 
+    <h5 class="subheader"><strong><%= @brand.name %></strong> 제품들이 사용된 튜토리얼(<%= @items.count %>)</h5>
+    <% @items.each do |item| %>
+      <% @tutorials = item.tutorials.order("view_count DESC") %>
+      <div class="row">
+        <div class="small-12 columns">
+          <h6 class="subheader"><%= link_to image_tag(item.try(:thumbnail).image_url(:small), :class => "th", :style => "width:40px; height:40px;"), item_path(item) %>&nbsp;<strong><%= link_to item.name, item_path(item) %></strong>(<%= @tutorials.count %>)
+          </h6>
+          
+          <%= render partial: @tutorials %>
+        </div>
+      </div>
+    <% end %>    
   </div>
 </div>
 

@@ -32,14 +32,17 @@
 				      <iframe id='<%= "video-#{@video.id}" %>' width="100%" height="280px;" src="<%= @video.video_url %>" frameborder="0" allowfullscreen></iframe>	      
 				    </div>
 				    <hr>
-				    <i class="fa fa-youtube fa-lg fa-fw"></i><span style="color:#666; "><small><%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %></small></span>&nbsp;<a href='<%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %>'><i class="fa fa-external-link-square"></i></a>
+				    <i class="fa fa-youtube fa-lg fa-fw"></i><span style="color:#666; "><small><%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %></small></span>
+
+				    &nbsp;<a href='<%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %>'><i class="fa fa-external-link-square"></i></a>
 				    <p><small>영상이 재생되지 않을 경우, 영상 내 우측하단의 <strong>전체 화면 아이콘</strong>을 클릭 해주세요 :)</small></p>
 						<% if @video.tag_list.present? %>
 				    Tags: 
 				    	<% @video.tag_list.each do |t| %>
 				    	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
 				    	<% end %>
-						<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    				<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    				<div class="fb-share-button" data-href="<%= video_url(@video) %>" data-type="button_count"></div>
 						<% end %>
 						<dl class=" accordion" data-accordion >
 							<dd >
@@ -49,15 +52,6 @@
 								</div>
 							</dd>
 						</dl>
-				</div>
-			</div>
-			<div class="row" style="margin:2.5rem 0 0 0;">
-				<div class="small-12 medium-10 medium-centered columns">		
-					<h3 class="subheader">Q&A&nbsp;<small>다양한 궁금증은 이곳에 남겨주세요.</small>
-					</h3>
-					Comments(<%= @video.comments.count %>)
-					<%= render "comments/form"  %>    
-					<%= render "comments/comments" %>
 				</div>
 			</div>
 			<div class="row" >

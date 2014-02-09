@@ -34,26 +34,16 @@
 		</div>
 	</div>
 </div>
-
-<!-- BEAUTYSTAR Tag -->
-<div class="row " style="margin:0 auto; float:none; ">
-	<div class="large-12 columns">
-		<h4 class="subheader">함께하고 싶은 분들</h4>
-			<% @beautystar.tag_list.each do |t| %>
-				<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
-			<% end %>
-	</div>
-</div>
-<hr>
+<div class="fb-like" data-href="<%= beautystar_url(@beautystar) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-share-button" data-href="<%= beautystar_url(@beautystar) %>" data-type="button_count"></div>
 
 <!-- BEAUTYSTAR Portfolio -->
-
 <div class="row " style="margin:0 auto; float:none; ">
 	<div class="large-12 columns">	
 		<h4 class="subheader">BEAUTYSTAR Portfolio </h4>
 	</div>
 </div>
-<hr>
+<hr style="margin-top:0;">
 <!-- BEAUTYSTAR Portfolio -->
 <%= render 'pictures/portfolio' %>
 <%= render 'pictures/form' if (can? :manage, @beautystar)  %>
@@ -64,7 +54,7 @@
 		<h4 class="subheader">Tutorials</h4>
 	</div>
 </div>
-<hr>
+<hr style="margin-top:0;">
 <!-- BEAUTYSTAR Beautorials -->
 <%= render 'tutorials/tutorials' %>
 
@@ -73,6 +63,6 @@
 		<h4 class="subheader">Beautyclasses</h4>
 	</div>
 </div>
-<hr>
+<hr style="margin-top:0;">
 <!-- BEAUTYSTAR Beautyclass -->
 <%= render 'beautyclasses/beautyclasses' %>

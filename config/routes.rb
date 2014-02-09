@@ -1,5 +1,15 @@
 Beautymeets2::Application.routes.draw do
 
+  resources :events do
+    resources :pictures, :comments
+  end
+
+  match 'notifications' => 'activities'
+  
+  resources :boards do 
+    resources :pictures, :comments
+  end
+
   get 'bookmarks/toggle', to: "bookmarks#toggle"
 
   match '/users/auth/:provider/callback' => 'authentications#create'
@@ -69,7 +79,9 @@ Beautymeets2::Application.routes.draw do
 
   resources :categories 
   
-  resources :brands
+  resources :brands do
+    resources :pictures
+  end
 
   resources :companies
 

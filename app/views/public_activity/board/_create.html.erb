@@ -1,0 +1,18 @@
+<% if activity.trackable %>
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to activity.trackable.title, activity.trackable %> 새글이 게시되었습니다.
+    
+  </div>
+</div>
+<div class="row">
+  <div class="small-10 small-offset-1 columns">
+    <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small)), tutorial_path(activity.trackable) %>
+    구경하러 가기 | 공유하기
+      <div class="text-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></div>
+    </div>
+  </div>
+
+	
+<% end %>
+

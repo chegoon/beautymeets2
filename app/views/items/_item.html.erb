@@ -1,0 +1,7 @@
+
+					<div class="small-6 medium-3 large-12 columns" style="margin-bottom:2.0rem;">
+						<div class="text-center" >
+						<%= link_to image_tag(item.thumbnail.image_url(:small)), item_path(item) if item.thumbnail.present? %><br/>
+						<span class="subheader" style="line-height:101%; width:auto; "><%= link_to truncate(item.name, 16), item_path(item) %></span>
+						</div>
+					</div>

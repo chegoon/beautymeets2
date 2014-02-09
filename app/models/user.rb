@@ -20,7 +20,10 @@ class User < ActiveRecord::Base
   has_many :checkouts
   has_many :bookmarks
 	has_many :authentications,  :dependent => :destroy
-
+	has_many :boards
+	
+	has_many :events, through: :event_entrys
+	has_many :event_entrys
   #validates :username, uniqueness: {case_sensitive: true}
 
   mount_uploader :image, ImageUploader
@@ -53,6 +56,10 @@ class User < ActiveRecord::Base
 		authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => omniauth['credentials']['token'], :oauth_token_secret => omniauth['credentials']['secret'])
 	end
 
+	# new_with_session is used in build_resource. 
+	# This is used with registerable (user regsitration forms). 
+	# This is only useful when your Facebook/Omniauth session already exists and you want to prefill your Registration form with some data from omniauth. 
+	# (assuming you didn't already create the account automatically on callback)
 	def self.new_with_session(params, session)
 	  if session["devise.user_attributes"]
 	    new(session["devise.user_attributes"], without_protection: true) do |user|
@@ -63,14 +70,6 @@ class User < ActiveRecord::Base
 	    super
 	  end    
 	end
-	
-	# if user regists through omniauth, user be able to pass email field
-=begin	
-	def email_required?
-	  (authentications.empty? || !email.blank?) && super
-	end
-=end
-
 
 	# if user regists through omniauth, user be able to pass password field
 	def password_required?

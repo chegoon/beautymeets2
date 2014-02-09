@@ -10,6 +10,7 @@
       <dd class="active"><a href="#panel2-1">Name</a></dd>
       <dd><a href="#panel2-2">Image</a></dd>
       <dd><a href="#panel2-3">Password</a></dd>
+      <dd><a href="#panel2-4">Membership out</a></dd>
     </dl>
     <div class="tabs-content">
       <div class="content active" id="panel2-1">
@@ -91,9 +92,11 @@
               <% if f.object.encrypted_password.present? %>
                 <%= f.password_field :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
               <% end %>
-
             <%= f.button :submit %>
         <% end %>
+      </div>
+      <div class="content" id="panel2-4">
+        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
       </div>
     </div>
   </div>

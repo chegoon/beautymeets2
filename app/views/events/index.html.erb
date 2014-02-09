@@ -1,0 +1,7 @@
+<h3 class="subheader text-center" style="margin:30px;">EVENTS</h3>
+
+
+<%= render @events %>
+<br />
+
+<%= link_to 'New Event', new_event_path if (can? :manage, Event) %>

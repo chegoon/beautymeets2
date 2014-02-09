@@ -90,6 +90,8 @@
 				</p>
 			<% end %>
 		</div>
+    <div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    <div class="fb-share-button" data-href="<%= beautyclass_url(@beautyclass) %>" data-type="button_count"></div>
 
 		<div class="panel"  style="border:0;">
 			<% if @beautyclass.closed? %>
@@ -139,7 +141,7 @@
 			<div class="large-12 columns" style="margin:20px 0 0 0;">		
 
 				Comments(<%= @beautyclass.comments.count %>)
-				<%= render "comments/form"  %>    
+				<%= render partial: "comments/form", locals: { form_message: "#{@beautyclass.title}에 대한 질문들을 남겨주세요." }    %>    
 				<%= render "comments/comments" %>
 			</div>
 		</div>
@@ -168,7 +170,7 @@
 				<%= render :partial =>  "regular_class_regist"  %>
 		<% end %>
 	<% else %>
-	  	<%= render :template => "devise/sessions/new", locals: { resource: :user } %>
+	  	<%= render :template => "devise/sessions/new" %>
 	<% end %>
 	<a class="close-reveal-modal">&#215;</a>
 </div>

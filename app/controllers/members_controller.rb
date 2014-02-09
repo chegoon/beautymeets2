@@ -19,7 +19,7 @@ class MembersController < InheritedResources::Base
 
   def activities
     @member = Member.find(params[:id])
-    @activities = PublicActivity::Activity.where(owner_id: @member.user, owner_type: "User").order("created_at desc")
+    @activities = PublicActivity::Activity.where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id).order("created_at desc")
 
     respond_to do |format|
       format.html # show.html.erb

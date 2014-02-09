@@ -1,11 +1,10 @@
 class BrandsController < InheritedResources::Base
 	before_filter :authenticate_user!, except: [:index, :show]  
-	
+
   def show
   	@brand = Brand.find(params[:id])
-  	@tutorials = Tutorial.joins(:items).where("item_id IN (?)", Item.where(brand_id: @brand.id).map(&:id))
-  	@items = @brand.items
-
+  	#@tutorials = Tutorial.joins(:items).where("item_id IN (?)", Item.where(brand_id: @brand.id).map(&:id))
+  	@items = @brand.items.order("view_count DESC")
 
     @pictureable = @brand
     @pictures = @pictureable.pictures
@@ -20,4 +19,5 @@ class BrandsController < InheritedResources::Base
       format.json { render json: @brand }
     end
   end
+
 end

@@ -1,0 +1,70 @@
+<div class="row" style="">
+  <div class="small-12 columns"> 
+    <h4 style="letter-spacing:-0.5px;">BEAUTYMEETS EVENTS</h4>
+
+    <h5 class="subheader"><small>BEAUTYMEETS EVENTS > 
+    <% @event.categories.each do |category| %>
+      <%= category.name %>
+    <% end %>
+    </small></h5>
+  </div>    
+</div>
+<div class="text-right"><%= link_to "Edit", edit_event_path if can? :manage, @event %></div>
+<div class="row">
+  <div class="small-12  columns">
+      <h2 class="subheader"><%= best_in_place @event, :title %></h2>
+      <h5><small class="subheader right"><%= @event.released_at.strftime("%Y.%m.%d %H:%M") %>&nbsp;에 게시 </small></h5>
+  </div>
+</div>
+<div class="row" style="">
+  <div class="small-12 columns " >
+  <% if !@pictures.nil? %>
+    <% @pictures.each do |p| %>
+        <% if can? :author, @pictureable %>
+            <div class="left" style="margin:10px;">
+              <img src="<%= p.image_url.to_s %>">
+              <%= simple_form_for [@pictureable] do |f| %>
+                <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+                <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+                <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+              <% end %>
+            </div>
+        <% else %>
+          <img src="<%= p.image_url.to_s %>">
+        <% end %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+<div class="row" style="">
+  <div class="small-12 columns " >
+    <h5><span class="label secondary">이벤트 기간</span>&nbsp;<small><strong><%= @event.start_from.strftime("%Y.%m.%d %H:%M") %> ~ <%= @event.finish_on.strftime("%Y.%m.%d %H:%M") %></strong></small></h5>
+    <h5><span class="label secondary">결과발표</span>&nbsp;<small><strong><%= @event.win_released_at.strftime("%Y.%m.%d %H:%M") %></strong></small></h5>
+    <% if Time.now < @event.released_at %>
+      <h5><span class="label success">이벤트 종료</span>&nbsp;<small>본 이벤트는 종료되었습니다.</small></h5>
+    <% end %>
+    <%= link_to "참여하기", @event.target_url, :class => "button" if @event.target_url? %>
+    <p><%= @event.description %></p>
+    <p>
+      <% @event.tag_list.each do |t| %>
+        <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+      <% end %>
+    </p>
+    <%= render 'pictures/form' if (can? :manage, @event)  %>
+    
+    <div class="fb-like" data-href="<%= event_url(@event) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    <div class="fb-share-button" data-href="<%= event_url(@event) %>" data-type="button_count"></div>
+    
+    <div class="row" style="margin:2.5rem 0 0 0;">
+      <div class="small-12 medium-8 columns">   
+        <h3 class="subheade">
+        </h3>
+        Comments(<%= @event.comments.count %>)
+        <%= render partial: "comments/form", locals: { form_message: "많이많이 참가해주세요" }  %>    
+        <%= render "comments/comments" %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

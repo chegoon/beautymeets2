@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140203113949) do
+ActiveRecord::Schema.define(:version => 20140209140731) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -116,6 +116,21 @@ ActiveRecord::Schema.define(:version => 20140203113949) do
 
   add_index "beautystars", ["slug"], :name => "index_beautystars_on_slug"
 
+  create_table "boards", :force => true do |t|
+    t.string   "title"
+    t.integer  "picture_id"
+    t.integer  "user_id"
+    t.integer  "view_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.boolean  "published"
+    t.text     "description"
+    t.string   "slug"
+  end
+
+  add_index "boards", ["picture_id"], :name => "index_boards_on_picture_id"
+  add_index "boards", ["user_id"], :name => "index_boards_on_user_id"
+
   create_table "bookmark_types", :force => true do |t|
     t.string   "model"
     t.datetime "created_at", :null => false
@@ -144,9 +159,11 @@ ActiveRecord::Schema.define(:version => 20140203113949) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "slug"
+    t.integer  "picture_id"
   end
 
   add_index "brands", ["company_id"], :name => "index_brands_on_company_id"
+  add_index "brands", ["picture_id"], :name => "index_brands_on_picture_id"
   add_index "brands", ["slug"], :name => "index_brands_on_slug"
 
   create_table "categories", :force => true do |t|
@@ -234,6 +251,36 @@ ActiveRecord::Schema.define(:version => 20140203113949) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "event_entries", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "event_entries", ["event_id"], :name => "index_event_entries_on_event_id"
+  add_index "event_entries", ["user_id"], :name => "index_event_entries_on_user_id"
+
+  create_table "events", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.integer  "picture_id"
+    t.integer  "view_count"
+    t.datetime "start_from"
+    t.datetime "finish_on"
+    t.datetime "win_released_at"
+    t.datetime "released_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "description"
+    t.string   "slug"
+    t.string   "target_url"
+  end
+
+  add_index "events", ["picture_id"], :name => "index_events_on_picture_id"
+  add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false

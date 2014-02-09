@@ -87,6 +87,9 @@ gem "acts_as_tree"#, "~> 1.4.0"
 
 # fb social graph
 gem "koala", "~> 1.8.0rc1"
+
+gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
+
 =begin
 #gem 'therubyracer'
 

@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
   attr_accessible :commentable, :body, :user_id
 
   # NOTE: Comments belong to a user
-  belongs_to :author, class_name: "User", :foreign_key => "user_id"
+  belongs_to :user #:author, class_name: "User", :foreign_key => "user_id"
   
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
@@ -50,5 +50,11 @@ class Comment < ActiveRecord::Base
   # given the commentable class name and id
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
+  end
+
+  # author로 view에서 조회하는게 맞는 것 같은데 gem 내부 동작에서 user로 지칭될 수 있으므로 author 가상 메소드 추가 함
+  # belong_to :author로 변경시 validate, find_method모두 변경해야함
+  def author
+    self.user
   end
 end
