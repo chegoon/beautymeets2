@@ -81,7 +81,7 @@ h1{
 
   <body>
 
-    <%= render :partial => "layouts/fb" if Rails.env.production?   %>
+    <%= render :partial => "layouts/fb" if !Rails.env.production?   %>
 
 
 

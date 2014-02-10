@@ -2,12 +2,12 @@
 		<div class="row">
 			<div class="small-12 columns show-for-small-only text-center" style="padding:20px 10px 10px 10px;" >
 				<img data-interchange="[<%= @member.user.image_url(:small) %>, (small)]">
-				<h1 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
+				<h2 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h2>
 				<h5>Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
 			</div>
 		</div>
 		<div class="show-for-medium-up" >
-			<h1 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h1>
+			<h2 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h2>
 			<h5 class="subheader">Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
 		</div>
 		<ul class="breadcrumbs">
