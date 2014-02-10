@@ -166,7 +166,7 @@
 	<% if user_signed_in? %>
 		<% if @beautyclass.categories.first.present? && (@beautyclass.categories.first.name == "프라이빗 클래스") %>
 				<%= render :partial =>  "private_class_regist"  %>
-		<% elsif @beautyclass.categories.first.name != "프라이빗 클래스" %> 
+		<% else %> 
 				<%= render :partial =>  "regular_class_regist"  %>
 		<% end %>
 	<% else %>

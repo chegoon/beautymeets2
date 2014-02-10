@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  desc: MyString
+  user: 
+  picture: 
+  view_count: 1
+  start_from: 2014-02-06 23:42:31
+  finish_on: 2014-02-06 23:42:31
+  result_released_on: 2014-02-06 23:42:31
+  released_at: 2014-02-06 23:42:31
+
+two:
+  title: MyString
+  desc: MyString
+  user: 
+  picture: 
+  view_count: 1
+  start_from: 2014-02-06 23:42:31
+  finish_on: 2014-02-06 23:42:31
+  result_released_on: 2014-02-06 23:42:31
+  released_at: 2014-02-06 23:42:31
