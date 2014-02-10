@@ -52,8 +52,7 @@
     </p>
     <%= render 'pictures/form' if (can? :manage, @event)  %>
     
-    <div class="fb-like" data-href="<%= event_url(@event) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-    <div class="fb-share-button" data-href="<%= event_url(@event) %>" data-type="button_count"></div>
+    <div class="fb-like" data-href="<%= event_url(@event) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     
     <div class="row" style="margin:2.5rem 0 0 0;">
       <div class="small-12 medium-8 columns">   

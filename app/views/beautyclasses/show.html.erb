@@ -90,8 +90,7 @@
 				</p>
 			<% end %>
 		</div>
-    <div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-    <div class="fb-share-button" data-href="<%= beautyclass_url(@beautyclass) %>" data-type="button_count"></div>
+    <div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 
 		<div class="panel"  style="border:0;">
 			<% if @beautyclass.closed? %>

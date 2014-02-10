@@ -41,8 +41,7 @@
 				    	<% @video.tag_list.each do |t| %>
 				    	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
 				    	<% end %>
-    				<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-    				<div class="fb-share-button" data-href="<%= video_url(@video) %>" data-type="button_count"></div>
+    				<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 						<% end %>
 						<dl class=" accordion" data-accordion >
 							<dd >

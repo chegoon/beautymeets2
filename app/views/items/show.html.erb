@@ -25,13 +25,13 @@
               <% end %>
 
           </div>  
-
+          
           <div>
             <h4 class="subheader"><small>다른 이미지</small></h4>
             <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
           </div>
 
-
+          <div class="fb-like" data-href="<%= item_url(@item) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 
   </div>
 </div>
