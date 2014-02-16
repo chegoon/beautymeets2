@@ -1,6 +1,6 @@
-<% page_title "BEAUTYMEETS > #{@category.name}" %>
+<% page_title "BEAUTYMEETS > #{@category.try(:name)}" %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!! " %>
 
-<%= @category.name %>
+<%= @category.try(:name) %>
 
 <%= link_to 'Edit', edit_category_path(@category)  if can? :manage, @category %>

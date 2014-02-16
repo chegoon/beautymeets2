@@ -2,7 +2,7 @@
 <div class="panel" style="border:0;">
 	<div class="row">
 		<div class="small-3 columns">
-			<img data-interchange="[<%= item.thumbnail.image_url(:small)  %>, (small)], [<%= item.thumbnail.image_url(:medium) %>, (large)]">
+			<img data-interchange="[<%= item.thumbnail.image_url(:small) || item.thumb_url  %>, (small)], [<%= item.thumbnail.image_url(:medium) || item.thumb_url %>, (large)]">
 		</div>
 		<div class="small-9 columns">
 

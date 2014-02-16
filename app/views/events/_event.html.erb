@@ -20,8 +20,10 @@
               <h5><span class="label success">이벤트 종료</h5>
             <% end %>
             
-            <%= link_to 'Edit', edit_event_path(event) if (can? :author, event) %>
-            <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } if (can? :manage, Event) %>
+            <%= link_to 'Edit', edit_event_path(event) if user_signed_in? && current_user.can_update?(event) #(can? :author, event) 
+            %>
+            <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } if user_signed_in? && current_user.can_create?(Event) #(can? :manage, Event) 
+            %>
           </div>
         </div>
     </div>

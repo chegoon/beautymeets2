@@ -1,7 +1,10 @@
 
 <div class="row">
-	<div class="small-12  columns ">
+	<div class="small-12 columns ">
+		<div class="left">
 		<%= image_tag activity.owner.image_url(:small), :class => "circular", :style => "width:40px; height:40px;" if activity.owner.present? %>
+		</div>
+		<div style="margin:0.8rem 1.0rem 0.2rem 2.9rem ;">
 		<%= activity.owner.name || activity.owner.email if activity.owner %>
 		<% if activity.trackable %>
 		님이
@@ -15,11 +18,12 @@
 				<%= link_to activity.trackable.commentable.name, activity.trackable.commentable %>
 			<% end %>
 			에 댓글을 달았습니다.
+		</div>
 	</div>
 </div>
 <div class="row">
-	<div class="small-10 small-offset-1 columns">
-			<%= activity.trackable.body %><br/>
+	<div class="small-11 small-offset-1 columns" style="margin-bottom:20px;">
+			<blockquote><%= activity.trackable.body %></blockquote>
 			<%= image_tag (activity.trackable.commentable.thumbnail.image_url(:small) || activity.trackable.commentable.image_url) %>
 			<span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>
 		<% else %>

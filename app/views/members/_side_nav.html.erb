@@ -1,11 +1,11 @@
-		<% if @member.user.image.present? %>
+	<% if @member.user.image.present? %>
 		<img data-interchange="[<%= @member.user.image_url(:small) %>, (default)], [<%= @member.user.image_url(:medium) %>, (medium)], [<%= @member.user.image_url(:large) %>, (large)]">
-		<% else %>
+	<% else %>
 			<%= image_tag "/assets/user_avatar.png" %>
-		<% end %>
+	<% end %>
 		<ul class="side-nav">
 		  <li class="active"><a href="#">Profile</a></li>
-		  <li><%= link_to "Notification", member_activities_path(@member) %></a></li>
+		  <li><%= link_to "Notification", member_notifications_path(@member) %></a></li>
 		  <li class="divider"></li>
 		  <li><%= link_to "My Bookmark", member_bookmarks_path(@member) %></li>
 		  <li><%= link_to "My Tutorial", member_tutorials_path(@member) %></li>

@@ -1,14 +1,16 @@
 class Beautyclass < ActiveRecord::Base
-	
   include PublicActivity::Common
+  #tracked only: :create, owner: Proc.new { |controller, model| controller.current_user && model.published } # && model.acitivites.where(owner: current_user, trackable: model).nil? }
 
   resourcify
+  include Authority::Abilities
+  self.authorizer_name = 'BeautystarAuthorizer'
   
   acts_as_taggable
 
   acts_as_commentable
 
-  acts_as_readable :on => :created_at
+  acts_as_readable :on => :updated_at
   
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -70,5 +72,9 @@ class Beautyclass < ActiveRecord::Base
   def self.find_id_by_site_url(site_url)
     url = site_url.split(%r{/})
     (find_by_slug(url[2]) && find_by_slug(url[2]).id) || site_url.split(%r{/})[2]
+  end
+
+  def reply_enabled 
+    return true
   end
 end

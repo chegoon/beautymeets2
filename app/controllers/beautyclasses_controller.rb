@@ -1,30 +1,37 @@
 class BeautyclassesController < InheritedResources::Base
-
   # Load authorizing from cancan
-  load_and_authorize_resource
+  #load_and_authorize_resource
   
+  # authorize controller thourgh authority
+  authorize_actions_for Beautyclass, except: [:index, :show]
+
   respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
   
   autocomplete :location, :name
 
-	def resource_name
-    :user
-  end
+	def resource_name 
+		:user 
+	end 
 
-  def resource
-    @resource ||= User.new
-  end
+	def resource 
+		@resource ||= User.new 
+	end 
 
-  def devise_mapping
-    @devise_mapping ||= Devise.mappings[:user]
-  end
+	def devise_mapping 
+		@devise_mapping ||= Devise.mappings[:user] 
+	end 
 
-  helper_method :resource_name, :resource, :devise_mapping
+	def resource_class 
+		User 
+	end
+
+	helper_method :resource_name, :resource, :devise_mapping, :resource_class
 
 	def index
 
-		if can? :manage, Beautyclass
+		#if can? :manage, Beautyclass
+		if user_signed_in? && current_user.can_update?(Beautyclass)
 			if params[:cat].present?
 				@beautyclasses = Beautyclass.where("published = ? AND closed = ? AND id IN (?)", true, (params[:closed] || false), Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
 			else
@@ -50,7 +57,8 @@ class BeautyclassesController < InheritedResources::Base
     @pictures = @pictureable.pictures
     @picture = Picture.new
 
-    if (cannot? :author, @beautyclass) || (cannot? :manage, Beautyclass)
+    #if (cannot? :author, @beautyclass) || (cannot? :manage, Beautyclass)
+    if user_signed_in? && !current_user.can_update?(@beautyclass)
       @beautyclass.increment_view_count 
     end
 
@@ -92,7 +100,6 @@ class BeautyclassesController < InheritedResources::Base
 	def create
 		@beautyclass = current_user.beautyclasses.create(params[:beautyclass])
     current_user.add_role :author, @beautyclass
-		#@tutorial = Beautorial.new(params[:tutorial])
 
 		respond_to do |format|
 			if @beautyclass.save
@@ -107,7 +114,7 @@ class BeautyclassesController < InheritedResources::Base
 
   def update
     super
-    @beautyclass.create_activity :create, owner: @beautyclass.author if @beautyclass.published? && Activity.where("trackable_id = ?  AND trackable_type = 'Beautyclass' AND owner_id = ? AND owner_type = 'User'", @beautyclass.id, @beautyclass.author).nil?
+    @beautyclass.create_activity :create, owner: @beautyclass.author if @beautyclass.published? && PublicActivity::Activity.where(owner_id: @beautyclass.author.id, owner_type: "User", trackable_id: @beautyclass.id, trackable_type: "Beautyclass").nil?
   end
 
 

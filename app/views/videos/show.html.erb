@@ -4,20 +4,20 @@
 
 			<div class="row">
 				<div style="margin-bottom:10px; padding: 10px 0; "><%= render "layouts/go_back" %></div>
-				<div class="small-12 large-10 large-offset-1 columns" style="margin-top:10px;">
-					<h2>
+				<div class="small-12  columns" style="margin-top:10px;">
+					<h3 class="subheader">
 						<%= @video.title %>
-					</h2>
+					</h3>
 					<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
 				</div>
 			</div>
 			<div class="row">
-				<div class="small-12 large-10 large-offset-1 columns">
+				<div class="small-12 columns">
 					<h5><%= link_to image_tag(@video.video_group.try(:thumb_url), :style => "width:32px; height:32px;"), video_group_path(@video.video_group) %>&nbsp;<%= link_to @video.video_group.try(:name), video_group_path(@video.video_group) %></h5>
 					<h6 class="subheader right">
 						<% if @video.categories.present? %>
 							<small>Category : </small><% @video.categories.each do |category| %>
-								&nbsp;<span class=" secondary radius label"><%= link_to category.name, category_path(category) %></span>
+								&nbsp;<span class=" secondary radius label"><%= category.name %></span>
 							<% end %>
 						<% end %>
 					</h6>
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 			<div class="row" >
-			  <div class="span-12 large-10 large-centered columns">
+			  <div class="span-12 columns">
 					<h4>추천 튜토리얼&nbsp;<small>뷰티밋츠가 제작한 리얼 뷰티 튜토리얼</small>
 					</h4>
 			  	<hr>
@@ -70,7 +70,7 @@
 			</div>
 
 			<div class="row">
-			  <div class="span-12 large-10 large-centered columns">
+			  <div class="span-12  columns">
 			  	<hr>
 			  	<h6 style="padding-bottom:10px;"><% @video.categories.each do |category| %><span class=" secondary radius label"><%=  category.name %></span>&nbsp;<% end %> <strong>최신</strong> 비디오</h6>
 				<div class="row">				  	
@@ -88,7 +88,7 @@
 
 
 	<div class="row">
-		<div class="small-12 large-10 small-centered columns">
+		<div class="small-12 medium-4 small-centered medium-centered columns">
 		<a href="#" id="to_top" style="margin:30px auto 10px auto; padding:10px 20px;" class="button expand">Top<i class="right fa fa-chevron-up"></i></a>
 	</div>
 	</div>

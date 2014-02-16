@@ -1,21 +1,20 @@
 <% if @comments.present? %>
 <div id="comments" >
-	<% @comments.each do |comment| %>
-	<div class="panel"  style="background:#FFF; border:0; padding:0.8rem;">
+	<% @comments.each_with_index do |comment, i| %>
 	<div class="row comment" >
-		<div class="small-12 medium-12 columns">
-			<h6 class="subheader">
+		<div class="small-12 medium-12 columns"  >
+			<h6 class="subheader" >
 				<%= render partial: 'users/avatar_thumb', locals: { user: comment.author } if comment.author.present? && comment.author.image.present? %>
 				<strong><%= comment.author.try(:name) || comment.author.try(:email) %></strong> :
 			</h6>
 		</div>
 		<div class="small-12 columns" style="padding-left:4rem;">
-			<div style="height:auto;">
 				<%=  comment.body %>
 				<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete  if can? :author, comment %>
 				<h5 class="right"><small><%= time_ago_in_words(comment.created_at) %> ago</small></h5>
-			</div>
+
 			<% if @commentable.reply_enabled %>
+			<dl class=" accordion" data-accordion >
 			<% comment.children.each do |reply| %>
 				<div class="row" style="margin-bottom:5px;">
 					<div class="small-12 medium-12 columns">
@@ -29,31 +28,23 @@
 						<%= reply.body %>
 						<%= link_to "&nbsp;X".html_safe, [@commentable, reply], confirm: 'Are you sure?', method: :delete  if can? :author, reply %>
 						
-						<span class="right" style="color:#CCC; font-size:0.8rem;"><%= time_ago_in_words(reply.created_at) %> ago</span>
+						<span class="right" style="color:#CCC;"><small><%= time_ago_in_words(reply.created_at) %> ago</small></span>
 					</div>
 				</div>
 			<% end %>
-			<div class="row" style="margin-top:5px;">
-				<div class="large-12 columns">
-				<%= simple_form_for [@commentable, @comment] do |f| %>
-					<%= f.hidden_field :parent_id, :value => comment.id %>
+				<dd >
+						<a href="#reply-form-<%= comment.id %>" style="color:#666; background:transparent;"><i class="fa fa-fw fa-plus"></i>답변달기</a>
+						<div class="content" id="reply-form-<%= comment.id %>">
 
-				    <div class="row">
-				      <div class="large-9 columns">
-				        <%= f.text_area :body, rows: 4, :placeholder => "" %>
+							<%= render partial: 'comments/reply_form', locals: { parent_com_id: comment.id } %>
 
-				      </div>
-				      <div class="large-3 columns">
-				      	<%= f.button :submit, 'Reply It', :class => "tiny " %>
-				      </div>
-				    </div>
-				<% end %>
-				</div>
-			</div>
+						</div>
+				</dd>
 			<% end %>
+			</dl>
 		</div>
 	</div>
-	</div>
+	<%= "<hr style='margin:0.1rem 0;'>".html_safe if i < (@comments.length - 1) %>
 	<% end %>
 </div>
 <% end %>

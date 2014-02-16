@@ -5,6 +5,8 @@ class Member < ActiveRecord::Base
   friendly_id :username, use:  [:slugged, :history]
   
   resourcify
+  include Authority::Abilities
+  self.authorizer_name = 'MemberAuthorizer'
 
   acts_as_taggable_on :skin_types, :skin_troubles, :skin_tones
 

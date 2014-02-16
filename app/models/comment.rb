@@ -1,8 +1,13 @@
 class Comment < ActiveRecord::Base
   include PublicActivity::Model
-  tracked only: :create, owner: ->(controller, model) { controller && controller.current_user }
+  # model에서 콜백 메소드를 이용하여 activity 메소들을 정의할때 사용
+  #tracked only: :create, owner: ->(controller, model) { controller && controller.current_user }, recipient: 
+  tracked only: :create, owner: :author, recipient: :commentable
+  #tracked only: :create, owner: Proc.new{ |controller, model| controller && controller.current_user }, recipient: :commentable
 
   resourcify
+  include Authority::Abilities
+  self.authorizer_name = 'BasicAuthorizer'
   
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 

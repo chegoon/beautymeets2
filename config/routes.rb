@@ -4,7 +4,7 @@ Beautymeets2::Application.routes.draw do
     resources :pictures, :comments
   end
 
-  match 'notifications' => 'activities'
+  match 'notifications' => 'activities#index'
   
   resources :boards do 
     resources :pictures, :comments
@@ -21,7 +21,7 @@ Beautymeets2::Application.routes.draw do
   get 'members/:id/tutorials', to: 'members#tutorials', as: :member_tutorials
   get 'members/:id/beautyclasses', to: 'members#beautyclasses', as: :member_beautyclasses
   get 'members/:id/bookmarks', to: 'members#bookmarks', as: :member_bookmarks
-  get 'members/:id/activities', to: 'members#activities', as: :member_activities
+  get 'members/:id/notifications', to: 'members#notifications', as: :member_notifications
   
   get "activities/index"
 

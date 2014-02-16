@@ -1,5 +1,7 @@
 		<% if @activities.present? %>
 			<% @activities.each do |activity| %>
-				<%= render partial: "activities/activity", locals: { activity: activity} %>
+				<%= render partial: "activities/activity", locals: { activity: activity } %>
 			<% end %>
+		<% else %>
+		No notifications
 		<% end %>

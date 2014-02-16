@@ -1,4 +1,6 @@
 <h2 class="text-center" style="padding:20px;">Login</h2>
+<div class="row">
+  <div class="small-12 medium-8 medium-centered large-8 large-centered columns">
 
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div class="form-inputs">
@@ -6,12 +8,13 @@
     <%= f.input :password, :required => false %>
     <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
   </div>
-
-
     <%= f.button :submit, "Sign in", :class => "" %> 
     <%= link_to "Sign in with FB", user_omniauth_authorize_path(:facebook), :class => "button secondary " %>
     <%= link_to "Sign in with TW", user_omniauth_authorize_path(:twitter), :class => "button secondary " %>
 
 <% end %>
-
+<% if local_assigns[:shared_links].nil? || (local_assigns[:shared_links] != false) %>
 <%= render "devise/shared/links" %>
+<% end %>
+</div>
+</div>

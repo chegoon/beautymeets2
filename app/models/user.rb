@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 	acts_as_reader
   
   rolify
+  include Authority::UserAbilities
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

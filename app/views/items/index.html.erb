@@ -1,29 +1,11 @@
-<h1>Listing items</h1>
-
-<table>
-  <tr>
-    <th>Brand</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>View count</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @items.each do |item| %>
-  <tr>
-    <td><%= link_to item.brand.try(:name), brand_path(item.brand) %></td>
-    <td><%= item.id %> <%= item.name %></td>
-    <td><%= image_tag item.thumbnail.image_url(:small) if item.thumbnail.present? %><%= item.description %></td>
-    <td><%= item.view_count %></td>
-    <td><%= link_to 'Show', item_path(item.id) %></td>
-    <td><%= link_to 'Edit', edit_item_path(item) %></td>
-    <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+<h2 class="text-center" style="padding:20px;">ITEM</h2>
 
 <br />
+<%= link_to 'New Item', new_item_path if user_signed_in? && current_user.can_create?(Item) %>
 
-<%= link_to 'New Item', new_item_path %>
+
+<div id="wrapper">
+  <div id="columns">
+    <%= render @items %>
+  </div>
+</div>

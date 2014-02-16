@@ -4,12 +4,15 @@
   </div>
   <div class="small- medium-9 columns" style="background:#FFF;">
     <%= render 'members/sub_nav' %>
-		<% @activities.each do |activity| %>
-		  <div class="activity">
-		  <h6><%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
-			<%= render_activity activity %></h6>
-		  </div>
+    <% if @activities.present? %>
+			<% @activities.each do |activity| %>
+			  <div class="activity">
+			  <h6><%= link_to activity.owner.name.present? ? activity.owner.name : activity.owner.email, member_path(activity.owner.profile) if activity.owner %>
+				<%= render_activity activity %></h6>
+			  </div>
+			<% end %>
+		<% else %>
+			No Notification.
 		<% end %>
-
   </div>
 </div>

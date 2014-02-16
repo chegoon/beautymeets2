@@ -1,7 +1,11 @@
+
+<% page_title "BEAUTYMEETS > #{@event.title}" %>
+<% page_thumb "#{@event.thumbnail.image_url}" %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!! #{@event.title} 영상을 만나보세요." %>
+
 <div class="row" style="">
   <div class="small-12 columns"> 
-    <h4 style="letter-spacing:-0.5px;">BEAUTYMEETS EVENTS</h4>
-
+    <h3 class="subheader text-center" style="margin:30px;">EVENTS</h3>
     <h5 class="subheader"><small>BEAUTYMEETS EVENTS > 
     <% @event.categories.each do |category| %>
       <%= category.name %>
@@ -9,7 +13,10 @@
     </small></h5>
   </div>    
 </div>
-<div class="text-right"><%= link_to "Edit", edit_event_path if can? :manage, @event %></div>
+<div class="text-right">
+  <%= link_to "Edit", edit_event_path if user_signed_in? && current_user.can_update?(@event) #can? :manage, @event 
+  %>
+</div>
 <div class="row">
   <div class="small-12  columns">
       <h2 class="subheader"><%= best_in_place @event, :title %></h2>
@@ -20,7 +27,8 @@
   <div class="small-12 columns " >
   <% if !@pictures.nil? %>
     <% @pictures.each do |p| %>
-        <% if can? :author, @pictureable %>
+        <% if user_signed_in? && current_user.can_update?(@pictureable) #can? :author, @pictureable 
+          %>
             <div class="left" style="margin:10px;">
               <img src="<%= p.image_url.to_s %>">
               <%= simple_form_for [@pictureable] do |f| %>
@@ -50,7 +58,8 @@
         <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
       <% end %>
     </p>
-    <%= render 'pictures/form' if (can? :manage, @event)  %>
+    <%= render 'pictures/form' if user_signed_in? && current_user.can_update?(@event) #(can? :manage, @event)  
+    %>
     
     <div class="fb-like" data-href="<%= event_url(@event) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     
@@ -65,5 +74,3 @@
     </div>
   </div>
 </div>
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>

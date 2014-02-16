@@ -1,6 +1,9 @@
 class Category < ActiveRecord::Base
   include ActsAsTree
 
+  resourcify
+  include Authority::Abilities
+
   acts_as_tree order: "name"
   
   extend FriendlyId

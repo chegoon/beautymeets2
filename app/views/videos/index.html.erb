@@ -1,8 +1,11 @@
-<%= link_to 'New', new_video_path if user_signed_in? && (current_user.has_role? :admin) %>
+<%= link_to 'New', new_video_path if user_signed_in? && current_user.can_create?(Video) %>
 
 
-					<div id="page-head" class=" head-cover" >
-					  <h2 class="head-title subheader" style="margin:0 auto 20px auto; text-align:center; color:#FFF;"><%= "#{@videos.count} Videos " %></h2>
+					<div id="page-head" class=" head-cover" style="background-image: url(<%= @head_video.thumb_url %>); background-size:100%; background-position:center; 
+  -moz-box-shadow: inset 0 0 200px -10px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: inset 0 0 200px -10px rgba(0, 0, 0, 1);
+  box-shadow: inset 0 0 200px -10px rgba(0, 0, 0, 1);">
+					  <h3 class="head-title subheader" style=" text-align:center; color:#FFF;"><%= "#{@videos.count} Videos " %>개의 뷰티비디오를 만나보세요.</h3>
 					  <div style="max-width:480px; height:auto; margin:0 auto; z-index:5;">
 					    <div id="head-video" style="box-shadow:0 10px 10px #CCC;" >    	
 					      <div class="flex-video widescreen" style="display:block;">

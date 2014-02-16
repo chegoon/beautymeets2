@@ -1,0 +1,20 @@
+
+<div class="row">
+	<div class="small-12 medium-3 columns text-right show-for-medium-up">
+		<%= render 'side_nav' %>
+	</div>
+	<div class="small- medium-9 columns" style="background:#FFF;">
+		<%= render 'sub_nav' %>
+		<h5 class="subheader">Notifications</h5>
+		<p>
+			<%= link_to "GET New Notifications", member_notifications_path, :class => "button tiny secondary" %>
+			<%= link_to "SEE Previous Notifications", member_notifications_path(go_prev: 1) , :class => "button tiny secondary" %>
+			<%= link_to "DELETE All Notifications", member_notifications_path(clean_history: 1) , :class => "button tiny secondary" %>
+		</p>
+		<% if @activities.present? %>
+			<%= render @activities %>		
+		<% else %>
+			<p>No Notification</p>
+		<% end %>
+	</div>
+</div>

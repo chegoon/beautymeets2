@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'rolify'
 gem 'cancan'
+gem 'authority'
 
 # Gem for oauth
 gem 'omniauth'
@@ -89,6 +90,8 @@ gem "acts_as_tree"#, "~> 1.4.0"
 gem "koala", "~> 1.8.0rc1"
 
 gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
+
+gem 'simple-rss'
 
 =begin
 #gem 'therubyracer'

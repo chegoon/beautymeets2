@@ -3,12 +3,13 @@ class Video < ActiveRecord::Base
   include PublicActivity::Common
 
   resourcify
+  include Authority::Abilities
 
   acts_as_taggable
 
   acts_as_commentable
   
-  acts_as_readable :on => :created_at
+  acts_as_readable :on => :updated_at
   
   extend FriendlyId
   friendly_id :title, use: :slugged

@@ -1,3 +1,7 @@
+<% page_title "BEAUTYMEETS > #{@tutorial.try(:title)}" %>
+<% page_thumb "#{@tutorial.thumbnail.image_url}" if @tutorial.thumbnail.present? %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
+
 <div class="row" style="">
   <div class="large-12 columns"> 
 		<h4 style="letter-spacing:-0.5px;">Beautorials </h4>
@@ -11,7 +15,7 @@
 </div>
 <div class="row">
 	<div class="small-12 medium-4 columns">
-		<%= image_tag @tutorial.thumbnail.image_url(:large) if @tutorial.thumbnail.present? %>
+		<%= image_tag @tutorial.thumbnail.image_url(:medium) if @tutorial.thumbnail.present? %>
 	</div>
 	<div class="small-12 medium-8 columns">
       <h2 class="subheader"><%= best_in_place @tutorial, :title %></h2>
@@ -52,7 +56,7 @@
 
 <div class="row" style="">
 	<div class="small-12 columns " >
-		<h5>다른 이미지</h5>
+		<h5><small>다른 이미지</small></h5>
 		<%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
 		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
 	</div>
@@ -60,30 +64,46 @@
 
 <% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>
 
-<div class="row" style="">
-	<div class="large-12 columns" style="margin:20px 0 0 0;">		
-
+<div class="row" >
+	<div class="small-12 medium-3  columns" style="margin:20px 0 0 0;">		
+		<% header_item = @tutorial.items.sample(1).first %>
+		<%= image_tag(header_item.thumbnail.image_url(:medium)) %><br/>
+		<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= header_item.brand.try(:name) %></span><br/>
+		<span  style="font-size:0.8rem; "><strong><%= link_to truncate(header_item.try(:name), 20), item_path(header_item) %></strong></span>
+								
+	</div>
+	<div class="small-12 medium-9  columns" style="margin:20px 0 0 0;">		
+		
 		<dl class=" accordion" data-accordion >
 			<dd >
-					<a href="#video-description">사용된 화장품 보기<i class="right fa fa-chevron-down"></i></a>
+					<a href="#video-description" >사용된 화장품 보기<%= "(로그인후 확인 가능합니다.)" if !user_signed_in? %><i class="right fa fa-chevron-down"></i></a>
 					<div class="content" id="video-description">
 
 						<h4 class="subheader" ><strong><small>사용된 주요 제품</small></strong></h4>
-						<ul class="inline-list">
-						<% @tutorial.items.each do |tutorial_item| %>			
-							<li style="margin-bottom:15px;" >
-								<span style="height:1px;"></span>
-								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:medium), :style => "width:100px; height:100px;"), item_path(tutorial_item), :class => "th", :style => "" %>
-								<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= tutorial_item.brand.try(:name) %></span>
-								<span  style="font-size:0.8rem; "><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong></span>
-								<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
-								
-							</li>
-						<% end %>					
-						</ul>
+						<% if user_signed_in? %>
+							<ul class="inline-list">
+
+							<% @tutorial.items.each do |tutorial_item| %>			
+								<li style="margin-bottom:15px;" >
+									<span style="height:1px;"></span>
+									<%= link_to image_tag(tutorial_item.thumbnail.image_url(:medium), :style => "width:100px; height:100px;"), item_path(tutorial_item), :class => "th" if tutorial_item.thumbnail.present? %>
+									<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= tutorial_item.brand.try(:name) %></span>
+									<span  style="font-size:0.8rem; "><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong></span>
+									<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
+									
+								</li>
+							<% end %>			
+
+							</ul>
+						<% else %>
+							<h6 class="subheader">로그인 이후 확인 가능합니다. </h6>
+							<a href="#" data-reveal-id="signup-modal" class="button tiny" >회원가입</a>
+              <a href="#" data-reveal-id="signin-modal" class="button tiny secondary">로그인</a>
+            <% end %>
 					</div>
 			</dd>
 		</dl>
+	</div>
 </div>
 <% end %>
 			<% if can? :manager, @tutorial %>
@@ -109,7 +129,7 @@
 		</h3>
 		Comments(<%= @tutorial.comments.count %>)
 		<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대한 질문들을 남겨주세요." }    %>    
-		<%= render "comments/comments" %>
+		<%= render "comments/comments" || "댓글이 없습니다." %>
 	</div>
 </div>
 <div class="row" style="margin-bottom:5rem;">
@@ -126,3 +146,34 @@
 			</div>
 	</div>
 </div>
+
+
+	<div class="row">
+		<div class="small-12 medium-4 small-centered medium-centered columns">
+		<a href="#" id="to_top" style="margin:30px auto 10px auto; padding:10px 20px;" class="button expand">Top<i class="right fa fa-chevron-up"></i></a>
+	</div>
+	</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+
+		// Hide scroll top button
+		var top = $('#to_top');
+		top.hide();
+ 
+        $(window).scroll(function(){
+
+            if ($(this).scrollTop() > 100) {
+                top.fadeIn();
+            } else {
+                top.fadeOut();
+            }
+        }); 
+ 
+        top.click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 1000);
+            return false;
+        });
+ 
+    });
+</script>

@@ -46,7 +46,7 @@
 
     <style type="text/css">
       html, body {
-          background-color: #efefef;
+          background-color: #f5f5f5;
           height: 100%; 
           font-size: 0.9rem;
       } 
@@ -56,7 +56,7 @@
       }
 
       .breadcrumbs a, .breadcrumbs  span {
-        color: #ff8008;
+        color: #FFB017;
       }
 .wrap{
   margin-left: auto;
@@ -74,16 +74,76 @@ h1{
 
       
     </style>
-
   
-    <%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && current_user.is_admin?)  %>
+    <%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
   </head>
 
   <body>
 
     <%= render :partial => "layouts/fb" if !Rails.env.production?   %>
 
+    <div class="">
+      <nav class="top-bar show-for-medium-up" data-topbar >
+        <ul class="title-area">
+          <!-- Title Area -->
+          <li class="name">
+            <h1><%= link_to image_tag("/assets/logo_top_white@2x.png", :style => "min-height:16px; max-height:20px; height:auto;"), "/" %></h1>
+          </li>
+          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
 
+        <section class="top-bar-section">
+          <ul class="left"></ul>
+          <!-- Right Nav Section -->
+          <ul class="right">
+            <li>
+              <% if @notifications && (@notifications.count > 0) %>
+                <%= link_to "<i class='fa fa-bell fa-fw'></i>#{@notifications.count}".html_safe, member_notifications_path(current_user.profile) if current_user.has_role? :member %>   
+              <% else %>
+                <%= link_to "<i class='fa fa-bell-o fa-fw'></i>".html_safe, member_notifications_path(current_user.profile) if user_signed_in? && (current_user.has_role? :member) %>   
+              <% end %>              
+            </li>
+
+            <li class="divider "></li>
+          
+            <li><%= link_to "Tutorial", tutorials_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
+            <li class="divider "></li>
+            <li><%= link_to "Beauty Class", beautyclasses_path, {:style => "font-weight:bold;color:#elelel;"} %></li>
+            <li class="divider "></li>
+            <li><%= link_to "BeautyVideo", videos_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
+            <li class="divider "></li>
+            <% if user_signed_in? %>             
+                <li class="has-dropdown"><a href="#" style="color:#FEDAF7;">Hi, <%= current_user.name || current_user.email %></a>
+                  <ul class="dropdown">
+                    <li><label>Profile</label></li>
+                    <li>
+                  <% if current_user.has_role? :admin %>
+                    <a href="/admin"><i class="fa fa-square fa-fw"></i> Admin</a>
+                  <% else %>
+                    <%= link_to "<i class='fa fa-square fa-fw'></i> My Page".html_safe, member_path(current_user.profile) %>
+                  <% end %>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="hide-for-small"><label>Account</label></li>
+                    <li><%= link_to "<i class='fa fa-key fa-fw'></i> 정보수정".html_safe, edit_user_registration_path(current_user) %></li>
+                    <li><%= link_to "<i class='fa fa-power-off fa-fw'></i> Logout".html_safe, destroy_user_session_path, :method => :delete %></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>   
+            <% else %>        
+              <li >
+                <a href="#" data-reveal-id="signup-modal" style="color:#FEDAF7;">회원가입</a>
+              </li>      
+              <li style=" ">
+                <a href="#" data-reveal-id="signin-modal">로그인</a>
+              </li>      
+            <% end %>
+            
+          </ul>
+        </section>
+      </nav>
+    </div>
 
     <div class="off-canvas-wrap" >
       <div class="inner-wrap">
@@ -103,12 +163,10 @@ h1{
           <% end %>
             <div class="row" >
               <div class="small-12 small-centered columns" >
-
                   
                   <%= yield %>
                   <%= yield :scripts %>
                   <!-- dif for static footer-position -->
-
 
                 <%= render "layouts/footer" %>
                 
@@ -137,5 +195,58 @@ h1{
         </script>
     <![endif]-->
 
+    <div id="signup-modal" class="reveal-modal medium" data-reveal>
+       <%= render :template => "devise/registrations/new", locals: { resouce: :user, resource_name: @resource ||= User.new , devise_mapping: @devise_mapping ||= Devise.mappings[:user] , resource_class: User } %>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <div id="signin-modal" class="reveal-modal medium" data-reveal>
+       <%= render :template => "devise/sessions/new" , locals: { shared_links: false, resouce: :user, resource_name: @resource ||= User.new , devise_mapping: @devise_mapping ||= Devise.mappings[:user] , resource_class: User } %>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <script>
+    // Include the UserVoice JavaScript SDK (only needed once on a page)
+    UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+    //
+    // UserVoice Javascript SDK developer documentation:
+    // https://www.uservoice.com/o/javascript-sdk
+    //
+
+    // Set colors
+    UserVoice.push(['set', {
+      accent_color: '#448dd6',
+      trigger_color: 'white',
+      trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+    }]);
+
+    // Identify the user and pass traits
+    // To enable, replace sample data with actual user traits and uncomment the line
+    UserVoice.push(['identify', {
+      //email:      'john.doe@example.com', // User’s email address
+      //name:       'John Doe', // User’s real name
+      //created_at: 1364406966, // Unix timestamp for the date the user signed up
+      //id:         123, // Optional: Unique id of the user (if set, this should not change)
+      //type:       'Owner', // Optional: segment your users by type
+      //account: {
+      //  id:           123, // Optional: associate multiple users with a single account
+      //  name:         'Acme, Co.', // Account name
+      //  created_at:   1364406966, // Unix timestamp for the date the account was created
+      //  monthly_rate: 9.99, // Decimal; monthly rate of the account
+      //  ltv:          1495.00, // Decimal; lifetime value of the account
+      //  plan:         'Enhanced' // Plan name for the account
+      //}
+    }]);
+
+    // Add default trigger to the bottom-right corner of the window:
+    UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+
+    // Or, use your own custom trigger:
+    //UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+
+    // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+    UserVoice.push(['autoprompt', {}]);
+    </script>
   </body>
 </html>

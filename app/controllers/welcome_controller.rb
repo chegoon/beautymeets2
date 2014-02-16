@@ -1,10 +1,33 @@
+
 class WelcomeController < ApplicationController
+
+	def resource_name 
+		:user 
+	end 
+
+	def resource 
+		@resource ||= User.new 
+	end 
+
+	def devise_mapping 
+		@devise_mapping ||= Devise.mappings[:user] 
+	end 
+
+	def resource_class 
+		User 
+	end
+
+	helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
   def index
+
+		@blog_rss = SimpleRSS.parse open('http://blog.beautymeets.com/rss')
+  	
   	if user_signed_in?
 	  	@user = current_user
 	    @member = @user.profile
-	  	@activities = PublicActivity::Activity.where(recipient_id: (@member.user || nil), recipient_type: ("User" || nil)).order("created_at desc")
-	    
+	  	#@notifications = Activity.where(recipient_id: (@member.user || nil), recipient_type: ("User" || nil)).unread_by(current_user).order("created_at desc") if !current_user.has_role? :admin
+	    @notifications = Activity.unread_by(current_user)
 =begin
 	    @best_tutorials = Tutorial.where(published: true).unread_by(current_user).order("view_count DESC, created_at DESC").limit(4)
 	    @latest_tutorials = Tutorial.where(published: true).unread_by(current_user).order("created_at DESC, updated_at DESC").limit(4)
@@ -15,7 +38,7 @@ class WelcomeController < ApplicationController
 
 	    @best_tutorials = Tutorial.where(published: true).order("view_count DESC, created_at DESC").limit(2)
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(2)
-	    @best_beautyclasses = Beautyclass.where(published: true, closed: false).order("created_at DESC, updated_at DESC").limit(2)
+	    @best_beautyclasses = Beautyclass.where(published: true, closed: false).order("view_count DESC, updated_at DESC").limit(2)
 	    @best_videos = Video.where(published: true).order("view_count DESC, created_at DESC").limit(4)
 	    @latest_videos = Video.where(published: true).order("created_at DESC").limit(4)
 	    @best_items = Item.order("view_count DESC, created_at DESC").limit(4)

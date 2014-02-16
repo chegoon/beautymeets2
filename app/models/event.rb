@@ -2,17 +2,18 @@ class Event < ActiveRecord::Base
   include PublicActivity::Common
   
   resourcify
+  include Authority::Abilities
   
   acts_as_taggable
 
   acts_as_commentable
 
-  acts_as_readable :on => :created_at
+  acts_as_readable :on => :updated_at
 
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  attr_accessible :description, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id  
+  attr_accessible :description, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id, :target_url
 
   belongs_to :host, class_name: "User", :foreign_key => "user_id"
 

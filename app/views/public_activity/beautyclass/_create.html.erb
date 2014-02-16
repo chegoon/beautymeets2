@@ -12,8 +12,7 @@
 <div class="row">
   <div class="small-10 small-offset-1 columns">
     <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small)), beautyclass_path(activity.trackable) if activity.trackable.thumbnail.present? %>
-    구경하러 가기 | 공유하기
-    <div class="fb-like" data-href="<%= tutorial_path(activity.trackable) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    구경하러 가기
 	 <span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>
 <% end %>
   </div>

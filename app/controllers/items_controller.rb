@@ -5,6 +5,24 @@ class ItemsController < InheritedResources::Base
   autocomplete :item, :name
   autocomplete :brand, :name
 	
+  def resource_name 
+    :user 
+  end 
+
+  def resource 
+    @resource ||= User.new 
+  end 
+
+  def devise_mapping 
+    @devise_mapping ||= Devise.mappings[:user] 
+  end 
+
+  def resource_class 
+    User 
+  end
+
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
   # GET /items/1
   # GET /items/1.json
   def index
@@ -13,7 +31,7 @@ class ItemsController < InheritedResources::Base
       if @itemizable.present?
         @items = @itemizable.items
       else
-        @items = Item.all
+        @items = Item.order("view_count DESC")
       end
 
       respond_to do |format|

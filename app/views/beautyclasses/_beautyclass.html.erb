@@ -1,8 +1,8 @@
 	<div class="small-12 medium-6 columns" style="margin-bottom:20px;">
-		<div class="panel" style="border:0; padding-bottom:0; background:#FFF;">
+		<div class="panel beautyclass-card" style="border:0; padding-bottom:0; background:#FFF;">
 			<div class="row">
 				<div class="small-12 columns">
-					<%= link_to "", beautyclass.closed? ? "#" : beautyclass_path(beautyclass), :class => "button radius #{ 'disabled' if beautyclass.closed? }", :style => "min-width:18rem; max-width:40rem; width:100%; height:200px; background-size:100%; background-position:center; background-image: url(#{beautyclass.thumbnail.present? ? beautyclass.thumbnail.image_url : beautyclass.image_url}); 
+					<%= link_to "", beautyclass.closed? ? "#" : beautyclass_path(beautyclass), :class => "beautyclass-card-thumb button radius #{ 'disabled' if beautyclass.closed? }", :style => " background-image: url(#{beautyclass.thumbnail.present? ? beautyclass.thumbnail.image_url : beautyclass.image_url}); 
               background-repeat: no-repeat; " %>
 					<h3 style=" height:3.0rem;"><%= link_to truncate(beautyclass.title, 26), beautyclass_path(beautyclass) %></h3>
 					<%= render partial: 'users/avatar', locals: { user: beautyclass.author } if beautyclass.author.present? && beautyclass.author.image.present? %>
@@ -31,12 +31,13 @@
 									<h6 class="subheader ">CLASS</h6>
 								</div>
 							<% else %>								
+								<% if beautyclass.start_date && beautyclass.end_date %>
 								<div class="panel radius <%= 'callout' if !beautyclass.closed? %> text-center" style=" border:0; padding:6px; max-width:80px;">
-									<small><%= beautyclass.try(:start_date).strftime("%Y.%m") %></small>
-									<h2 ><%= beautyclass.try(:start_date).strftime("%d") %></h2>
-									<small><%= beautyclass.try(:start_date).strftime("%H:%M") %>~<%= beautyclass.try(:end_date).strftime("%H:%M")  %></small>
+									<small><%= beautyclass.start_date.strftime("%Y.%m") %></small>
+									<h2 ><%= beautyclass.start_date.strftime("%d") %></h2>
+									<small><%= beautyclass.start_date.strftime("%H:%M") %>~<%= beautyclass.try(:end_date).strftime("%H:%M")  %></small>
 								</div>
-
+								<% end %>
 							<% end %>
 						</div>
 

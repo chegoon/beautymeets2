@@ -23,7 +23,7 @@
           </div>  
           <div>
             <h4 class="subheader"><small>다른 이미지</small></h4>
-            <%= render 'pictures/gallery' %>
+            <%= render partial: 'pictures/gallery', locals: { thumb_size: :small} %>
           </div>
   </div>
 </div>
@@ -39,12 +39,12 @@
 </div>
 <div class="row" >
   <div class="small-12 columns"> 
-    <h5 class="subheader"><strong><%= @brand.name %></strong> 제품들이 사용된 튜토리얼(<%= @items.count %>)</h5>
+    <h5 class="subheader"><strong><%= @brand.name %></strong> 제품들이 사용된 튜토리얼&nbsp;(<%= @items.count %>)</h5>
     <% @items.each do |item| %>
       <% @tutorials = item.tutorials.order("view_count DESC") %>
       <div class="row">
         <div class="small-12 columns">
-          <h6 class="subheader"><%= link_to image_tag(item.try(:thumbnail).image_url(:small), :class => "th", :style => "width:40px; height:40px;"), item_path(item) %>&nbsp;<strong><%= link_to item.name, item_path(item) %></strong>(<%= @tutorials.count %>)
+          <h6 class="subheader"><%= link_to image_tag(item.try(:thumbnail).image_url(:small), :class => "th", :style => "width:40px; height:40px;"), item_path(item) if item.thumbnail.present? %>&nbsp;<strong><%= link_to item.name, item_path(item) %></strong>&nbsp;(<%= @tutorials.count %>)
           </h6>
           
           <%= render partial: @tutorials %>

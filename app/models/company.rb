@@ -1,6 +1,7 @@
 class Company < ActiveRecord::Base
 
   resourcify
+  include Authority::Abilities
   
   attr_accessible :description, :name, :view_count
   has_many :brands

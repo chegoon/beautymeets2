@@ -10,6 +10,8 @@ class Beautystar < ActiveRecord::Base
   acts_as_taggable
   
   resourcify
+  include Authority::Abilities
+  self.authorizer_name = 'BeautystarAuthorizer'
   
   #belongs_to :user
   has_one :user, as: :profile#, dependent: :destroy

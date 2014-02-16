@@ -1,14 +1,13 @@
 <% if !@video.nil? %>
 <% page_thumb "#{@videos.order('view_count DESC').last.thumb_url}" %>
 <% end %>
-<% page_title "BEAUDEO > #{@video_group.name}" %>
+<% page_title "BEAUTYMEETS > #{@video_group.name}" %>
 
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS에서 #{@video_group.name} 이 만든 #{@videos.count}개의 비디오가 당신을 기다리고 있습니다. " %>
 
  
 
 			<div id="page-head" class=" head-cover" >
-			  	<h2 class="head-title subheader" style="margin:0 auto 20px auto; text-align:center; color:#FFF;"><%= image_tag "/assets/beautymeets_logo.png", :style => "height:50px;" %></h2>
 
 				<h3 class="head-sub-title" style="color:white; margin:20px; text-align:center; " class="subheader">
 					<% if @video_group.image? %>
@@ -29,16 +28,6 @@
 
 
 
-			<div class="row">
-				<div class="small-12 small-centered columns" style="padding:0;">
-					<%= link_to 'Edit', edit_video_group_path(@video_group) if user_signed_in? && current_user.is_admin? %> 
-					<hr>
-					<%= @video_group.try(:description) %>
-					<div class="hide-for-small-only">
-						<%= render "categories/categories" %>      
-					</div>
-				</div>
-			</div>
 
 			<div class="row">
 				<div class="small-12 small-centered columns" style="padding:0;">

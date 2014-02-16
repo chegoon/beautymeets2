@@ -1,11 +1,32 @@
 class EventsController < InheritedResources::Base
-		  # Load authorizing from cancan
-  load_and_authorize_resource
+	# Load authorizing from cancan
+  #load_and_authorize_resource
+
+  # authorize controller thourgh authority
+  authorize_actions_for Beautyclass, except: [:index, :show]
 
   respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
 
   
+  def resource_name 
+    :user 
+  end 
+
+  def resource 
+    @resource ||= User.new 
+  end 
+
+  def devise_mapping 
+    @devise_mapping ||= Devise.mappings[:user] 
+  end 
+
+  def resource_class 
+    User 
+  end
+
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
   # GET /events
   # GET /events.json
   def index
@@ -31,7 +52,8 @@ class EventsController < InheritedResources::Base
     @pictures = @pictureable.pictures
     @picture = Picture.new
 
-    if (cannot? :author, @event) || (cannot? :manage, Event)
+    #if (cannot? :author, @event) || (cannot? :manage, Event)
+    if user_signed_in? && !current_user.can_update?(@event)
       @event.increment_view_count 
     end
 
@@ -74,7 +96,7 @@ class EventsController < InheritedResources::Base
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        @event.create_activity :create, owner: @event.author if (Time.zone.now >= @event.released_at)
+        @event.create_activity :create, owner: @event.host if (Time.zone.now >= @event.released_at) && PublicActivity::Activity.where(owner: @event.host, trackable: @event).nil?
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { head :no_content }
       else

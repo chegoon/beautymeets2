@@ -1,12 +1,33 @@
 class TutorialsController < InheritedResources::Base
   # Load authorizing from cancan
-  load_and_authorize_resource
+  # load_and_authorize_resource
+
+  # authorize controller thourgh authority
+  authorize_actions_for Tutorial, except: [:index, :show]
 
   respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
 
   autocomplete :item, :name
   
+  def resource_name 
+    :user 
+  end 
+
+  def resource 
+    @resource ||= User.new 
+  end 
+
+  def devise_mapping 
+    @devise_mapping ||= Devise.mappings[:user] 
+  end 
+
+  def resource_class 
+    User 
+  end
+
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
   # GET /tutorials
   # GET /tutorials.json
   def index
@@ -55,7 +76,7 @@ class TutorialsController < InheritedResources::Base
     @items = @itemizable.items
     @item = Item.new
 
-    @tutorials = Tutorial.all.last(3)
+    @tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("view_count DESC").limit(3)
     @videos = Video.all.last(4)
 
     if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
@@ -101,7 +122,9 @@ class TutorialsController < InheritedResources::Base
 
     respond_to do |format|
       if @tutorial.update_attributes(params[:tutorial])
-        @tutorial.create_activity :create, owner: @tutorial.author if @tutorial.published?
+        if @tutorial.published? && PublicActivity::Activity.where(owner_id: @tutorial.author.id, owner_type: "User", trackable_id: @tutorial.id, trackable_type: "Tutorial").nil?
+          @tutorial.create_activity :create, owner: @tutorial.author 
+        end
         format.html { redirect_to @tutorial, notice: 'Tutorial was successfully updated.' }
         format.json { head :no_content }
       else
@@ -110,6 +133,4 @@ class TutorialsController < InheritedResources::Base
       end
     end
   end
-
-
 end

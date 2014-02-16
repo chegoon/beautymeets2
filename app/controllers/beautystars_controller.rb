@@ -15,11 +15,7 @@ class BeautystarsController < InheritedResources::Base
 
 	def create
 		@beautystar = current_user.profile.create(params[:beautystar])
+		@beautystar.create_activity :create, owner: @beautystar.user
     current_user.add_role :author, @beautystar
-	end
-
-	def update
-		super
-    @beautystar.create_activity :update, owner: @beautystar.user
 	end
 end

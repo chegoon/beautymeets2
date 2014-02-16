@@ -138,11 +138,12 @@ footer css이나 off-canvas와는 conflicty, js로 대체(sticky-footer.js)
   width:100%; 
   height:120px;
 
+  /*
   border-radius: 4px 4px 0 0 ;
   -moz-border-radius:4px 4px 0 0 ;
   -webkit-border-radius: 4px 4px 0 0 ;
   -khtml-border-radius: 4px 4px 0 0 ;
-
+  */
   display:block;
 }
 
@@ -187,12 +188,117 @@ footer css이나 off-canvas와는 conflicty, js로 대체(sticky-footer.js)
   display:block;
 }
 
-#container {
-    width: 100%;
-    position: relative;
+#wrapper {
+  width: 100%;
+  margin: 10px auto;
 }
-.box {
-    float: left;
-    background-color: #00ffff;
-    position: relative;
+
+#columns {
+  -webkit-column-count: 3;
+  -webkit-column-gap: 15px;
+  -webkit-column-fill: auto;
+  -moz-column-count: 3;
+  -moz-column-gap: 15px;
+  -moz-column-fill: auto;
+  column-count: 3;
+  column-gap: 15px;
+  column-fill: auto;
+}
+
+.pin {
+  display: inline-block;
+  background: #FFF;
+  // border: 2px solid #FAFAFA;
+  // box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  margin: 0 2px 15px;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  column-break-inside: avoid;
+  padding: 15px 15px 10px 15px;
+  background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+  opacity: 1;
+  
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.pin img {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+  margin-bottom: 5px;
+}
+
+.pin p {
+  margin: 0;
+}
+
+// Small screens
+@media only screen { } /* Define mobile styles */
+
+@media only screen and (max-width: 40em) { 
+  
+  #columns {
+    margin: 0 auto;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+} /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+// Medium screens
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { 
+  #columns {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+
+} /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+// Large screens
+@media only screen and (min-width: 64.063em) {
+  #columns {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+  }
+
+} /* min-width 1025px, large screens */
+
+
+.beautyclass-card {
+
+  width:auto; 
+  margin:0 auto; 
+  background:#FFF; 
+  
+  -webkit-box-shadow:1px 2px 0 rgba(151, 151, 151, 0.2); 
+  -moz-box-shadow: i1px 2px 0 rgba(151, 151, 151, 0.2); 
+  box-shadow: 1px 2px 0 rgba(151, 151, 151, 0.2); 
+
+  border-radius: 4px;
+  -moz-border-radius:4px; 
+  -webkit-border-radius: 4px; 
+  -khtml-border-radius: 4px; 
+
+}
+
+.beautyclass-card-thumb {
+  -moz-box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.7);
+  box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.7);
+  
+  min-width:18rem; 
+  max-width:40rem; 
+  width:100%; 
+  height:200px; 
+  background-size:100%; 
+  background-position:center;
+  
+  margin:0 auto;
+  display:block; 
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140209140731) do
+ActiveRecord::Schema.define(:version => 20140214084920) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -397,8 +397,8 @@ ActiveRecord::Schema.define(:version => 20140209140731) do
 
   create_table "read_marks", :force => true do |t|
     t.integer  "readable_id"
-    t.integer  "user_id",                     :null => false
-    t.string   "readable_type", :limit => 20, :null => false
+    t.integer  "user_id",       :null => false
+    t.string   "readable_type", :null => false
     t.datetime "timestamp"
   end
 

@@ -1,8 +1,8 @@
 
 <% if user_signed_in? %>
     <% if bookmarked?(current_user.id, request.path) %>
-      <div id='bookmark_star'><%= link_to "<i class='fa fa-star fa-lg'></i> <span>Starred</span>".html_safe, "/bookmarks/toggle?url=#{request.path}",   :remote => true %></a>
+      <div id='bookmark_star' ><%= link_to "<i class='fa fa-star fa-lg' ></i> <span style='color:#999;'><small>Starred</small></span>".html_safe, "/bookmarks/toggle?url=#{request.path}",  :style => 'color:#ffc754;', :remote => true %></a>
     <% else %>
-      <div id='bookmark_star'><%= link_to "<i class='fa fa-star-o fa-lg'></i> <span>Unstarred</span>".html_safe, "/bookmarks/toggle?url=#{request.path}",  :remote => true %></a>
+      <div id='bookmark_star' ><%= link_to "<i class='fa fa-star-o fa-lg'></i> <span style='color:#999;'><small>Unstarred</small></span>".html_safe, "/bookmarks/toggle?url=#{request.path}", :style => 'color:#ffc754;', :remote => true %></a>
     <% end %>
 <% end %>

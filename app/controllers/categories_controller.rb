@@ -2,9 +2,31 @@ class CategoriesController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
   #before_filter :load_categorizable, except: [:index, :new]
 
+  def resource_name 
+    :user 
+  end 
+
+  def resource 
+    @resource ||= User.new 
+  end 
+
+  def devise_mapping 
+    @devise_mapping ||= Devise.mappings[:user] 
+  end 
+
+  def resource_class 
+    User 
+  end
+
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
   def index
     #@categories = @categorizable.categories
-    @categories = Category.all
+    if params[:cat]
+      @categories = Category.where(parent_id: Category.find_by_name(params[:cat]))
+    else
+      @categories = Category.all
+    end
   end
 
 

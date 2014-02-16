@@ -1,6 +1,8 @@
 class BoardsController < InheritedResources::Base
-	  # Load authorizing from cancan
-  load_and_authorize_resource
+	# Load authorizing from cancan
+  #load_and_authorize_resource
+  # authorize controller thourgh authority
+  authorize_actions_for Board, except: [:index, :show]
 
   respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
@@ -40,7 +42,8 @@ class BoardsController < InheritedResources::Base
     @pictures = @pictureable.pictures
     @picture = Picture.new
 
-    if (cannot? :author, @board) || (cannot? :manage, Board)
+    #if (cannot? :author, @board) || (cannot? :manage, Board)
+    if user_signed_in? && !current_user.can_update?(@board)
       @board.increment_view_count 
     end
 
@@ -83,7 +86,7 @@ class BoardsController < InheritedResources::Base
 
     respond_to do |format|
       if @board.update_attributes(params[:board])
-        @board.create_activity :create, owner: @board.author if @board.published?
+        @board.create_activity :create, owner: @board.author if @board.published? && PublicActivity::Activity.where(owner_id: @board.author.id, owner_type: "User", trackable_id: @board.id, trackable_type: "Board").nil?
         format.html { redirect_to @board, notice: 'Board was successfully updated.' }
         format.json { head :no_content }
       else
