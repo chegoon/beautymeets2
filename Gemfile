@@ -93,6 +93,8 @@ gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://g
 
 gem 'simple-rss'
 
+gem 'passenger'
+
 =begin
 #gem 'therubyracer'
 
