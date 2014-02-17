@@ -1,4 +1,4 @@
-class VideosController < ApplicationCotroller
+class VideosController < ApplicationController
 	
   inherit_resources
 	before_filter :authenticate_user!, except: [:index, :show]
