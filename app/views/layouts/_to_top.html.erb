@@ -1,0 +1,30 @@
+
+	<div class="row">
+		<div class="small-12 medium-4 small-centered medium-centered columns">
+		<a href="#" id="to_top" style="margin:30px auto 10px auto; padding:10px 20px;" class="button expand">Top<i class="right fa fa-chevron-up"></i></a>
+	</div>
+	</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+
+		// Hide scroll top button
+		var top = $('#to_top');
+		top.hide();
+ 
+        $(window).scroll(function(){
+
+            if ($(this).scrollTop() > 100) {
+                top.fadeIn();
+            } else {
+                top.fadeOut();
+            }
+        }); 
+ 
+        top.click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 1000);
+            return false;
+        });
+ 
+    });
+</script>
