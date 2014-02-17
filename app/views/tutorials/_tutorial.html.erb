@@ -13,15 +13,21 @@
       </a>
     </div>
     <div class="tutorial-card-desc" style="">
-      <h6 class="tutorial_title subheader text-left" style="line-height:120%; margin:0 10px; "><a href="<%= tutorial_path(tutorial) %>" ><%= truncate(tutorial.try(:title), 44) %></a>&nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - tutorial.created_at).to_i / 1.day <= 3 %></span>
+      <h6 class="tutorial-card-title subheader text-left" >
+        <a href="<%= tutorial_path(tutorial) %>" >
+          <%= truncate(tutorial.try(:title), 44) %>
+        </a>
+        &nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - tutorial.created_at).to_i / 1.day <= 3 %></span>
       </h6>
-      <h6 class="subheader  text-left" style="font-size: 0.8em; margin:5px 10px;  color:#999; ">
+      <h5 class="subheader  text-left" style="margin:5px 10px;  color:#999; ">
         <%= render partial: 'users/avatar_thumb', locals: { user: tutorial.author } if tutorial.author.present? && tutorial.author.image.present? %>
-        &nbsp;<span class="group_name" >
-          <strong><%=  link_to tutorial.author.try(:name), beautystar_path(tutorial.author.profile) %></strong>
-          &nbsp;<%= " | #{tutorial.author.profile.try(:job_title)}" %>
+        <span class="group_name" >
+          <small>
+            <strong><%=  link_to tutorial.author.try(:name), beautystar_path(tutorial.author.profile) %></strong>
+          &nbsp;<%= "| #{tutorial.author.profile.job_title}" if tutorial.author.profile.job_title.present? %>
+          </small>
         </span>
-      </h6>    
+      </h5>    
       <h5 class="subheader " style="position: absolute; bottom: 0; right:0; margin:0 10px;  color:#999; ">
         <small>
           <%= tutorial.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? %>&nbsp;

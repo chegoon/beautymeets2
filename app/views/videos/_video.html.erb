@@ -13,17 +13,19 @@
       </a>
     </div>
     <div style="text-align:left; padding:0 5px; position: relative; height:110px;">
-      <h6 class="subheader " style="line-height:110%; "><a href="<%= video_path(video) %>" ><%= truncate(video.try(:title), 40) %></a>&nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
+      <h6 class="subheader video-card-title" style="">
+        <a href="<%= video_path(video) %>" ><%= truncate(video.try(:title), 38) %></a>
+        &nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
       </h6>
-
-      <h6 class="subheader" >
-
+      <h4 class="subheader" >
         <% if video.video_group.present? && video.video_group.image.present? %>
           <%= image_tag video.video_group.image_url(:thumb).to_s, :style => "width:24px; height:24px;" %>
         <% else %>
           <%= image_tag video.video_group.try(:thumb_url), :style => "width:24px; height:24px;" %>
         <% end %>
-        &nbsp;<span><%=  link_to video.video_group.try(:name), video_group_path(video.video_group) %></span>
+        &nbsp;<small><strong><%=  link_to video.video_group.try(:name), video_group_path(video.video_group) %></strong></small>
+      </h4>
+      <h6 class="subheader" >
         <small style="position:absolute; bottom:4px; right:6px;">
           <%= video.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? %>&nbsp;
           <i class="fa fa-eye"></i> <%=  video.view_count.nil? ? "0" : number_with_delimiter(video.view_count) %>

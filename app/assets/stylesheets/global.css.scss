@@ -106,6 +106,12 @@ footer css이나 off-canvas와는 conflicty, js로 대체(sticky-footer.js)
    min-height:100px; 
 }
 
+.tutorial-card-title {
+  line-height:120%; 
+  height:2.2rem;
+  margin:0 10px; 
+}
+
 .video-card {
   -webkit-box-shadow:1px 2px 0 rgba(151, 151, 151, 0.2); 
   -moz-box-shadow: i1px 2px 0 rgba(151, 151, 151, 0.2); 
@@ -145,6 +151,11 @@ footer css이나 off-canvas와는 conflicty, js로 대체(sticky-footer.js)
   -khtml-border-radius: 4px 4px 0 0 ;
   */
   display:block;
+}
+
+.video-card-title {
+  line-height:110%; 
+  height:2.6rem;
 }
 
 .board-card {
