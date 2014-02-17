@@ -26,6 +26,10 @@ module ApplicationHelper
 	def page_desc(desc)
 		content_for(:page_desc) { desc }
 	end
+
+	def full_url(image_url)
+		request.protocol + request.host_with_port + image_url
+	end
 	
 	def truncate(text, len, tail = '..')
 		if text.present?

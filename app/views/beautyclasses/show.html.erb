@@ -1,3 +1,6 @@
+<% page_title "BEAUTYMEETS > #{@beautyclass.try(:title)}" %>
+<% page_thumb "#{full_url(@beautyclass.thumbnail.image_url)}" if @beautyclass.thumbnail.present? %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" || (@beautyclass.title.present? ? "#{@beautyclass.title} 클래스를 만나보세요." : "") %>
 
 <div class="row" style="">
 	<div class="small-12 columns " >

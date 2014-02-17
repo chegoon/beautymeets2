@@ -1,5 +1,5 @@
 <% page_title "BEAUTYMEETS > #{@tutorial.try(:title)}" %>
-<% page_thumb "#{@tutorial.thumbnail.image_url}" if @tutorial.thumbnail.present? %>
+<% page_thumb "#{full_url(@tutorial.thumbnail.image_url)}" if @tutorial.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
 
 <div class="row" style="">

@@ -1,6 +1,6 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :load_itemizable, except: [:index, :edit, :new]
+  before_filter :load_itemizable, except: [:index, :new]
   
   autocomplete :item, :name
   autocomplete :brand, :name
