@@ -1,8 +1,12 @@
 
-<div class="small-6 medium-3 large-3 columns" style="text-align:center">
-  <div class="video-card"  >
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="text-align:center">
+  <div class="video-card"  style="">
     <div class="text-center" style="position:relative;">
-      <a class="video-card-thumb " href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>);'>
+      <a class="video-card-thumb " href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>); 
+  border-radius: 4px 4px 0 0 ;
+  -moz-border-radius:4px 4px 0 0 ;
+  -webkit-border-radius: 4px 4px 0 0 ;
+  -khtml-border-radius: 4px 4px 0 0 ;'>
         <span style="background-color:rgba(51, 51, 51, 0.35); color:#EEE; padding:2px 3px; font-size:0.8rem; position:absolute; bottom:10px; right:10px;">
           <%= Time.at(video.duration).utc.strftime("%-M:%S") if video.duration.present? %>
         </span> 
@@ -12,15 +16,16 @@
       <h6 class="subheader " style="line-height:110%; "><a href="<%= video_path(video) %>" ><%= truncate(video.try(:title), 40) %></a>&nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
       </h6>
 
-      <h6 class="subheader" style="font-size: 0.875rem; width:100%; position:absolute; bottom:0; left:6px; color:#999; ">
+      <h6 class="subheader" >
+
         <% if video.video_group.present? && video.video_group.image.present? %>
           <%= image_tag video.video_group.image_url(:thumb).to_s, :style => "width:24px; height:24px;" %>
         <% else %>
           <%= image_tag video.video_group.try(:thumb_url), :style => "width:24px; height:24px;" %>
         <% end %>
         &nbsp;<span><%=  link_to video.video_group.try(:name), video_group_path(video.video_group) %></span>
-        <small style="position:absolute; bottom:2px; right:10px;">
-          <%= video.unread?(current_user) ? "<strong>You not viewed</strong>".html_safe : "You viewed" if user_signed_in? %>&nbsp;
+        <small style="position:absolute; bottom:4px; right:6px;">
+          <%= video.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? %>&nbsp;
           <i class="fa fa-eye"></i> <%=  video.view_count.nil? ? "0" : number_with_delimiter(video.view_count) %>
         </small>
       </h6> 
