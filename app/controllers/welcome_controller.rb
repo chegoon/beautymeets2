@@ -1,23 +1,6 @@
 
 class WelcomeController < ApplicationController
-
-	def resource_name 
-		:user 
-	end 
-
-	def resource 
-		@resource ||= User.new 
-	end 
-
-	def devise_mapping 
-		@devise_mapping ||= Devise.mappings[:user] 
-	end 
-
-	def resource_class 
-		User 
-	end
-
-	helper_method :resource_name, :resource, :devise_mapping, :resource_class
+	inherit_resources
 
   def index
 

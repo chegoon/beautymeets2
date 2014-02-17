@@ -1,4 +1,6 @@
-class TutorialsController < InheritedResources::Base
+class TutorialsController < ApplicationController
+  inherit_resources
+
   # Load authorizing from cancan
   # load_and_authorize_resource
 
@@ -10,24 +12,6 @@ class TutorialsController < InheritedResources::Base
 
   autocomplete :item, :name
   
-  def resource_name 
-    :user 
-  end 
-
-  def resource 
-    @resource ||= User.new 
-  end 
-
-  def devise_mapping 
-    @devise_mapping ||= Devise.mappings[:user] 
-  end 
-
-  def resource_class 
-    User 
-  end
-
-  helper_method :resource_name, :resource, :devise_mapping, :resource_class
-
   # GET /tutorials
   # GET /tutorials.json
   def index

@@ -1,28 +1,12 @@
-class ItemsController < InheritedResources::Base
+class ItemsController < ApplicationController
+  inherit_resources
+  
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_itemizable, except: [:index, :new]
   
   autocomplete :item, :name
   autocomplete :brand, :name
 	
-  def resource_name 
-    :user 
-  end 
-
-  def resource 
-    @resource ||= User.new 
-  end 
-
-  def devise_mapping 
-    @devise_mapping ||= Devise.mappings[:user] 
-  end 
-
-  def resource_class 
-    User 
-  end
-
-  helper_method :resource_name, :resource, :devise_mapping, :resource_class
-
   # GET /items/1
   # GET /items/1.json
   def index

@@ -1,4 +1,6 @@
-class EventsController < InheritedResources::Base
+class EventsController < ApplicationController
+  inherit_resources
+
 	# Load authorizing from cancan
   #load_and_authorize_resource
 
@@ -9,24 +11,6 @@ class EventsController < InheritedResources::Base
 	before_filter :authenticate_user!, except: [:index, :show]  
 
   
-  def resource_name 
-    :user 
-  end 
-
-  def resource 
-    @resource ||= User.new 
-  end 
-
-  def devise_mapping 
-    @devise_mapping ||= Devise.mappings[:user] 
-  end 
-
-  def resource_class 
-    User 
-  end
-
-  helper_method :resource_name, :resource, :devise_mapping, :resource_class
-
   # GET /events
   # GET /events.json
   def index

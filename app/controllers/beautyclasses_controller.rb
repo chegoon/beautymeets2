@@ -1,4 +1,6 @@
-class BeautyclassesController < InheritedResources::Base
+class BeautyclassesController <  ApplicationController
+	inherit_resources
+	
   # Load authorizing from cancan
   #load_and_authorize_resource
   
@@ -9,24 +11,6 @@ class BeautyclassesController < InheritedResources::Base
 	before_filter :authenticate_user!, except: [:index, :show]  
   
   autocomplete :location, :name
-
-	def resource_name 
-		:user 
-	end 
-
-	def resource 
-		@resource ||= User.new 
-	end 
-
-	def devise_mapping 
-		@devise_mapping ||= Devise.mappings[:user] 
-	end 
-
-	def resource_class 
-		User 
-	end
-
-	helper_method :resource_name, :resource, :devise_mapping, :resource_class
 
 	def index
 
@@ -112,11 +96,12 @@ class BeautyclassesController < InheritedResources::Base
 		end
 	end
 
+=begin
   def update
     super
     @beautyclass.create_activity :create, owner: @beautyclass.author if @beautyclass.published? && PublicActivity::Activity.where(owner_id: @beautyclass.author.id, owner_type: "User", trackable_id: @beautyclass.id, trackable_type: "Beautyclass").nil?
   end
-
+=end
 
 	def entry_code_check
 		@beautyclass = Beautyclass.find(params[:id])
