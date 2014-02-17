@@ -25,7 +25,7 @@
               <%= link_to "로그아웃", destroy_user_session_path, :class => "button secondary tiny", method: :delete  %>
             
         <% else %>
-            <%= link_to "가입하기", new_user_registration_path %> |
+            <%= link_to "가입하기", new_user_registration_path %>
             <%= link_to "로그인하기", new_user_session_path %>
         <% end %>
       </div>
