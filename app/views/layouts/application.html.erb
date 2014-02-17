@@ -186,13 +186,16 @@ h1{
     <%= javascript_include_tag "application" %>
     <!-- Foundation 3 for IE 8 and earlier -->
     <!--[if lt IE 9]>
-        <%= javascript_include_tag "foundation3/foundation.min.js" %>
-        <%= javascript_include_tag "foundation3/app.js" %>
+        <%= #javascript_include_tag "foundation3/foundation.min.js" 
+        %>
+        <%= #javascript_include_tag "foundation3/app.js" 
+        %>
     <![endif]-->
 
     <!-- Foundation 4 for IE 9 and later -->
     <!--[if gt IE 8]>
-        <%= javascript_include_tag "foundation4/foundation.min.js" %>
+        <%= #javascript_include_tag "foundation4/foundation.min.js" 
+        %>
         <script>
             $(document).foundation();
         </script>

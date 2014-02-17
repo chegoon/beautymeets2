@@ -49,6 +49,7 @@ Beautymeets2::Application.configure do
   # config.assets.precompile += %w( search.js )
   config.assets.precompile += %w( *.js *.css)
   config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
+  config.assets.precompile += %w( vendor/modernizr.js )
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
