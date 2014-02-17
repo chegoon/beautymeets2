@@ -67,7 +67,7 @@
 <div class="row" >
 	<div class="small-12 medium-3  columns" style="margin:20px 0 0 0;">		
 		<% header_item = @tutorial.items.sample(1).first %>
-		<%= image_tag(header_item.thumbnail.image_url(:medium)) %><br/>
+		<%= image_tag(header_item.thumbnail.image_url(:medium)) if header_item.thumbnail.present? %><br/>
 		<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= header_item.brand.try(:name) %></span><br/>
 		<span  style="font-size:0.8rem; "><strong><%= link_to truncate(header_item.try(:name), 20), item_path(header_item) %></strong></span>
 								
