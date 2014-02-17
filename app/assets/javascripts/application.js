@@ -52,16 +52,19 @@ function swapBookmarkImage()
 
     // Change the image src toggle based on the current image
     if (oriI.hasClass("fa-star")) {
-        oriI.removeClass("fa-star")
-        oriI.addClass("fa-star-o")
+        oriI.removeClass("fa-star");
+        oriI.addClass("fa-star-o");
         oriMsg.text("Unstarred");
     }
     else {
-        oriI.removeClass("fa-star-o")
-        oriI.addClass("fa-star")
+        oriI.removeClass("fa-star-o");
+        oriI.addClass("fa-star");
         oriMsg.text("Starred");
     };
 }
+
+
+
 
 $("#container").mason({
     itemSelector: ".box",

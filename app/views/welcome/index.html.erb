@@ -43,11 +43,24 @@
 		</div>
 	</div>
 
+
+
 	<div class="small-12 medium-4 columns">
 		<h4 class="subheader">전문가들이 사용하는 화장품<br><small>이 제품들로 튜토리얼 완성되었습니다.</small></h4>
-		<%= render "best_items" %>
-		<br>
-		<%= render "latest_items" %>
+		<dl class="accordion" data-accordion>
+  		<dd>
+    		<a href="#panel1"><h6 class="subheader text-center"><strong>가장 많이 보는 화장품</strong><i class="right fa fa-chevron-down"></i></h6></a>
+    		<div id="panel1" class="content active">
+					<%= render "best_items" %>
+				</div>
+			</dd>
+			<dd>
+    		<a href="#panel2"><h6 class="subheader text-center"><strong>최근 추가된 화장품</strong><i class="right fa fa-chevron-down"></i></h6></a>
+    		<div id="panel2" class="content">
+					<%= render "latest_items" %>
+				</div>
+			</dd>
+		</dl>
 	</div>
 </div>
 <div class="row">
@@ -81,13 +94,11 @@
 	<div class="small-12 medium-6 columns" >
 		<h5 class="subheader"><a href="http://blog.beautymeets.com"><%= image_tag "blog_logo.png" %> blog</a></h5>
 		<% @blog_rss.entries.first(5).each_with_index do |entry, i| %>
-
 				<h6 class="subheader"><%= link_to entry.title.unpack('U*').pack('U*'), entry.link %>&nbsp;<small>| <%= entry.category.unpack('U*').pack('U*') %></small></h6>
 				<p>
 					<%= truncate(entry.description.unpack('U*').pack('U*'), 60) %>
 					<small class="right"><%= entry.pubDate.strftime("%Y-%m-%d") %></small>
 				</p>
-				
 				<%= "<hr>".html_safe if i < 4 %>
 		<% end %>
 	</div>
