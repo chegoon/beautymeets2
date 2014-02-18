@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<%= link_to 'Edit', edit_item_path(@item) if user_signed_in? && !current_user.can_update?(@item) %>
+<%= link_to 'Edit', edit_item_path(@item) if user_signed_in? && current_user.can_update?(@item) %>
 
 <div class="row" style="">
   <div class="small-12 large-12 columns" > 
