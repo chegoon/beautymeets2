@@ -97,8 +97,8 @@
 							</ul>
 						<% else %>
 							<h6 class="subheader">로그인 이후 확인 가능합니다. </h6>
-							<a href="#" data-reveal-id="signup-modal" class="button tiny" >회원가입</a>
-              <a href="#" data-reveal-id="signin-modal" class="button tiny secondary">로그인</a>
+							<a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>
+              <a href="<%= new_user_session_path %>"  class="button tiny secondary">로그인</a>
             <% end %>
 					</div>
 			</dd>

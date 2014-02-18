@@ -173,7 +173,9 @@
 				<%= render :partial =>  "regular_class_regist"  %>
 		<% end %>
 	<% else %>
-	  	<%= render :template => "devise/sessions/new" %>
+		<h5 class="subheader">로그인 이후 신청 가능합니다. </h5>
+		<a href="<%= new_user_registration_path %>"  class="button " >회원가입</a>
+    <a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
 	<% end %>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
