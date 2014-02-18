@@ -23,8 +23,8 @@
         <%= render partial: 'users/avatar_thumb', locals: { user: tutorial.author } if tutorial.author.present? && tutorial.author.image.present? %>
         <span class="group_name" >
           <small>
-            <% if beautyclass.author.has_role? :admin %>
-              <strong><%= beautyclass.author.try(:name) %></strong>
+            <% if tutorial.author.has_role? :admin %>
+              <strong><%= tutorial.author.try(:name) %></strong>
             <% else %>
             <strong><%=  link_to tutorial.author.try(:name), beautystar_path(tutorial.author.profile) %></strong>
           &nbsp;<%= "| #{tutorial.author.profile.job_title}" if tutorial.author.profile.job_title.present? %>
