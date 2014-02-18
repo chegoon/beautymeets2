@@ -17,7 +17,7 @@
 <div class="row">
 	<div class="small-12 columns">
 		<%= link_to 'New Beauclass', new_beautyclass_path, :class => "button secondary radius tiny"   if can? :manage, Beautyclass %>
-
+		<%= link_to 'See Draft', {  controller: "beautyclasses", published: 0 }, :class => "button secondary radius tiny " if can? :manage, Beautyclass %>
 		<%= link_to "참여가능한 클래스 살펴보기", {  controller: "beautyclasses", closed: 0 }, :class => "button secondary radius tiny " %>
 		<%= link_to "종료된 클래스 살펴보기", {  controller: "beautyclasses", closed: 1 }, :class => "button secondary radius tiny right" %>
 	</div>

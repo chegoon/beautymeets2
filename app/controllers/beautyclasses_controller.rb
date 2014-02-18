@@ -13,18 +13,14 @@ class BeautyclassesController <  ApplicationController
   autocomplete :location, :name
 
 	def index
-
-		#if can? :manage, Beautyclass
-		if user_signed_in? && current_user.can_update?(Beautyclass)
-			if params[:cat].present?
-				@beautyclasses = Beautyclass.where("published = ? AND closed = ? AND id IN (?)", true, (params[:closed] || false), Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
+		if params[:cat].present?
+			if user_signed_in? && current_user.can_update?(Beautyclass)
+				@beautyclasses = Beautyclass.where("id IN (?)", Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
 			else
-				@beautyclasses = Beautyclass.where("published = ? AND closed = ? ", true, (params[:closed] || false)).order("created_at DESC")
+				@beautyclasses = Beautyclass.where("published = true AND id IN (?)",  Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
 			end
-		elsif params[:cat].present?
-			@beautyclasses = Beautyclass.where("published = true AND closed = ? AND id IN (?)",  (params[:closed] || false), Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
 		else
-			@beautyclasses = Beautyclass.where("published = true AND closed = ?",  (params[:closed] || false)).order("created_at DESC")
+			@beautyclasses = Beautyclass.where("published = ? AND closed = ? ", (params[:published] || false), (params[:closed] || false)).order("created_at DESC")
 		end
 
 		respond_to do |format|
