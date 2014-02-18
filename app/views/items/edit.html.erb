@@ -1,6 +1,22 @@
 <h1>Editing item</h1>
 
-<%= render 'form' %>
+
+<%= simple_form_for [ @item] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <%= f.input :brand_name,  :url => autocomplete_brand_name_items_path, :as => :autocomplete %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
 
 <%= link_to 'Show', @item %> |
 <%= link_to 'Back', items_path %>
