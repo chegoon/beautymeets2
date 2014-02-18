@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
   acts_as_readable :on => :updated_at
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :url_candidate, use: [:slugged, :history]
   
   belongs_to :brand
   attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id

@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   acts_as_readable :on => :updated_at
 
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :url_candidate, use: [:slugged, :history]
 
   attr_accessible :description, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id, :target_url
 

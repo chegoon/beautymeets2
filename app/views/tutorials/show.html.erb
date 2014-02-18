@@ -36,7 +36,7 @@
 			<p><%= @tutorial.description %></p>
     	<p>
     		<% @tutorial.tag_list.each do |t| %>
-	  	  	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+	  	  	<span class="label secondary radius"><%= t %></span>
 		   	<% end %>
 			</p>
   </div>

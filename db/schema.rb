@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140214084920) do
+ActiveRecord::Schema.define(:version => 20140218055201) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20140214084920) do
     t.integer  "capacity"
     t.boolean  "closed"
     t.boolean  "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "user_id"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20140214084920) do
     t.integer  "picture_id"
     t.string   "entry_code"
     t.string   "image"
+    t.string   "url_candidate"
   end
 
   add_index "beautyclasses", ["location_id"], :name => "index_beautyclasses_on_location_id"
@@ -277,6 +278,7 @@ ActiveRecord::Schema.define(:version => 20140214084920) do
     t.text     "description"
     t.string   "slug"
     t.string   "target_url"
+    t.string   "url_candidate"
   end
 
   add_index "events", ["picture_id"], :name => "index_events_on_picture_id"
@@ -324,11 +326,12 @@ ActiveRecord::Schema.define(:version => 20140214084920) do
     t.string   "name"
     t.text     "description"
     t.integer  "view_count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "slug"
     t.integer  "picture_id"
     t.string   "image"
+    t.string   "url_candidate"
   end
 
   add_index "items", ["brand_id"], :name => "index_items_on_brand_id"
@@ -482,13 +485,14 @@ ActiveRecord::Schema.define(:version => 20140214084920) do
     t.integer  "user_id"
     t.integer  "view_count"
     t.boolean  "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.text     "description"
     t.string   "slug"
     t.integer  "duration"
     t.integer  "picture_id"
     t.string   "image"
+    t.string   "url_candidate"
   end
 
   add_index "tutorials", ["picture_id"], :name => "index_tutorials_on_picture_id"
