@@ -13,10 +13,10 @@ class Beautyclass < ActiveRecord::Base
   acts_as_readable :on => :updated_at
   
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :url_candidate, use: [:slugged, :history]
 
   belongs_to :author, class_name: "User", :foreign_key => "user_id"
-  attr_accessible :price, :capacity, :description, :published, :closed, :title, :view_count, :picture_id, :tag_list, :category_ids, :location_attributes, :where, :picture_id, :location_name, :review_url, :start_date, :end_date
+  attr_accessible :price, :capacity, :description, :published, :closed, :title, :view_count, :picture_id, :tag_list, :category_ids, :location_attributes, :where, :picture_id, :location_name, :review_url, :start_date, :end_date, :url_candidate
 
 	has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
