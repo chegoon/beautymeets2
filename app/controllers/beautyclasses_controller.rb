@@ -20,7 +20,7 @@ class BeautyclassesController <  ApplicationController
 				@beautyclasses = Beautyclass.where("published = true AND id IN (?)",  Beautyclass.joins(:categories).where("category_id = ?", params[:cat]).map(&:id)).order("created_at DESC")
 			end
 		else
-			@beautyclasses = Beautyclass.where("published = ? AND closed = ? ", (params[:published] || false), (params[:closed] || false)).order("created_at DESC")
+			@beautyclasses = Beautyclass.where("published = ? AND closed = ? ", ((params[:published] ? params[:published] : true ) || false), ((params[:closed] ? params[:closed] : false) || false)).order("created_at DESC")
 		end
 
 		respond_to do |format|

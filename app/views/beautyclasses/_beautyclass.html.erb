@@ -4,7 +4,7 @@
 				<div class="small-12 columns">
 					<%= link_to "", beautyclass.closed? ? "#" : beautyclass_path(beautyclass), :class => "beautyclass-card-thumb button radius #{ 'disabled' if beautyclass.closed? }", :style => " background-image: url(#{beautyclass.thumbnail.present? ? beautyclass.thumbnail.image_url : beautyclass.image_url}); 
               background-repeat: no-repeat; " %>
-					<h3 style=" height:3.0rem;"><%= link_to truncate(beautyclass.title, 26), beautyclass_path(beautyclass) %></h3>
+					<h3 style=" height:3.0rem;"><small><%= "[Draft]" if beautyclass.published.nil? || !beautyclass.published? %></small><%= link_to truncate(beautyclass.title, 26), beautyclass_path(beautyclass) %></h3>
 
 		      <h5 class="subheader  text-left" style="margin:5px 10px;  color:#999; ">
 		        <%= render partial: 'users/avatar_thumb', locals: { user: beautyclass.author } if beautyclass.author.present? && beautyclass.author.image.present? %>

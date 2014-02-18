@@ -13,7 +13,7 @@
 	<div class="small-12 medium-12 columns">
 		<div class="" style="width:100%; font-size:9px; color: #666; "></div>
 		
-		<h2><%= @beautyclass.title %></h2>
+		<h2><%= "[Draft]" if @beautyclass.published.nil? || !@beautyclass.published? %><%= @beautyclass.title %></h2>
 		<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
 	</div>
 </div>
