@@ -3,6 +3,9 @@
       <h3 style="letter-spacing:-0.5px; color:#999;"><small class="small ">제품 상세정보 </small></h3>
   </div>
 </div>
+
+<%= link_to 'Edit', edit_item_path(@item) if user_signed_in? && !current_user.can_update?(@item) %>
+
 <div class="row" style="">
   <div class="small-12 large-12 columns" > 
     <h4 class="subheader"><small><%= link_to "#{@item.brand.try(:name)} > ", brand_path(@item.brand) if @item.brand.present? %> <%= @item.name %></small>
