@@ -24,7 +24,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="small-12 medium-8 columns" >
+	<div class="small-12 medium-8 columns" style="margin-bottom:20px;">
 		<h4 class="subheader">
 			최신 튜토리얼&nbsp;<small>뷰티밋츠가 제작한 최신 뷰티 튜토리얼입니다.</small>
 		</h4>
@@ -33,8 +33,8 @@
 			인기 튜토리얼&nbsp;<small>뷰티밋츠에서 가장 인기가 많은 뷰티 튜토리얼입니다.</small>
 		</h4>
 		<%= render partial: @best_tutorials, locals: { cards_in_row: "2" }  %>
-		<div class="text-center">
-			<%= link_to "튜토리얼 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, tutorials_path, :class => "button radius" %>
+		<div class="" style="padding:0 12px;">
+			<%= link_to "튜토리얼 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, tutorials_path, :class => "button radius expand", :style => "" %>
 		</div>
 	</div>
 
@@ -62,7 +62,7 @@ $(".accordion dd").on("click", "a:eq(0)", function (event){
 
 </script>
 
-	<div class="small-12 medium-4 columns">
+	<div class="small-12 medium-4 columns" style="margin-bottom:20px;">
 		<h4 class="subheader">전문가들이 사용하는 화장품<br><small>이 제품들로 튜토리얼 완성되었습니다.</small></h4>
 		<dl class="accordion" data-accordion>
   		<dd>
@@ -83,11 +83,11 @@ $(".accordion dd").on("click", "a:eq(0)", function (event){
 <div class="row">
 	<div class="small-12 medium-12 columns" >
 		<h4 class="subheader">
-			인기 뷰티 클래스&nbsp;<small>뷰티전문가 뷰티스타의 인기 뷰티클래스를 만나보세요.</small>
+			인기 뷰티 클래스&nbsp;<small>뷰티전문가를 직접 만나 나에게 맞는 화장법을 배우세요.(유료)</small>
 		</h4>
 		<%= render @best_beautyclasses %>
 		<div class="text-center">
-			<%= link_to "뷰티클래스 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, beautyclasses_path, :class => "button radius" %>
+			<%= link_to "뷰티클래스 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, beautyclasses_path, :class => "button radius secondary" %>
 		</div>
 		<hr>
 		<h4 class="subheader">뷰티비디오&nbsp;<small>뷰티밋츠가 고르고 고른 뷰티 비디오입니다.</small>
@@ -95,18 +95,17 @@ $(".accordion dd").on("click", "a:eq(0)", function (event){
 		<h5 class="subheader"><strong>인기 뷰티 비디오</strong>&nbsp;<small class="right" style="margin-top:10px;" ><a href=<%= "#{videos_path}?order=popular" %>> <i class="fa fa-plus-square fa-fw "></i>More</a>&nbsp;</small>
 		</h5>
 		<%= render @best_videos %>
+		<div class="show-for-small-only text-center"><%= link_to "인기 뷰티 비디오 더보기 <i class='fa fa-chevron-right'></i>".html_safe, { controller: "videos", order: "popular" }, :class => "button radius secondary " %></div>
 		<h5 class="subheader"><strong>최신 뷰티 비디오</strong>&nbsp;<small class="right" style="margin-top:10px;" ><a href=<%= "#{videos_path}?order=newly" %>> <i class="fa fa-plus-square fa-fw"></i>More</a>&nbsp;</small>
 		</h5>
 		<%= render @latest_videos %>
-		<div class="text-center">
-			<%= link_to "뷰티 비디오 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, videos_path, :class => "button secondary radius" %>
-		</div>
+		<div class="show-for-small-only text-center"><%= link_to "최신 뷰티 비디오 더보기 <i class='fa fa-chevron-right'></i>".html_safe, { controller: "videos", order: "newly" }, :class => "button radius secondary " %></div>
 		<hr>
 	</div>
 </div>
 <div class="row">
 	<div class="small-12 medium-6 columns" >
-		<div class="fb-like-box" data-href="https://www.facebook.com/beautymeets.page" data-width="370px" data-height="510px" data-header="false" data-show-border="false" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false">
+		<div class="fb-like-box" data-href="https://www.facebook.com/beautymeets.page" data-width="360px" data-height="510px" data-header="false" data-show-border="false" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false">
 		</div>
 		<div class="fb-like" data-href="http://www.facebook.com/beautymeets.page"  data-send="false" data-width="320px;" data-show-faces="false">
 		</div>

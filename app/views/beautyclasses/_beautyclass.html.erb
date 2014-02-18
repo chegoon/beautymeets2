@@ -39,9 +39,9 @@
 						</div>
 						<div class="small-5 columns">
 							<% if beautyclass.categories.first.present? && beautyclass.categories.first.name == "프라이빗 클래스" %>
-								<div class="panel radius callout text-center" style=" border:0; padding:6px; max-width:80px;">
-									<h6 class="subheader ">PRIVATE</h6>
-									<h6 class="subheader ">CLASS</h6>
+
+								<div class="panel radius callout " style=" border:0; padding:24px 4px 0 4px; max-width:120px;">
+									<%= link_to "신청하기", beautyclass_path(beautyclass), :class => "button radius secondary" %>	
 								</div>
 							<% else %>								
 								<% if beautyclass.start_date && beautyclass.end_date %>
