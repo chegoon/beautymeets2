@@ -15,7 +15,7 @@
 
   <%= hidden_field_tag "video[category_ids][]", nil %>
 
-    <% Category.all.each do |category| %>
+    <% Category.where(parent_id: Category.find_by_name("video").id).each do |category| %>
       <%= check_box_tag "video[category_ids][]", category.id, @video.category_ids.include?(category.id), id: dom_id(category)  %>
       <%= #best_in_place_if video.video_category_ids.include?(video_category.id), video_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
       %>
