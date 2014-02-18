@@ -69,7 +69,8 @@ class VideosController < ApplicationController
       @comment = Comment.new
     end
 
-    if cannot? :manage, @video
+    if user_signed_in? && !current_user.can_update?(@video)
+    #if cannot? :manage, @video
       @video.increment_view_count 
     end
 

@@ -33,11 +33,11 @@ class VideoGroupsController < ApplicationController
     end
     @categories = Category.where("parent_id IS NULL ").all
     #@categories = Category.joins(:videos).where("videos.id in (?)", @videos.map(&:id))
-=begin
-    if !(user_signed_in? && (current_user.has_role? :admin))
+
+    if user_signed_in? && !current_user.can_update?(@video_group)
       @video_group.increment_view_count
     end
-=end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @video_group }

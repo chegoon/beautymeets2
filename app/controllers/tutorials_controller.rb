@@ -63,7 +63,8 @@ class TutorialsController < ApplicationController
     @tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("view_count DESC").limit(3)
     @videos = Video.all.last(4)
 
-    if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
+    #if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
+    if user_signed_in? && !current_user.can_update?(@tutorial)
       @tutorial.increment_view_count 
     end
 
