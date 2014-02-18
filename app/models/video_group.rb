@@ -7,7 +7,7 @@ class VideoGroup < ActiveRecord::Base
   friendly_id :name, use:  [:slugged, :history]
   
   attr_accessible :name, :home_url, :thumb_url, :image, :youtube_id, :header_bg_url, :view_count
-  has_many :videos
+  has_many :videos, dependent: :destroy
 
   mount_uploader :image, ImageUploader
   

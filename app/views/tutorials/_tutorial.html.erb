@@ -30,7 +30,8 @@
       </h5>    
       <h5 class="subheader " style="position: absolute; bottom: 0; right:0; margin:0 10px;  color:#999; ">
         <small>
-          <%= tutorial.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? %>&nbsp;
+          <%= #tutorial.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? 
+          %>&nbsp;
           <i class="fa fa-eye"></i> <%=  tutorial.view_count.nil? ? "0" : number_with_delimiter(tutorial.view_count) %>
         </small>
       </h5>
