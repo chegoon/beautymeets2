@@ -6,7 +6,7 @@
 		</div>
 		<div class="small-9 large-9 columns">
 	    <span ><%= link_to item.name, item_path(item) %></span><br/>
-	    <span ><%= item.brand.try(:name) %></span><br/>
+	    <span ><small><strong><%= item.brand.try(:name) %></strong></small></span><br/>
 	    <span><%= truncate(item.brand.try(:description), 50) %></span>
 		</div>
 	</div>
