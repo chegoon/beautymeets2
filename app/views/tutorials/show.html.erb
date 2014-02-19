@@ -1,4 +1,4 @@
-<% page_title "BEAUTYMEETS > #{@tutorial.try(:title)}" %>
+<% page_title "BEAUTYMEETS > #{@tutorial.try(:title)} by #{@tutorial.author.try(:name)}" %>
 <% page_thumb "#{full_url(@tutorial.thumbnail.image_url)}" if @tutorial.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
 
@@ -120,8 +120,9 @@
 			<% end %>
 			<% end %>
 		</div>
-
-    <div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+		<div style="margin:10px 0;">
+    	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
 
 <div class="row" style="margin:2.5rem 0 0 0;">
 	<div class="small-12 medium-8 columns">		
