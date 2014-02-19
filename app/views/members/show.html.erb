@@ -6,7 +6,7 @@
 	<div class="small- medium-9 columns" style="background:#FFF;">
 		<%= render 'sub_nav' %>
 		<h4>프로필</h4>
-		<h6><strong>로긴 정보</strong></h6>
+		<h6><strong>로그인 정보</strong></h6>
 		<%= link_to '수정', edit_user_registration_path(@member.user), :class => "right button tiny secondary" if (can? :manager, current_user) %>
 		<ul class="square">
 			<li>User name : <%= @member.user.name %></li>
