@@ -2,7 +2,7 @@
 <% page_thumb "#{full_url(@brands.first.thumbnail.image_url)}" if @brands.first.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!"  %>
 
-<h2 class="subheader text-center" style="padding:20px;">BRAND</h2>
+<h2 class="subheader text-center" style="padding:20px;"><strong><%= @brands.count %></strong> BRAND</h2>
 
 <br />
 <%= link_to "<i class='fa fa-plus fa-fw'></i>New Brand".html_safe, new_brand_path if user_signed_in? && current_user.can_create?(Brand) %>
