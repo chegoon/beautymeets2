@@ -20,21 +20,23 @@
   </div>
   <div class="small-12 medium-8 columns" >
 
-          <h2 style=" letter-spacing:-1px;"><%= @item.name %></h2>
-          <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
-          <div style="color: #666; margin-top:20px; font-size:14px;"><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %>
-              <% @item.tag_list.each do |t| %>
-              <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
-              <% end %>
+    <h6 style="margin-bottom:-9px;"><%= link_to @item.brand.name, brand_path(@item.brand) if @item.brand && @item.brand.thumbnail %></h6>
+    <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= @item.name %></strong></h2>
+    <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
+    
+    <div style="color: #666; margin-top:20px; font-size:14px;">
+      <%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %>
+      <% @item.tag_list.each do |t| %>
+        <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+      <% end %>
+    </div>  
+    
+    <div>
+      <h4 class="subheader"><small>다른 이미지</small></h4>
+      <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
+    </div>
 
-          </div>  
-          
-          <div>
-            <h4 class="subheader"><small>다른 이미지</small></h4>
-            <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
-          </div>
-
-          <div class="fb-like" data-href="<%= item_url(@item) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    <div class="fb-like" data-href="<%= item_url(@item) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 
   </div>
 </div>

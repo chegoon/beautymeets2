@@ -9,6 +9,9 @@
     </h4>
   </div>
 </div>
+    <% if user_signed_in? && current_user.can_update?(@brand) %>
+      <span class="left"><i class="fa fa-cog fa-fw"></i><%= link_to "Edit", edit_brand_path(@brand) %></span>
+    <% end %>
 <div class="row" >
   <div class="small-12 medium-4 columns item-show-thumb" >
     <div class="item-show-thumb">

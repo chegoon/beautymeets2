@@ -1,29 +1,11 @@
-<h2 class="subheader text-center" style="margin:20px;">Brands</h2>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Item count</th>
-    <th>View count</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @brands.each do |brand| %>
-  <tr>
-    <td><%= image_tag brand.thumbnail.image_url(:very_small) if brand.thumbnail %><%= brand.company %>
-        <%= link_to brand.name, brand_path(brand) %>
-    </td>
-    <td><%= brand.description %></td>
-    <td><%= brand.items.count %></td>
-    <td><%= brand.view_count %></td>
-    <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
-    <td><%= link_to 'Destroy', brand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+<h2 class="subheader text-center" style="padding:20px;">BRAND</h2>
 
 <br />
+<%= link_to "<i class='fa fa-plus fa-fw'></i>New Brand".html_safe, new_brand_path if user_signed_in? && current_user.can_create?(Brand) %>
 
-<%= link_to 'New Brand', new_brand_path %>
+
+<div id="wrapper">
+  <div id="columns">
+    <%= render @brands %>
+  </div>
+</div>

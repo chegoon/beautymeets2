@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   inherit_resources
-  
+
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_itemizable, except: [:index, :new]
   
@@ -78,7 +78,8 @@ class ItemsController < ApplicationController
       @comment = Comment.new
     end
 
-    if cannot? :manage, @item
+    #if cannot? :manage, @item
+    if !(user_signed_in? && current_user.can_update?(@item))
       @item.increment_view_count 
     end
 

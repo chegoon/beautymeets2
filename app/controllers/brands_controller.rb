@@ -10,7 +10,8 @@ class BrandsController < InheritedResources::Base
     @pictures = @pictureable.pictures
     @picture = Picture.new
     
-    if cannot? :manage, @brand
+    #if cannot? :manage, @brand
+    if !(user_signed_in? && current_user.can_update?(@brand))
       @brand.increment_view_count 
     end
 
