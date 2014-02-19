@@ -1,0 +1,16 @@
+
+<div class="pin">
+
+	<div class="text-center" >
+		<%= link_to image_tag(brand.thumbnail.image_url(:medium)), brand_path(brand) if brand.thumbnail.present? %>
+		<br/>
+		<p>
+		<h6 class="subheader" style="line-height:101%; width:auto; "><%= link_to truncate(brand.name, 16), brand_path(brand) %></h6>
+		<% if user_signed_in? && current_user.can_update?(brand) %>
+			<span class="left"><small><i class="fa fa-cog fa-fw"></i><%= link_to "Edit", edit_brand_path(brand) %></small></span>
+		<% end %>
+		<span class="right" style="color:#999;"><small><i class="fa fa-bullseye fa-fw"></i><%= brand.items.count %> items</small></span>
+		</p>
+	</div>
+
+</div>
