@@ -1,5 +1,5 @@
 <h2>BEAUTYMEETS Says.</h2>
-<%= link_to 'New Post', new_post_path %>
+<%= link_to 'New Post', new_post_path if user_signed_in? && current_user.can_create?(Post) %>
 
       <div class="row">
         <div class="small-12 small-centered columns" >
