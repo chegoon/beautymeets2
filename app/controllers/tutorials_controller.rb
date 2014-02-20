@@ -60,8 +60,8 @@ class TutorialsController < ApplicationController
     @items = @itemizable.items
     @item = Item.new
 
-    @tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("view_count DESC").limit(3)
-    @videos = Video.all.last(4)
+    @tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("created_at DESC").limit(3)
+    @videos = Video.where(published: true).order("created_at DESC").last(4)
 
     #if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
     if user_signed_in? && !current_user.can_update?(@tutorial)
