@@ -5,7 +5,7 @@
 <h2 class="text-center" style="padding:20px;"><strong><%= @items.count %></strong> ITEM</h2>
 
 <br />
-<%= link_to "<i class='fa fa-plus fa-fw'></i>New Brand".html_safe, new_brand_path if user_signed_in? && current_user.can_create?(Item) %>
+<%= link_to "<i class='fa fa-plus fa-fw'></i>New Item".html_safe, new_item_path if user_signed_in? && current_user.can_create?(Item) %>
 
 <div id="wrapper">
   <div id="columns">
