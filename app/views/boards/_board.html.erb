@@ -2,7 +2,7 @@
 <div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="margin-bottom:30px;">
   <div class="board-card">
     <div class="text-center" style="position: relative; margin:0 auto; padding:6px;">
-      <a class="reveal board-card-thumb " data-reveal-id="modal-board-<%= board.id %>" data-reveal-ajax="true" href="<%= board_path(board) %>" style='background-image: url("<%= board.thumbnail.image_url(:large) if board.thumbnail.present? %>");'>
+      <a class="reveal board-card-thumb " data-reveal-id="modal-board-<%= board.id %>" href="#" style='background-image: url("<%= board.thumbnail.image_url(:large) if board.thumbnail.present? %>");'>
         <% if board.categories.present? %>
           <% board.categories.each do |category| %>
             &nbsp;<span class=" secondary label right" style="position:absolute; right:6px; top:6px;"><%= category.name %></span>
@@ -15,6 +15,6 @@
 </div>
 
 <div id="modal-board-<%= board.id %>" class="reveal-modal medium"  data-reveal>  
-  
+  <%= render partial: "show", locals: { board: board }%>
   <a class="close-reveal-modal">&#215;</a>
 </div>
