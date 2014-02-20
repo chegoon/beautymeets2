@@ -11,7 +11,7 @@
       </a>
     </div>
   </div>
-  <%= link_to "직접 들어가기", post_path(post) if (user_signed_in? && current_user.can_update?(post)) %>
+  <%= link_to "직접 들어가기", post_path(post) if user_signed_in? && current_user.can_update?(post) %>
 </div>
 
 <div id="modal-post-<%= post.id %>" class="reveal-modal medium"  data-reveal>  
