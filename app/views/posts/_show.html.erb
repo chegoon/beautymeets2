@@ -2,7 +2,7 @@
 <% page_thumb "#{full_url(post.thumbnail.image_url)}" if post.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 
-<div class="text-right"><%= link_to "Edit", edit_post_path(post) if can? :manage, post %></div>
+<div class="text-right"><%= link_to "Edit", edit_post_path(post) if user_signed_in && current_user.can_uaduate?(post) %></div>
 <div class="row">
 	<div class="small-12 medium-4 columns">
 		<%= image_tag post.thumbnail.image_url(:large) if post.thumbnail.present? %>
