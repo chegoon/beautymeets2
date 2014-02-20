@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140218055201) do
+ActiveRecord::Schema.define(:version => 20140220164324) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -122,11 +122,12 @@ ActiveRecord::Schema.define(:version => 20140218055201) do
     t.integer  "picture_id"
     t.integer  "user_id"
     t.integer  "view_count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.boolean  "published"
     t.text     "description"
     t.string   "slug"
+    t.string   "url_candidate"
   end
 
   add_index "boards", ["picture_id"], :name => "index_boards_on_picture_id"
@@ -385,6 +386,22 @@ ActiveRecord::Schema.define(:version => 20140218055201) do
   end
 
   add_index "pictures", ["pictureable_id", "pictureable_type"], :name => "index_pictures_on_pictureable_id_and_pictureable_type"
+
+  create_table "posts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.integer  "view_count"
+    t.text     "description"
+    t.integer  "picture_id"
+    t.boolean  "published"
+    t.string   "url_candidate"
+    t.string   "slug"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "posts", ["picture_id"], :name => "index_posts_on_picture_id"
+  add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
   create_table "products", :force => true do |t|
     t.integer  "brand_id"

@@ -1,5 +1,7 @@
 Beautymeets2::Application.routes.draw do
 
+  resources :posts
+
   resources :events do
     resources :pictures, :comments
   end
@@ -8,6 +10,10 @@ Beautymeets2::Application.routes.draw do
   match 'beautorials' => 'tutorials#index'
 
   resources :boards do 
+    resources :pictures, :comments
+  end
+
+  resources :posts do 
     resources :pictures, :comments
   end
 

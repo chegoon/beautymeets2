@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :checkouts
   has_many :bookmarks
 	has_many :authentications,  :dependent => :destroy
-	has_many :boards
+	has_many :posts
 	
 	has_many :events, through: :event_entrys
 	has_many :event_entrys

@@ -1,4 +1,4 @@
-<%= simple_form_for(@board) do |f| %>
+<%= simple_form_for(@post) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -8,10 +8,10 @@
     <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
     <%= f.input :description %>
 
-    <%= hidden_field_tag "board[category_ids][]", nil %>
-    <% if Category.find_by_name("board") %>
-      <% Category.where(parent_id: Category.find_by_name("board").id).each do |category| %>
-        <%= check_box_tag "board[category_ids][]", category.id, @board.category_ids.include?(category.id), id: dom_id(category)  %>
+    <%= hidden_field_tag "post[category_ids][]", nil %>
+    <% if Category.find_by_name("post") %>
+      <% Category.where(parent_id: Category.find_by_name("post").id).each do |category| %>
+        <%= check_box_tag "post[category_ids][]", category.id, @post.category_ids.include?(category.id), id: dom_id(category)  %>
         <%= #best_in_place_if tutorial.tutorial_category_ids.include?(tutorial_category.id), tutorial_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
         %>
         <%= label_tag dom_id(category), category.name %>

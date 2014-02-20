@@ -1,0 +1,20 @@
+
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="margin-bottom:30px;">
+  <div class="post-card">
+    <div class="text-center" style="position: relative; margin:0 auto; padding:6px;">
+      <a class="reveal post-card-thumb " data-reveal-id="modal-post-<%= post.id %>" href="#" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
+        <% if post.categories.present? %>
+          <% post.categories.each do |category| %>
+            &nbsp;<span class=" secondary label right" style="position:absolute; right:6px; top:6px;"><%= category.name %></span>
+          <% end %> 
+        <% end %>
+      </a>
+    </div>
+  </div>
+  <%= link_to "직접 들어가기", post_path(post) if (can? :author, post) %>
+</div>
+
+<div id="modal-post-<%= post.id %>" class="reveal-modal medium"  data-reveal>  
+  <%= render partial: "show", locals: { post: post }%>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

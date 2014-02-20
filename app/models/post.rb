@@ -1,4 +1,5 @@
-class Board < ActiveRecord::Base
+class Post < ActiveRecord::Base
+
   include PublicActivity::Common
   
   resourcify
@@ -21,9 +22,6 @@ class Board < ActiveRecord::Base
   
   has_many :categories, through: :categorizations
   has_many :categorizations, as: :categorizeable  
-
-  has_many :items, through: :itemizations
-  has_many :itemizations, as: :itemizable
   
   has_many :comments, :as => :commentable
   
@@ -32,5 +30,4 @@ class Board < ActiveRecord::Base
 	  self.view_count += by
 	  self.save
 	end
-
 end

@@ -1,3 +1,7 @@
+<% page_title "BEAUTYMEETS > #{@board.try(:title)} " %>
+<% page_thumb "#{full_url(@board.thumbnail.image_url)}" if @board.thumbnail.present? %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
+
 <div class="row" style="">
   <div class="large-12 columns"> 
 		<h4 style="letter-spacing:-0.5px;">BEAUTYMEETS SAYS</h4>
@@ -43,6 +47,9 @@
 	</div>
 </div>
 
+		<div style="margin:10px 0;">
+    	<div class="fb-like" data-href="<%= board_url(@board) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
 
 
 

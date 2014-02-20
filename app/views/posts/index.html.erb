@@ -1,0 +1,16 @@
+<h2>BEAUTYMEETS Says.</h2>
+<%= link_to 'New Post', new_post_path %>
+
+      <div class="row">
+        <div class="small-12 small-centered columns" >
+          <div id="posts">    
+            <div class="list">    
+              <%= render @posts %>
+            </div>            
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination-centered"><%= will_paginate @posts, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %></div>
+
+
