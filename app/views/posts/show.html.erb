@@ -47,7 +47,19 @@
     <ul class="example-orbit" data-orbit>
       <% @pictures.each do |p| %>
       <li>       
-        <img style="margin:0 auto;" src="<%= p.image_url(:large).to_s %>">        
+        <% if user_singed_in? && current_user.can_update?(@pictureable) %>
+
+            <div class="left" style="margin:10px;">
+              <img src="<%= p.image_url(:small).to_s %>">
+              <%= simple_form_for [@pictureable] do |f| %>
+                <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+                <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+                <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+              <% end %>
+            </div>
+        <% else %>
+          <img style="margin:0 auto;" src="<%= p.image_url(:large).to_s %>">        
+        <% end %>
       </li>
       <% end %>
     </ul>
