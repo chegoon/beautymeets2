@@ -29,7 +29,10 @@
   </div>
 </div>
 
-<% @pictures = post.pictures if post.pictures %>
+<% 
+	@picturable = post
+	@pictures = post.pictures if post.pictures 
+%>
 
 <div class="row" style="">
 	<div class="small-12 columns " >
