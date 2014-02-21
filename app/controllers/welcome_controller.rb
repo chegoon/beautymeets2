@@ -26,7 +26,7 @@ class WelcomeController < ApplicationController
 	    @latest_videos = Video.where(published: true).order("created_at DESC").limit(4)
 	    @best_items = Item.order("view_count DESC, created_at DESC").limit(4)
 			@latest_items = Item.order("created_at DESC, updated_at DESC").limit(4)
-	    
+	    @latest_posts = Post.order("created_at DESC, updated_at DESC").limit(3)
 	    @bookmarks = Bookmark.where(user_id: @user.id)
 	  else
 	    @best_tutorials = Tutorial.where(published: true).order("view_count DESC, created_at DESC").limit(2)
@@ -36,6 +36,7 @@ class WelcomeController < ApplicationController
 	    @latest_videos = Video.where(published: true).order("created_at DESC").limit(4)
 	    @best_items = Item.order("view_count DESC, created_at DESC").limit(4)
 			@latest_items = Item.order("created_at DESC, updated_at DESC").limit(4)
+			@latest_posts = Post.order("created_at DESC, updated_at DESC").limit(3)
 	  end
   end
 end

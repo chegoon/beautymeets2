@@ -1,4 +1,11 @@
-<h2>BEAUTYMEETS Says.</h2>
+<% page_title "BEAUTYMEETS > 뷰티밋츠가 전해드리는 깨알같은 정보들: #{@posts.first.try(:title)} " %>
+<% page_thumb "#{full_url(@posts.first.thumbnail.image_url)}" if @posts.first.thumbnail.present? %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
+
+<h3 class="subheader text-center" style="margin:30px 0; ">
+    <strong>BEAUTYMEETS POST</strong><br/>
+    <small>뷰티밋츠가 전해드리는 깨알같은 정보들</small>
+</h3>
 <%= link_to 'New Post', new_post_path if user_signed_in? && current_user.can_create?(Post) %>
 
       <div class="row">

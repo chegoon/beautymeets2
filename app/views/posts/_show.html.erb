@@ -1,6 +1,3 @@
-<% page_title "#{post.try(:title)} " %>
-<% page_thumb "#{full_url(post.thumbnail.image_url)}" if post.thumbnail.present? %>
-<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 
 <div class="text-right"><%= link_to "Edit", edit_post_path(post) if user_signed_in? && current_user.can_update?(post) %></div>
 <div class="row">
