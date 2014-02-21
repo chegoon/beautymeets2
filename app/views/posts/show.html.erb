@@ -19,13 +19,13 @@
     <%= image_tag @post.thumbnail.image_url(:large) if @post.thumbnail.present? %>
   </div>
   <div class="small-12 medium-8 columns">
-      <h2 class="subheader"><%= best_in_place @post, :title %></h2>
+      <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= best_in_place @post, :title %></strong></h2>
       <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
       <h6 class="subheader ">
         <% if @post.categories.present? %>
           <small>Category : </small>
           <% @post.categories.each do |category| %>
-            &nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
+            &nbsp;<span class=" secondary tiny label"><%= category.name %></span>
           <% end %>
         <% end %>
       </h6>
@@ -34,15 +34,23 @@
       <p><%= @post.description %></p>
       <p>
         <% @post.tag_list.each do |t| %>
-          <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+          <span class="label secondary radius"><%=  t %></span>
         <% end %>
       </p>
+
   </div>
 </div>
 
 <div class="row" style="">
   <div class="small-12 columns " >
-    <%= render partial: 'pictures/gallery', locals: { thumb_size: :large } %>
+    <hr>
+    <ul class="example-orbit" data-orbit>
+      <% @pictures.each do |p| %>
+      <li>       
+        <img style="margin:0 auto;" src="<%= p.image_url(:large).to_s %>">        
+      </li>
+      <% end %>
+    </ul>
     <%= render 'pictures/form' if (can? :manage, @post)  %>
   </div>
 </div>

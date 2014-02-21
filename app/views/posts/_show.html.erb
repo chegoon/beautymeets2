@@ -1,4 +1,4 @@
-<% page_title "BEAUTYMEETS > #{post.try(:title)} " %>
+<% page_title "#{post.try(:title)} " %>
 <% page_thumb "#{full_url(post.thumbnail.image_url)}" if post.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 
@@ -8,13 +8,13 @@
 		<%= image_tag post.thumbnail.image_url(:large) if post.thumbnail.present? %>
 	</div>
 	<div class="small-12 medium-8 columns">
-      <h2 class="subheader"><%= best_in_place post, :title %></h2>
+      <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= best_in_place post, :title %></strong></h2>
       <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
       <h6 class="subheader ">
 				<% if post.categories.present? %>
 					<small>Category : </small>
 					<% post.categories.each do |category| %>
-						&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
+						&nbsp;<span class=" secondary tiny label"><%= category.name %></span>
 					<% end %>
 				<% end %>
 			</h6>
@@ -23,21 +23,35 @@
 			<p><%= post.description %></p>
     	<p>
     		<% post.tag_list.each do |t| %>
-	  	  	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
+	  	  	<span class="label secondary radius"><%= t %></span>
 		   	<% end %>
 			</p>
   </div>
 </div>
 
 <% 
-	@pictureable = post
 	@pictures = post.pictures if post.pictures 
 %>
 
 <div class="row" style="">
-	<div class="small-12 columns " >
-		<%= render partial: 'pictures/gallery', locals: { thumb_size: :medium } %>
-	</div>
+  <div class="small-12 columns " >
+    <hr>
+		<div id="wrapper">
+		  <div id="columns">
+		    <ul class="clearing-thumbs" data-clearing>
+		      <% @pictures.each do |p| %>
+		      <li>
+		      	<div class="pin" style="padding:2px; margin:2px; ">
+		        <a class="th"  href="<%= p.image_url(:large)%>">
+		        	<img src="<%= p.image_url(:small).to_s %>">
+		        </a>
+		      	</pin>
+		      </li>
+		      <% end %>
+		     </ul>
+		  </div>
+		</div>
+  </div>
 </div>
 
 

@@ -22,6 +22,7 @@
 //= require jquery_nested_form
 //= require sticky_footer.js
 //= require jquery.fullpage.min.js
+//= require jquery.gridster.js
 //= require jquery.slimscroll.min.js
 //= require bootstrap-datetimepicker
 //= require_tree ../../../vendor/assets/javascripts/.

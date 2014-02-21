@@ -1,8 +1,15 @@
 
 <div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="margin-bottom:30px;">
   <div class="post-card">
-    <div class="text-center" style="position: relative; margin:0 auto; padding:6px;">
-      <a class="reveal post-card-thumb " data-reveal-id="modal-post-<%= post.id %>" href="#" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
+    <div class="text-center" style="position: relative; margin:0 auto; padding:4px;">
+      <a class="reveal post-card-thumb hide-for-small-only" data-reveal-id="modal-post-<%= post.id %>" href="#" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
+        <% if post.categories.present? %>
+          <% post.categories.each do |category| %>
+            &nbsp;<span class=" secondary label right" style="position:absolute; right:6px; top:6px;"><%= category.name %></span>
+          <% end %> 
+        <% end %>
+      </a>
+      <a class="reveal post-card-thumb show-for-small-only " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
         <% if post.categories.present? %>
           <% post.categories.each do |category| %>
             &nbsp;<span class=" secondary label right" style="position:absolute; right:6px; top:6px;"><%= category.name %></span>
