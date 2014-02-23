@@ -34,7 +34,7 @@ class VideoGroupsController < ApplicationController
     @categories = Category.where("parent_id IS NULL ").all
     #@categories = Category.joins(:videos).where("videos.id in (?)", @videos.map(&:id))
 
-    if user_signed_in? && !current_user.can_update?(@video_group)
+    if !(user_signed_in? && current_user.can_update?(@video_group))
       @video_group.increment_view_count
     end
 
