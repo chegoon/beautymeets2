@@ -43,7 +43,7 @@ class PostsController < InheritedResources::Base
     @picture = Picture.new
 
     #if (cannot? :author, @post) || (cannot? :manage, Post)
-    if user_signed_in? && !current_user.can_update?(@post)
+    if !(user_signed_in? && current_user.can_update?(@post))
       @post.increment_view_count 
     end
 

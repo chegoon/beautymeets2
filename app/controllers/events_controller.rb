@@ -37,7 +37,7 @@ class EventsController < ApplicationController
     @picture = Picture.new
 
     #if (cannot? :author, @event) || (cannot? :manage, Event)
-    if user_signed_in? && !current_user.can_update?(@event)
+    if !(user_signed_in? && current_user.can_update?(@event))
       @event.increment_view_count 
     end
 
