@@ -4,7 +4,7 @@ ActionMailer::Base.smtp_settings = {
     :port => 587,
     :domain => 'reallplay.com',
     :user_name => 'hellobeauty@reallplay.com',
-    :password    => 'reallplay',
+    :password    => 'reallplay0707',
     :authentication => 'plain',
     :enable_starttls_auto => true
 }

@@ -1,5 +1,7 @@
 Beautymeets2::Application.routes.draw do
 
+  resources :devices
+
   resources :posts
 
   resources :events do

@@ -27,16 +27,16 @@ class VideosController < ApplicationController
     else      
       if params[:tag]
         if user_signed_in?
-          @videos = Video.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).unread_by(current_user).page(params[:page]).per_page(20)
+          @videos = Video.where("published=TRUE").order("published_at DESC").tagged_with(params[:tag]).unread_by(current_user).page(params[:page]).per_page(20)
         else
-          @videos = Video.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).unread_by(current_user).page(params[:page]).per_page(20)
+          @videos = Video.where("published=TRUE").order("published_at DESC").tagged_with(params[:tag]).unread_by(current_user).page(params[:page]).per_page(20)
         end
       else
         if user_signed_in?
           #@videos = Video.where("published=TRUE").order("created_at DESC").unread_by(current_user).page(params[:page]).per_page(20)
-          @videos = Video.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(20)
+          @videos = Video.where("published=TRUE").order("published_at DESC").page(params[:page]).per_page(20)
         else
-          @videos = Video.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(20)
+          @videos = Video.where("published=TRUE").order("published_at DESC").page(params[:page]).per_page(20)
         end
       end
     end

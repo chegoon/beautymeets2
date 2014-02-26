@@ -86,9 +86,11 @@ h1{
   <body>
 
     <%= render :partial => "layouts/fb" if Rails.env.production?   %>
+<!-- initially -->
+<header class="headroom ">
 
     <div class="">
-      <nav class="top-bar show-for-medium-up" data-topbar >
+      <nav class="top-bar show-for-medium-up"  data-topbar >
         <ul class="title-area">
           <!-- Title Area -->
           <li class="name">
@@ -98,10 +100,9 @@ h1{
           <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
         </ul>
 
-        <section class="top-bar-section">
-          <ul class="left"></ul>
+        <section class="top-bar-section" >
           <!-- Right Nav Section -->
-          <ul class="right">
+          <ul class="right" >
             <li>
               <% if @notifications && (@notifications.count > 0) %>
                 <%= link_to "<i class='fa fa-bell fa-fw'></i>#{@notifications.count}".html_safe, member_notifications_path(current_user.profile) if current_user.has_role? :member %>   
@@ -149,6 +150,9 @@ h1{
         </section>
       </nav>
     </div>
+</header>
+
+
 
     <div class="off-canvas-wrap" >
       <div class="inner-wrap">
@@ -205,6 +209,21 @@ h1{
             $(document).foundation();
         </script>
     <![endif]-->
+    <script type="text/javascript">
+(function() {
+    new Headroom(document.querySelector("header"), {
+        tolerance: 10,
+        offset : 200,
+        classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+        }
+    }).init();
+
+}());
+
+    </script>
 
     <script type="text/javascript">
     $(".accordion dd").on("click", "a:eq(0)", function (event){
