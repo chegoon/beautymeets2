@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140220164324) do
+ActiveRecord::Schema.define(:version => 20140301163008) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -78,12 +78,12 @@ ActiveRecord::Schema.define(:version => 20140220164324) do
   create_table "beautyclasses", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "view_count"
+    t.integer  "view_count",    :default => 0
     t.integer  "capacity"
-    t.boolean  "closed"
-    t.boolean  "published"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.boolean  "closed",        :default => false
+    t.boolean  "published",     :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "user_id"
@@ -253,6 +253,20 @@ ActiveRecord::Schema.define(:version => 20140220164324) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "devices", :force => true do |t|
+    t.string   "device_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "os_type"
+    t.string   "os_version"
+    t.boolean  "push_notification"
+    t.text     "description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "devices", ["user_id"], :name => "index_devices_on_user_id"
 
   create_table "event_entries", :force => true do |t|
     t.integer  "event_id"
@@ -440,11 +454,9 @@ ActiveRecord::Schema.define(:version => 20140220164324) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "location_id"
     t.string   "slug"
   end
 
-  add_index "shops", ["location_id"], :name => "index_shops_on_location_id"
   add_index "shops", ["slug"], :name => "index_shops_on_slug"
 
   create_table "skin_trouble_maps", :force => true do |t|
@@ -567,6 +579,7 @@ ActiveRecord::Schema.define(:version => 20140220164324) do
     t.integer  "videos_watched"
     t.datetime "join_date"
     t.integer  "subscribers"
+    t.boolean  "published"
   end
 
   add_index "video_groups", ["slug"], :name => "index_video_groups_on_slug"

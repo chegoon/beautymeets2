@@ -26,8 +26,11 @@
 			    </div>
 			</div>
 
+<%= link_to "EDIT", edit_video_group_path(@video_group) %>
 
-
+		<div style="margin:10px 0;">
+    	<div class="fb-like" data-href="<%= video_group_url(@video_group) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
 
 			<div class="row">
 				<div class="small-12 small-centered columns" style="padding:0;">

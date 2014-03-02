@@ -61,7 +61,7 @@ class TutorialsController < ApplicationController
     @item = Item.new
 
     @tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("created_at DESC").limit(3)
-    @videos = Video.where(published: true).order("created_at DESC").limit(4)
+    @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("created_at DESC").limit(10).sample(4)
 
     #if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
     if user_signed_in? && !current_user.can_update?(@tutorial)

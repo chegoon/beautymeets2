@@ -5,7 +5,8 @@
     <%= f.input :name %>
     <%= f.input :youtube_id %>
     <%= f.input :home_url %>
-    <%= f.input :header_bg_url %>    
+    <%= f.input :header_bg_url %>  
+    <%= f.input :published %>  
 	
 	<%= f.input :image, :class => "file", :type => "file" %>    
     Image uploaded <%= image_tag f.object.image_url if f.object.image? %><br/>

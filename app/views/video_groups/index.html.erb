@@ -19,6 +19,7 @@
                   </div>
                   <div class="small-12 large-7 columns">
                     <h5 class="subheader "><%= link_to video_group.name, video_group %></h5>
+                    <%= "#{video_group.published ? '<strong>Published</strong>' : 'Not Published'}".html_safe if user_signed_in? && current_user.can_update?(video_group) %>
                     <h6 class="subheader " style="font-size:0.875rem;"><%= video_group.videos.where("published=TRUE").count %> videos</h6>
                   </div>
                 </div>

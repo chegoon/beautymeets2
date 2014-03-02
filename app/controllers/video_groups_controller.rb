@@ -10,7 +10,12 @@ class VideoGroupsController < ApplicationController
   # GET /video_groups
   # GET /video_groups.json
   def index
-    @video_groups = VideoGroup.order("name ASC").all
+    if user_signed_in? && current_user.can_create?(VideoGroup)
+      @video_groups = VideoGroup.order("name ASC").all
+    else
+      @video_groups = VideoGroup.where(published: true).order("name ASC").all
+    end
+
     @categories = Category.where("parent_id IS NULL ").all
     @videos = Video.where("published=TRUE").all
 
@@ -24,12 +29,12 @@ class VideoGroupsController < ApplicationController
   # GET /video_groups/1.json
   def show
     @video_group = VideoGroup.find(params[:id])
-    @video = @video_group.videos.where('published=TRUE').order("view_count DESC").limit(20).sample(1).first
+    @video = @video_group.videos.where(published: true).order("view_count DESC").limit(20).sample(1).first
 
     if (params[:order].present?) && (params[:order] == "popular")
-      @videos = @video_group.videos.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(20)
+      @videos = @video_group.videos.where(published: true).order("view_count DESC").page(params[:page]).per_page(20)
     else
-      @videos = @video_group.videos.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(20)
+      @videos = @video_group.videos.where(published: true).order("created_at DESC").page(params[:page]).per_page(20)
     end
     @categories = Category.where("parent_id IS NULL ").all
     #@categories = Category.joins(:videos).where("videos.id in (?)", @videos.map(&:id))
