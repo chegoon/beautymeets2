@@ -8,7 +8,7 @@ ActiveAdmin.register Video do
 		end
 =end		
 		column :title
-
+    column :video_group
 		column :view_count
 		column "Review", :published
 		column :published_at
