@@ -9,11 +9,12 @@
 
 					<div id="tutorials">		
 
-						<div data-magellan-expedition="fixed" style="background: #eee; padding:0; margin:0;">
-							<ul class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
-						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %>>Popular</a></li>
-						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %>>Newly</a></li>
-							</ul>
+						<!-- <div data-magellan-expedition="fixed" style="background: #f5f5f5; padding:0; margin:0;"> -->
+						<div style="background: #f5f5f5; padding:0; margin:0;">
+							<dl class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
+						  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %>>Popular</a></dd>
+						  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %>>Newly</a></dd>
+							</dl>
 						</div>
 						<div class="list">	  
 							<%= render @tutorials %>

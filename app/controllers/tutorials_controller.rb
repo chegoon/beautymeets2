@@ -64,7 +64,7 @@ class TutorialsController < ApplicationController
     @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("created_at DESC").limit(10).sample(4)
 
     #if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
-    if user_signed_in? && !current_user.can_update?(@tutorial)
+    if !(user_signed_in? && current_user.can_update?(@tutorial))
       @tutorial.increment_view_count 
     end
 

@@ -8,7 +8,7 @@ class BeautystarAuthorizer < ApplicationAuthorizer
 	end
 
   def updatable_by?(user)
-    (resource.author.id == user.id) ||  (user.has_role? :beautystar)
+    (resource.author.id == user.id) ||  (user.has_role? :admin)
   end
 
   def deletable_by?(user)

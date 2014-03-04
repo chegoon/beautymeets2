@@ -38,7 +38,7 @@ class BeautyclassesController <  ApplicationController
     @picture = Picture.new
 
     #if (cannot? :author, @beautyclass) || (cannot? :manage, Beautyclass)
-    if user_signed_in? && !current_user.can_update?(@beautyclass)
+    if !(user_signed_in? && current_user.can_update?(@beautyclass))
       @beautyclass.increment_view_count 
     end
 

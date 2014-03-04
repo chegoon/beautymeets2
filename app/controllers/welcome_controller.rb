@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   def index
 
-		@blog_rss = SimpleRSS.parse open('http://blog.beautymeets.com/rss')
+		#@blog_rss = SimpleRSS.parse open('http://blog.beautymeets.com/rss')
   	
   	if user_signed_in?
 	  	@user = current_user

@@ -31,7 +31,7 @@
       </h6>
       
       
-      <p><%= @post.description %></p>
+      <p><%= simple_format(@post.description) %></p>
       <p>
         <% @post.tag_list.each do |t| %>
           <span class="label secondary radius"><%=  t %></span>
@@ -53,9 +53,10 @@
             <div class="left" style="margin:10px;">
               <img src="<%= p.image_url(:small).to_s %>">
               <%= simple_form_for [@pictureable] do |f| %>
-                <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+                
                 <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
                 <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+                <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
               <% end %>
             </div>
         <% else %>

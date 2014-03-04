@@ -54,6 +54,7 @@
           background-color: #f5f5f5;
           height: 100%; 
           font-size: 0.9rem;
+          padding-top:1.45rem;
       } 
 
       p {
@@ -86,109 +87,26 @@ h1{
   <body>
 
     <%= render :partial => "layouts/fb" if Rails.env.production?   %>
-<!-- initially -->
-<header class="headroom ">
 
-    <div class="">
-      <nav class="top-bar show-for-medium-up"  data-topbar >
-        <ul class="title-area">
-          <!-- Title Area -->
-          <li class="name">
-            <h1><%= link_to image_tag("/assets/logo_top_white@2x.png", :style => "min-height:16px; max-height:20px; height:auto;"), "/" %></h1>
-          </li>
-          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-        </ul>
+    <%= render "layouts/top_nav" %>
 
-        <section class="top-bar-section" >
-          <!-- Right Nav Section -->
-          <ul class="right" >
-            <li>
-              <% if @notifications && (@notifications.count > 0) %>
-                <%= link_to "<i class='fa fa-bell fa-fw'></i>#{@notifications.count}".html_safe, member_notifications_path(current_user.profile) if current_user.has_role? :member %>   
-              <% else %>
-                <%= link_to "<i class='fa fa-bell-o fa-fw'></i>".html_safe, member_notifications_path(current_user.profile) if user_signed_in? && (current_user.has_role? :member) %>   
-              <% end %>              
-            </li>
+    <% flash.each do |name, msg| %>
+      <div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
+        <%= msg  %>
+        <a href="#" class="close">&times;</a>
+      </div>
+    <% end %>
 
-            <li class="divider "></li>
-          
-            <li><%= link_to "Tutorial", tutorials_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
-            <li class="divider "></li>
-            <li><%= link_to "Beauty Class", beautyclasses_path, {:style => "font-weight:bold;color:#elelel;"} %></li>
-            <li class="divider "></li>
-            <li><%= link_to "BeautyVideo", videos_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
-            <li class="divider "></li>
-            <% if user_signed_in? %>             
-                <li class="has-dropdown"><a href="#" style="color:#FEDAF7;">Hi, <%= current_user.name || current_user.email %></a>
-                  <ul class="dropdown">
-                    <li><label>Profile</label></li>
-                    <li>
-                  <% if current_user.has_role? :admin %>
-                    <a href="/admin"><i class="fa fa-square fa-fw"></i> Admin</a>
-                  <% else %>
-                    <%= link_to "<i class='fa fa-square fa-fw'></i> My Page".html_safe, member_path(current_user.profile) %>
-                  <% end %>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="hide-for-small"><label>Account</label></li>
-                    <li><%= link_to "<i class='fa fa-key fa-fw'></i> 정보수정".html_safe, edit_user_registration_path(current_user) %></li>
-                    <li><%= link_to "<i class='fa fa-power-off fa-fw'></i> Logout".html_safe, destroy_user_session_path, :method => :delete %></li>
-                    <li class="divider"></li>
-                  </ul>
-                </li>   
-            <% else %>        
-              <li >
-                <a href="<%= new_user_registration_path %>" style="color:#FEDAF7;">회원가입</a>
-              </li>      
-              <li style=" ">
-                <a href="<%= new_user_session_path %>" >로그인</a>
-              </li>      
-            <% end %>
-            
-          </ul>
-        </section>
-      </nav>
-    </div>
-</header>
+    <div class="row" >
+      <div class="small-12 small-centered columns" >
+        <%= yield %>
 
+        <%= render "layouts/to_top" %>
 
+        <%= yield :scripts %>
+        <!-- dif for static footer-position -->
 
-    <div class="off-canvas-wrap" >
-      <div class="inner-wrap">
-
-        <%= render "layouts/tab_bar" %>
-
-        <%= render "layouts/left_off_canvas_menu" %>
-    
-        <section class="main-section" >
-          <!-- content goes here -->
-
-          <% flash.each do |name, msg| %>
-            <div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
-              <%= msg  %>
-              <a href="#" class="close">&times;</a>
-            </div>
-          <% end %>
-            <div class="row" >
-              <div class="small-12 small-centered columns" >
-                  
-                  <%= yield %>
-
-                  <%= render "layouts/to_top" %>
-
-                  <%= yield :scripts %>
-                  <!-- dif for static footer-position -->
-
-                <%= render "layouts/footer" %>
-                
-              </div>
-            </div>
-
-        </section>
-
-        <a class="exit-off-canvas"></a>
-
+        <%= render "layouts/footer" %>
       </div>
     </div>
 
@@ -222,27 +140,6 @@ h1{
     }).init();
 
 }());
-
-    </script>
-
-    <script type="text/javascript">
-    $(".accordion dd").on("click", "a:eq(0)", function (event){
-      var dd_parent = $(this).parent();
-
-      if(dd_parent.hasClass('active')) {
-        $(".accordion dd div.content:visible").slideToggle("normal");
-      }
-      else
-      {
-        $(".accordion dd div.content:visible").slideToggle("normal", function () {
-        });
-        
-        $(this).parent().find(".content").slideToggle("normal", function () {
-            /* $(".accordion dd a h6 i").removeClass("fa-chevron-right");
-            $(".accordion dd a h6 i").addClass("fa-chevron-down");        */
-        });   
-      }
-    });
 
     </script>
 

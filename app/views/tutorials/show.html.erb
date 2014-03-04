@@ -25,7 +25,7 @@
 				<% if @tutorial.categories.present? %>
 					<small>Category : </small>
 					<% @tutorial.categories.each do |category| %>
-						&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
+						&nbsp;<span class=" secondary tiny label"><%=  category.name %></span>
 					<% end %>
 				<% end %>
 			</h6>
@@ -34,12 +34,16 @@
               &nbsp;<span class="group_name" ><strong><%=  link_to @tutorial.author.try(:name), beautystar_path(@tutorial.author.profile) %></strong>&nbsp;<small><%= " | #{@tutorial.author.profile.try(:job_title)}" %></small></span>
       </div>
       
-			<p><%= @tutorial.description %></p>
+			<p><%= simple_format(@tutorial.description) %></p>
     	<p>
     		<% @tutorial.tag_list.each do |t| %>
 	  	  	<span class="label secondary radius"><%= t %></span>
 		   	<% end %>
 			</p>
+
+			<div style="margin:10px 0;">
+	    	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+	    </div>
   </div>
 </div>
 
@@ -55,6 +59,7 @@
 </div>
 <% end %>
 
+<% if user_signed_in? && current_user.can_update?(@tutorial) %>
 <div class="row" style="">
 	<div class="small-12 columns " >
 		<h5><small>다른 이미지</small></h5>
@@ -62,13 +67,14 @@
 		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
 	</div>
 </div>
+<% end %>
 
 <% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>
 
 <div class="row" >
 	<div class="small-12 medium-3  columns" style="margin:20px 0 0 0;">		
 		<% header_item = @tutorial.items.sample(1).first %>
-		<%= image_tag(header_item.thumbnail.image_url(:medium)) if header_item.thumbnail.present? %><br/>
+		<%= link_to image_tag(header_item.thumbnail.image_url(:medium)), item_path(header_item) if header_item.thumbnail.present? %><br/>
 		<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= header_item.brand.try(:name) %></span><br/>
 		<span  style="font-size:0.8rem; "><strong><%= link_to truncate(header_item.try(:name), 20), item_path(header_item) %></strong></span>
 								
@@ -121,9 +127,6 @@
 			<% end %>
 			<% end %>
 		</div>
-		<div style="margin:10px 0;">
-    	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-    </div>
 
 <div class="row" style="margin:2.5rem 0 0 0;">
 	<div class="small-12 medium-8 columns">		
