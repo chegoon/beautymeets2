@@ -41,28 +41,6 @@
 	</div>
 
 
-<script type="text/javascript">
-$(".accordion dd").on("click", "a:eq(0)", function (event){
-  var dd_parent = $(this).parent();
-
-  if(dd_parent.hasClass('active')) {
-    $(".accordion dd div.content:visible").slideToggle("normal");
-  }
-  else
-  {
-    $(".accordion dd div.content:visible").slideToggle("normal", function () {
-        $(".accordion dd a h6 i").removeClass("fa-chevron-right");
-        $(".accordion dd a h6 i").addClass("fa-chevron-down");        
-    });
-    
-    $(this).parent().find(".content").slideToggle("normal", function () {
-        $(".accordion dd a h6 i").removeClass("fa-chevron-right");
-        $(".accordion dd a h6 i").addClass("fa-chevron-down");        
-    });   
-  }
-});
-
-</script>
 
 	<div class="small-12 medium-4 columns" style="margin-bottom:20px;">
 		<h4 class="subheader">전문가들이 사용하는 화장품<br><small>이 제품들로 튜토리얼 완성되었습니다.</small></h4>
@@ -84,13 +62,6 @@ $(".accordion dd").on("click", "a:eq(0)", function (event){
 </div>
 <div class="row">
 	<div class="small-12 medium-12 columns" >
-		<h4 class="subheader">
-			인기 뷰티 클래스&nbsp;<small>뷰티전문가를 직접 만나 나에게 맞는 화장법을 배우세요.(유료)</small>
-		</h4>
-		<%= render @best_beautyclasses %>
-		<div class="text-center">
-			<%= link_to "뷰티클래스 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, beautyclasses_path, :class => "button radius secondary" %>
-		</div>
 		<hr>
 		<h4 class="subheader">
 			최신 뷰티밋츠 포스트&nbsp;<small>뷰티밋츠가 전해드리는 깨알같은 정보들이에요.</small>
@@ -99,18 +70,6 @@ $(".accordion dd").on("click", "a:eq(0)", function (event){
 		<div class="text-center">
 			<%= link_to "포스트 정보 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, posts_path, :class => "button radius secondary" %>
 		</div>
-		<hr>
-		<h4 class="subheader">뷰티비디오&nbsp;<small>뷰티밋츠가 고르고 고른 뷰티 비디오입니다.</small>
-		</h4>
-		<h5 class="subheader"><strong>인기 뷰티 비디오</strong>&nbsp;<small class="right" style="margin-top:10px;" ><a href=<%= "#{videos_path}?order=popular" %>> <i class="fa fa-plus-square fa-fw "></i>More</a>&nbsp;</small>
-		</h5>
-		<%= render @best_videos %>
-		<div class="show-for-small-only text-center"><%= link_to "인기 뷰티 비디오 더보기 <i class='fa fa-chevron-right'></i>".html_safe, { controller: "videos", order: "popular" }, :class => "button radius secondary " %></div>
-		<h5 class="subheader"><strong>최신 뷰티 비디오</strong>&nbsp;<small class="right" style="margin-top:10px;" ><a href=<%= "#{videos_path}?order=newly" %>> <i class="fa fa-plus-square fa-fw"></i>More</a>&nbsp;</small>
-		</h5>
-		<%= render @latest_videos %>
-		<div class="show-for-small-only text-center"><%= link_to "최신 뷰티 비디오 더보기 <i class='fa fa-chevron-right'></i>".html_safe, { controller: "videos", order: "newly" }, :class => "button radius secondary " %></div>
-		<hr>
 	</div>
 </div>
 <div class="row">
