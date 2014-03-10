@@ -24,7 +24,7 @@ class WelcomeController < ApplicationController
 	    #@best_beautyclasses = Beautyclass.where(published: true, closed: false).order("view_count DESC, updated_at DESC").limit(2)
 	    #@best_videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").unread_by(current_user).order("view_count DESC, created_at DESC").limit(4)
 	    #@latest_videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").unread_by(current_user).order("published_at DESC").limit(4)
-	    @best_items = Item.where(created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now))order("view_count DESC, created_at DESC").limit(4)
+	    @best_items = Item.where(created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now)).order("view_count DESC, created_at DESC").limit(4)
 			@latest_items = Item.order("created_at DESC, updated_at DESC").limit(4)
 	    @latest_posts = Post.order("created_at DESC, updated_at DESC").limit(3)
 	    @bookmarks = Bookmark.where(user_id: @user.id)
@@ -34,7 +34,7 @@ class WelcomeController < ApplicationController
 	    #@best_beautyclasses = Beautyclass.where(published: true, closed: false).order("view_count DESC, created_at DESC").limit(2)
 	    #@best_videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("view_count DESC, created_at DESC").limit(4)
 	    #@latest_videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").limit(4)
-	    @best_items = Item.where(created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now))order("view_count DESC, created_at DESC").limit(4)
+	    @best_items = Item.where(created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now)).order("view_count DESC, created_at DESC").limit(4)
 			@latest_items = Item.order("created_at DESC, updated_at DESC").limit(4)
 			@latest_posts = Post.order("created_at DESC, updated_at DESC").limit(3)
 	  end
