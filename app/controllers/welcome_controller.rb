@@ -18,7 +18,8 @@ class WelcomeController < ApplicationController
 	    @latest_videos = Video.where(published: true).unread_by(current_user).order("created_at DESC").limit(4)
 	    @items = Item.unread_by(current_user).order("view_count DESC, created_at DESC").limit(4)
 =end
-
+			
+			#@events = Event.where('released_at <= ? AND finish_on >= ? ', Time.now, Time.now).order("created_at DESC")
 	    @best_tutorials = Tutorial.where(published: true, created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now)).order("view_count DESC, created_at DESC").limit(2)
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(2)
 	    #@best_beautyclasses = Beautyclass.where(published: true, closed: false).order("view_count DESC, updated_at DESC").limit(2)
@@ -29,6 +30,7 @@ class WelcomeController < ApplicationController
 	    @latest_posts = Post.order("created_at DESC, updated_at DESC").limit(3)
 	    @bookmarks = Bookmark.where(user_id: @user.id)
 	  else
+	  	#@events = Event.where('released_at <= ? AND finish_on >= ? ', Time.now, Time.now).order("created_at DESC")
 	    @best_tutorials = Tutorial.where(published: true, created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now)).order("view_count DESC, created_at DESC").limit(2)
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(2)
 	    #@best_beautyclasses = Beautyclass.where(published: true, closed: false).order("view_count DESC, created_at DESC").limit(2)

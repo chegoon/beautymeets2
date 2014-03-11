@@ -52,7 +52,7 @@
       <h5><span class="label success">이벤트 종료</span>&nbsp;<small>본 이벤트는 종료되었습니다.</small></h5>
     <% end %>
     <%= link_to "참여하기", @event.target_url, :class => "button" if @event.target_url? %>
-    <p><%= @event.description %></p>
+    <p><%= simple_format(@event.description) %></p>
     <p>
       <% @event.tag_list.each do |t| %>
         <span class="label secondary radius"><%= link_to t, tag_path(t) %></span>

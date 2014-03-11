@@ -11,7 +11,7 @@
             <h3>
               <%= link_to event.title, event_path(event) %>
             </h3>
-            <h6><%= event.description %></h6>
+            <h6><%= strip_tags(event.description) %></h6>
           </div>
           <div style=" ">
             <h5><span class="label secondary">이벤트 기간</span>&nbsp;<small><%= event.start_from.strftime("%Y.%m.%d %H:%M") if event.start_from.present? %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") if event.finish_on.present? %></small></h5>

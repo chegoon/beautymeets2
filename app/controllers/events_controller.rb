@@ -17,15 +17,22 @@ class EventsController < ApplicationController
     cards_per_page = 12
 
     if params[:tag]
-      @events = Event.order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page) || Event.all 
+      if user_signed_in? && current_user.has_role?(:admin)
+        @events = Event.order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page) || Event.all 
+      else
+        @events = Event.where('released_at <= ? AND finish_on >= ? ', Time.now, Time.now).order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page) || Event.all 
+      end
     else
-      @events = Event.order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
+      if user_signed_in? && current_user.has_role?(:admin)
+        @events = Event.order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
+      else
+        @events = Event.where('released_at <= ? AND finish_on >= ? ', Time.now, Time.now).order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
+      end
     end
     
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
-      format.js
     end
   end
 

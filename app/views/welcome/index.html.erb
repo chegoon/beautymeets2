@@ -1,35 +1,52 @@
 <% page_title "Welcome to BEAUTYMEETS" %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
-
-<div class="row">
-	<div class="medium-12 columns">
-		<% if user_signed_in? %>
-			<div class="panel callout" style="border:0; padding:2rem;">
-				<h2>Hi, <%= current_user.name || current_user.email  %></h2>
-				<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
-			</div>
-		<% else %>
-			<div class="panel welcome-jumbo" style="background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
-	      <div class="row">
-	      	<div class="small-12 medium-9 columns">
-						<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.
-						</h2>
-						<div style="margin:1.2rem 0.5rem;">
-						<% if !user_signed_in? %>
-				            <%= link_to "가입하기", new_user_registration_path, :class => "button radius" %>
-				            <%= link_to "로그인하기", new_user_session_path,  :class => "button secondary radius"  %>
-						<% end %>
-						</div>
-						<div class="show-for-small-only" style="margin:1.2rem 0.5rem;">
-							<h4 style="color:#FFF;">안드로이드 유저라면?</h4>
-							<a href="https://play.google.com/store/apps/details?id=com.beautymeets.app" class="button small radius">APP 설치</a>
+		<!-- 
+		<ul class="jumbo-orbit-content" data-orbit>
+			<li data-orbit-slide="headline-1">
+		    <div>
+		-->      
+					<div class="row">
+						<div class="medium-12 columns">
+							<% if user_signed_in? %>
+								<div class="panel callout" style="border:0; padding:2rem;">
+									<h2>Hi, <%= current_user.name || current_user.email  %></h2>
+									<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
+								</div>
+							<% else %>
+								<div class="panel welcome-jumbo" style="background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
+						      <div class="row">
+						      	<div class="small-12 medium-9 columns">
+											<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.
+											</h2>
+											<div style="margin:1.2rem 0.5rem;">
+											<% if !user_signed_in? %>
+									            <%= link_to "가입하기", new_user_registration_path, :class => "button radius" %>
+									            <%= link_to "로그인하기", new_user_session_path,  :class => "button secondary radius"  %>
+											<% end %>
+											</div>
+											<!--
+											<div class="show-for-small-only" style="margin:1.2rem 0.5rem;">
+												<h4 style="color:#FFF;">안드로이드 유저라면?</h4>
+												<a href="https://play.google.com/store/apps/details?id=com.beautymeets.app" class="button small radius">APP 설치</a>
+											</div>
+											-->
+										</div>
+									</div>
+								</div>
+							<% end %>
 						</div>
 					</div>
-				</div>
-			</div>
-		<% end %>
-	</div>
-</div>
+<!--					
+		    </div>
+		  </li>
+		  <li>
+-->		  	
+		  	<%= #render @events 
+		  	%>
+<!--
+		  </li>
+    </ul>
+-->    
 <div class="row">
 	<div class="small-12 medium-8 columns" style="margin-bottom:20px;">
 		<h4 class="subheader">
