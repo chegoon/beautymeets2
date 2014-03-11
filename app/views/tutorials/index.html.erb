@@ -1,7 +1,7 @@
 <%= link_to 'New', new_tutorial_path if (can? :create, Tutorial) %>
 <% page_title "BEAUTYMEETS > #{@tutorials.first.title}" %>
 <% page_thumb "#{full_url(@tutorials.first.try(:thumbnail).image_url)}" if @tutorials.first.thumbnail.present? %>
-<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!! #{@tutorials.first.title} 영상을 만나보세요." %>
+<% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!! #{@tutorials.first.title} 영상을 만나보세요." %>
 
 
 			<div class="row">

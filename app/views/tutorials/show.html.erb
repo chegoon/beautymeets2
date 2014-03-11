@@ -1,6 +1,6 @@
 <% page_title "BEAUTYMEETS > #{@tutorial.try(:title)} by #{@tutorial.author.try(:name)}" %>
 <% page_thumb "#{full_url(@tutorial.thumbnail.image_url)}" if @tutorial.thumbnail.present? %>
-<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
+<% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
 
 <div class="row" style="">
   <div class="large-12 columns"> 

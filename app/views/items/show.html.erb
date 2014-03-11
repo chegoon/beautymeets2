@@ -1,6 +1,6 @@
 <% page_title "BEAUTYMEETS > #{@item.try(:name)}" %>
 <% page_thumb "#{full_url(@item.thumbnail.image_url)}" if @item.thumbnail.present? %>
-<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" || (@item.name.present? ? "#{@item.name} 으로 만들어진 뷰티 튜토리얼 영상을 만나보세요." : "") %>
+<% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@item.name.present? ? "#{@item.name} 으로 만들어진 뷰티 튜토리얼 영상을 만나보세요." : "") %>
 
 <div class="row" >
   <div class="small-12 large-12 columns"> 
