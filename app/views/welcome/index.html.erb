@@ -12,12 +12,17 @@
 			<div class="panel welcome-jumbo" style="background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
 	      <div class="row">
 	      	<div class="small-12 medium-9 columns">
-						<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.</h2>
+						<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.
+						</h2>
 						<div style="margin:1.2rem 0.5rem;">
 						<% if !user_signed_in? %>
 				            <%= link_to "가입하기", new_user_registration_path, :class => "button radius" %>
 				            <%= link_to "로그인하기", new_user_session_path,  :class => "button secondary radius"  %>
 						<% end %>
+						</div>
+						<div class="show-for-small-only" style="margin:1.2rem 0.5rem;">
+							<h4 style="color:#FFF;">안드로이드 유저라면?</h4>
+							<a href="https://play.google.com/store/apps/details?id=com.beautymeets.app" class="button small radius">APP 설치</a>
 						</div>
 					</div>
 				</div>
