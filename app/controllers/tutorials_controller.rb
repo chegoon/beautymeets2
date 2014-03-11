@@ -1,6 +1,8 @@
 class TutorialsController < ApplicationController
   inherit_resources
-
+  
+  #impressionist #:actions=>[:show]  #comment out this line when impressionist method created in each action
+  
   # Load authorizing from cancan
   # load_and_authorize_resource
 
@@ -51,6 +53,7 @@ class TutorialsController < ApplicationController
 
   def show
     @tutorial = Tutorial.find(params[:id])
+    impressionist(@tutorial, "", :unique => [:session_hash])
 
     @pictureable = @tutorial
     @pictures = @pictureable.pictures
@@ -88,6 +91,7 @@ class TutorialsController < ApplicationController
 	# POST /tutorials.json
 	def create
 		@tutorial = current_user.tutorials.create(params[:tutorial])
+
     current_user.add_role :author, @tutorial
 		#@tutorial = Beautorial.new(params[:tutorial])
 

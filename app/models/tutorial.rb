@@ -1,4 +1,7 @@
 class Tutorial < ActiveRecord::Base
+  
+  is_impressionable #:counter_cache => true, :unique => :request_hash
+
   include PublicActivity::Common
 
   resourcify

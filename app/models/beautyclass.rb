@@ -1,4 +1,7 @@
 class Beautyclass < ActiveRecord::Base
+  
+  is_impressionable
+
   include PublicActivity::Common
   #tracked only: :create, owner: Proc.new { |controller, model| controller.current_user && model.published } # && model.acitivites.where(owner: current_user, trackable: model).nil? }
 

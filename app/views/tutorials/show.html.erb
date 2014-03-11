@@ -30,8 +30,15 @@
 				<% end %>
 			</h6>
       <div class="text-right"><%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %></div>
-      <div><%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>
-              &nbsp;<span class="group_name" ><strong><%=  link_to @tutorial.author.try(:name), beautystar_path(@tutorial.author.profile) %></strong>&nbsp;<small><%= " | #{@tutorial.author.profile.try(:job_title)}" %></small></span>
+      <div>
+      	<%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>
+              &nbsp;
+        <span class="group_name" >
+        	<strong>
+          <%= @tutorial.author.has_role?(:admin) ? @tutorial.author.try(:name) : link_to(@tutorial.author.try(:name), beautystar_path(@tutorial.author.profile)) %>
+        	</strong>&nbsp;
+        	<small><%= " | #{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %></small>
+        </span>
       </div>
       
 			<p><%= simple_format(@tutorial.description) %></p>

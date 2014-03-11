@@ -95,6 +95,12 @@ gem 'simple-rss'
 
 gem 'passenger'
 
+# log analyzer
+gem 'request-log-analyzer'
+
+# impressionist:logs impressions per action or manually per model
+gem 'impressionist'
+
 =begin
 #gem 'therubyracer'
 

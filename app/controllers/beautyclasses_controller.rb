@@ -1,6 +1,8 @@
 class BeautyclassesController <  ApplicationController
 	inherit_resources
 
+	# impressionist #comment out this line when impressionist method created in each action
+
   # Load authorizing from cancan
   #load_and_authorize_resource
   
@@ -31,6 +33,8 @@ class BeautyclassesController <  ApplicationController
 
   def show
     @beautyclass = Beautyclass.find(params[:id])
+    impressionist(@beautyclass)
+    
     @location = @beautyclass.location 
 
     @pictureable = @beautyclass

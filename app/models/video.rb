@@ -1,5 +1,6 @@
 class Video < ActiveRecord::Base
-
+	is_impressionable
+  
   include PublicActivity::Common
 
   resourcify

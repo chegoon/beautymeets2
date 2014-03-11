@@ -1,4 +1,7 @@
 class Item < ActiveRecord::Base
+
+  is_impressionable
+  
   include PublicActivity::Common
 
   resourcify

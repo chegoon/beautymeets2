@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
   inherit_resources
 
+  # impressionist #comment out this line when impressionist method created in each action
+
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_itemizable, except: [:index, :new]
   
@@ -60,6 +62,8 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    impressionist(@item, "", :unique => [:session_hash])
+    
     @tutorials = @item.tutorials
     @videos = @item.videos
 

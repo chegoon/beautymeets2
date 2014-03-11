@@ -37,7 +37,8 @@ class PostsController < InheritedResources::Base
 
   def show
     @post = Post.find(params[:id])
-
+    impressionist(@post, "", :unique => [:session_hash])
+    
     @pictureable = @post
     @pictures = @pictureable.pictures
     @picture = Picture.new
