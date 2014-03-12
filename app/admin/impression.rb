@@ -3,9 +3,9 @@ ActiveAdmin.register Impression do
 		column :id
 		column :impressionable_type
 		column :impressionable_id
-		column :action_type
-		column :user
-		column :refferer
+		column :action_name
+		column :user_id
+		column :referrer
 		actions
 	end
 end
