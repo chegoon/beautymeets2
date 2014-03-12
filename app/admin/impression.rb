@@ -6,6 +6,7 @@ ActiveAdmin.register Impression do
 		column :action_name
 		column :user_id
 		column :referrer
-		actions
+		column :created_at
+		#actions
 	end
 end
