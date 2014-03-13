@@ -101,6 +101,9 @@ gem 'request-log-analyzer'
 # impressionist:logs impressions per action or manually per model
 gem 'impressionist'
 
+# Gem for new relic
+gem 'newrelic_rpm'
+
 =begin
 #gem 'therubyracer'
 
@@ -145,8 +148,6 @@ gem 'nokogiri'
 gem 'best_in_place'
 #gem 'social_stream'
 
-# Gem for new relic
-gem 'newrelic_rpm'
 =end
 
 # Gems used only for assets and not required
