@@ -36,7 +36,9 @@
 			<div class="row" >
 				<div class="small-12 columns" >
 					<div class="welcome-tutorial-header" >
-					<%= image_tag "/assets/hdr_tutorial_latest.png" %>
+					<%= image_tag "/assets/hdr_tutorial_latest.png", :class => "show-for-medium-up" %>
+					<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
+  letter-spacing:-1px; ">최신튜토리얼</span>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more right", :style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "newly"} %>
 					</div>
 				</div>
@@ -50,7 +52,9 @@
 			<div class="row">
 				<div class="small-12 columns" style="">
 					<div class="welcome-tutorial-header">
-					<%= image_tag "/assets/hdr_tutorial_popular.png" %>
+					<%= image_tag "/assets/hdr_tutorial_popular.png", :class => "show-for-medium-up"  %>
+					<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
+  letter-spacing:-1px; ">인기튜토리얼</span>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more show-for-small-only right",:style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "popular"} %>
 					</div>
 				</div>
@@ -86,7 +90,9 @@
 		<div class="row">
 			<div class="small-12 columns" >
 				<div class="welcome-post-header" >
-					<%= image_tag "/assets/hdr_post.png" %>
+					<%= image_tag "/assets/hdr_post.png", :class => "show-for-medium-up"  %>
+					<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
+  letter-spacing:-1px; ">최신뷰티밋츠 포스트</span>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "right welcome-post-more"), posts_path %>
 				</div>
 			</div>
