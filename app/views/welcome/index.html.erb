@@ -1,7 +1,7 @@
 <% page_title "Welcome to BEAUTYMEETS" %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" %>
   
-<div class="row">
+<div class="row" >
 	<div class="small-12 columns">
 		<% if user_signed_in? %>
 			<div class="panel callout" style="border:0; padding:2rem;">
@@ -9,7 +9,7 @@
 				<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
 			</div>
 		<% else %>
-			<div class="panel welcome-jumbo" style="border:0; background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
+			<div class="panel welcome-jumbo" style="border:0;  background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
 	      <div class="row">
 	      	<div class="small-12 medium-9 columns" style="margin-top:10rem; ">
 						<h3  style="color:#FFF; letter-spacing:-0.5px;">
@@ -36,7 +36,8 @@
 			<div class="row" >
 				<div class="small-12 columns" >
 					<div class="welcome-tutorial-header" >
-					<%= image_tag "/assets/hdr_tutorial_latest.png" %>
+					<%= image_tag "/assets/hdr_tutorial_latest
+					@2x.png", :style => "width:200px; height:50px;" %>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more right", :style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "newly"} %>
 					</div>
 				</div>
@@ -50,7 +51,7 @@
 			<div class="row">
 				<div class="small-12 columns" style="">
 					<div class="welcome-tutorial-header">
-					<%= image_tag "/assets/hdr_tutorial_popular.png" %>
+					<%= image_tag "/assets/hdr_tutorial_popular@2x.png", :style => "width:200px; height:50px;" %>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more show-for-small-only right",:style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "popular"} %>
 					</div>
 				</div>
