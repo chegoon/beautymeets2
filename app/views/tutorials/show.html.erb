@@ -2,55 +2,71 @@
 <% page_thumb "#{full_url(@tutorial.thumbnail.image_url)}" if @tutorial.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
 
-<div class="row" style="">
+<div class="row">
   <div class="large-12 columns"> 
 		<h4 style="letter-spacing:-0.5px;">Beautorials </h4>
 
-		<h5 class="subheader"><small>TUTORIAL > 
-		<% @tutorial.categories.each do |category| %>
-			<%= category.name %>
-		<% end %>
-		</small></h5>
+		<h5 class="subheader">
+			<small>TUTORIAL > 
+			<% @tutorial.categories.each do |category| %>
+				<%= category.name %>
+			<% end %>
+			</small>
+		</h5>
   </div>    
 </div>
+
 <div class="row">
 	<div class="small-12 medium-4 columns">
 		<%= image_tag @tutorial.thumbnail.image_url(:medium) if @tutorial.thumbnail.present? %>
 	</div>
 	<div class="small-12 medium-8 columns">
-
-    <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= best_in_place @tutorial, :title %></strong></h2>
-      <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
-      <h6 class="subheader ">
-				<% if @tutorial.categories.present? %>
-					<small>Category : </small>
-					<% @tutorial.categories.each do |category| %>
-						&nbsp;<span class=" secondary tiny label"><%=  category.name %></span>
-					<% end %>
-				<% end %>
-			</h6>
-      <div class="text-right"><%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %></div>
-      <div>
-      	<%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>
+    <h2 class="subheader" style="letter-spacing:-1px;">
+    	<strong>
+    		<%= best_in_place @tutorial, :title %>
+    	</strong>
+    </h2>
+    <h3>
+    	<small class="right">
+    		<%= render 'bookmarks/star' %>
+    	</small>
+    </h3>
+    <h6 class="subheader ">
+		<% if @tutorial.categories.present? %>
+			<small>Category : </small>
+			<% @tutorial.categories.each do |category| %>
+				&nbsp;<span class=" secondary tiny label"><%=  category.name %></span>
+			<% end %>
+		<% end %>
+		</h6>
+    
+    <div class="text-right">
+    	<%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %>
+    </div>
+    <div>
+     	<%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>
               &nbsp;
-        <span class="group_name" >
-        	<strong>
-          <%= @tutorial.author.has_role?(:admin) ? @tutorial.author.try(:name) : link_to(@tutorial.author.try(:name), beautystar_path(@tutorial.author.profile)) %>
-        	</strong>&nbsp;
-        	<small><%= " | #{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %></small>
-        </span>
-      </div>
+      <span class="group_name" >
+      	<strong>
+        <%= @tutorial.author.has_role?(:admin) ? @tutorial.author.try(:name) : link_to(@tutorial.author.try(:name), beautystar_path(@tutorial.author.profile)) %>
+       	</strong>&nbsp;
+       	<small>
+       		<%= " | #{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %>
+       	</small>
+      </span>
+    </div>
       
-			<p><%= simple_format(@tutorial.description) %></p>
-    	<p>
-    		<% @tutorial.tag_list.each do |t| %>
-	  	  	<span class="label secondary radius"><%= t %></span>
-		   	<% end %>
-			</p>
+		<p><%= simple_format(@tutorial.description) %></p>
+    <p>
+    	<% @tutorial.tag_list.each do |t| %>
+	    	<span class="label secondary radius"><%= t %></span>
+		 	<% end %>
+		</p>
 
-			<div style="margin:10px 0;">
-	    	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-	    </div>
+		<div style="margin:10px 0;">
+	   	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+	   	</div>
+	  </div>
   </div>
 </div>
 
@@ -120,20 +136,20 @@
 	</div>
 </div>
 <% end %>
-			<% if can? :manager, @tutorial %>
-			<div>
-			<p><h4>Add Product</h4></p>
-			<%= #render 'items/small_form' 
-			%>
-			<%= simple_form_for [@itemizable] do |f| %>
-			  <%= f.error_notification %>
 
-			    <%= f.input :item_name, :url => autocomplete_item_name_tutorials_path, :as => :autocomplete %>
-			    <%= f.button :submit, 'Add It' %>
+<% if can? :manager, @tutorial %>
+<div>
+	<p><h4>Add Product</h4></p>
+	<%= #render 'items/small_form' 
+	%>
+	<%= simple_form_for [@itemizable] do |f| %>
+	  <%= f.error_notification %>
+	  <%= f.input :item_name, :url => autocomplete_item_name_tutorials_path, :as => :autocomplete %>
+	  <%= f.button :submit, 'Add It' %>
 
-			<% end %>
-			<% end %>
-		</div>
+	<% end %>
+</div>
+<% end %>
 
 <div class="row" style="margin:2.5rem 0 0 0;">
 	<div class="small-12 medium-8 columns">		

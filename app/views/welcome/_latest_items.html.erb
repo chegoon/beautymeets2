@@ -1,9 +1,7 @@
 
 <% if @latest_items.present? %>
 	<div class="welcome-item-header" style=" ">
-		<%= image_tag "/assets/hdr_item_latest.png", :class => "show-for-medium-up"   %>
-		<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
-  letter-spacing:-1px; ">최신 화장품</span>
+		<%= image_tag "/assets/hdr_item_latest.png" %>
 		<%= link_to image_tag("/assets/btn_plus@2x.png", :alt => "더 살펴보기", :style => "width:14px; height:14px;", :class => "right welcome-item-more"), items_path %>
 	</div>	
 	<!-- <div class="table" style="background:#FFF;"> -->

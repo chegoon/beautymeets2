@@ -3,16 +3,16 @@
   <div class="post-card">
     <div class="text-center" style="position: relative; margin:0 auto; ">
       <a class="reveal post-card-thumb hide-for-small-only" data-reveal-id="modal-post-<%= post.id %>" href="#" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
-        <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.4); position:absolute; left:0; bottom:0; ">
+        <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.5); position:absolute; left:0; bottom:0; ">
 
-          <span class="right " style="color:#667378;"><%= truncate(post.try(:title), 30) %>&nbsp;<i class="fa fa-angle-right"></i></span>
+          <span class="right " style="color:#515d61;"><%= truncate(post.try(:title), 30) %>&nbsp;<i class="fa fa-angle-right"></i></span>
 
         </div>
       </a>
       <a class="reveal post-card-thumb show-for-small-only " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
-        <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.4); position:absolute; left:0; bottom:0; ">
+        <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.5); position:absolute; left:0; bottom:0; ">
 
-          <span class="right " style="color:#667378;"><%= truncate(post.try(:title), 30) %>&nbsp;<i class="fa fa-angle-right"></i></span>
+          <span class="right " style="color:#515d61;"><%= truncate(post.try(:title), 30) %>&nbsp;<i class="fa fa-angle-right"></i></span>
 
         </div>
       </a>

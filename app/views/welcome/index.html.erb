@@ -32,13 +32,11 @@
 
 <div class="row" style="margin-bottom:30px;" >
 	<div class="small-12 medium-12 large-8 columns" style="padding:0 10px 0 10px;">
-		<div class="tutorial-card-outter" style="padding:20px 10px 0 10px; background:#FCFCFC;">
+		<div class="tutorial-card-outter" style="">
 			<div class="row" >
 				<div class="small-12 columns" >
 					<div class="welcome-tutorial-header" >
-					<%= image_tag "/assets/hdr_tutorial_latest.png", :class => "show-for-medium-up" %>
-					<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
-  letter-spacing:-1px; ">최신튜토리얼</span>
+					<%= image_tag "/assets/hdr_tutorial_latest.png" %>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more right", :style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "newly"} %>
 					</div>
 				</div>
@@ -52,9 +50,7 @@
 			<div class="row">
 				<div class="small-12 columns" style="">
 					<div class="welcome-tutorial-header">
-					<%= image_tag "/assets/hdr_tutorial_popular.png", :class => "show-for-medium-up"  %>
-					<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
-  letter-spacing:-1px; ">인기튜토리얼</span>
+					<%= image_tag "/assets/hdr_tutorial_popular.png" %>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more show-for-small-only right",:style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "popular"} %>
 					</div>
 				</div>
@@ -68,7 +64,7 @@
 		</div>
 	</div>
 	<div class="small-12 medium-12 large-4 columns" style="padding:0 10px 0 10px;">
-		<div class="item-outter" style="padding:20px 20px 0 20px; background:#FCFCFC;">
+		<div class="item-outter" style="">
 			<div class="row">
 				<div class="small-12 medium-6 large-12 columns" >
 					<div class="" style="padding:0 0 20px 0;">
@@ -91,8 +87,7 @@
 			<div class="small-12 columns" >
 				<div class="welcome-post-header" >
 					<%= image_tag "/assets/hdr_post.png", :class => "show-for-medium-up"  %>
-					<span class="show-for-small-only subheader" style="font-size:1.3rem; padding-up:0; 
-  letter-spacing:-1px; ">최신뷰티밋츠 포스트</span>
+					<span class="show-for-small-only subheader" style="font-size:1.3rem; letter-spacing:-1px; ">최신뷰티밋츠 포스트</span>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "right welcome-post-more"), posts_path %>
 				</div>
 			</div>
