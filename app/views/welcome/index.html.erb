@@ -1,55 +1,35 @@
 <% page_title "Welcome to BEAUTYMEETS" %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" %>
-		<!-- 
-		<ul class="jumbo-orbit-content" data-orbit>
-			<li data-orbit-slide="headline-1">
-		    <div>
-		-->      
-					<div class="row">
-						<div class="small-12 columns">
-							<% if user_signed_in? %>
-								<div class="panel callout" style="border:0; padding:2rem;">
-									<h2>Hi, <%= current_user.name || current_user.email  %></h2>
-									<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
-								</div>
-							<% else %>
-								<div class="panel welcome-jumbo" style="background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
-						      <div class="row">
-						      	<div class="small-12 medium-9 columns" style="margin-top:10rem; ">
-											<h3  style="color:#FFF;">
-												청담동 아티스트의 진짜노하우가 가득한 <br/>
-												1:1 온라인 무료 뷰티클래스,<br/>
-												<span style="color:#9bfff4;">BEAUTYMEETS</span>
-											</h3>
-											<div style="margin-top:2.4rem;">
-											<% if !user_signed_in? %>
-									            <%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기", :style => "width:136px; height:40px;"), new_user_registration_path %>&nbsp;
-									            <%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기",:style => "width:136px; height:40px;"), new_user_session_path  %>
-											<% end %>
-											</div>
-											<!--
-											<div class="show-for-small-only" style="margin:1.2rem 0.5rem;">
-												<h4 style="color:#FFF;">안드로이드 유저라면?</h4>
-												<a href="https://play.google.com/store/apps/details?id=com.beautymeets.app" class="button small radius">APP 설치</a>
-											</div>
-											-->
-										</div>
-									</div>
-								</div>
-							<% end %>
+  
+<div class="row">
+	<div class="small-12 columns">
+		<% if user_signed_in? %>
+			<div class="panel callout" style="border:0; padding:2rem;">
+				<h2>Hi, <%= current_user.name || current_user.email  %></h2>
+				<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
+			</div>
+		<% else %>
+			<div class="panel welcome-jumbo" style="background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
+	      <div class="row">
+	      	<div class="small-12 medium-9 columns" style="margin-top:10rem; ">
+						<h3  style="color:#FFF;">
+							청담동 아티스트의 진짜노하우가 가득한 <br/>
+							1:1 온라인 무료 뷰티클래스,<br/>
+							<span style="color:#9bfff4;">BEAUTYMEETS</span>
+						</h3>
+						<div style="margin-top:2.4rem;">
+						<% if !user_signed_in? %>
+				      <%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기", :style => "width:136px; height:40px;"), new_user_registration_path %>&nbsp;
+				      <%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기",:style => "width:136px; height:40px;"), new_user_session_path  %>
+						<% end %>
 						</div>
 					</div>
-<!--					
-		    </div>
-		  </li>
-		  <li>
--->		  	
-		  	<%= #render @events 
-		  	%>
-<!--
-		  </li>
-    </ul>
--->    
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
+
 <div class="row" style="margin-bottom:30px;" >
 	<div class="small-12 medium-12 large-8 columns" style="padding:0 10px 0 10px;">
 		<div class="tutorial-card-outter" style="padding:20px 10px 0 10px; background:#FCFCFC;">
@@ -60,15 +40,23 @@
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more right", :style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "newly"} %>
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="small-12 columns" >
 					<%= render partial: @latest_tutorials, locals: { cards_in_row: "2" } %>
 				</div>
+
+			</div>
+			<div class="row">
 				<div class="small-12 columns" style="">
 					<div class="welcome-tutorial-header">
 					<%= image_tag "/assets/hdr_tutorial_popular.png" %>
 					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more show-for-small-only right",:style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "popular"} %>
 					</div>
 				</div>
+
+			</div>
+			<div class="row">
 				<div class="small-12 columns" >
 					<%= render partial: @best_tutorials, locals: { cards_in_row: "2" }  %>
 				</div>
@@ -94,14 +82,16 @@
 </div>
 
 <div class="row">
-	<div class="small-12 columns" style="padding:20px 10px; ">
+	<div class="small-12 columns" >
 		<div class="row">
 			<div class="small-12 columns" >
 				<div class="welcome-post-header" >
 					<%= image_tag "/assets/hdr_post.png" %>
-					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "right", :style => "width:80px; height:20px;"), posts_path %>
+					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "right welcome-post-more"), posts_path %>
 				</div>
 			</div>
+		</div>
+		<div class="row">
 			<div class="small-12">
 				<%= render @latest_posts %>
 			</div>

@@ -12,13 +12,13 @@
       <a class="reveal post-card-thumb show-for-small-only " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
         <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.4); position:absolute; left:0; bottom:0; ">
 
-          <span class="right " style="color:#667378;"><%= post.try(:title) %>&nbsp;><%= image_tag "/assets/btn_right_grey.png", :style => "height:14px; width:auto;" %></span>
+          <span class="right " style="color:#667378;"><%= truncate(post.try(:title), 30) %>&nbsp;<i class="fa fa-angle-right"></i></span>
 
         </div>
       </a>
     </div>
-  </div>
-  <%= link_to "직접 들어가기", post_path(post) if user_signed_in? && current_user.can_update?(post) %>
+    <%= link_to "직접 들어가기", post_path(post) if user_signed_in? && current_user.can_update?(post) %>
+  </div>  
 </div>
 
 <div id="modal-post-<%= post.id %>" class="reveal-modal medium"  data-reveal>  
