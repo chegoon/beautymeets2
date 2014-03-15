@@ -1,12 +1,12 @@
 <% page_title "Welcome to BEAUTYMEETS" %>
-<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
+<% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 		<!-- 
 		<ul class="jumbo-orbit-content" data-orbit>
 			<li data-orbit-slide="headline-1">
 		    <div>
 		-->      
 					<div class="row">
-						<div class="medium-12 columns">
+						<div class="small-12 columns">
 							<% if user_signed_in? %>
 								<div class="panel callout" style="border:0; padding:2rem;">
 									<h2>Hi, <%= current_user.name || current_user.email  %></h2>
@@ -15,13 +15,16 @@
 							<% else %>
 								<div class="panel welcome-jumbo" style="background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
 						      <div class="row">
-						      	<div class="small-12 medium-9 columns">
-											<h2 style="color:#FFF;margin-top:4rem; ">뷰티밋츠에서는<br/> 국내최고의 유명 아티스트들과 함께 메이크업을 배우고 예뻐질 수 있습니다.
-											</h2>
-											<div style="margin:1.2rem 0.5rem;">
+						      	<div class="small-12 medium-9 columns" style="margin-top:10rem; margin-left:3rem;">
+											<h3  style="color:#FFF;">
+												청담동 아티스트의 진짜노하우가 가득한 <br/>
+												1:1 온라인 무료 뷰티클래스,<br/>
+												<span style="color:#9bfff4;">BEAUTYMEETS</span>
+											</h3>
+											<div style="margin-top:2.4rem;">
 											<% if !user_signed_in? %>
-									            <%= link_to "가입하기", new_user_registration_path, :class => "button radius" %>
-									            <%= link_to "로그인하기", new_user_session_path,  :class => "button secondary radius"  %>
+									            <%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기", :style => "width:136px; height:40px;"), new_user_registration_path %>&nbsp;
+									            <%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기",:style => "width:136px; height:40px;"), new_user_session_path  %>
 											<% end %>
 											</div>
 											<!--
@@ -47,71 +50,60 @@
 		  </li>
     </ul>
 -->    
-<div class="row">
-	<div class="small-12 medium-8 columns" style="margin-bottom:20px;">
-		<h4 class="subheader">
-			최신 튜토리얼&nbsp;<small>뷰티밋츠가 제작한 최신 뷰티 튜토리얼입니다.</small>
-		</h4>
-		<%= render partial: @latest_tutorials, locals: { cards_in_row: "2" } %>
-		<h4 class="subheader">
-			인기 튜토리얼&nbsp;<small>뷰티밋츠에서 가장 인기가 많은 뷰티 튜토리얼입니다.</small>
-		</h4>
-		<%= render partial: @best_tutorials, locals: { cards_in_row: "2" }  %>
-		<div class="" style="padding:0 12px;">
-			<%= link_to "튜토리얼 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, tutorials_path, :class => "button radius expand", :style => "" %>
+<div class="row" style="margin-bottom:30px;" >
+	<div class="small-12 medium-12 large-8 columns" style="padding:0 10px 0 10px;">
+		<div class="tutorial-card-outter" style="padding:20px 10px 0 10px; background:#FCFCFC;">
+			<div class="row" >
+				<div class="small-12 columns" >
+					<div class="welcome-tutorial-header" >
+					<%= image_tag "/assets/hdr_tutorial_latest.png" %>
+					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more right", :style => "width:80px; height:20px;"), tutorials_path %>
+					</div>
+				</div>
+				<div class="small-12 columns" >
+					<%= render partial: @latest_tutorials, locals: { cards_in_row: "2" } %>
+				</div>
+				<div class="small-12 columns" style="">
+					<div class="welcome-tutorial-header">
+					<%= image_tag "/assets/hdr_tutorial_popular.png" %>
+					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more show-for-small-only right",:style => "width:80px; height:20px;"), tutorials_path %>
+					</div>
+				</div>
+				<div class="small-12 columns" >
+					<%= render partial: @best_tutorials, locals: { cards_in_row: "2" }  %>
+				</div>
+			</div>
 		</div>
 	</div>
-
-
-
-	<div class="small-12 medium-4 columns" style="margin-bottom:20px;">
-		<h4 class="subheader">전문가들이 사용하는 화장품<br><small>이 제품들로 튜토리얼 완성되었습니다.</small></h4>
-		<dl class="accordion" data-accordion>
-  		<dd>
-    		<a href="#panel1"><h6 class="subheader text-center"><strong>가장 많이 보는 화장품</strong><i class="right fa fa-chevron-down"></i></h6></a>
-    		<div id="panel1" class="content active">
-					<%= render "best_items" %>
-				</div>
-			</dd>
-			<dd>
-    		<a href="#panel2"><h6 class="subheader text-center"><strong>최근 추가된 화장품</strong><i class="right fa fa-chevron-down"></i></h6></a>
-    		<div id="panel2" class="content">
+	<div class="small-12 medium-12 large-4 columns" style="padding:0 10px 0 10px;">
+		<div class="item-outter" style="padding:20px 20px 0 20px; background:#FCFCFC;">
+			<div class="row">
+				<div class="small-12 medium-6 large-12 columns" >
+					<div class="" style="padding:0 0 20px 0;">
 					<%= render "latest_items" %>
+					</div>
 				</div>
-			</dd>
-		</dl>
-	</div>
-</div>
-<div class="row">
-	<div class="small-12 medium-12 columns" >
-		<hr>
-		<h4 class="subheader">
-			최신 뷰티밋츠 포스트&nbsp;<small>뷰티밋츠가 전해드리는 깨알같은 정보들이에요.</small>
-		</h4>
-		<%= render @latest_posts %>
-		<div class="text-center">
-			<%= link_to "포스트 정보 더 살펴보기 <i class='fa fa-chevron-right'></i>".html_safe, posts_path, :class => "button radius secondary" %>
+				<div class="small-12 medium-6 large-12 columns" >
+					<div class="" style="padding:0 0 20px 0;">
+	    			<%= render "best_items" %>
+	    		</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
 <div class="row">
-	<div class="small-12 medium-6 columns" >
-		<div class="fb-like-box" data-href="https://www.facebook.com/beautymeets.page" data-width="370px" data-height="510px" data-header="false" data-show-border="false" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false">
-		</div>
-		<div class="fb-like" data-href="http://www.facebook.com/beautymeets.page"  data-send="false" data-width="320px;" data-show-faces="false">
-		</div>
-	</div>
-	<div class="small-12 medium-6 columns" >
-		<h5 class="subheader"><a href="http://blog.beautymeets.com"><%= image_tag "blog_logo.png" %> blog</a></h5>
-		<% if @blog_rss && @blog_rss.entries.present? %>
-		<% @blog_rss.entries.first(5).each_with_index do |entry, i| %>
-				<h6 class="subheader"><%= link_to entry.title.unpack('U*').pack('U*'), entry.link %>&nbsp;<small>| <%= entry.category.unpack('U*').pack('U*') %></small></h6>
-				<p>
-					<%= truncate(entry.description.unpack('U*').pack('U*'), 60) %>
-					<small class="right"><%= entry.pubDate.strftime("%Y-%m-%d") %></small>
-				</p>
-				<%= "<hr>".html_safe if i < 4 %>
-		<% end %>
-		<% end %>
+	<div class="small-12 columns" style="padding:20px 10px; ">
+		<div class="row">
+			<div class="small-12 columns" >
+				<div class="welcome-post-header" >
+					<%= image_tag "/assets/hdr_post.png" %>
+					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "right", :style => "width:80px; height:20px;"), posts_path %>
+				</div>
+			</div>
+			<div class="small-12">
+				<%= render @latest_posts %>
+			</div>
 	</div>
 </div>

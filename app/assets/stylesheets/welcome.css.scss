@@ -3,27 +3,86 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+// mobile(small)-only
 @media only screen and (max-width: 40em) { 
 	.welcome-jumbo {
+			/*
 		 -moz-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
 		 -webkit-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
 		 box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9); 
+		 */
 		 height:24rem; 
 		 margin:0 -1rem;
 		 background:#dfdfdf; 
 		 
+	}
+
+	.welcome-tutorial-header {
+		padding:0 10px;height:50px;
+		max-width:280px; margin:0 auto; 	
+		position:relative;
+	}
+	.welcome-post-header {
+		padding:0 10px;
+		height:50px;
+		max-width:300px; 
+		position:relative;
+		margin:0 auto; 	
 	}
 }
 
 @media only screen and (min-width: 40.063em)  { 
 	.welcome-jumbo {
 		
+		 /* 
 		 -moz-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
 		 -webkit-box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9);
 		 box-shadow: inset 0 0 200px -50px rgba(0, 0, 0, 0.9); 
+		 */
 		 height:25rem; 
-		 margin:0 -1rem;
+		 margin:0 -0.25rem;
 		 background:#dfdfdf; 
 	}
 
+	.welcome-tutorial-header { 
+		padding:0 10px;height:50px;
+		position:relative;
+	}
+
+	.welcome-post-header {
+		padding:0 10px;
+		margin-left:20px;
+		height:50px;
+		position:relative;
+	}
+
 } 
+
+.welcome-tutorial-more {
+	position:absolute; 
+	z-index:5; 
+	right:10px; 
+	top:0;
+}
+
+.welcome-item-cell {
+  border: 1px solid #e9e9e9; 
+  background:#FFF; 
+  width:130px; 
+  height:118px;
+}
+
+.welcome-item-header {
+	max-width:260px; 
+	width:auto; 
+	margin:0 auto; 
+	height:50px; 
+	position:relative;
+}
+
+.welcome-item-more {
+	position:absolute; 
+	z-index:5; 
+	right:0; 
+	top:0;
+}

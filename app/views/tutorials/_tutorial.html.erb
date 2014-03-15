@@ -1,42 +1,43 @@
 
-<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="margin-bottom:30px;">
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="">
   <div class="tutorial-card">
-    <div class="text-center" style="position: relative; margin:0 auto; padding:6px;">
+    <div class="text-center" style="position: relative; ">
       <a class="tutorial-card-thumb" href="<%= tutorial_path(tutorial) %>" style='background-image: url("<%= tutorial.thumbnail.image_url(:medium) if tutorial.thumbnail.present? %>");'>
+        <div  style=" padding:6px 8px; width:100%; background:rgba(0,0,0, 0.5); position:absolute; left:0; bottom:0; ">
         <% if tutorial.categories.present? %>
           <% tutorial.categories.each do |category| %>
-            &nbsp;<span class=" secondary label right" style="position:absolute; right:6px; top:6px;"><%= category.name %></span>
+          <span class="left " style="color:#CDD9D7;"><%= category.name %></span>
           <% end %> 
         <% end %>
+        <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - tutorial.created_at).to_i / 1.day <= 3 %></span>
+        </div>
 
       <i class="fa fa-play-circle fa-3x" style="padding-top:25%;  color:#FFF; margin:0 auto;"></i>
       </a>
     </div>
     <div class="tutorial-card-desc" style="">
-      <h6 class="tutorial-card-title subheader text-left" >
+      <h6 class="tutorial-card-title subheader text-left"  style="margin:0;padding:0; ">
         <a href="<%= tutorial_path(tutorial) %>" >
-          <%= truncate(tutorial.try(:title), 44) %>
+          <%= truncate(tutorial.try(:title), 18) %>
         </a>
-        &nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - tutorial.created_at).to_i / 1.day <= 3 %></span>
       </h6>
-      <h5 class="subheader  text-left" style="margin:5px 10px;  color:#999; ">
-        <%= render partial: 'users/avatar_thumb', locals: { user: tutorial.author } if tutorial.author.present? && tutorial.author.image.present? %>
+      <h5 class="subheader  text-left" style="margin:-4px 0; padding:0;  color:#999; ">
         <span class="group_name" >
           <small>
-            <% if tutorial.author.has_role? :admin %>
-              <strong><%= tutorial.author.try(:name) %></strong>
-            <% else %>
-            <strong><%=  link_to tutorial.author.try(:name), beautystar_path(tutorial.author.profile) %></strong>
-          &nbsp;<%= "| #{tutorial.author.profile.job_title}" if tutorial.author.profile.job_title.present? %>
-            <% end %>
+            <strong><%= tutorial.author.try(:name) %></strong>
+          </small>
+        </span>
+        <span class="right" >
+          <small>
+          <i class="fa fa-eye"></i> <%=  tutorial.view_count.nil? ? "0" : number_with_delimiter(tutorial.view_count) %>
           </small>
         </span>
       </h5>    
-      <h5 class="subheader " style="position: absolute; bottom: 0; right:0; margin:0 10px;  color:#999; ">
+      <h5 class="subheader " style=" bottom: 0; right:0;   ">
         <small>
           <%= #tutorial.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? 
-          %>&nbsp;
-          <i class="fa fa-eye"></i> <%=  tutorial.view_count.nil? ? "0" : number_with_delimiter(tutorial.view_count) %>
+          %>
+          
         </small>
       </h5>
     </div>
