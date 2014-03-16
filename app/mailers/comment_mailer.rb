@@ -18,7 +18,7 @@ class CommentMailer < ActionMailer::Base
     @comment  = comment
 
     #mail(:to => @parent.user.email, :subject => "#{@commentable.try(:title)}에 작성한 댓글에 답변이 달렸습니다.")
-    mail(:from => @comment.user.email, :subject => "[BEAUTYMEETS] 1 reply on your comment on #{@commentable.try(:title)}")
+    mail(:to => @parent.user.email, :from => @comment.user.email, :subject => "[BEAUTYMEETS] 1 reply on your comment on #{@commentable.try(:title)}")
 	end
 
 end
