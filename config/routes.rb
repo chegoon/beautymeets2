@@ -14,7 +14,6 @@ Beautymeets2::Application.routes.draw do
   end
 
   match 'notifications' => 'activities#index'
-  match 'beautorials' => 'tutorials#index'
 
   resources :boards do 
     resources :pictures, :comments
