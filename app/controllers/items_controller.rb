@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     if @itemizable.present?
       @items = @itemizable.items
     else
-      if user_signed_in? && current_user.has_update?(Item)
+      if user_signed_in? && current_user.can_create?(Item)
         @items = Item.order("view_count DESC")
       else
         @items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("view_count DESC")
