@@ -7,7 +7,8 @@ class TutorialsController < ApplicationController
   # load_and_authorize_resource
 
   # authorize controller thourgh authority
-  authorize_actions_for Tutorial, except: [:index, :show]
+  # autocomplete_item_name을 적어주지 않을 경우, authority missing action이 발생
+  authorize_actions_for Tutorial, except: [:index, :show, :autocomplete_item_name]
 
   respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  

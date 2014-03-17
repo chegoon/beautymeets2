@@ -4,35 +4,37 @@ class ItemsController < ApplicationController
   # impressionist #comment out this line when impressionist method created in each action
 
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :load_itemizable, except: [:index, :new]
+  before_filter :load_itemizable, except: [:index, :new, :create, :autocomplete_brand_name]
   
-  autocomplete :item, :name
   autocomplete :brand, :name
 	
   # GET /items/1
   # GET /items/1.json
   def index
-
-    if params[:term].nil?
-      if @itemizable.present?
-        @items = @itemizable.items
-      else
-        @items = Item.order("view_count DESC")
-      end
-
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @items }
-      end
+    if @itemizable.present?
+      @items = @itemizable.items
     else
-         @items = Item.order(:name).where("name like ?", "%#{params[:term]}%")
-         render json: @items.map(&:name)
-    end 
+      if user_signed_in? && current_user.has_update?(Item)
+        @items = Item.order("view_count DESC")
+      else
+        @items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("view_count DESC")
+      end
+      
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
+
   end
 
   def new
-    #@item = @itemizable.items.new
-    @item = Item.new
+    if @itemizable.present?
+      @item = @itemizable.items.new
+    else
+      @item = Item.new
+    end    
   end
   
   def create
@@ -53,7 +55,7 @@ class ItemsController < ApplicationController
       if @itemizable
         redirect_to @itemizable, notice: "Item created."
       else
-        respond_to @item, notice: "Item created."
+        redirect_to @item, notice: "Item created."
       end
     else
       render :new
@@ -63,7 +65,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     impressionist(@item, "", :unique => [:session_hash])
-    
+
     @tutorials = @item.tutorials
     @videos = @item.videos
 

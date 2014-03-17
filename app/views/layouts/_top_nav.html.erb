@@ -35,7 +35,8 @@
                     <li><label>Profile</label></li>
                     <li>
                   <% if current_user.has_role? :admin %>
-                    <a href="/admin"><i class="fa fa-square fa-fw"></i> Admin</a>
+                    <a href="/admin"><i class="fa fa-rocket fa-fw"></i> Admin</a>
+                    <%= link_to '<i class="fa fa-plus fa-fw"></i> Item Add</a>'.html_safe, new_item_path %>
                   <% else %>
                     <%= link_to "<i class='fa fa-square fa-fw'></i> My Page".html_safe, member_path(current_user.profile) %>
                   <% end %>
