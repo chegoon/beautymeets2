@@ -2,173 +2,216 @@
 <% page_thumb "#{full_url(@tutorial.thumbnail.image_url)}" if @tutorial.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
 
-<div class="row">
-  <div class="large-12 columns"> 
-		<h4 style="letter-spacing:-0.5px;">Beautorials </h4>
-
-		<h5 class="subheader">
-			<small>TUTORIAL > 
-			<% @tutorial.categories.each do |category| %>
-				<%= category.name %>
-			<% end %>
-			</small>
-		</h5>
+<div class="row" >
+  <div class="small-12 columns"> 
+  	<div style="height:90px; position:relative; ">
+			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px;">
+				<%= render 'layouts/go_back' %>
+    		<%= @tutorial.title%>
+    	</h4>
+	    <div class="text-right">
+	    	<%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %>
+	    </div>
+    </div>
   </div>    
 </div>
 
-<div class="row">
-	<div class="small-12 medium-4 columns">
-		<%= image_tag @tutorial.thumbnail.image_url(:medium) if @tutorial.thumbnail.present? %>
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+	<div class="small-12 medium-4 columns" style="">
+		<div style="width:100%; min-height:36px;">
+			<div class="left" style="margin:0 10px 0 0;">
+			<%= link_to image_tag(@tutorial.author.image_url(:small), :style => "width:36px; height:36px;"), beautystar_path(@tutorial.author.profile) %>
+			</div>
+			<div class="left">
+				<span style="font-size:0.75rem;"><%= "#{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %>
+				</span><br/>
+	      <span style="font-size:1.5rem;"><%= @tutorial.author.has_role?(:admin) ? @tutorial.author.try(:name) : link_to(@tutorial.author.try(:name), beautystar_path(@tutorial.author.profile)) %>
+	      </span>
+			</div>
+		</div>
 	</div>
-	<div class="small-12 medium-8 columns">
-    <h2 class="subheader" style="letter-spacing:-1px;">
-    	<strong>
-    		<%= best_in_place @tutorial, :title %>
-    	</strong>
-    </h2>
-    <h3>
+	<div class="small-12 medium-8 columns text-right">		
+		<% if @tutorial.categories.present? %>
+			<span class="right" style="font-size:0.75rem;letter-spacing:-0.2px; color:#AAA;">
+				TUTORIAL > 
+				<% @tutorial.categories.each_with_index do |category, i| %>
+					&nbsp;<%=  category.name %><%= "&nbsp;/".html_safe if i < (@tutorial.categories.count - 1) %>
+				<% end %>
+			</span>
+		<% end %>
+	</div>
+	<div class="small-12 columns">
+    <h3 class="show-for-medium-up" style="margin-right:-25px;">
     	<small class="right">
     		<%= render 'bookmarks/star' %>
     	</small>
     </h3>
-    <h6 class="subheader ">
-		<% if @tutorial.categories.present? %>
-			<small>Category : </small>
-			<% @tutorial.categories.each do |category| %>
-				&nbsp;<span class=" secondary tiny label"><%=  category.name %></span>
-			<% end %>
-		<% end %>
-		</h6>
-    
-    <div class="text-right">
-    	<%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %>
-    </div>
-    <div>
-     	<%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>
-              &nbsp;
-      <span class="group_name" >
-      	<strong>
-        <%= @tutorial.author.has_role?(:admin) ? @tutorial.author.try(:name) : link_to(@tutorial.author.try(:name), beautystar_path(@tutorial.author.profile)) %>
-       	</strong>&nbsp;
-       	<small>
-       		<%= " | #{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %>
-       	</small>
-      </span>
-    </div>
       
-		<p><%= simple_format(@tutorial.description) %></p>
-    <p>
+		<%= simple_format(@tutorial.description, :style => "margin-bottom:4px;") %>
+    <p style="margin-top:0;">
     	<% @tutorial.tag_list.each do |t| %>
 	    	<span class="label secondary radius"><%= t %></span>
 		 	<% end %>
 		</p>
 
-		<div style="margin:10px 0;">
+		<div style="margin:4px 0;">
 	   	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
 	   	</div>
 	  </div>
   </div>
-</div>
 
 <% if @tutorial.vimeo_url.present? %>
-<div class="row">
 	<div class="small-12 columns">
-  	<hr> 
 		<div class="flex-video widescreen vimeo">
 			<iframe width="420" height="315" src="<%= @tutorial.vimeo_url %>" frameborder="0" allowfullscreen></iframe>
-		</div>
-		<hr> 
+		</div> 
 	</div>
-</div>
 <% end %>
 
+<div class="small-12 columns show-for-small-only text-center" style="border:0px #EEE solid; margin:0 auto 20px auto;">
+	<%= render 'bookmarks/star' %>
+</div>
+    	
 <% if user_signed_in? && current_user.can_update?(@tutorial) %>
-<div class="row" style="">
 	<div class="small-12 columns " >
 		<h5><small>다른 이미지</small></h5>
 		<%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
 		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
 	</div>
-</div>
 <% end %>
 
-<% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>
+<% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>				
+	<div class="small-12 medium-12 columns" >		
+		<h5 class="subheader" style="margin-top:10px;">사용된 화장품 보기</h5>
+		<% if user_signed_in? %>
+			<div class="show-for-small-only">
+				<table style="width:100%;">	
+					<tbody>
+						<% @tutorial.items.each do |tutorial_item| %>			
+						<tr >
+							<td style="border: 1px solid #e9e9e9; width:80px;">
+								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:very_small)), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
+							</td>
+							<td style="border: 1px solid #e9e9e9; ">
+								<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
+									<%= tutorial_item.brand.try(:name) %>
+								</div>
+								<div style="font-size:0.8rem; line-height:100%;">
+									<strong><%= link_to truncate(tutorial_item.try(:name), 20), item_path(tutorial_item) %></strong>
+								</div>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			<div class="show-for-medium-up">
+				<ul id="item-carousel" class="elastislide-list ">
+				<% @tutorial.items.each do |tutorial_item| %>			
+					<li >
+						<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :style => "width:110px; height:110px;"), item_path(tutorial_item), :class => "th" if tutorial_item.thumbnail.present? %>
+						<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
+						<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
+						</div>
+						<div>
+						<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
+						</div>
+					</li>
 
-<div class="row" >
-	<div class="small-12 medium-3  columns" style="margin:20px 0 0 0;">		
-		<% header_item = @tutorial.items.sample(1).first %>
-		<%= link_to image_tag(header_item.thumbnail.image_url(:medium)), item_path(header_item) if header_item.thumbnail.present? %><br/>
-		<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= header_item.brand.try(:name) %></span><br/>
-		<span  style="font-size:0.8rem; "><strong><%= link_to truncate(header_item.try(:name), 20), item_path(header_item) %></strong></span>
-								
-	</div>
-	<div class="small-12 medium-9  columns" style="margin:20px 0 0 0;">		
+				<% end %>	
+
+				</ul>				
+			</div>
+		<% else %>
+
+			<div class="show-for-small-only">
+				<table style="width:100%;">	
+					<tbody>
+
+						<% header_item = @tutorial.items.sample(1).first %>
 		
-		<dl class=" accordion" data-accordion >
-			<dd >
-					<a href="#video-description" >사용된 화장품 보기<%= "(로그인후 확인 가능합니다.)" if !user_signed_in? %><i class="right fa fa-chevron-down"></i></a>
-					<div class="content" id="video-description">
+						<tr >
+							<td style="border: 1px solid #e9e9e9; width:80px;">
+								<%= link_to image_tag(header_item.thumbnail.image_url(:very_small)), item_path(header_item) if header_item.thumbnail.present? %>
+							</td>
+							<td style="border: 1px solid #e9e9e9; ">
+								<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
+									<%= header_item.brand.try(:name) %>
+								</div>
+								<div style="font-size:0.8rem; line-height:100%;">
+									<strong><%= link_to truncate(header_item.try(:name), 20), item_path(header_item) %></strong>
+								</div>
+							</td>
+						</tr>
 
-						<h4 class="subheader" ><strong><small>사용된 주요 제품</small></strong></h4>
-						<% if user_signed_in? %>
-							<ul class="inline-list">
-
-							<% @tutorial.items.each do |tutorial_item| %>			
-								<li style="margin-bottom:15px;" >
-									<span style="height:1px;"></span>
-									<%= link_to image_tag(tutorial_item.thumbnail.image_url(:medium), :style => "width:100px; height:100px;"), item_path(tutorial_item), :class => "th" if tutorial_item.thumbnail.present? %>
-									<span class="subheader" style="font-size:0.75rem; padding-bottom:0; margin-bottom:0"><%= tutorial_item.brand.try(:name) %></span>
-									<span  style="font-size:0.8rem; "><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong></span>
-									<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
-									
-								</li>
-							<% end %>			
-
-							</ul>
-						<% else %>
-							<h6 class="subheader">로그인 이후 확인 가능합니다. </h6>
-							<a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>
-              <a href="<%= new_user_session_path %>"  class="button tiny secondary">로그인</a>
-            <% end %>
+						<tr >
+							<td colspan="2" style="border: 1px solid #e9e9e9; ">
+								<div class="subheader" style="background:#fafafa; margin:0 auto;">
+									<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
+									<a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>&nbsp;
+					 	    	<a href="<%= new_user_session_path %>"  class="button tiny secondary">로그인</a>
+					 	    </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="show-for-medium-up">
+			<ul id="item-carousel" class="elastislide-list">
+				<li >
+					<% header_item = @tutorial.items.sample(1).first %>
+					<%= link_to image_tag(header_item.thumbnail.image_url(:small), :style => "width:110px; height:110px;"), item_path(header_item), :class => "th" if header_item.thumbnail.present? %>
+					<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= header_item.brand.try(:name) %></div>
+					<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(header_item.try(:name), 10), item_path(header_item) %></strong>
 					</div>
-			</dd>
-		</dl>
+				</li>
+				<li >
+					<div class="subheader" style="background:#fafafa;">
+						<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
+						<a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>&nbsp;
+		 	    	<a href="<%= new_user_session_path %>"  class="button tiny secondary">로그인</a>
+		 	    </div>
+		 	  </li>
+			</ul>			
+			</div>	
+ 	  <% end %>
 	</div>
-</div>
 <% end %>
 
-<% if can? :manager, @tutorial %>
-<div>
-	<p><h4>Add Product</h4></p>
-	<%= #render 'items/small_form' 
-	%>
-	<%= simple_form_for [@itemizable] do |f| %>
-	  <%= f.error_notification %>
-	  <%= f.input :item_name, :url => autocomplete_item_name_tutorials_path, :as => :autocomplete %>
-	  <%= f.button :submit, 'Add It' %>
+<% if user_signed_in? && current_user.can_update?(@tutorial) %>
 
-	<% end %>
-</div>
+	<div class="small-12 columns">		
+		<h4>Add Product</h4>
+		<%= #render 'items/small_form' 
+		%>
+		<%= simple_form_for [@itemizable] do |f| %>
+		  <%= f.error_notification %>
+		  <%= f.input :item_name, :url => autocomplete_item_name_tutorials_path, :as => :autocomplete %>
+		  <%= f.button :submit, 'Add It' %>
+
+		<% end %>
+	</div>
 <% end %>
+</div>
 
-<div class="row" style="margin:2.5rem 0 0 0;">
-	<div class="small-12 medium-8 columns">		
-		<h3 class="subheader"><%= render partial: 'users/avatar_thumb', locals: { user: @tutorial.author } if @tutorial.author.present? && @tutorial.author.image.present? %>&nbsp;Q&A&nbsp;<small><%= @tutorial.author.name %>님에게 궁금한 질문을 남겨주세요.</small>
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
+	<div class="small-12 columns">		
+		<h3 class="subheader" style="margin:1rem 0 0 0;">Q&A&nbsp;<small><%= @tutorial.author.name %>님에게 궁금한 질문을 남겨주세요.</small>
 		</h3>
-		Comments(<%= @tutorial.comments.count %>)
 		<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대한 질문들을 남겨주세요." }    %>    
 		<%= render "comments/comments" || "댓글이 없습니다." %>
 	</div>
 </div>
-<div class="row" style="margin-bottom:5rem;">
-	<div class="small-12 medium-12 columns">		
+
+<div class="row">
+	<div class="small-12 medium-12 columns" style="margin:30px 0 5rem 0;">		
 		<h3>추천 영상 보기&nbsp;<small><%= @tutorial.title %>과 함께 보면 좋은 영상들</small></h3>
 		<hr>
-		<h4>튜토리얼&nbsp;<small>뷰티밋츠가 직접 제작한 리얼 뷰티 튜토리얼입니다.</small></h4>
+		<h4 style="padding-left:5px;">튜토리얼&nbsp;<small>뷰티밋츠가 직접 제작한 리얼 뷰티 튜토리얼</small></h4>
 			<div class="row" style="">
 				<%= render @tutorials %>
 			</div>
-		<h4>비디오&nbsp;<small>뷰티밋츠가 엄선한 뷰티 비디오입니다.</small></h4>
+		<h4 style="padding-left:5px;">비디오&nbsp;<small>뷰티밋츠가 엄선한 뷰티 비디오</small></h4>
 			<div class="row" style="">
 				<%= render @videos %>
 			</div>

@@ -23,6 +23,7 @@
 //= require sticky_footer.js
 //= require jquery.fullpage.min.js
 //= require jquery.slimscroll.min.js
+//= require jquery.elastislide
 //= require bootstrap-datetimepicker
 //= require_tree ../../../vendor/assets/javascripts/.
 
@@ -44,6 +45,22 @@ $(function() {
 // The function for toggle bookmark
 function swapBookmarkImage()
 {
+
+    var oriImg = jQuery("#bookmark_star a img");
+
+    // Change the image src toggle based on the current image
+    if (oriImg.attr('src') == "/assets/bookmarked.png") {
+        oriImg.attr('src', "/assets/unbookmarked.png");
+    }
+    else {
+        oriImg.attr('src', "/assets/bookmarked.png");
+    };
+}
+
+/*
+// The function for toggle bookmark
+function swapBookmarkImage()
+{
     //$('#bookmark_star').toggleClass('fa-star fa-star-o');
 
     var oriI = jQuery("#bookmark_star i");
@@ -62,7 +79,7 @@ function swapBookmarkImage()
         oriMsg.text("Starred");
     };
 }
-
+*/
 
 
 

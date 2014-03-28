@@ -4,11 +4,11 @@
       <%= f.error_notification %>
 
       <div class="row">
-        <div class="medium-9 columns">
-          <%= f.text_area :body, rows: 4, :placeholder => ( local_assigns[:form_message] || "궁금한 점을 남겨주세요" ) %>
+        <div class="medium-9 columns" >
+          <%= f.text_area :body, rows: 2, :placeholder => ( local_assigns[:form_message] || "궁금한 점을 남겨주세요" ) %>
         </div>
         <div class="medium-3 columns">
-          <%= f.button :submit, "Comment It" %>
+          <%= f.button :submit, "Comment It", :class => "expand right" %>
         </div>
       </div>
 

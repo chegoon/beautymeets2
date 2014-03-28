@@ -3,10 +3,9 @@
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!! [#{@video.video_group.name}] #{@video.title} 영상을 만나보세요." %>
 
 			<div class="row">
-				<div style="margin-bottom:10px; padding: 10px 0; "><%= render "layouts/go_back" %></div>
 				<div class="small-12  columns" style="margin-top:10px;">
 					<h3 class="subheader">
-						<%= @video.title %>
+						<%= render "layouts/go_back" %><%= @video.title %>
 					</h3>
 					<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
 				</div>
