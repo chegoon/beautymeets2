@@ -1,26 +1,52 @@
-<%= link_to 'New', new_tutorial_path if (can? :create, Tutorial) %>
+
 <% page_title "BEAUTYMEETS > #{@tutorials.first.title}" %>
 <% page_thumb "#{full_url(@tutorials.first.try(:thumbnail).image_url)}" if @tutorials.first.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!! #{@tutorials.first.title} 영상을 만나보세요." %>
 
+	<div class="row" style="background: url('/assets/header_bg.jpg'); ">
+		<div class="medium-8 columns" style="padding:0; ">
 
-			<div class="row">
-				<div class="small-12 small-centered columns" style="padding:0;">
+			<div class="flex-video widescreen vimeo" style="margin:0; ">
+				<iframe width="420" height="315" src="<%= @head_tutorial.vimeo_url %>?title=0&byline=0&portrait=0" frameborder="0" allowfullscreen></iframe> 
+			</div> 
+		</div>
+		<div class="medium-4 columns" style="padding:0; ">
+			<h4 class="subheader" style="color:#FFF; padding:3.5rem 1rem 2rem 1rem; line-height:105%; letter-spacing:-0.5px;"> 
+				청담동 아티스트들이 전하는 <br/>
+				<strong><%= @tutorials.count %></strong>개의<br/>
+				튜토리얼을 만나보세요<br/>
+				<br/>
+				<span style="color:#9bfff4;">BEAUTYMEETS</span>
+			</h4>
+		</div>
+		</div>
+	</div>
 
-					<div id="tutorials">		
+	<div class="row" >
+		<div class="small-12 small-centered columns" style="padding:0; ">
+			<h4 class="subheader left" style="margin:30px 0;">
+				&nbsp;Tutorial&nbsp;<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if (can? :create, Tutorial) %></small>
+			</h4>
 
-						<!-- <div data-magellan-expedition="fixed" style="background: #f5f5f5; padding:0; margin:0;"> -->
-						<div style="background: #f5f5f5; padding:0; margin:0;">
-							<dl class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
-						  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %>>Popular</a></dd>
-						  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %>>Newly</a></dd>
-							</dl>
-						</div>
-						<div class="list">	  
-							<%= render @tutorials %>
-  					</div>						
-					</div>
-			  </div>
+			<div id="tutorials" class="right" style="margin:30px 0 10px 0; padding:0;">		
+				<div style="background:#f4f4f4;">
+					<dl class="button-group radius" >
+				  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %>>Popular</a></dd>
+				  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %>>Newly</a></dd>
+					</dl>
+				</div>
 			</div>
-
-			<div class="pagination-centered"><%= will_paginate @tutorials, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %></div>
+		</div>
+	</div>
+	<div class="row" style="background:#FFF;">
+		<div class="small-12 small-centered columns" style="padding:0; ">
+			<div class="list" style="margin:20px 0;">	  
+				<%= render @tutorials %>
+  		</div>						
+  	</div>
+		<div class="small-12 small-centered columns" style="padding:0; ">
+			<div class="pagination-centered">
+				<%= will_paginate @tutorials, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %>
+			</div>
+		</div>
+	</div>

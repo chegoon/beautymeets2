@@ -44,6 +44,7 @@ class TutorialsController < ApplicationController
       end
     end
     @categories = Tutorial.joins(:categories).where("parent_id IS NULL ").all
+    @head_tutorial = @tutorials.where(published: true, created_at: (8.week.ago)..(Time.now), updated_at: (2.week.ago)..(Time.now)).order("view_count DESC, created_at DESC").sample(1).first
 
     respond_to do |format|
       format.html # index.html.erb
