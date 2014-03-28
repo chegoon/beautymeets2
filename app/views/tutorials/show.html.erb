@@ -20,7 +20,11 @@
 	<div class="small-12 medium-4 columns" style="">
 		<div style="width:100%; min-height:36px;">
 			<div class="left" style="margin:0 10px 0 0;">
-			<%= link_to image_tag(@tutorial.author.image_url(:small), :style => "width:36px; height:36px;"), beautystar_path(@tutorial.author.profile) %>
+			<%= if @tutorial.author.has_role? (:admin) %>
+				<%= link_to image_tag(@tutorial.author.image_url(:very_small), :style => "width:36px; height:36px;"), "#" %>	
+			<% else %>
+				<%= link_to image_tag(@tutorial.author.image_url(:very_small), :style => "width:36px; height:36px;"), beautystar_path(@tutorial.author.profile) %>
+			<% end %>
 			</div>
 			<div class="left">
 				<span style="font-size:0.75rem;"><%= "#{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %>
