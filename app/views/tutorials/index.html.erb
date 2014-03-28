@@ -3,7 +3,7 @@
 <% page_thumb "#{full_url(@tutorials.first.try(:thumbnail).image_url)}" if @tutorials.first.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!! #{@tutorials.first.title} 영상을 만나보세요." %>
 
-	<div class="row" style="background: url('/assets/header_bg.jpg'); ">
+	<div class="row" style="background: url('/assets/header_bg.jpg');  ">
 		<div class="medium-8 columns" style="padding:0; ">
 
 			<div class="flex-video widescreen vimeo" style="margin:0; ">
@@ -23,12 +23,12 @@
 	</div>
 
 	<div class="row" >
-		<div class="small-12 small-centered columns" style="padding:0; ">
-			<h4 class="subheader left" style="margin:30px 0;">
+		<div class="small-12 small-centered columns" style="">
+			<h4 class="subheader left" style="margin-top:30px;">
 				&nbsp;Tutorial&nbsp;<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if (can? :create, Tutorial) %></small>
 			</h4>
 
-			<div id="tutorials" class="right" style="margin:30px 0 10px 0; padding:0;">		
+			<div id="tutorials" class="right" style="margin:30px 0 10px 0; ">		
 				<div style="background:#f4f4f4;">
 					<dl class="button-group radius" >
 				  <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %>>Popular</a></dd>
@@ -38,13 +38,13 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" style="background:#FFF;">
-		<div class="small-12 small-centered columns" style="padding:0; ">
-			<div class="list" style="margin:20px 0;">	  
+	<div class="row" style="background:#FFF;margin:0;" >
+		<div class="small-12 small-centered columns" style="">
+			<div class="list" style="margin-top:20px;">	  
 				<%= render @tutorials %>
   		</div>						
   	</div>
-		<div class="small-12 small-centered columns" style="padding:0; ">
+		<div class="small-12 small-centered columns" style=" ">
 			<div class="pagination-centered">
 				<%= will_paginate @tutorials, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %>
 			</div>
