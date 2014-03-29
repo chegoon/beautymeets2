@@ -1,7 +1,7 @@
 <% if activity.trackable %>
 <div class="row">
   <div class="small-12  columns ">
-    <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small), :class => "circular", :style => "width:auto; height:40px;"), activity.trackable %>
+    <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small), :style => "width:auto; height:40px;"), activity.trackable %>
     <%= link_to activity.owner.name || activity.owner.email, (activity.owner.has_role? :admin) ? "#" : beautystar_path(activity.owner.profile) if activity.owner %>님의 프로필이 수정되었습니다.
     <span class="pull-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></span>
   </div>
