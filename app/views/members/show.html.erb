@@ -1,25 +1,59 @@
+<div class="row" >
+  <div class="small-12 columns"> 
+  	<div style="height:70px; position:relative; ">
+			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; width:auto;">
+				My Page
+    	</h4>
+    </div>
+  </div>    
+</div>
 
 <div class="row">
-	<div class="small-12 medium-3 columns text-right show-for-medium-up">
-		<%= render 'side_nav' %>
-	</div>
-	<div class="small- medium-9 columns" style="background:#FFF;">
+	<div class="small-12 small-centered columns" style="background:#FFF;">
 		<%= render 'sub_nav' %>
-		<h4>프로필</h4>
-		<h6><strong>로그인 정보</strong></h6>
-		<%= link_to '수정', edit_user_registration_path(@member.user), :class => "right button tiny secondary" if (can? :manager, current_user) %>
-		<ul class="square">
-			<li>User name : <%= @member.user.name %></li>
-			<li>Email : <%= @member.user.email %>&nbsp;</li>
-		</ul>
-		<h6><strong>기본 정보</strong></h6>
+
+
+		<%= link_to '프로필 수정', edit_user_registration_path(@member.user), :class => "right button tiny secondary" if (can? :manager, current_user) %>
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						이름
+					</td>
+					<td>
+						<%= @member.user.name %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						E-mail
+					</td>
+					<td>
+						<%= @member.user.email %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						성별
+					</td>
+					<td>
+						<%= @member.gender.name if @member.gender.present? %>
 		<%= link_to '수정', edit_member_path(current_user.profile), :class => "right button tiny secondary"  if (can? :manager, @member) %>
-		<ul class="square">
-			<li>성별 <%= @member.gender.name if @member.gender.present? %></li>
-			<li>출생년도 <%= best_in_place @member, :year_of_birth, type: :integer if @member.year_of_birth.present?%></li>
-		</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						생년월일
+					</td>
+					<td>
+						<%= best_in_place @member, :year_of_birth, type: :integer if @member.year_of_birth.present?%>
+		<%= link_to '수정', edit_member_path(current_user.profile), :class => "right button tiny secondary"  if (can? :manager, @member) %>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<hr>
-		<%= link_to '프로필 수정', edit_member_path(current_user.profile), :class => "right button tiny secondary"  if (can? :manager, @member) %>
+		<%= link_to '피부정보 수정', edit_member_path(current_user.profile), :class => "right button tiny secondary"  if (can? :manager, @member) %>
 		<h4>피부 타입</h4>		
 		<ul class="inline-list">
 		<% @member.skin_type_list.each do |t| %>

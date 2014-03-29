@@ -48,16 +48,15 @@
     </h3>
       
 		<%= simple_format(@tutorial.description, :style => "margin-bottom:4px;") %>
-    <p style="margin-top:0;">
+    <p style="margin-top:0; margin-bottom:0;">
     	<% @tutorial.tag_list.each do |t| %>
 	    	<span class="label secondary radius"><%= t %></span>
 		 	<% end %>
 		</p>
-
-		<div style="margin:0 0 10px 0;">
-	   	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
-	   	</div>
-	  </div>
+	  <p>
+	  	<div class="fb-like" data-href="<%= tutorial_url(@tutorial) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+	  	</div>
+	  </p>
   </div>
 
 <% if @tutorial.vimeo_url.present? %>
