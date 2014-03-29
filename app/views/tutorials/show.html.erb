@@ -48,7 +48,7 @@
     </h3>
       
 		<%= simple_format(@tutorial.description, :style => "margin-bottom:4px;") %>
-    <p style="margin-top:0; margin-bottom:4px;">
+    <p style="margin-top:0;">
     	<% @tutorial.tag_list.each do |t| %>
 	    	<span class="label secondary radius"><%= t %></span>
 		 	<% end %>
