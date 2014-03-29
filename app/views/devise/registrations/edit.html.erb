@@ -1,9 +1,7 @@
+<%= render 'members/member_header' %>
 
 <div class="row">
-  <div class="small-12 medium-3 columns text-right show-for-medium-up">
-    <%= render 'members/side_nav' if current_user.has_role? :member %>
-  </div>
-  <div class="small- medium-9 columns" style="background:#FFF;">
+  <div class="small-12  columns" style="background:#FFF;  padding:20px;">
     <%= render 'members/sub_nav' if current_user.has_role? :member  %>
 
     <dl class="tabs" data-tab>
@@ -47,8 +45,6 @@
             <%= f.button :submit  %>
         <% end %>
 
-        <%= link_to "Back", :back %>
-
         <script type="text/javascript">
             var preview = $(".upload-preview img");
 
@@ -65,6 +61,7 @@
         </script>
       </div>
       <div class="content" id="panel2-3">
+        <h6 class="subheader">대문자, 소문자, 숫자가 모두 1개 이상은 포함되어야 합니다.</h6>
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, "data-abide" => "" }) do |f| %>
           <% if resource.errors.any? %>
             <div id="error_explanation">
@@ -85,18 +82,20 @@
             <div class="password-field">
               <label>New Password </label>
               <%= f.password_field :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-              <label>New Password confirmation </label>
+              <label>New Password Confirmation</label>
               <%= f.password_field :password_confirmation, :required => false %>
             </div>
 
+
               <% if f.object.encrypted_password.present? %>
+                <label>Current Password </label>
                 <%= f.password_field :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
               <% end %>
             <%= f.button :submit %>
         <% end %>
       </div>
       <div class="content" id="panel2-4">
-        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+        <p>Really? <%= link_to "Membership OUT!!", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
       </div>
     </div>
   </div>

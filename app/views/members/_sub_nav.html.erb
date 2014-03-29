@@ -1,24 +1,29 @@
 	
-
-		<div class="row">
+		<div class="row" style="">
 			<div class="small-12 columns show-for-small-only text-center" style="padding:20px 10px 10px 10px;" >
-				<img data-interchange="[<%= @member.user.image_url(:small) %>, (small)]">
+				<%= image_tag(@member.user.image ? @member.user.image_url(:small) : "/assets/user_avatar.png", :style => "width:90px; height:90px;") %>
+				<h5><span style="color:#CCC;">Welcome to BEAUTYMEETS</span></h5>
 				<h2 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h2>
-				<h5>Hello, <%= @member.user.name.present? ? @member.user.name : @member.user.email %></h5>
+				
 			</div>
+			<div class="small-12 columns show-for-medium-up " style="margin-bottom:10px;">
+				<div class="left" style="">
+					<%= image_tag(@member.user.image ? @member.user.image_url(:small) : "/assets/user_avatar.png", :style => "width:90px; height:90px;") %>
+				</div>
+				<div class="left">
+					<h4 class="subheader" style="padding:10px;">
+						<span style="color:#CCC;">Welcome to BEAUTYMEETS</span><br/>
+						<%= @member.user.name.present? ? @member.user.name : @member.user.email %>
+					</h4>
+				</div>
+			</div>
+			<div class="small-12 columns">
+				<ul class="breadcrumbs">
+		  		<li><%= link_to "Profile", member_path(@member) %></li>
+		  		<li><%= link_to "Notification", member_notifications_path(@member) %></li>
+		  		<li><%= link_to "My Bookmark", member_bookmarks_path(@member) %></li>
+		  		<li><%= link_to "My Tutorial", member_tutorials_path(@member) %></li>
+		  		<li><%= link_to "My Beautyclass", member_beautyclasses_path(@member) %></li>
+		  	</ul>	
+		  </div>
 		</div>
-		<div class="show-for-medium-up" >
-			<h4 class="subheader">
-			<%= image_tag(@member.user.image ? @member.user.image_url(:small) : "/assets/user_avatar.png", :style => "width:90px; height:90px;") %>
-			<span style="color:#CCC;">Welcome to BEAUTYMEETS</span>
-			<%= @member.user.name.present? ? @member.user.name : @member.user.email %>
-			</h4>
-		</div>
-		<ul class="breadcrumbs">
-  		<li><%= link_to "Profile", member_path(@member) %></li>
-  		<li><%= link_to "Notification", member_notifications_path(@member) %></li>
-  		<li><%= link_to "My Bookmark", member_bookmarks_path(@member) %></li>
-  		<li><%= link_to "My Tutorial", member_tutorials_path(@member) %></li>
-  		<li><%= link_to "My Beautyclass", member_beautyclasses_path(@member) %></li>
-  	</ul>	
-

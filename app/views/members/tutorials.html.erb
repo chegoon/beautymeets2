@@ -1,9 +1,7 @@
+<%= render 'member_header' %>
 
 <div class="row">
-	<div class="small-12 medium-3 columns text-right show-for-medium-up">
-		<%= render 'side_nav' %>
-	</div>
-	<div class="small- medium-9 columns" style="background:#FFF;">
+	<div class="small-12 columns" style="background:#FFF;  padding:20px;">
 		<%= render 'sub_nav' %>
 		<h5 class="subheader"><%= @tutorials.count %> Tutorials you've seen.&nbsp;<small>View more <%= link_to "Tutorials.", tutorials_path %></small></h3> 
 		<%= render @tutorials %>
