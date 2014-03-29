@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="small-12 columns ">
 		<div class="left">
-		<%= image_tag activity.owner.image_url(:small), :class => "circular", :style => "width:40px; height:40px;" if activity.owner.present? %>
+		<%= image_tag activity.owner.image_url(:very_small), :style => "width:40px; height:40px;" if activity.owner.present? %>
 		</div>
 		<div style="margin:0.8rem 1.0rem 0.2rem 2.9rem ;">
 		<%= activity.owner.name || activity.owner.email if activity.owner %>
