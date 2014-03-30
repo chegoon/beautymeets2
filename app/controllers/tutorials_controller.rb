@@ -21,30 +21,15 @@ class TutorialsController < ApplicationController
     cards_per_page = 12
 
     if (params[:cond].present?) && (params[:cond] == "uncategorized")
-        #tutorials_categorized = Tutorial.where("id NOT in (?)", TutorialCategory.select("id")  )
-        #tutorial_categorized_ids = Tutorial.joins(:tutorial_categorizations)
-        #@tutorials = Tutorial.joins(:tutorial_categories).where("tutorials.id NOT in (?)", tutorial_categorized_ids.map(&:id)).page(params[:page]).per_page(10)
-      if params[:tag]
-        @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).tagged_with(params[:tag]).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)
-      else
         @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)
-      end        
-
     elsif (params[:order].present?) && (params[:order] == "popular")
-      if params[:tag]
-        @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
-      else
         @tutorials = Tutorial.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
-      end
+    elsif (params[:order] == "popular_last2w")
+        @tutorials = Tutorial.joins("JOIN impressions ON impressions.impressionable_id = tutorial.id").where("impressions.impressionable_type = 'Tutorial' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)        
     else      
-      if params[:tag]
-        @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
-      else
         @tutorials = Tutorial.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(cards_per_page)
-      end
     end
     @categories = Tutorial.joins(:categories).where("parent_id IS NULL ").all
-    #@head_tutorial = Tutorial.joins("JOIN impressions ON impressions.impressionable_id = tutorials.id").where("impressions.impressionable_type = 'Tutorial' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").limit(4)
     @head_tutorial = @tutorials.sample(1).first
 
     respond_to do |format|

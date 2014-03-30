@@ -28,8 +28,8 @@
 					<div id="videos">		
 						<div data-magellan-expedition="fixed" style="background: #eee; padding:0; margin:0;">
 							<ul class="button-group radius" style="padding-top:10px;  width:200px; margin:0 auto; ">
-						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>Popular</a></li>
-						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>Newly</a></li>
+						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>인기순</a></li>
+						  <li><a class="small button <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>최신순</a></li>
 							</ul>
 						</div>
 						<div class="list">	  
