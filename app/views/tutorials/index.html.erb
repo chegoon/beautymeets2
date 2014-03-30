@@ -25,7 +25,7 @@
 	<div class="row" >
 		<div class="small-12 small-centered columns" style="">
 			<h4 class="subheader left" style="margin-top:30px;">
-				&nbsp;Tutorial&nbsp;<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if (can? :create, Tutorial) %></small>
+				&nbsp;Tutorial&nbsp;<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if user_signed_in? && current_user.can_create?(Tutorial) %></small>
 			</h4>
 
 			<div id="tutorials" class="right" style="margin:30px 0 10px 0; ">		

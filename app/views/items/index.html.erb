@@ -2,13 +2,40 @@
 <% page_thumb "#{full_url(@items.first.thumbnail.image_url)}" if @items.first.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!"  %>
 
-<h2 class="text-center" style="padding:20px;"><strong><%= @items.count %></strong> ITEM</h2>
+  <div class="row" >
+    <div class="small-12 small-centered columns" style="">
+      <h4 class="subheader left" style="margin-top:30px;">
+        &nbsp;Item&nbsp;
+        <small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_item_path if user_signed_in? && current_user.can_create?(Item) %>
+        </small>
+        <small>
+          <%= "최근 2주간 사람들이 가장 많이 본 화장품" if params[:order] == 'popular_last2w' %>
+          <%= "사람들이 가장 많이 본 화장품" if params[:order] == 'popular' %>
+          <%= "튜토리얼에 최근 사용된 화장품" if params[:order] == 'newly' %>
+        </small>
+      </h4>
 
-<br />
-<%= link_to "<i class='fa fa-plus fa-fw'></i>New Item".html_safe, new_item_path if user_signed_in? && current_user.can_create?(Item) %>
-
-<div id="wrapper">
-  <div id="columns">
-    <%= render @items %>
+      <div id="tutorials" class="right" style="margin:30px 0 10px 0; ">   
+        <div style="background:#f4f4f4;">
+          <dl class="button-group radius" >
+          <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular_last2w" %>>최근 2주</a></dd>
+          <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular" %>>인기순</a></dd>
+          <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{items_path}?order=newly" %>>최신순</a></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="row" style="background:#FFF;margin:0;" >
+    <div class="small-12 small-centered columns" style="">
+      <div class="list" style="margin-top:20px;">   
+        <%= render @items %>
+      </div>            
+    </div>
+    <div class="small-12 small-centered columns" style=" ">
+      <div class="pagination-centered">
+        <%= will_paginate @items, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %>
+      </div>
+    </div>
+  </div>
+

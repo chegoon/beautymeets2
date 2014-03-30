@@ -1,16 +1,30 @@
 
-<div class="pin">
 
-	<div class="text-center" >
-		<%= link_to image_tag(item.thumbnail.image_url(:medium)), item_path(item) if item.thumbnail.present? %>
-		<br/>
-		<p>
-		<h5 class="subheader"><small><strong><%= item.brand.name if item.brand.present? %></strong></small></h5>
-		<h6 class="subheader" style="line-height:101%; width:auto; "><%= link_to truncate(item.name, 16), item_path(item) %></h6>
-		<% if user_signed_in? && current_user.can_update?(item) %>
-			<span class="left"><small><i class="fa fa-cog fa-fw"></i> <%= link_to 'Edit', edit_item_path(item) if user_signed_in? && current_user.can_update?(item) %></small></span>
-		<% end %>
-		</p>
-	</div>
+<div class="small-6 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="">
+  <div class="item-card">
+    <div class="text-center item-card-thumb" style="position: relative; ">
+      
+      <%= link_to image_tag(item.thumbnail.image_url(:medium), :style => "height:100px; width:auto; "), item_path(item) if item.thumbnail.present? %>
+      <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - item.created_at).to_i / 1.day <= 3 %></span>
+    </div>
+    <div class="item-card-desc" style="">
+    	<hr style="margin:0;">
+    	<h5 class="subheader  text-left" style="margin:-4px 0; padding:0;  color:#999; ">
+          <small>
+            <strong><%= item.brand.try(:name) %></strong>
+          </small>
+      </h5>  
+      <h6 class="item-card-title subheader text-left"  style="letter-spacing:-0.5px; margin:0;padding:0; line-height:110%; ">
 
+        <%= link_to truncate(item.try(:name), 24), item_path(item) %>
+
+
+					<% if user_signed_in? && current_user.can_update?(item) %>
+						<span class="left"><small><i class="fa fa-cog fa-fw"></i> <%= link_to 'Edit', edit_item_path(item) if user_signed_in? && current_user.can_update?(item) %></small>
+						</span>
+					<% end %>
+      </h6>
+       
+    </div>
+  </div>
 </div>
