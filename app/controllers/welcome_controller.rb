@@ -39,7 +39,7 @@ WHERE impressionable_type = 'Item'
 AND (created_at > CURDATE() - INTERVAL 2 WEEK)
 GROUP BY impressionable_id 
 ORDER BY count(impressionable_id)  DESC
-LIMIT 2").map(&:impressionable_id))
+LIMIT 4").map(&:impressionable_id))
 			@latest_items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("created_at DESC, updated_at DESC").limit(4)
 	    @latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 	    @bookmarks = Bookmark.where(user_id: @user.id)
@@ -64,7 +64,7 @@ WHERE impressionable_type = 'Item'
 AND (created_at > CURDATE() - INTERVAL 2 WEEK)
 GROUP BY impressionable_id 
 ORDER BY count(impressionable_id)  DESC
-LIMIT 2").map(&:impressionable_id))
+LIMIT 4").map(&:impressionable_id))
 			@latest_items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("created_at DESC, updated_at DESC").limit(4)
 			@latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 	  end
