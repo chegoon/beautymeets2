@@ -45,7 +45,7 @@ class TutorialsController < ApplicationController
     end
     @categories = Tutorial.joins(:categories).where("parent_id IS NULL ").all
     #@head_tutorial = Tutorial.joins("JOIN impressions ON impressions.impressionable_id = tutorials.id").where("impressions.impressionable_type = 'Tutorial' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").limit(4)
-    @head_tutorial = @tutorials.order("view_count DESC, created_at DESC").sample(1).first
+    @head_tutorial = @tutorials.sample(1).first
 
     respond_to do |format|
       format.html # index.html.erb
