@@ -64,7 +64,6 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    impressionist(@item, "", :unique => [:session_hash])
 
     @tutorials = @item.tutorials
     @videos = @item.videos
@@ -87,6 +86,7 @@ class ItemsController < ApplicationController
     #if cannot? :manage, @item
     if !(user_signed_in? && current_user.can_update?(@item))
       @item.increment_view_count 
+      impressionist(@item, "", :unique => [:session_hash])
     end
 
     respond_to do |format|

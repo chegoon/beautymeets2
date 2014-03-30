@@ -45,7 +45,6 @@ class VideosController < ApplicationController
   def show
     @video = Video.find(params[:id])
     
-    impressionist(@video, "", :unique => [:session_hash])
     #@video_recs = Video.joins(:video_categories).where("published=TRUE AND video_categories.id IN (?) AND videos.id != ?", @video.video_categories.map(&:id), @video.id).order("view_count DESC LIMIT 50").sample(3)
     if @video.video_group.published || (user_signed_in? && current_user.can_update?(@video))
 
@@ -64,6 +63,7 @@ class VideosController < ApplicationController
       if !(user_signed_in? && current_user.can_update?(@video))
       #if cannot? :manage, @video
         @video.increment_view_count 
+        impressionist(@video, "", :unique => [:session_hash])
       end
 
       respond_to do |format|

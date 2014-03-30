@@ -55,8 +55,7 @@ class TutorialsController < ApplicationController
 
   def show
     @tutorial = Tutorial.find(params[:id])
-    impressionist(@tutorial, "", :unique => [:session_hash])
-
+    
     @pictureable = @tutorial
     @pictures = @pictureable.pictures
     @picture = Picture.new
@@ -71,6 +70,7 @@ class TutorialsController < ApplicationController
     #if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
     if !(user_signed_in? && current_user.can_update?(@tutorial))
       @tutorial.increment_view_count 
+      impressionist(@tutorial, "", :unique => [:session_hash])
     end
 
 		@commentable = @tutorial
