@@ -26,14 +26,14 @@
       </div>
     </div>
   </div>
-  <div class="row" style="background:#FFF;margin:0 0 30px 0;" >
+  <div class="row" style="background:#FFF;margin:0;" >
     <div class="small-12 small-centered columns" style="padding:0;">
 
         <%= render @items %>
 
     </div>
-    <div class="small-12 small-centered columns" style=" ">
-      <div class="pagination-centered">
+    <div class="small-12 small-centered columns" style="">
+      <div class="pagination-centered" style="margin-bottom:30px;">
         <%= will_paginate @items, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %>
       </div>
     </div>
