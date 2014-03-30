@@ -18,9 +18,9 @@
       <div id="tutorials" class="right" style="margin:30px 0 10px 0; ">   
         <div style="background:#f4f4f4;">
           <dl class="button-group radius" >
-          <dd><a class="button small <%= 'secondary' if  params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular_last2w" %>>최근 2주</a></dd>
+          <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular_last2w" %>>최근 2주</a></dd>
           <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular" %>>인기순</a></dd>
-          <dd><a class="button small <%= 'secondary' if  params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{items_path}?order=newly" %>>최신순</a></dd>
+          <dd><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{items_path}?order=newly" %>>최신순</a></dd>
           </dl>
         </div>
       </div>
