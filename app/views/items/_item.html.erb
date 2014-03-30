@@ -1,13 +1,13 @@
 
 
-<div class="small-6 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="">
+<div class="small-6 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="padding:5px;">
   <div class="item-card">
     <div class="text-center item-card-thumb" style="position: relative; ">
       
       <%= link_to image_tag(item.thumbnail.image_url(:medium), :style => "height:100px; width:auto; "), item_path(item) if item.thumbnail.present? %>
       
     </div>
-    <div class="item-card-desc" style="">
+    <div class="item-card-desc" style="padding:5px;">
     	<hr style="margin:0;">
     	<h5 class="subheader  text-left" style="margin:-4px 0; padding:0;  color:#999; ">
           <small>
