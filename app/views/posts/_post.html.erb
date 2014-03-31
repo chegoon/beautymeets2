@@ -21,6 +21,16 @@
   </div>  
 </div>
 
+<%
+    @commentable = post
+    @comments = @commentable.root_comments.order("created_at ASC")
+    
+    if user_signed_in?
+      @comment = Comment.build_from(@commentable, current_user.id, "") 
+    else
+      @comment = Comment.new
+    end
+%>
 <div id="modal-post-<%= post.id %>" class="reveal-modal medium"  data-reveal>  
   <%= render partial: "posts/show", locals: { post: post }%>
   <a class="close-reveal-modal">&#215;</a>

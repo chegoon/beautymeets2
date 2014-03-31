@@ -46,5 +46,8 @@ class Post < ActiveRecord::Base
     url = site_url.split(%r{/})
     (find_by_slug(url[2]) && find_by_slug(url[2]).id) || site_url.split(%r{/})[2]
   end
+  def reply_enabled 
+    return true
+  end
 
 end

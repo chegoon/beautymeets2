@@ -63,3 +63,13 @@
   </div>
 </div>
 
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
+  <div class="small-12 columns">    
+    <h3 class="subheader" style="margin:1rem 0 0 0;">COMMENT&nbsp;<small><%= post.try(:title) %>에 대해서 자유롭게 댓글을 달아주세요.</small>
+    <%= "<br/><small>로그인하셔야 댓글 입력이 가능합니다. <a href='/users/login'>로그인 바로 가기</a></small>".html_safe if !user_signed_in? %>
+    </h3>
+    <%= render partial: "comments/form", locals: { form_message: "#{post.try(:title)}에 대해 남겨주세요." }    %>    
+    <%= render "comments/comments" || "댓글이 없습니다." %>
+  </div>
+</div>
+

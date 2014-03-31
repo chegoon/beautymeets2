@@ -13,13 +13,13 @@
     </small></h5>
   </div>    
 </div>
-<div class="text-right"><%= link_to "Edit", edit_post_path if can? :manage, @post %></div>
 <div class="row">
   <div class="small-12 medium-4 columns">
     <%= image_tag @post.thumbnail.image_url(:large) if @post.thumbnail.present? %>
   </div>
   <div class="small-12 medium-8 columns">
-      <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= best_in_place @post, :title %></strong></h2>
+      <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= best_in_place @post, :title %></strong>
+        <small><%= link_to "Edit", edit_post_path if user_signed_in? && current_user.can_update?(@post) %></small></h2>
       <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
       <h6 class="subheader ">
         <% if @post.categories.present? %>
@@ -29,7 +29,6 @@
           <% end %>
         <% end %>
       </h6>
-      
       
       <p><%= simple_format(@post.description) %></p>
       <p>
@@ -72,9 +71,12 @@
   </div>
 </div>
 
-
-
-<% if user_signed_in? && current_user.can_update?(@post) %>
-  <%= link_to 'Edit', edit_post_path(@post) %> |
-  <%= link_to 'Back', posts_path %>
-<% end %>
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
+  <div class="small-12 columns">    
+    <h3 class="subheader" style="margin:1rem 0 0 0;">COMMENT&nbsp;<small><%= @post.try(:title) %>에 대해서 자유롭게 댓글을 달아주세요.</small>
+    <%= "<br/><small>로그인하셔야 댓글 입력이 가능합니다. <a href='/users/login'>로그인 바로 가기</a></small>".html_safe if !user_signed_in? %>
+    </h3>
+    <%= render partial: "comments/form", locals: { form_message: "#{@post.try(:title)}에 대해 남겨주세요." }    %>    
+    <%= render "comments/comments" || "댓글이 없습니다." %>
+  </div>
+</div>

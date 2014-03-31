@@ -33,6 +33,7 @@ class WelcomeController < ApplicationController
 
 			@latest_items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("created_at DESC, updated_at DESC").limit(4)
 	    @latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
+	    
 	    @bookmarks = Bookmark.where(user_id: @user.id)
 	  else
 	  	#@events = Event.where('released_at <= ? AND finish_on >= ? ', Time.now, Time.now).order("created_at DESC")
