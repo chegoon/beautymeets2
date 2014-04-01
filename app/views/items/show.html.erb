@@ -41,13 +41,16 @@
   </div>
   <div class="small-12 medium-8 columns" >
     <div style="color: #666; margin-top:20px; font-size:14px;">
-      <p><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %></p>
-      <% @item.tag_list.each do |t| %>
+      <p ><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %></p>
+      <p style="margin-top:0; margin-bottom:2px;">
+        <% @item.tag_list.each do |t| %>
         <span class="label secondary radius"><%= t %></span>
       <% end %>
+      </p>
     </div>  
     <div class="fb-like" data-href="<%= item_url(@item) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-    
+    <p style="margin-bottom:4px;"></p>    
+
     <div>
       <h4 class="subheader"><small>다른 이미지</small></h4>
       <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
