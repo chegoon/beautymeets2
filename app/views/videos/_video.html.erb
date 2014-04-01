@@ -1,38 +1,39 @@
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="padding:0 10px;">
+  <div class="video-card">
+    <div class="text-center " style="position: relative; ">
+      <a class="video-card-thumb" href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>); '>
+        
+        <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
+        
 
-<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="text-align:center">
-
-  <div class="video-card"  style="">
-    <div class="text-center" style="position:relative;">
-      <a class="video-card-thumb " href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>); 
-  border-radius: 4px 4px 0 0 ;
-  -moz-border-radius:4px 4px 0 0 ;
-  -webkit-border-radius: 4px 4px 0 0 ;
-  -khtml-border-radius: 4px 4px 0 0 ;'>
-        <span style="background-color:rgba(51, 51, 51, 0.35); color:#EEE; padding:2px 3px; font-size:0.8rem; position:absolute; bottom:10px; right:10px;">
-          <%= Time.at(video.duration).utc.strftime("%-M:%S") if video.duration.present? %>
-        </span> 
+      <i class="fa fa-play-circle fa-3x" style="padding-top:20%;  color:#FFF; margin:0 auto;"></i>
       </a>
     </div>
-    <div style="text-align:left; padding:0 5px; position: relative; height:110px;">
-      <h6 class="subheader video-card-title" style="">
-        <a href="<%= video_path(video) %>" ><%= truncate(video.try(:title), 30) %></a>
-        &nbsp;<span class="right" style="color:#ff8008;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
-      </h6>
-      <h4 class="subheader" >
-        <% if video.video_group.present? && video.video_group.image.present? %>
-          <%= image_tag video.video_group.image_url(:thumb).to_s, :style => "width:24px; height:24px;" %>
-        <% else %>
-          <%= image_tag video.video_group.try(:thumb_url), :style => "width:24px; height:24px;" %>
-        <% end %>
-        &nbsp;<small><strong><%=  link_to video.video_group.try(:name), video_group_path(video.video_group) %></strong></small>
-      </h4>
-      <h6 class="subheader" >
-        <small style="position:absolute; bottom:4px; right:6px;">
-          <%= #video.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? 
-          %>&nbsp;
+    <div class="video-card-desc" style="">
+      <div class="video-card-title text-left"  style="margin:0;padding:0; ">
+        <a href="<%= video_path(video) %>" >
+          <%= truncate(video.try(:title), 14) %>
+        </a>
+      </div>
+      <h5 class="subheader  text-left" style="margin:-10px 0; padding:0;  color:#999; ">
+        <span class="group_name" >
+          <small>
+            <strong><%= link_to video.video_group.try(:name), video_group_path(video.video_group) if video.video_group.present? %></strong>
+          </small>
+        </span>
+        <span class="right" >
+          <small>
           <i class="fa fa-eye"></i> <%=  video.view_count.nil? ? "0" : number_with_delimiter(video.view_count) %>
+          </small>
+        </span>
+      </h5>    
+      <h5 class="subheader " style=" bottom: 0; right:0;   ">
+        <small>
+          <%= #video.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? 
+          %>
+          
         </small>
-      </h6> 
+      </h5>
     </div>
   </div>
 </div>

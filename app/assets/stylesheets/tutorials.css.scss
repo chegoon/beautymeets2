@@ -1,4 +1,60 @@
 // Place all the styles related to the tutorials controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-	
+
+
+// Small screens
+@media only screen and (max-width: 40em) { 
+  .tutorial-show-category {
+    float:left;
+    text-align:left;
+    margin-bottom:5px;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+
+  }
+  .tutorial-index-head {
+     margin:0 -13px;
+  }
+  .tutorial-index-head-title {
+    padding:2.5rem 1rem 2rem 1.5rem; 
+  }
+  .tutorial-index-title {
+  	padding:0 10px;
+  }
+
+  .tutorial-card-outter {
+      padding:20px 10px 0 10px; 
+      background:#FCFCFC;
+  }
+} /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+// Medium screens
+@media only screen and (min-width: 40.063em) { 
+  .tutorial-show-category {
+    float:right;
+    text-align:right;
+    margin-bottom:5px;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+
+  }
+	.tutorial-index-head {
+     margin:0 -0.2rem;
+	}
+  .tutorial-index-head-title {
+    padding:3.5rem 1rem 2rem 0.5rem; 
+  }
+  .tutorial-index-title {
+  	padding:0;
+  }
+
+  .tutorial-card-outter {
+      padding:20px 20px 0 20px; 
+      background:#FCFCFC;
+  }
+
+} /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+

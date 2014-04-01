@@ -51,28 +51,17 @@
 }  
 
 
+
 .tutorial-card {
 
   max-width:260px; 
   width:auto; 
 
-  margin:0 auto; 
+  margin:0 auto 20px auto; 
   background:#FFF; 
   padding:0; 
-  margin-bottom: 20px;
   
   border: 1px solid #e9e9e9;
-
-  /*
-  -webkit-box-shadow:1px 2px 0 rgba(151, 151, 151, 0.2); 
-  -moz-box-shadow: i1px 2px 0 rgba(151, 151, 151, 0.2); 
-  box-shadow: 1px 2px 0 rgba(151, 151, 151, 0.2); 
-
-  border-radius: 4px;
-  -moz-border-radius:4px; 
-  -webkit-border-radius: 4px; 
-  -khtml-border-radius: 4px; 
-  */
 }
 
 .tutorial-card-thumb {
@@ -106,27 +95,20 @@
 }
 
 .video-card {
-  -webkit-box-shadow:1px 2px 0 rgba(151, 151, 151, 0.2); 
-  -moz-box-shadow: i1px 2px 0 rgba(151, 151, 151, 0.2); 
-  box-shadow: 1px 2px 0 rgba(151, 151, 151, 0.2); 
+  border: 1px solid #e9e9e9;
+  max-width:260px; 
+  width:auto; 
 
-  border-radius: 4px;
-  -moz-border-radius:4px; 
-  -webkit-border-radius: 4px; 
-  -khtml-border-radius: 4px; 
-
+  margin:0 auto 20px auto; 
   background:#FFF; 
-  margin:10px auto 30px auto; 
-  max-width:290px; min-width:150px; width:auto;
-  max-height:240px; min-height:220px; heigth:auto;
+  padding:0; 
 
 }
 
-
 .video-card-thumb {
-  -moz-box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.7);
-  -webkit-box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.7);
-  box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 100px -50px rgba(0, 0, 0, 0.2);
 
   margin:0 auto;
   
@@ -136,29 +118,23 @@
   
   width:100%; 
   height:120px;
-
-  /*
-  border-radius: 4px 4px 0 0 ;
-  -moz-border-radius:4px 4px 0 0 ;
-  -webkit-border-radius: 4px 4px 0 0 ;
-  -khtml-border-radius: 4px 4px 0 0 ;
-  */
   display:block;
 }
 
+.video-card-desc {
+   position: relative; 
+   margin:0 auto; 
+   height:70px; 
+   padding:12px 10px;
+}
+
 .video-card-title {
-  line-height:110%; 
+  line-height:105%; 
+  letter-spacing:-0.5px;
   height:2.2rem;
 }
 
 .post-card {
-
-  /*
-  border-radius: 4px;
-  -moz-border-radius:4px; 
-  -webkit-border-radius: 4px; 
-  -khtml-border-radius: 4px; 
-  */
 
   background:#FFF; 
   margin:10px auto 10px auto; 
@@ -182,13 +158,6 @@
   width:100%; 
   height:180px;
   letter-spacing:-1px;
-
-  /*
-  border-radius: 4px;
-  -moz-border-radius:4px ;
-  -webkit-border-radius: 4px ;
-  -khtml-border-radius: 4px  ;
-  */
   display:block;
 }
 
@@ -201,12 +170,11 @@
 
   background:#FFF; 
   margin:0 auto;
-  /* border: 1px solid #e9e9e9; */
 
 }
 
 .item-card-thumb {
-  margin:40px auto;
+  margin:40px auto 30px auto;
 
   max-width:260px; 
   width:100%; 
@@ -231,80 +199,25 @@
   margin: 10px auto;
 }
 
-#columns {
-  -webkit-column-count: 3;
-  -webkit-column-gap: 15px;
-  -webkit-column-fill: auto;
-  -moz-column-count: 3;
-  -moz-column-gap: 15px;
-  -moz-column-fill: auto;
-  column-count: 3;
-  column-gap: 15px;
-  column-fill: auto;
-}
 
-.pin {
-  display: inline-block;
-  background: #FFF;
-  // border: 2px solid #FAFAFA;
-  // box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-  margin: 0 2px 15px;
-  -webkit-column-break-inside: avoid;
-  -moz-column-break-inside: avoid;
-  column-break-inside: avoid;
-  padding: 15px 15px 10px 15px;
-  background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-  opacity: 1;
-  
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
-}
-
-.pin img {
-  width: 100%;
-  // border-bottom: 1px solid #ccc; 
-  padding-bottom: 15px; 
-  margin-bottom: 5px;
-}
-
-.pin p {
-  margin: 0;
-}
 
 // Small screens
 @media only screen { } /* Define mobile styles */
 
 @media only screen and (max-width: 40em) { 
   
-  #columns {
-    margin: 0 auto;
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-  }
 } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
 // Medium screens
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) { 
-  #columns {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-  }
+
 
 
 } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
 // Large screens
 @media only screen and (min-width: 64.063em) {
-  #columns {
-    -webkit-column-count: 4;
-    -moz-column-count: 4;
-    column-count: 4;
-  }
 
 
 } /* min-width 1025px, large screens */

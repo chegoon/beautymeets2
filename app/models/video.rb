@@ -50,18 +50,18 @@ class Video < ActiveRecord::Base
 	def most_popular_in_categories(category)
 		#puts "recommendations begin"
 		if !category.nil?
-			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id = ? AND videos.id != ?", category.id, self.id).order("view_count DESC LIMIT 10").sample(3)
+			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id = ? AND videos.id != ?", category.id, self.id).order("view_count DESC LIMIT 10").sample(4)
 		else
-			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id IN (?) AND videos.id != ?", self.categories.map(&:id), self.id).order("view_count DESC").limit(10).sample(3)
+			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id IN (?) AND videos.id != ?", self.categories.map(&:id), self.id).order("view_count DESC").limit(10).sample(4)
 		end
 	end
 
 	def latest_in_categories(category)
 		#puts "recommendations begin"
 		if !category.nil?
-			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id = ? AND videos.id != ?", category, self.id).order("created_at DESC LIMIT 10").sample(3)
+			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id = ? AND videos.id != ?", category, self.id).order("created_at DESC LIMIT 10").sample(4)
 		else
-			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id IN (?) AND videos.id != ?", self.categories.map(&:id), self.id).order("created_at DESC").limit(10).sample(3)
+			return Video.joins(:video_group, :categories).where("video_groups.published=TRUE AND videos.published=TRUE AND categories.id IN (?) AND videos.id != ?", self.categories.map(&:id), self.id).order("created_at DESC").limit(10).sample(4)
 		end
 	end
 

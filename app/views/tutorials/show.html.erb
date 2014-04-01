@@ -10,13 +10,23 @@
     		<%= @tutorial.title%>
     	</h4>
 	    <div class="text-right">
-	    	<%= link_to "Edit", edit_tutorial_path if can? :manage, @tutorial %>
+	    	<%= link_to "Edit", edit_video_path if user_signed_in? && current_user.can_update?(@tutorial) %>
 	    </div>
     </div>
   </div>    
 </div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+	<div class="small-12 medium-8 columns right text-right">		
+		<% if @tutorial.categories.present? %>
+			<span class="tutorial-show-category" >
+				TUTORIAL > 
+				<% @tutorial.categories.each_with_index do |category, i| %>
+					&nbsp;<%=  category.name %><%= "&nbsp;/".html_safe if i < (@tutorial.categories.count - 1) %>
+				<% end %>
+			</span>
+		<% end %>
+	</div>
 	<div class="small-12 medium-4 columns" style="">
 		<div style="width:100%; min-height:36px;">
 			<div class="left" style="margin:0 10px 0 0;">
@@ -30,18 +40,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="small-12 medium-8 columns text-right">		
-		<% if @tutorial.categories.present? %>
-			<span class="right" style="font-size:0.75rem;letter-spacing:-0.2px; color:#AAA;">
-				TUTORIAL > 
-				<% @tutorial.categories.each_with_index do |category, i| %>
-					&nbsp;<%=  category.name %><%= "&nbsp;/".html_safe if i < (@tutorial.categories.count - 1) %>
-				<% end %>
-			</span>
-		<% end %>
-	</div>
 	<div class="small-12 columns">
-    <h3 class="show-for-medium-up" style="margin-right:-25px;">
+    <h3 class="show-for-medium-up" style="margin-left:20px; margin-right:-25px;">
     	<small class="right">
     		<%= render 'bookmarks/star' %>
     	</small>
@@ -67,7 +67,7 @@
 	</div>
 <% end %>
 
-<div class="small-12 columns show-for-small-only text-center" style="border:0px #EEE solid; margin:0 auto 20px auto;">
+<div class="small-12 columns show-for-small-only text-center" style="border:0px #EEE solid; margin:20px auto 20px auto;">
 	<%= render 'bookmarks/star' %>
 </div>
     	
@@ -204,7 +204,7 @@
 
 <div class="row">
 	<div class="small-12 medium-12 columns" style="margin:30px 0 5rem 0;">		
-		<h3>추천 영상 보기&nbsp;<small><%= @tutorial.title %>과 함께 보면 좋은 영상들</small></h3>
+		<h3>추천 영상 보기&nbsp;<small>함께 보면 좋은 영상들</small></h3>
 		<hr>
 		<h4 style="padding-left:5px;">튜토리얼&nbsp;<small>뷰티밋츠가 직접 제작한 리얼 뷰티 튜토리얼</small></h4>
 			<div class="row" style="">

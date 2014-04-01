@@ -1,7 +1,7 @@
 
-<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="">
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " >
   <div class="tutorial-card">
-    <div class="text-center" style="position: relative; ">
+    <div class="text-center " style="position: relative; ">
       <a class="tutorial-card-thumb" href="<%= tutorial_path(tutorial) %>" style='background-image: url("<%= tutorial.thumbnail.image_url(:medium) if tutorial.thumbnail.present? %>");'>
         <div  style=" padding:6px 8px; width:100%; background:rgba(0,0,0, 0.5); position:absolute; left:0; bottom:0; ">
         <% 
