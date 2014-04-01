@@ -60,12 +60,9 @@
 					<div class="row " style="">
 						<%= render @tutorials %>
 					</div>
+					<div class="pagination-centered">
+						<%= will_paginate @tutorials, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %>
+					</div>
 				</div>
   	</div>
-		<div class="small-12 small-centered columns" style=" ">
-			<div class="pagination-centered">
-				<%= will_paginate @tutorials, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %>
-			</div>
-		</div>
-	
 	</div>
