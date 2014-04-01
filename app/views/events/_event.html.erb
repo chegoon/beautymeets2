@@ -1,5 +1,6 @@
 <div class="row">
   <div class="small-12 columns">
+    <a href="<%= event_path(event) %>" style="display:block;">
     <div class="panel " style="background:#FCFCFC; border:4px #FFF solid; background:url(<%= event.thumbnail.image_url %>); height:24rem; padding:0;">
       <% if event.released_at.present? && (Time.now < event.released_at)  %>
       <div style="background-color:rgba(0,0,0,0.4);  height:100%; margin:0 0 0 0;">
@@ -19,8 +20,8 @@
           <div class="small-12 columns" style="margin-top:3rem; ">
             <% if !local_assigns[:gate_tag].nil? %>
             <h2 class="" style="margin-left:20px; margin-right:-15px;">
-              <small class="right">
-                <%= link_to "참여가능", event_path(event), :class => "button", :style => "padding:10px 30px; opacity:0.7;" %>
+              <small class="right button" style="padding:10px 30px; opacity:0.7;">
+                참여가능
               </small>
             </h2>
             <% end %>
@@ -36,5 +37,6 @@
       </div>
       <% end %>
     </div>
+    </a>
   </div>
 </div>
