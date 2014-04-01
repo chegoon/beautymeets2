@@ -1,19 +1,16 @@
 <% page_title "Welcome to BEAUTYMEETS" %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 	    	
-			<div class="row ">
-				<div class="small-12 welcome-jumbo " >
+<div class="row ">
+	<div class="small-12 welcome-jumbo " >
 <% if @events.present? %>
-<!--
-	<ul class="jumbo-orbit-content" data-orbit>
-		<li data-orbit-slide="headline-1 welcome-jumbo">
--->
-<div class="slider">
-  <ul class="slides" >			
-  	<li class="slide"  >
+
+	<div class="slider">
+	  <ul class="slides" >			
+	  	<li class="slide"  >
 <% end %>	
 					<% if user_signed_in? %>
-						<div class="panel callout " style="border:0; padding:2rem;">
+						<div class="panel callout " style="height:24rem; border:0; padding:2rem;">
 							<h2>Hi, <%= current_user.name || current_user.email  %></h2>
 							<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
 						</div>
@@ -39,8 +36,6 @@
 <% if @events.present? %>
 		</li>
 	<% @events.each_with_index do |event, i| %>
-		  
-		  <!-- <li data-orbit-slide="headline-<%= i %>"> -->
 		  <li class="slide"  style="padding:0;">
 		  	<%= render event%>
 		  </li>
@@ -48,8 +43,8 @@
     </ul>
   </div>
 <% end %>
-				</div>
-			</div>
+	</div>
+</div>
 
 <div class="row" style="margin-bottom:30px;" >
 	<div class="small-12 medium-12 large-8 columns" style="">
