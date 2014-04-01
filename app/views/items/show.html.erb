@@ -29,7 +29,7 @@
         </span>
       </div>
     </div>
-    <div class="show-for-medium-up right" style="margin-left:20px; margin-right:-30px;">
+    <div class=" right" style="margin-left:20px; margin-right:-30px;">
         <%= render 'bookmarks/star' %>
     </div>
   </div>
@@ -41,7 +41,7 @@
   </div>
   <div class="small-12 medium-8 columns" >
     <div style="color: #666; margin-top:20px; font-size:14px;">
-      <%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %>
+      <p><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %></p>
       <% @item.tag_list.each do |t| %>
         <span class="label secondary radius"><%= t %></span>
       <% end %>
