@@ -87,7 +87,6 @@
   </head>
 
   <body>
-
     <%= render :partial => "layouts/fb" if Rails.env.production?   %>
 
     <%= render "layouts/top_nav" %>
@@ -133,6 +132,9 @@
     <script type="text/javascript">
       $('#item-carousel').elastislide();    
     </script>     
+    <script>
+      $('.slider').glide();
+    </script>
     
     <script type="text/javascript">
       WebFontConfig = {

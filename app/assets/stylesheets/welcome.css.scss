@@ -6,9 +6,7 @@
 // mobile(small)-only
 @media only screen and (max-width: 40em) { 
 	.welcome-jumbo {
-		 height:24rem; 
-		 background:#dfdfdf; 
-		 margin:0 -13px;
+		 padding:0;
 	}
 
 	.welcome-tutorial-header {
@@ -37,9 +35,7 @@
 
 @media only screen and (min-width: 40.063em)  { 
 	.welcome-jumbo {
-		 height:25rem; 
-		 margin:0 -0.2rem;
-		 background:#dfdfdf; 
+		 padding:0 11px;
 	}
 
 	.welcome-tutorial-header { 

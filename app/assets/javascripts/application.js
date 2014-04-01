@@ -23,6 +23,7 @@
 //= require sticky_footer.js
 //= require jquery.fullpage.min.js
 //= require jquery.slimscroll.min.js
+//= require jquery.glide.js
 //= require jquery.elastislide
 //= require bootstrap-datetimepicker
 //= require_tree ../../../vendor/assets/javascripts/.

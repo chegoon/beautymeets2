@@ -1,31 +1,40 @@
 <div class="row">
   <div class="small-12 columns">
-    <div class="panel " style="background:#FFF; border:0; ">
-      <div class="row">
-        <div class="small-12 medium-3 columns">
-          <%= link_to image_tag(event.try(:thumbnail) && event.thumbnail.image_url(:medium)), event_path(event) %>     
-        </div>
-        <div class="small-12 medium-9 columns" style="position:relative; ">
-          <div>
-            <h5><small class="subheader right"><%= event.released_at.strftime("%Y.%m.%d %H:%M") if event.released_at.present? %>&nbsp;에 게시 </small></h5>
-            <h3>
-              <%= link_to event.title, event_path(event) %>
-            </h3>
-            <h6><%= strip_tags(event.description) %></h6>
+    <div class="panel " style="background:#FCFCFC; border:4px #FFF solid; background:url(<%= event.thumbnail.image_url %>); height:24rem; padding:0;">
+      <% if event.released_at.present? && (Time.now < event.released_at)  %>
+      <div style="background-color:rgba(0,0,0,0.4);  height:100%; margin:0 0 0 0;">
+        <div class="row">
+          <div class="small-12 medium-9 columns" >
+            <div style="margin-top:15rem;padding-left:2rem;">
+              <h2 style="color:#FFF; letter-spacing:-0.5px; ">
+                <%= event.try(:title) %>
+              </h2>
+            </div>
           </div>
-          <div style=" ">
-            <h5><span class="label secondary">이벤트 기간</span>&nbsp;<small><%= event.start_from.strftime("%Y.%m.%d %H:%M") if event.start_from.present? %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") if event.finish_on.present? %></small></h5>
-            <h5><span class="label secondary">결과발표</span>&nbsp;<small><strong><%= event.win_released_at.strftime("%Y.%m.%d %H:%M") if event.released_at.present? %></strong></small></h5>
-            <% if event.released_at.present? && Time.now < event.released_at  %>
-              <h5><span class="label success">이벤트 종료</h5>
+        </div>
+      </div>
+      <% else %>
+      <div style="background-color:rgba(0,0,0,0.1);  height:100%; margin:0 0 0 0;">
+        <div class="row">
+          <div class="small-12 columns" style="margin-top:3rem; ">
+            <% if !local_assigns[:gate_tag].nil? %>
+            <h2 class="" style="margin-left:20px; margin-right:-15px;">
+              <small class="right">
+                <%= link_to "참여가능", event_path(event), :class => "button", :style => "padding:10px 30px; opacity:0.7;" %>
+              </small>
+            </h2>
             <% end %>
-            
-            <%= link_to 'Edit', edit_event_path(event) if user_signed_in? && current_user.can_update?(event) #(can? :author, event) 
-            %>
-            <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } if user_signed_in? && current_user.can_create?(Event) #(can? :manage, Event) 
-            %>
+            <div style="margin-top:12rem;padding-left:2rem;">
+              <h2 class="subheader" style="color:#FFF; letter-spacing:-0.5px; ">
+                <%= event.try(:title) %>
+              </h2>
+              <h5 style="color:#FFF; letter-spacing:-0.5px;"><strong>이벤트 기간</strong>&nbsp;<%= event.start_from.strftime("%Y.%m.%d %H:%M") if event.start_from.present? %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") if event.finish_on.present? %><br/>
+              <strong>결과발표</strong>&nbsp;<%= event.win_released_at.strftime("%Y.%m.%d %H:%M") if event.released_at.present? %></h5>
+            </div>
           </div>
         </div>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>
