@@ -2,7 +2,7 @@
   <div class="small-12 columns">
     <a href="<%= event_path(event) %>" style="display:block;">
     <div class="panel " style="background:#FCFCFC; border:4px #FFF solid; <%= 'background:url(<%= event.thumbnail.image_url %>);' if event.thumbnail.present? %> height:24rem; padding:0;">
-      <% if event.released_at.present? && Time.now < event.released_at  %>
+      <% if (event.released_at.present?) && (Time.now > event.released_at)  %>
       <div style="background-color:rgba(0,0,0,0.4);  height:100%; margin:0 0 0 0;">
         <div class="row">
           <div class="small-12 medium-9 columns" >
