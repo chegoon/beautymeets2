@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140310170214) do
+ActiveRecord::Schema.define(:version => 20140402024706) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(:version => 20140310170214) do
     t.string   "slug"
     t.string   "target_url"
     t.string   "url_candidate"
+    t.boolean  "published"
   end
 
   add_index "events", ["picture_id"], :name => "index_events_on_picture_id"

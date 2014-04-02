@@ -205,6 +205,12 @@
 @media only screen { } /* Define mobile styles */
 
 @media only screen and (max-width: 40em) { 
+  .event-card-desc {
+    margin-top:12rem;padding-left:0.5rem;
+  }
+  .event-card-date {
+    font-size:0.75rem;
+  }
   
 } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
@@ -212,12 +218,25 @@
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) { 
 
-
+  .event-card-desc {
+    margin-top:12rem;padding-left:2rem;
+  }
+  .event-card-date {
+    font-size:1.0rem;
+  }
 
 } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
 // Large screens
 @media only screen and (min-width: 64.063em) {
+
+  .event-card-desc {
+    margin-top:12rem;padding-left:2rem;
+  }
+  .event-card-date {
+    font-size:1.0rem;
+  }
+  
 
 
 } /* min-width 1025px, large screens */

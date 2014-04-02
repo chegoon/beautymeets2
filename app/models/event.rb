@@ -13,7 +13,7 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url_candidate, use: [:slugged, :history]
 
-  attr_accessible :description, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id, :target_url, :url_candidate
+  attr_accessible :description, :published, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id, :target_url, :url_candidate
 
   belongs_to :host, class_name: "User", :foreign_key => "user_id"
 
