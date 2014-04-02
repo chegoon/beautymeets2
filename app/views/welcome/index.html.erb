@@ -3,46 +3,42 @@
 	    	
 <div class="row ">
 	<div class="small-12 welcome-jumbo " >
-<% if @events.present? %>
-
-	<div class="slider">
-	  <ul class="slides" >			
-	  	<li class="slide"  >
-<% end %>	
-					<% if user_signed_in? %>
-						<div class="panel callout " style="height:24rem; border:0; padding:2rem;">
-							<h2>Hi, <%= current_user.name || current_user.email  %></h2>
-							<h6 class="subheader">There are <i class="fa fa-bell-<%= 'o' if (@notifications.count == 0) %> fa-fw"></i><%= link_to "#{@notifications.try(:count)} notifications", member_notifications_path(@member) if current_user.has_role? :member %> you need to check</h6>
-						</div>
-					<% else %>
-						<div class="panel " style="border:0; height:24rem; background-image: url('/assets/welcome_jumbo1.jpg');background-size:cover; background-position:center; ">
-				      <div class="row">
-				      	<div class="welcome-jumbo-desc small-12 medium-9 columns" style="">
-									<h3  style="color:#FFF; letter-spacing:-0.5px;">
-										청담동 아티스트의 진짜노하우 가득한<br/>
-										1:1 온라인 무료 뷰티클래스,<br/>
-										<span style="color:#9bfff4;">BEAUTYMEETS</span>
-									</h3>
-									<div style="margin-top:2.4rem;">
-									<% if !user_signed_in? %>
-							      <%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기", :class => "left", :style => "width:116px; height:40px; margin-right:10px;"), new_user_registration_path %>
-							      <%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기", :class => "left",  :style => "width:116px; height:40px;"), new_user_session_path  %>
-									<% end %>
-									</div>
-								</div>
-							</div>
-						</div>
-					<% end %>
-<% if @events.present? %>
-		</li>
-	<% @events.each_with_index do |event, i| %>
-		  <li class="slide"  style="padding:0;">
-		  	<%= render event%>
-		  </li>
-	<% end %>
-    </ul>
-  </div>
-<% end %>
+		<% if user_signed_in? %> 	
+			<% if @events.present? %>
+				<% if @events.count == 1 %>
+					<% @events.each_with_index do |event, i| %>
+						<%= render event %>
+					<% end %>	
+				<% else %>
+					<div class="slider">
+		 				<ul class="slides">
+						<% @events.each_with_index do |event, i| %>
+					  <li class="slide"  style="padding:0;">
+					  	<%= render event %>
+					  </li>
+						<% end %>	
+						</ul>
+					</div>
+				<% end %>	
+			<% end %>		
+		<% else %>
+			<% if @events.present? %>
+					<div class="slider">
+						<ul class="slides">
+							<li class="slide"  style="padding:0;">
+								<%= render 'welcome_jumbo' %>
+							</li>
+							<% @events.each_with_index do |event, i| %>
+						  <li class="slide"  style="padding:0;">
+						  	<%= render event %>
+						  </li>
+							<% end %>	
+						</ul>
+					</div>
+			<% else %>
+				<%= render 'welcome_jumbo' %>
+			<% end %>
+		<% end %>
 	</div>
 </div>
 

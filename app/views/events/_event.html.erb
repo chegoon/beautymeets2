@@ -1,9 +1,9 @@
 <div class="row">
   <div class="small-12 columns">
     <a href="<%= event_path(event) %>" style="display:block;">
-    <div class="panel " style='background:#FCFCFC; <%= "background:url(#{event.thumbnail.image_url});" if event.thumbnail.present? %> background-size:cover; height:24rem; padding:0;'>
+    <div class="panel " style='background:#FCFCFC; border:0; <%= "background:url(#{event.thumbnail.image_url});" if event.thumbnail.present? %> background-size:cover; height:24rem; padding:0;'>
       <% if (((event.released_at.present?) && (event.released_at < Time.now)) && ((event.finish_on.present?) && (event.finish_on > Time.now))) %>
-      <div style="background-color:rgba(0,0,0,0.1);  height:100%; margin:0 0 0 0;">
+      <div style="height:100%; margin:0 0 0 0;">
         <div class="row">
           <div class="small-12 columns" style="margin-top:3rem; ">
             <% if (local_assigns[:gate_tag].present? && local_assigns[:gate_tag] == true) && (event.published.present? && event.published == true) %>
@@ -14,11 +14,24 @@
             </h2>
             <% end %>
             <div class="event-card-desc" style="">
-              <h2 class="subheader" style="color:#FFF; letter-spacing:-0.5px; ">
+              <h2 class="subheader" style="color:#9bfff4; letter-spacing:-0.5px; ">
                 <%= "[Draft]" if (event.published.nil? || event.published == false) %><%= event.try(:title) %>
               </h2>
-              <h5 style="color:#FFF; letter-spacing:-0.5px;"><strong>이벤트 기간</strong>&nbsp;<span class="event-card-date"><%= event.start_from.strftime("%Y.%m.%d %H:%M") if event.start_from.present? %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") if event.finish_on.present? %></span><br/>
-              <strong>결과발표</strong>&nbsp;<span class="event-card-date"><%= event.win_released_at.strftime("%Y.%m.%d %H:%M") if event.win_released_at.present? %></span></h5>
+              <% if event.start_from.present? && event.finish_on.present? %>
+              <div >
+                <span class="event-card-desc-detail"><strong>이벤트 기간</strong></span>
+                <span class="event-card-date event-card-desc-detail" >
+                  <%= event.start_from.strftime("%Y.%m.%d %H:%M")  %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") %>
+                </span>
+              </div>
+              <% end %>
+              <% if event.win_released_at.present? %>
+              <div>
+                <span class="event-card-desc-detail"><strong>결과 발표</strong></span>
+                <span class="event-card-date event-card-desc-detail"><%= event.win_released_at.strftime("%Y.%m.%d %H:%M")  %>
+                </span>
+              </div>
+              <% end %>
             </div>
           </div>
         </div>
