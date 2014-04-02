@@ -18,7 +18,7 @@
                 <%= "[Draft]" if (event.published.nil? || event.published == false) %><%= event.try(:title) %>
               </h2>
               <% if event.start_from.present? && event.finish_on.present? %>
-              <div >
+              <div style="margin-bottom:6px;">
                 <span class="event-card-desc-detail"><strong>이벤트 기간</strong></span>
                 <span class="event-card-date event-card-desc-detail" >
                   <%= event.start_from.strftime("%Y.%m.%d %H:%M")  %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") %>
