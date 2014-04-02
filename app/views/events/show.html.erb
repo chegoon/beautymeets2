@@ -11,7 +11,7 @@
         <%= @event.title%>
       </h4>
       <div class="text-right">
-        <%= link_to "Edit", edit_event_path if user_signed_in? && current_user.can_update?(@tutorial) %>
+        <%= link_to "Edit", edit_event_path if user_signed_in? && current_user.can_update?(@event) %>
       </div>
     </div>
   </div>    
