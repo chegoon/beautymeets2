@@ -1,14 +1,13 @@
 <div class="row">
   <div class="small-12 columns">
     <a href="<%= event_path(event) %>" style="display:block;">
-    <div class="panel " style='background:#FCFCFC; border:4px #FFF solid; <%= "background:url(#{event.thumbnail.image_url});" if event.thumbnail.present? %> height:24rem; padding:0;'>
-      <% if (event.published.nil? || event.published == false) && !(user_signed_in? && current_user.can_update?(event)) %>
-      <% elsif ((event.published.nil? || event.published == false) && (user_signed_in? && current_user.can_update?(event))) || (((event.released_at.present?) && (event.released_at < Time.now)) && ((event.finish_on.present?) && (event.finish_on > Time.now))) %>
+    <div class="panel " style='background:#FCFCFC; <%= "background:url(#{event.thumbnail.image_url});" if event.thumbnail.present? %> background-size:cover; height:24rem; padding:0;'>
+      <% if (((event.released_at.present?) && (event.released_at < Time.now)) && ((event.finish_on.present?) && (event.finish_on > Time.now))) %>
       <div style="background-color:rgba(0,0,0,0.1);  height:100%; margin:0 0 0 0;">
         <div class="row">
           <div class="small-12 columns" style="margin-top:3rem; ">
-            <% if !local_assigns[:gate_tag].nil? %>
-            <h2 class="" style="margin-left:20px; margin-right:-15px;">
+            <% if (local_assigns[:gate_tag].present? && local_assigns[:gate_tag] == true) && (event.published.present? && event.published == true) %>
+            <h2 class="" style="margin-left:20px; margin-right:-10px;">
               <small class="right button" style="padding:10px 30px; opacity:0.8;">
                 참여가능
               </small>
@@ -16,7 +15,7 @@
             <% end %>
             <div class="event-card-desc" style="">
               <h2 class="subheader" style="color:#FFF; letter-spacing:-0.5px; ">
-                <%= event.try(:title) %>
+                <%= "[Draft]" if (event.published.nil? || event.published == false) %><%= event.try(:title) %>
               </h2>
               <h5 style="color:#FFF; letter-spacing:-0.5px;"><strong>이벤트 기간</strong>&nbsp;<span class="event-card-date"><%= event.start_from.strftime("%Y.%m.%d %H:%M") if event.start_from.present? %> ~ <%= event.finish_on.strftime("%Y.%m.%d %H:%M") if event.finish_on.present? %></span><br/>
               <strong>결과발표</strong>&nbsp;<span class="event-card-date"><%= event.win_released_at.strftime("%Y.%m.%d %H:%M") if event.win_released_at.present? %></span></h5>
@@ -30,7 +29,7 @@
           <div class="small-12 medium-9 columns" >
             <div style="margin-top:15rem;padding-left:2rem;">
               <h2 style="color:#FFF; letter-spacing:-0.5px; ">
-                <%= event.try(:title) %>
+                <%= "[종료]" %><%= event.try(:title) %>
               </h2>
             </div>
           </div>

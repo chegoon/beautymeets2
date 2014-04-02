@@ -206,7 +206,7 @@
 
 @media only screen and (max-width: 40em) { 
   .event-card-desc {
-    margin-top:12rem;padding-left:0.5rem;
+    margin-top:12rem;padding-left:1.4rem;
   }
   .event-card-date {
     font-size:0.75rem;
@@ -231,7 +231,8 @@
 @media only screen and (min-width: 64.063em) {
 
   .event-card-desc {
-    margin-top:12rem;padding-left:2rem;
+    margin-top:12rem;
+    padding-left:3rem;
   }
   .event-card-date {
     font-size:1.0rem;

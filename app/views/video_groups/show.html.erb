@@ -26,7 +26,7 @@
 			    </div>
 			</div>
 
-<%= link_to "EDIT", edit_video_group_path(@video_group) %>
+		<%= link_to "EDIT", edit_video_group_path(@video_group) if user_signed_in? && current_user.can_update?(@video_group) %>
 
 		<div style="margin:10px 0;">
     	<div class="fb-like" data-href="<%= video_group_url(@video_group) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
