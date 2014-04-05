@@ -221,6 +221,12 @@
 
     font-size:0.75rem;
   }
+  #columns {
+    margin: 0 auto;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
   
 } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
@@ -244,8 +250,25 @@
     
     font-size:0.85rem;
   }
+  #columns {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
 
 } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+// Large screens
+@media only screen and (min-width: 64.063em) {
+
+  #columns {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+  }
+
+
+} /* min-width 1025px, large screens */
 
 .beautyclass-card {
 
