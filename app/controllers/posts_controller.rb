@@ -27,7 +27,8 @@ class PostsController < InheritedResources::Base
         @posts = Post.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(cards_per_page)
       end
     end
-
+    @tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(2)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
@@ -42,6 +43,8 @@ class PostsController < InheritedResources::Base
     @pictureable = @post
     @pictures = @pictureable.pictures
     @picture = Picture.new
+
+    @tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(2)
 
     #if (cannot? :author, @post) || (cannot? :manage, Post)
     if !(user_signed_in? && current_user.can_update?(@post))

@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
+  include SimpleCaptcha::ControllerHelpers
   
   
   # public_activity gem의 tracked method를 model에서 사용할때 controller.current_user메소드를 사용하려면

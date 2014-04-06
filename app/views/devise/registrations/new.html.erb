@@ -20,7 +20,10 @@
     <%= f.input :password, :required => true %>
     <%= f.input :password_confirmation, :required => true %>
   <% end %>
-
+  
+  <%= #show_simple_captcha 
+  %>
+  
   <p>뷰티밋츠의 <%= link_to "이용약관(Terms of Service)", terms_path %> 과 <%= link_to "개인정보 수집 및 이용(Privacy Policy)", privacy_path %>을 잘 확인하시고 아래 가입버튼(Sign up)을 눌러주세요.</p>
     <%= f.button :submit, "Sign up" %>
     <%= link_to "Sign up with FB", user_omniauth_authorize_path(:facebook), :class => "button secondary " %>

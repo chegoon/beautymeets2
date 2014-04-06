@@ -104,6 +104,8 @@ gem 'impressionist'
 # Gem for new relic
 gem 'newrelic_rpm'
 
+gem "galetahub-simple_captcha", :require => "simple_captcha"
+#gem 'recaptcha', :require => 'recaptcha/rails'
 =begin
 #gem 'therubyracer'
 
