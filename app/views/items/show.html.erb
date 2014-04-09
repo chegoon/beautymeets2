@@ -8,10 +8,8 @@
       <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
         <%= render 'layouts/go_back' %>
         제품 상세정보
-      </h4>
-      <div class="text-right">
         <%= link_to 'Edit', edit_item_path(@item) if user_signed_in? && current_user.can_update?(@item) %>
-      </div>
+      </h4>
     </div>
   </div>    
 </div>
@@ -29,9 +27,6 @@
         </span>
       </div>
     </div>
-    <div class=" right" style="margin-left:20px; margin-right:-30px;">
-        <%= render 'bookmarks/star' %>
-    </div>
   </div>
 
   <div class="small-12 medium-4 columns item-show-thumb" >
@@ -39,7 +34,7 @@
       <%= image_tag @item.thumbnail.image_url(:medium), :style => "border:1px #EEE solid;" if @item.thumbnail.present? %>
     </div>
   </div>
-  <div class="small-12 medium-8 columns" >
+  <div class="small-12 medium-6 columns" >
     <div style="color: #666; margin-top:20px; font-size:14px;">
       <p ><%= @item.description.gsub(/\n/, '<br/>').html_safe if @item.description.present? %></p>
       <p style="margin-top:0; margin-bottom:2px;">
@@ -55,6 +50,14 @@
       <h4 class="subheader"><small>다른 이미지</small></h4>
       <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
     </div>
+  </div>
+
+  <div class="medium-2 columns" style="margin-bottom:10px;">
+    <h3 class="show-for-medium-up" style=" margin-right:-30px;">
+      <small class="right">
+        <%= render 'bookmarks/star' %>
+      </small>
+    </h3>
   </div>
 </div>
 

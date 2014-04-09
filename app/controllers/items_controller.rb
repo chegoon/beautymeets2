@@ -16,18 +16,19 @@ class ItemsController < ApplicationController
     if @itemizable.present?
       @items = @itemizable.items
     else
-      if user_signed_in? && current_user.can_create?(Item)
-        @items = Item.order("view_count DESC").page(params[:page]).per_page(cards_per_page)
-      elsif (params[:order].present?) && (params[:order] == "popular")
+      if (params[:order].present?) && (params[:order] == "popular")
         @items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("view_count DESC").page(params[:page]).per_page(cards_per_page)
       elsif (params[:order] == "popular_last2w")
         @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+      elsif user_signed_in? && current_user.can_create?(Item)
+        @items = Item.order("created_at DESC").page(params[:page]).per_page(cards_per_page)
       else
         @items = Item.where("id IN (?)", Itemization.pluck(:item_id)).order("created_at DESC").page(params[:page]).per_page(cards_per_page)
       end
       
     end
 
+    @categories = Item.joins(:categories).where("parent_id IS NULL ").all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @items }

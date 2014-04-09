@@ -2,19 +2,14 @@
 <% page_thumb "#{@video.thumb_url}" %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!! [#{@video.video_group.name}] #{@video.title} 영상을 만나보세요." %>
 
-<div class="row" >
-  <div class="small-12  medium-12 large-12 columns"> 
+
   	<div style="height:90px; position:relative; ">
 			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
 				<%= render 'layouts/go_back' %>
     		<%= @video.title%>
+    		<%= link_to "Edit", edit_video_path if user_signed_in? && current_user.can_update?(@video) %>
     	</h4>
-	    <div class="text-right">
-	    	<%= link_to "Edit", edit_video_path if user_signed_in? && current_user.can_update?(@video) %>
-	    </div>
     </div>
-  </div>    
-</div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
 
@@ -40,12 +35,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="small-12 columns">
-    <h3 class="show-for-medium-up" style="margin-left:20px; margin-right:-25px;">
-    	<small class="right">
-    		<%= render 'bookmarks/star' %>
-    	</small>
-    </h3>
+	<div class="small-12 medium-10 columns">
 
 		<% if @video.tag_list.present? %>
     <p style="margin-top:0; margin-bottom:2px;">
@@ -58,6 +48,13 @@
 	  	<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
 	  	</div>
 	  <p style="margin-bottom:4px;"></p>
+  </div>
+  <div class="medium-2 columns" style="margin-bottom:10px;">
+    <h3 class="show-for-medium-up" style=" margin-right:-26px;">
+    	<small class="right">
+    		<%= render 'bookmarks/star' %>
+    	</small>
+    </h3>
   </div>
 
 <% if @video.video_url.present? %>

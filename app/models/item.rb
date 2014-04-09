@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
   friendly_id :url_candidate, use: [:slugged, :history]
   
   belongs_to :brand
-  attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id, :url_candidate
+  attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id,  :category_ids, :url_candidate
   
   has_many :pictures, as: :pictureable, dependent: :destroy
 
@@ -29,6 +29,9 @@ class Item < ActiveRecord::Base
   has_many :videos, through: :itemizations, source: :itemizable, source_type: 'Video'
   
   has_many :comments, :as => :commentable
+
+  has_many :categories, through: :categorizations
+  has_many :categorizations, as: :categorizeable  
 
   def increment_view_count(by = 1)
 	  self.view_count ||= 0

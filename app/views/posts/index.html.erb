@@ -18,6 +18,6 @@
         </div>
       </div>
 
-      <div class="pagination-centered"><%= will_paginate @posts, previous_label: "&laquo;".html_safe, next_label: "&raquo;".html_safe , renderer: FoundationPagination::Rails %></div>
+      <div class="pagination-centered"><%= will_paginate @posts, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , renderer: FoundationPagination::Rails %></div>
 
 
