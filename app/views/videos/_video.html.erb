@@ -3,7 +3,7 @@
     <div class="text-center " style="position: relative; ">
       <a class="video-card-thumb" href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>); '>
         
-        <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
+        
         
 
       <i class="fa fa-youtube-play fa-2x" style="opacity:0.9; position:absolute; left:10px; bottom:6px;  color:#FFF; "></i>
@@ -14,6 +14,7 @@
         <a href="<%= video_path(video) %>" >
           <%= truncate(video.try(:title), 14) %>
         </a>
+        <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
       </div>
       <h5 class="subheader  text-left" style="margin:-10px 0; padding:0;  color:#999; ">
         <span class="group_name" >

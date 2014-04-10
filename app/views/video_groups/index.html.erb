@@ -28,4 +28,4 @@
           <% end %>
           </div>
 
-<%= link_to 'New Video group', new_video_group_path %>
+<%= link_to 'New Video group', new_video_group_path if user_signed_in? && current_user.can_create?(VideoGroup)%>

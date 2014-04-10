@@ -14,19 +14,16 @@ class PostsController < InheritedResources::Base
   def index
     cards_per_page = 12
 
-    if (params[:order].present?) && (params[:order] == "popular")
-      if params[:tag]
-        @posts = Post.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
-      else
+    if (params[:cond].present?) && (params[:cond] == "uncategorized")
+        @posts = Post.where("id NOT in (?) and published=TRUE", Post.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)
+    elsif (params[:order].present?) && (params[:order] == "popular")
         @posts = Post.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
-      end
+    elsif (params[:order] == "popular_last2w")
+        @posts = Post.joins("JOIN impressions ON impressions.impressionable_id = posts.id").where("impressions.impressionable_type = 'Post' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)        
     else      
-      if params[:tag]
-        @posts = Post.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
-      else
         @posts = Post.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(cards_per_page)
-      end
     end
+
     @tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(2)
     
     respond_to do |format|
