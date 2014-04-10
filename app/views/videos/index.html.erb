@@ -39,10 +39,10 @@
 
 			<div id="tutorials" class="right" style="margin-top:30px; margin-bottom:10px; ">		
 				<div style="background:#f4f4f4;">
-          <dl class="button-group radius" >
-          <dd><a class="button small <%= 'secondary' if params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>인기순</a></dd>
-          <dd><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>최신순</a></dd>
-          </dl>
+          <ul class="button-group radius" >
+          <li><a class="button small <%= 'secondary' if params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>인기순</a></li>
+          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>최신순</a></li>
+          </ul>
         </div>
 			</div>
 		</div>
