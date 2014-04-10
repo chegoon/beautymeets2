@@ -1,3 +1,6 @@
 <%= #link_to_function "<i class='fa fa-arrow-circle-o-left fa-lg fa-fw'></i>Go BACK".html_safe, "history.back();" 
 %>
-<%= link_to_function image_tag("/assets/btn_left_green.png"), "history.back();" %>
+<%= 
+#link_to_function image_tag("/assets/btn_left_green.png"), "history.back();" 
+%>
+<%= link_to_function '<i class="fa fa-angle-left fa-lg"></i>'.html_safe, "history.back();"  %>

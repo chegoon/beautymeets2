@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409020431) do
+ActiveRecord::Schema.define(:version => 20140410043606) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -311,16 +311,6 @@ ActiveRecord::Schema.define(:version => 20140409020431) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "galleries", :force => true do |t|
-    t.string   "image"
-    t.integer  "galleriable_id"
-    t.string   "galleriable_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "galleries", ["galleriable_id", "galleriable_type"], :name => "index_galleries_on_galleriable_id_and_galleriable_type"
-
   create_table "genders", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -396,15 +386,6 @@ ActiveRecord::Schema.define(:version => 20140409020431) do
   add_index "locations", ["shop_id"], :name => "index_locations_on_shop_id"
   add_index "locations", ["slug"], :name => "index_locations_on_slug"
 
-  create_table "member_profiles", :force => true do |t|
-    t.integer  "year_of_birth"
-    t.integer  "gender_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "member_profiles", ["gender_id"], :name => "index_member_profiles_on_gender_id"
-
   create_table "members", :force => true do |t|
     t.integer  "gender_id"
     t.integer  "year_of_birth"
@@ -442,18 +423,6 @@ ActiveRecord::Schema.define(:version => 20140409020431) do
 
   add_index "posts", ["picture_id"], :name => "index_posts_on_picture_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
-
-  create_table "products", :force => true do |t|
-    t.integer  "brand_id"
-    t.string   "name"
-    t.text     "description"
-    t.integer  "view_count"
-    t.string   "image"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "products", ["brand_id"], :name => "index_products_on_brand_id"
 
   create_table "read_marks", :force => true do |t|
     t.integer  "readable_id"
@@ -493,38 +462,6 @@ ActiveRecord::Schema.define(:version => 20140409020431) do
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
-
-  create_table "skin_trouble_maps", :force => true do |t|
-    t.integer  "skin_trouble_id"
-    t.integer  "member_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "skin_trouble_maps", ["member_id"], :name => "index_skin_trouble_maps_on_member_id"
-  add_index "skin_trouble_maps", ["skin_trouble_id"], :name => "index_skin_trouble_maps_on_skin_trouble_id"
-
-  create_table "skin_troubles", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "skin_type_maps", :force => true do |t|
-    t.integer  "skin_type_id"
-    t.integer  "member_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "skin_type_maps", ["member_id"], :name => "index_skin_type_maps_on_member_id"
-  add_index "skin_type_maps", ["skin_type_id"], :name => "index_skin_type_maps_on_skin_type_id"
-
-  create_table "skin_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
