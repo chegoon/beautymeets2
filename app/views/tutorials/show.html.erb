@@ -110,7 +110,7 @@
 						<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
 						</div>
 						<div>
-						<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :manage, @tutorial %>
+						<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if user_signed_in? && current_user.can_update?(@tutorial) %>
 						</div>
 					</li>
 

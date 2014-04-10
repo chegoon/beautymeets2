@@ -37,4 +37,26 @@ module ApplicationHelper
 			unpacked.length > len ? unpacked[0..len-1].pack('U*') + tail : text
 		end
 	end
+
+	def filtered_number(num)
+		if num.nil?
+			return "0"
+		elsif (0..10).include?(num)
+			return number
+		elsif (11..50).include?(num)
+			return "10+"
+		elsif (51..100).include?(num)
+			return "50+"
+		elsif (101..300).include?(num)
+			return "100+"
+		elsif (301..500).include?(num)
+			return "300+"
+		elsif (501..1000).include?(num)
+			return "500+"
+		elsif (1001..5000).include?(num)
+			return "1000+"
+		else
+			return "5,000+"
+		end
+	end	
 end

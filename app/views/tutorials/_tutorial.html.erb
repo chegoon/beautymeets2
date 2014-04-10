@@ -34,17 +34,10 @@
         </span>
         <span class="right" >
           <small>
-          <i class="fa fa-eye"></i> <%=  tutorial.view_count.nil? ? "0" : number_with_delimiter(tutorial.view_count) %>
+          <i class="fa fa-eye"></i> <%= filtered_number(tutorial.view_count) %>
           </small>
         </span>
       </h5>    
-      <h5 class="subheader " style=" bottom: 0; right:0;   ">
-        <small>
-          <%= #tutorial.unread?(current_user) ? "<strong>Not viewed</strong>".html_safe : "Viewed" if user_signed_in? 
-          %>
-          
-        </small>
-      </h5>
     </div>
   </div>
 </div>

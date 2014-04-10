@@ -24,7 +24,7 @@
         </span>
         <span class="right" >
           <small>
-          <i class="fa fa-eye"></i> <%=  video.view_count.nil? ? "0" : number_with_delimiter(video.view_count) %>
+          <i class="fa fa-eye"></i> <%= filtered_number(video.view_count) %>
           </small>
         </span>
       </h5>    
