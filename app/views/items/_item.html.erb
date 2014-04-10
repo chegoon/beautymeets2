@@ -23,7 +23,7 @@
 
 					<% if user_signed_in? && current_user.can_update?(item) %>
 						<span><small><%= link_to 'Edit', edit_item_path(item) if user_signed_in? && current_user.can_update?(item) %>
-						<%= link_to "Delete".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if user_signed_in? && current_user.can_update?(@tutorial) %></small>
+						<%= link_to "Delete".html_safe, item, :id => item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if user_signed_in? && current_user.can_update?(item) %></small>
 						</span>
 					<% end %>
       </h6>
