@@ -1,6 +1,5 @@
 
 <% page_title "BEAUTYMEETS > #{@event.title}" %>
-<% page_thumb "#{@event.thumbnail.image_url}" if @event.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!! 이벤트 안내 : #{@event.title} " %>
 
 <div class="row" >
@@ -27,9 +26,17 @@
   <div class="row" style="">
     <div class="small-12 columns " >
     <% if !@pictures.nil? %>
+      <% fb_page_thumb = "" %>
       <% @pictures.each do |p| %>
           <% if user_signed_in? && current_user.can_update?(@pictureable) #can? :author, @pictureable 
             %>
+              <% 
+                if (p.id != @event.thumbnail.id) && (fb_page_thumb.nil? || fb_page_thumb == "") 
+                  fb_page_thumb = page_thumb("#{p.image_url}")  
+              %>
+                <%= fb_page_thumb %>
+              <% end %>
+
               <div class="left" style="margin:10px;">
                 <img src="<%= p.image_url.to_s %>">
                 <%= simple_form_for [@pictureable] do |f| %>
@@ -40,6 +47,15 @@
               </div>
           <% else %>
             <% if p.id != @event.thumbnail.id %>
+              <% #"thumbnail의 경우, 세로 길이가 짧아서 facebook url로 등록시 image_url을 못 읽어옴" 
+              %>
+              
+              <% 
+                if (fb_page_thumb.nil? || fb_page_thumb == "") 
+                  fb_page_thumb = page_thumb("#{p.image_url}")  
+              %>
+                <%= fb_page_thumb %>
+              <% end %>
               <img src="<%= p.image_url.to_s %>">
             <% end %>
           <% end %>
