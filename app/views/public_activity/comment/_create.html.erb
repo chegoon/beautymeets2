@@ -12,7 +12,7 @@
 		<%= activity.owner.name || activity.owner.email if activity.owner %>
 		<% if activity.trackable %>
 		님이
-			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video" || activity.trackable.commentable_type ==  "Event") %>
+			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video" || activity.trackable.commentable_type ==  "Event" || activity.trackable.commentable_type ==  "Title") %>
 				<%= #image_tag activity.trackable.commentable.concept_image_url(:thumb) 
 				%>
 				<%= link_to activity.trackable.commentable.title, activity.trackable.commentable %>
