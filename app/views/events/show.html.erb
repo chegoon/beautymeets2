@@ -81,8 +81,15 @@
       
       <div class="row" style="margin:1.5rem 0 0 0;">
         <div class="small-12 medium-12 columns">   
-          <%= render partial: "comments/form", locals: { form_message: "로그인이 필요합니다. 많이많이 참가해주세요" }  %>    
-          <%= render "comments/comments" %>
+          <% if !user_signed_in? %>
+            <%= "회원가입을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %>
+            <a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>&nbsp;
+            OR <a href="<%= new_user_session_path %>"  class="button tiny">로그인</a>
+            <%= render "comments/comments" %>
+          <% else %>
+            <%= render partial: "comments/form", locals: { form_message: "많이많이 참가해주세요" }  %>    
+            <%= render "comments/comments" %>
+          <% end %>
         </div>
       </div>
     </div>
