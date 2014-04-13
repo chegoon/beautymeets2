@@ -42,7 +42,7 @@ module ApplicationHelper
 		if num.nil?
 			return "0"
 		elsif (0..10).include?(num)
-			return number
+			return num
 		elsif (11..50).include?(num)
 			return "10+"
 		elsif (51..100).include?(num)
