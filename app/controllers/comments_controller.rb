@@ -19,12 +19,15 @@ class CommentsController < ApplicationController
 
     if params[:comment][:parent_id]
       @parent = Comment.find(params[:comment][:parent_id]) 
-      CommentMailer.parent_notification(@parent, @commentable, @comment).deliver unless @parent.invalid?
+      if !(@commentable.class.name == "Event")
+        CommentMailer.parent_notification(@parent, @commentable, @comment).deliver unless @parent.invalid?
+      end
     end
 
   	if @comment.save     
-      
-      CommentMailer.create_notification(@commentable, @comment).deliver 
+      if !(@commentable.class.name == "Event")
+        CommentMailer.create_notification(@commentable, @comment).deliver 
+      end
       #@comment.create_activity :create, owner: current_user, recipient: @commentable.author
       
       if @parent
