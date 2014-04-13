@@ -1,14 +1,14 @@
 	
 		<div class="row" style="">
 			<div class="small-12 columns show-for-small-only text-center" style="padding:20px 10px 10px 10px;" >
-				<%= image_tag(@member.user.image ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px;") %>
+				<%= image_tag(@member.user.image.present? ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px;") %>
 				<h5><span style="color:#CCC;">Welcome to BEAUTYMEETS</span></h5>
 				<h2 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h2>
 				
 			</div>
 			<div class="small-12 columns show-for-medium-up " style="margin-bottom:10px;">
 				<div class="left" style="">
-					<%= image_tag(@member.user.image ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px;") %>
+					<%= image_tag(@member.user.image.present? ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px;") %>
 				</div>
 				<div class="left">
 					<h4 class="subheader" style="padding:10px;">
