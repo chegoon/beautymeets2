@@ -50,7 +50,7 @@
 
       <ul class="slides">
         <% @pictures.each do |p| %>
-        <li class="slide"  style="padding:0;">
+        <li class="slide"  style="padding:0; text-align:center; ">
           <% if user_signed_in? && current_user.can_update?(@pictureable) %>
 
               <div class="left" style="margin:10px;">
@@ -63,7 +63,7 @@
                 <% end %>
               </div>
           <% else %>
-            <img style="margin:0 auto;" src="<%= p.image_url(:large).to_s %>">        
+            <img style="margin:0 auto; height:100%;" src="<%= p.image_url(:large).to_s %>">        
           <% end %>
         </li>
         <% end %>
