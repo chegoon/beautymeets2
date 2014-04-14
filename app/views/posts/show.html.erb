@@ -2,77 +2,84 @@
 <% page_thumb "#{full_url(@post.thumbnail.image_url)}" if @post.thumbnail.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 
-<div class="row" style="">
-  <div class="large-12 columns"> 
-    <h4 style="letter-spacing:-0.5px;">BEAUTYMEETS POST</h4>
+    <div style="height:90px; position:relative; ">
+      <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+        <%= render 'layouts/go_back' %>
+        <%= @post.title%>
+        <%= link_to "Edit", edit_post_path if user_signed_in? && current_user.can_update?(@post) %>
+      </h4>
+    </div>
 
-    <h5 class="subheader"><small>BEAUTYMEETS POST > 
-    <% @post.categories.each do |category| %>
-      <%= category.name %>
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+  <div class="small-12 medium-12 columns right text-right">    
+    <% if @post.categories.present? %>
+      <span class="tutorial-show-category" >
+        TUTORIAL > 
+        <% @post.categories.each_with_index do |category, i| %>
+          &nbsp;<%=  category.name %><%= "&nbsp;/".html_safe if i < (@post.categories.count - 1) %>
+        <% end %>
+      </span>
     <% end %>
-    </small></h5>
-  </div>    
-</div>
-<div class="row">
-  <div class="small-12 medium-4 columns">
-    <%= image_tag @post.thumbnail.image_url(:large) if @post.thumbnail.present? %>
   </div>
-  <div class="small-12 medium-8 columns">
-      <h2 class="subheader" style="letter-spacing:-1px;"><strong><%= best_in_place @post, :title %></strong>
-        <small><%= link_to "Edit", edit_post_path if user_signed_in? && current_user.can_update?(@post) %></small></h2>
-      <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
-      <h6 class="subheader ">
-        <% if @post.categories.present? %>
-          <small>Category : </small>
-          <% @post.categories.each do |category| %>
-            &nbsp;<span class=" secondary tiny label"><%= category.name %></span>
-          <% end %>
-        <% end %>
-      </h6>
+  <div class="small-12 medium-10 columns">
       
-      <p><%= simple_format(@post.description) %></p>
-      <p>
-        <% @post.tag_list.each do |t| %>
-          <span class="label secondary radius"><%=  t %></span>
-        <% end %>
-      </p>
-
-      <div style="margin:10px 0;">
-        <div class="fb-like" data-href="<%= post_url(@post) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    <%= simple_format(@post.description, :style => "margin-bottom:4px;") %>
+    <p style="margin-top:0; margin-bottom:2px;">
+      <% @post.tag_list.each do |t| %>
+        <span class="label secondary radius"><%= t %></span>
+      <% end %>
+    </p>
+    
+      <div class="fb-like" data-href="<%= post_url(@post) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
       </div>
+    <p style="margin-bottom:4px;"></p>
   </div>
-</div>
+  <div class="medium-2 columns">
+    <h3 class="show-for-medium-up" style=" margin-right:-26px;">
+      <small class="right">
+        <%= render 'bookmarks/star' %>
+      </small>
+    </h3>
+  </div>
 
-<div class="row" style="">
   <div class="small-12 columns " >
     <hr>
-    <h6 class="subheader">하나씩 넘기면서 보시면 됩니다. <small>Swipe to read</small></h6>
-    <ul class="post-orbit" data-orbit>
-      <% @pictures.each do |p| %>
-      <li>       
-        <% if user_signed_in? && current_user.can_update?(@pictureable) %>
+    <h6 class="subheader">하나씩 넘기면서 보세요. <small>Swipe to read</small></h6>
 
-            <div class="left" style="margin:10px;">
-              <img src="<%= p.image_url(:small).to_s %>">
-              <%= simple_form_for [@pictureable] do |f| %>
-                
-                <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
-                <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
-                <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
-              <% end %>
-            </div>
-        <% else %>
-          <img style="margin:0 auto;" src="<%= p.image_url(:large).to_s %>">        
+    <div class="slider">
+
+      <ul class="slides">
+        <% @pictures.each do |p| %>
+        <li class="slide"  style="padding:0;">
+          <% if user_signed_in? && current_user.can_update?(@pictureable) %>
+
+              <div class="left" style="margin:10px;">
+                <img src="<%= p.image_url(:small).to_s %>">
+                <%= simple_form_for [@pictureable] do |f| %>
+                  
+                  <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+                  <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+                  <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+                <% end %>
+              </div>
+          <% else %>
+            <img style="margin:0 auto;" src="<%= p.image_url(:large).to_s %>">        
+          <% end %>
+        </li>
         <% end %>
-      </li>
-      <% end %>
-    </ul>
+      </ul>
+    </div>
+    
     <%= render 'pictures/form' if (can? :manage, @post)  %>
+  </div>
+
+  <div class="small-12 columns show-for-small-only text-center" style="border:0px #EEE solid; margin:20px auto 20px auto;">
+    <%= render 'bookmarks/star' %>
   </div>
 </div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
-  <div class="small-12 columns">    
+  <div class="small-12 medium-12 columns">    
     <h3 class="subheader" style="margin:1rem 0 0 0;">COMMENT&nbsp;<small><%= @post.try(:title) %>에 대해서 자유롭게 댓글을 달아주세요.</small>
     <%= "<br/><small>로그인하셔야 댓글 입력이 가능합니다. <a href='/users/login'>로그인 바로 가기</a></small>".html_safe if !user_signed_in? %>
     </h3>
@@ -89,7 +96,7 @@
       <div class="row" style="">
         <% if @tutorials.present? %>
           <% @tutorials.each do |tutorial| %>
-            <%= render partial: tutorial, locals: { cards_in_row: "2" } %>
+            <%= render partial: tutorial, locals: { cards_in_row: "3" } %>
           <% end %>
         <% end %>
       </div>

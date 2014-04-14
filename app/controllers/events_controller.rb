@@ -43,6 +43,8 @@ class EventsController < ApplicationController
     @pictures = @pictureable.pictures
     @picture = Picture.new
 
+    @tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(3)
+    
     #if (cannot? :author, @event) || (cannot? :manage, Event)
     if !(user_signed_in? && current_user.can_update?(@event))
       @event.increment_view_count 

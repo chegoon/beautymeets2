@@ -2,14 +2,7 @@
 <div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="margin-bottom:20px;">
   <div class="post-card">
     <div class="text-center" style="position: relative; margin:0 auto; ">
-      <a class="reveal post-card-thumb hide-for-small-only" data-reveal-id="modal-post-<%= post.id %>" href="#" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
-        <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.5); position:absolute; left:0; bottom:0; ">
-
-          <span class="right " style="color:#515d61;"><%= truncate(post.try(:title), 26) %>&nbsp;<i class="fa fa-angle-right"></i></span>
-
-        </div>
-      </a>
-      <a class="reveal post-card-thumb show-for-small-only " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
+      <a class="reveal post-card-thumb " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
         <div  style=" padding:4px; width:100%; background:rgba(255,255,255, 0.5); position:absolute; left:0; bottom:0; ">
 
           <span class="right " style="color:#515d61;"><%= truncate(post.try(:title), 26) %>&nbsp;<i class="fa fa-angle-right"></i></span>
@@ -19,19 +12,4 @@
     </div>
     <%= link_to "직접 들어가기", post_path(post) if user_signed_in? && current_user.can_update?(post) %>
   </div>  
-</div>
-
-<%
-    @commentable = post
-    @comments = @commentable.root_comments.order("created_at ASC")
-    
-    if user_signed_in?
-      @comment = Comment.build_from(@commentable, current_user.id, "") 
-    else
-      @comment = Comment.new
-    end
-%>
-<div id="modal-post-<%= post.id %>" class="reveal-modal medium"  data-reveal>  
-  <%= render partial: "posts/show", locals: { post: post }%>
-  <a class="close-reveal-modal">&#215;</a>
 </div>

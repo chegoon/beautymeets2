@@ -96,3 +96,18 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="small-12 medium-12 columns" style="margin:30px 0 5rem 0;">    
+    <h3>추천 영상 보기&nbsp;<small>함께 보면 좋은 영상들</small></h3>
+    <hr>
+    <h4 style="padding-left:5px;">튜토리얼&nbsp;<small>뷰티밋츠가 직접 제작한 리얼 뷰티 튜토리얼</small></h4>
+      <div class="row" style="">
+        <% if @tutorials.present? %>
+          <% @tutorials.each do |tutorial| %>
+            <%= render partial: tutorial, locals: { cards_in_row: "2" } %>
+          <% end %>
+        <% end %>
+      </div>
+  </div>
+</div>

@@ -41,7 +41,7 @@ class PostsController < InheritedResources::Base
     @pictures = @pictureable.pictures
     @picture = Picture.new
 
-    @tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(2)
+    @tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(3)
 
     #if (cannot? :author, @post) || (cannot? :manage, Post)
     if !(user_signed_in? && current_user.can_update?(@post))
