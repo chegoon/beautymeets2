@@ -63,7 +63,7 @@
                 <% end %>
               </div>
           <% else %>
-            <img style="margin:0 auto; height:100%;" src="<%= p.image_url(:large).to_s %>">        
+            <img style="margin:0 auto; height:auto; max-height:100%;" src="<%= p.image_url(:large).to_s %>">        
           <% end %>
         </li>
         <% end %>
