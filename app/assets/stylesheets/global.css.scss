@@ -221,6 +221,16 @@
 
     font-size:0.75rem;
   }
+
+  .index-head-title {
+     min-height:60px; height:100%;
+  }
+  
+  .index-head-title-inner {
+    padding:20px;
+  }
+
+
   #columns {
     margin: 0 auto;
     -webkit-column-count: 2;
@@ -235,6 +245,7 @@
 @media only screen and (min-width: 40.063em)  { 
 
   .event-card-desc {
+    text-align:right;
     margin-top:12rem;
     padding-left:2rem;
     padding-right:2rem;
@@ -250,6 +261,20 @@
     
     font-size:0.85rem;
   }
+
+  .index-head-title {
+    position:relative; 
+    min-height:240px; 
+    height:100%;
+  }
+  
+  .index-head-title-inner {
+    position:absolute; 
+    padding-left:14px;
+    bottom:20px; 
+    right:20px;
+  }
+
   #columns {
     -webkit-column-count: 3;
     -moz-column-count: 3;
@@ -260,6 +285,33 @@
 
 // Large screens
 @media only screen and (min-width: 64.063em) {
+
+  .event-card-desc {
+    text-align:right;
+    margin-top:12rem;
+    padding-left:2rem;
+    padding-right:2rem;
+  }
+  .event-card-desc-detail {
+    padding:1px 2px;
+    color:#FFF; 
+    letter-spacing:-0.5px; 
+    background:rgba(110,231,221,0.9); 
+    width:auto;
+  }
+  .event-card-date {
+    
+    font-size:0.85rem;
+  }
+
+  .tutorial-index-head-title {
+    margin-top:6rem;
+  /*
+    position:absolute;
+    right:20px;
+    bottom:20px;
+    */
+  }
 
   #columns {
     -webkit-column-count: 4;

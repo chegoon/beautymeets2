@@ -39,7 +39,9 @@ module ApplicationHelper
 	end
 
 	def filtered_number(num)
-		if num.nil?
+		if user_signed_in? && current_user.has_role?(:admin)
+			return num
+		elsif num.nil?
 			return "0"
 		elsif (0..10).include?(num)
 			return num
