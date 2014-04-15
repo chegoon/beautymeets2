@@ -57,8 +57,10 @@ module ApplicationHelper
 			return "500+"
 		elsif (1001..5000).include?(num)
 			return "1,000+"
-		else
+		elsif (5001..10000).include?(num)
 			return "5,000+"
+		else
+			return "10,000+"
 		end
 	end	
 end
