@@ -49,7 +49,21 @@
 
   <div class="small-12 medium-4 columns item-show-thumb" >
     <div class="item-show-thumb">
-      <%= image_tag @item.thumbnail.image_url(:medium), :style => "border:1px #EEE solid;" if @item.thumbnail.present? %>
+      <% if @item.pictures.present? %>
+        <% if @item.pictures.count > 1 %>
+            <div class="slider" style="height:280px;">
+              <ul class="slides">
+              <% @item.pictures.each do |p| %>
+              <li class="slide"  style="padding:0;">
+                <%= image_tag p.image_url(:medium) %>
+              </li>
+              <% end %> 
+              </ul>
+            </div>
+        <% else %>
+          <%= image_tag @item.pictures.first.image_url(:medium), :style => "border:1px #EEE solid;" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
   <div class="small-12 medium-8 columns" >
@@ -65,17 +79,14 @@
     <div class="fb-like" data-href="<%= item_url(@item) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     <p style="margin-bottom:4px;"></p>    
 
-    <div>
-      <h4 class="subheader"><small>다른 이미지</small></h4>
-      <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
-    </div>
+    
   </div>
     
 
   <% if (!@items_in_category.nil?)  && (@items_in_category.count > 0) %>        
 
     <div class="small-12 medium-12 columns" style="padding:0;">   
-      <h5 class="subheader" style="color:#999; line-height:101%;padding-left:10px; padding-bottom:15px;">다른 
+      <h5 class="subheader" style="color:#999; line-height:101%;padding: 10px 10px 15px 10px;">다른 
         <% @parent_categories.each do |p_cat| %>
         <%=  p_cat.name  %>
         <% end %>
@@ -123,11 +134,17 @@
 
 </div>
 
+<% if user_signed_in? && current_user.can_update?(@item) %>
 <div class="row" style="">
   <div class="small-12 columns " >
-    <%= render 'pictures/form' if (can? :manage, @item)  %>
+    <div>
+      <h4 class="subheader"><small>다른 이미지</small></h4>
+      <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
+    </div>
+    <%= render 'pictures/form' %>
   </div>
 </div>
+<% end %>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
   <div class="small-12 columns">    
