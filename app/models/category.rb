@@ -9,15 +9,18 @@ class Category < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  attr_accessible :name, :parent_id, :parent_name
+  attr_accessible :name, :parent_id, :parent_name, :category_type_name
 
-  belongs_to :parent, :class_name => 'Category'
+  belongs_to :category_type
+  belongs_to :parent, :class_name => 'Category'  
   has_many :children, :class_name => 'Category', :foreign_key => "parent_id"
 
   has_many :categorizations
   belongs_to :categorizable, polymorphic: true
   has_many :videos, through: :categorizations, source: :categorizable, source_type: 'Video'
   has_many :tutorials, through: :categorizations, source: :categorizable, source_type: 'Tutorial'
+  has_many :items, through: :categorizations, source: :categorizable, source_type: 'Item'
+
   has_many :members, through: :categorizations, source: :categorizable, source_type: 'Member'
 
   def parent_name 
@@ -28,10 +31,19 @@ class Category < ActiveRecord::Base
 	  self.parent = Category.find_or_create_by_name(name) unless name.blank?
 	end
 
+  def category_type_name
+    category_type.name if category_type
+  end
 
+  def category_type_name=(name)
+    self.category_type = CategoryType.find_or_create_by_name(name) unless name.blank?
+  end
+
+=begin  
   def children
     Category.where("parent_id = ?", self.id).all
   end
+=end
 =begin
   def videos
     if self.parent.nil?

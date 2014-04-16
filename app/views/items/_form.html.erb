@@ -1,24 +1,9 @@
-<%= simple_form_for [@itemizable, @item] do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-
-    <%= f.input :brand_name,  :url => autocomplete_brand_name_items_path, :as => :autocomplete %>
-    <%= f.input :name %>
-    <%= f.input :url_candidate %>
-    <%= f.input :description %>
-    <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
-
-    <% Category.where(parent_id: Category.find_by_name("item").id).each do |category| %>
-      <%= check_box_tag "item[category_ids][]", category.id, @item.category_ids.include?(category.id), id: dom_id(category)  %>
-      <%= #best_in_place_if tutorial.tutorial_category_ids.include?(tutorial_category.id), tutorial_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
-      %>
-      <%= label_tag dom_id(category), category.name %>
-      <br/>
-    <% end %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+<% if @itemizable.present? && @itemizable.class.name != "Item" %>
+  <%= simple_form_for [@itemizable, @item] do |f| %>
+    <%= render partial: 'form_input', locals: { :f => f } %>
+  <% end %>
+<% else %>
+  <%= simple_form_for [@item] do |f| %>
+    <%= render partial: 'form_input', locals: { :f => f } %>
+  <% end %>
 <% end %>

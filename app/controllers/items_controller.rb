@@ -79,7 +79,16 @@ class ItemsController < ApplicationController
     @pictures = @pictureable.pictures
     @picture = Picture.new
     
-    @items = @tutorials.order("view_count DESC").first.items.where("item_id <> ?", @item.id).order("view_count DESC").limit(5) if @item.tutorials.present?
+    p_cat_ids = Array.new
+    @item.categories.each do |cat|
+      p_cat_ids.push(cat.parent.id) if cat.parent
+    end
+    sibling_categories = Category.where("parent_id IN (?)", p_cat_ids)
+    @parent_categories = Category.where("id IN (?)", p_cat_ids)
+    #p_categories = Category.where("id IN (?)", .map(&:id)).praent
+
+    @items_in_tutorial = @tutorials.order("view_count DESC").first.items.where("item_id <> ?", @item.id).order("view_count DESC").limit(5) if @item.tutorials.present?
+    @items_in_category = Item.joins(:categories).where("category_id IN (?) AND items.id <> ?", sibling_categories.map(&:id), @item.id)
 
     @commentable = @item
     @comments = @commentable.root_comments.order("created_at ASC")

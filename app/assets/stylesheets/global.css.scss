@@ -205,6 +205,16 @@
 @media only screen { } /* Define mobile styles */
 
 @media only screen and (max-width: 40em) { 
+
+  .page-show-category {
+    float:left;
+    text-align:left;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+
+  }
+
   .event-card-desc {
     margin-top:12rem;
     padding-left:2rem;
@@ -243,6 +253,14 @@
 // Medium screens
 
 @media only screen and (min-width: 40.063em)  { 
+
+  .page-show-category {
+    float:right;
+    text-align:right;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+  }
 
   .event-card-desc {
     text-align:right;
@@ -285,6 +303,14 @@
 
 // Large screens
 @media only screen and (min-width: 64.063em) {
+
+  .page-show-category {
+    float:right;
+    text-align:right;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+  }
 
   .event-card-desc {
     text-align:right;

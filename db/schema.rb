@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140410043606) do
+ActiveRecord::Schema.define(:version => 20140416134117) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -171,12 +171,14 @@ ActiveRecord::Schema.define(:version => 20140410043606) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "parent_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "view_count"
     t.string   "slug"
+    t.integer  "category_type_id"
   end
 
+  add_index "categories", ["category_type_id"], :name => "index_categories_on_category_type_id"
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
   add_index "categories", ["slug"], :name => "index_categories_on_slug"
 
@@ -189,6 +191,12 @@ ActiveRecord::Schema.define(:version => 20140410043606) do
   end
 
   add_index "categorizations", ["categorizeable_id", "categorizeable_type"], :name => "index_categorizations_on_categorizable_id_and_categorizable_type"
+
+  create_table "category_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "checkout_statuses", :force => true do |t|
     t.string   "name"
@@ -476,7 +484,8 @@ ActiveRecord::Schema.define(:version => 20140410043606) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
 
   create_table "tags", :force => true do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "taggings_count", :default => 0
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
