@@ -86,7 +86,7 @@
 						<% @tutorial.items.each do |tutorial_item| %>			
 						<tr >
 							<td style="border: 1px solid #e9e9e9; width:80px;">
-								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:very_small)), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
+								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small)), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
 							</td>
 							<td style="border: 1px solid #e9e9e9; ">
 								<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
@@ -128,7 +128,7 @@
 		
 						<tr >
 							<td style="border: 1px solid #e9e9e9; width:80px;">
-								<%= link_to image_tag(header_item.thumbnail.image_url(:very_small)), item_path(header_item) if header_item.thumbnail.present? %>
+								<%= link_to image_tag(header_item.thumbnail.image_url(:small)), item_path(header_item) if header_item.thumbnail.present? %>
 							</td>
 							<td style="border: 1px solid #e9e9e9; ">
 								<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
