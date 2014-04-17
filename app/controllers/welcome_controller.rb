@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
 	    @member = @user.profile
 	    @notifications = Activity.unread_by(current_user)
 
-			@events = Event.where('released_at <= ? AND finish_on >= ?  AND published = TRUE', Time.now, Time.now).order("created_at DESC")
+			@events = Event.where('released_at <= ? AND announcement_closed_at >= ?  AND published = TRUE', Time.now, Time.now).order("created_at DESC")
 
 	    @best_tutorials = Tutorial.joins("JOIN impressions ON impressions.impressionable_id = tutorials.id").where("impressions.impressionable_type = 'Tutorial' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").limit(2)
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(2)
@@ -22,7 +22,7 @@ class WelcomeController < ApplicationController
 	    @bookmarks = Bookmark.where(user_id: @user.id)
 	    @tutorials = @best_tutorials
 	  else
-	  	@events = Event.where('released_at <= ? AND finish_on >= ? AND published = TRUE', Time.now, Time.now).order("created_at DESC")
+	  	@events = Event.where('released_at <= ? AND announcement_closed_at >= ? AND published = TRUE', Time.now, Time.now).order("created_at DESC")
 
 	    @best_tutorials = Tutorial.joins("JOIN impressions ON impressions.impressionable_id = tutorials.id").where("impressions.impressionable_type = 'Tutorial' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").limit(2)
 	    @latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(2)

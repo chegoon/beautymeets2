@@ -28,7 +28,11 @@
               <% if event.win_released_at.present? %>
               <div>
                 <span class="event-card-desc-detail"><strong>결과 발표</strong></span>
-                <span class="event-card-date event-card-desc-detail"><%= event.win_released_at.strftime("%Y.%m.%d %H:%M")  %>
+                <span class="event-card-date event-card-desc-detail">
+                  <%= event.win_released_at.strftime("%Y.%m.%d %H:%M")  %>
+                  <% if (event.win_released_at < Time.now) && (event.announcement_closed_at > Time.now) %>
+                    당첨자 발표 완료
+                  <% end %>
                 </span>
               </div>
               <% end %>
