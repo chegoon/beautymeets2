@@ -1,7 +1,13 @@
 <div style="margin:10px 10px 40px 10px; ">
-<h2 class="text-center" style="padding:20px;">JOIN</h2>
 <div class="row">
   <div class="small-12 medium-8 medium-centered large-8 large-centered columns">
+
+    <div style="height:90px; position:relative; ">
+      <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+        <%= render 'layouts/go_back' %>
+        JOIN
+      </h4>
+    </div>
     <h4 class="subheader"><small>* 표시된 부분은 필수 입력사항입니다.</small></h4>
 <%= current_user if user_signed_in? %>
 
@@ -25,9 +31,9 @@
   %>
   
   <p>뷰티밋츠의 <%= link_to "이용약관(Terms of Service)", terms_path %> 과 <%= link_to "개인정보 수집 및 이용(Privacy Policy)", privacy_path %>을 잘 확인하시고 아래 가입버튼(Sign up)을 눌러주세요.</p>
-    <%= f.button :submit, "Sign up" %>
-    <%= link_to "Sign up with FB", user_omniauth_authorize_path(:facebook), :class => "button secondary " %>
-    <%= link_to "Sign up with TW", user_omniauth_authorize_path(:twitter), :class => "button secondary " %>
+    <%= f.button :submit, "Sign up", :style => "" %>
+    <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), :class => "button secondary ", :style => "padding-left:60px; background-image: url('/assets/btn_login_facebook.png'); background-repeat: no-repeat; "  %>
+    <%= link_to "Sign up with Twitter", user_omniauth_authorize_path(:twitter), :class => "button secondary ", :style => "padding-left:60px; background-image: url('/assets/btn_login_twitter.png'); background-repeat: no-repeat; " %>
 <% end %>
 </div>
 </div>
