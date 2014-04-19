@@ -38,6 +38,6 @@ class Event < ActiveRecord::Base
 	end
 
   def reply_enabled
-    return false
+    return true
   end
 end
