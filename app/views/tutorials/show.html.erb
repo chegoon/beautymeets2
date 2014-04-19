@@ -192,10 +192,18 @@
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
 	<div class="small-12 columns">		
-		<h3 class="subheader" style="margin:1rem 0 0 0;">Q&A&nbsp;<small><%= @tutorial.author.name %>님에게 궁금한 질문을 남겨주세요.</small>
+		<h3 class="subheader" style="margin:1rem 0 0 0;">Q&A&nbsp;<small><%= @tutorial.title %>에 대해 자유롭게 이야기해봐요.</small>
 		</h3>
-		<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대한 질문들을 남겨주세요." }    %>    
-		<%= render "comments/comments" || "댓글이 없습니다." %>
+
+    <% if !user_signed_in? %>
+      <p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+      <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
+      OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
+      <%= render "comments/comments" %>
+    <% else %>
+			<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
+			<%= render "comments/comments" || "댓글이 없습니다." %>
+		<% end %>
 	</div>
 </div>
 

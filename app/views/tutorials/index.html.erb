@@ -62,7 +62,24 @@
 		<div class="small-12 small-centered columns" style="">
 				<div class="tutorial-card-outter">
 					<div class="row " style="">
-						<%= render @tutorials %>
+						<% announcement_index = rand(0..11) %>
+						<% @tutorials.each_with_index do |tutorial, i| %>
+							<% if i == 12 %>
+							 	<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " >
+								  <div class="tutorial-card">
+								    <div class="text-center " style="position: relative; ">
+								      
+								    </div>
+								    <div class="tutorial-card-desc" style="">
+								      <h6 class="tutorial-card-title subheader text-left"  style="line-height:105%; margin:0;padding:0; ">
+								        
+								      </h6>
+								    </div>
+								  </div>
+								</div>
+							<% end %>
+							<%= render tutorial %>
+						<% end %>
 					</div>
 					<div class="pagination-centered">
 						<%= will_paginate @tutorials, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , renderer: FoundationPagination::Rails %>
