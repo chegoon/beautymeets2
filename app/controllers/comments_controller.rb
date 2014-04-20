@@ -25,6 +25,7 @@ class CommentsController < ApplicationController
     end
 
   	if @comment.save     
+      
       if !(@commentable.class.name == "Event")
         CommentMailer.create_notification(@commentable, @comment).deliver 
       end
@@ -32,6 +33,9 @@ class CommentsController < ApplicationController
       
       if @parent
         @comment.move_to_child_of(@parent)
+        @comment.create_activity :create, owner: current_user, recipient: @parent.author
+      else
+        @comment.create_activity :create, owner: current_user, recipient: @commentable.author
       end
   		redirect_to @commentable, notice: "Comment created."
   	else

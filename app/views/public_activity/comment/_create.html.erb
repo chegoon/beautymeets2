@@ -9,7 +9,9 @@
 		%>
 		</div>
 		<div style="margin:0.8rem 1.0rem 0.2rem 2.9rem ;">
-		<%= activity.owner.name || activity.owner.email if activity.owner %>
+
+		<%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %>
+
 		<% if activity.trackable %>
 		님이
 			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video" || activity.trackable.commentable_type ==  "Event" || activity.trackable.commentable_type ==  "Post") %>

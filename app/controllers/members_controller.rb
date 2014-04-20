@@ -21,9 +21,9 @@ class MembersController < InheritedResources::Base
     @member = Member.find(params[:id])
     #@notifications = Activity.unread_by(current_user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc")
     if params[:go_prev].present?
-      @activities = Activity.with_read_marks_for(current_user).order("updated_at DESC")
+      @activities = Activity.with_read_marks_for(current_user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
     else
-      @activities = Activity.unread_by(current_user).order("updated_at DESC")
+      @activities = Activity.unread_by(current_user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc")#order("updated_at DESC")
     end   
     PublicActivity::Activity.mark_as_read! :all, :for => current_user
     

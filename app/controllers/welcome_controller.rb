@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
   	if user_signed_in?
 	  	@user = current_user
 	    @member = @user.profile
-	    @notifications = Activity.unread_by(current_user)
+	    @notifications = Activity.unread_by(current_user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc")
 
 			@events = Event.where('released_at <= ? AND announcement_closed_at >= ?  AND published = TRUE', Time.now, Time.now).order("created_at DESC")
 

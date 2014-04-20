@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
-  include PublicActivity::Model
+  include PublicActivity::Common
   # model에서 콜백 메소드를 이용하여 activity 메소들을 정의할때 사용
   #tracked only: :create, owner: ->(controller, model) { controller && controller.current_user }, recipient: 
-  tracked only: :create, owner: :author, recipient: :commentable
+  #tracked only: :create, owner: :author, recipient: #recipient: :commentable #commentable 에서 user로 수정(2014.04.21)
   #tracked only: :create, owner: Proc.new{ |controller, model| controller && controller.current_user }, recipient: :commentable
 
   resourcify
