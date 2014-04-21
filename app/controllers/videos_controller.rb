@@ -76,6 +76,9 @@ class VideosController < ApplicationController
   end
 
   def update
+    #if @video.published? && PublicActivity::Activity.where(owner_id: current_user.id, owner_type: "User", trackable_id: @video.id, trackable_type: "Video").first.nil?
+    #  @video.create_activity :create, owner: current_user 
+    #end
     super
     #@video.create_activity :create if @video.published? && PublicActivity::Activity.where(trackable_id: @video.id, trackable_type: "Video").nil?
   end

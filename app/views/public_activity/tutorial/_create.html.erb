@@ -8,8 +8,7 @@
 </div>
 <div class="row">
   <div class="small-10 small-offset-1 columns">
-    <%= link_to image_tag(activity.trackable.thumbnail.image_url(:small)), tutorial_path(activity.trackable) %>
-    구경하러 가기 | 공유하기
+    <%=  link_to image_tag(activity.trackable.thumbnail.image_url(:small)), tutorial_path(activity.trackable) if activity.trackable.thumbnail.present? %>
       <div class="text-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></div>
     </div>
   </div>
