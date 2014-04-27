@@ -1,6 +1,7 @@
 class Notice < ActiveRecord::Base
   attr_accessible :description, :published, :title, :view_count, :user_id
-
+  include PublicActivity::Common
+  
   resourcify
   include Authority::Abilities
   

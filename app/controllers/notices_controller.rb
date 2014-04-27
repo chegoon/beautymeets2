@@ -11,7 +11,12 @@ class NoticesController < ApplicationController #InheritedResources::Base
 			@comment = Comment.new
 		end
 
-		super
+		@notices = Notice.where("published = true AND id <> 2").order("created_at DESC")
+		
+		respond_to do |format|
+			format.html 
+			format.js
+	    end
 	end
 
 	def show
