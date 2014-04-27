@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @notice.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @notice.description %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @notice.view_count %>
+</p>
+
+<p>
+  <b>Published:</b>
+  <%= @notice.published %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @notice.user %>
+</p>
+
+<p>
+  <b>Picture:</b>
+  <%= @notice.picture %>
+</p>
+
+
+<%= link_to 'Edit', edit_notice_path(@notice) %> |
+<%= link_to 'Back', notices_path %>

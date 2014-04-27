@@ -1,0 +1,61 @@
+    <div style="height:40px; position:relative; ">
+
+    </div>
+    <div style="width:100%;">
+      <dl class="tabs" data-tab >
+        <dd class=" <%= 'active' if params[:makeup_request].nil? %> " style="width:50%; text-align:center; ">
+          <a href="#panel-notice" style="color:#FFF; <%= 'background: url(/assets/tutorial_header_bg.jpg);' if params[:makeup_request].nil? %> font-size:1.4rem;">공지사항</a>
+        </dd>
+        <dd class="<%= 'active' if params[:makeup_request].present? && params[:makeup_request] == 'true' %>" style="width:50%;text-align:center;">
+          <a href="#panel-suggest" style="color:#FFF; <%= 'background: url(/assets/tutorial_header_bg.jpg);' if params[:makeup_request].present? && params[:makeup_request] == 'true' %> font-size:1.4rem;">아이디어</a>
+        </dd>
+      </dl>
+    </div>
+    <div class="panel tabs-content" style="border:0; padding-top:20px; background:#FFF;">
+      <div class="content <%= 'active' if params[:makeup_request].nil? %>" id="panel-notice" style="width:100%;">
+        <% if @notices.present? %>
+        <dl class=" accordion" data-accordion style="background:#FFF;">
+          
+          <% @notices.each_with_index do |notice, i| %>
+          <dd >
+              <a href="#panel-notice-<%= notice.id %>" style="background:#FFF; ">
+                <span class="left" style="color:#999;">
+                  <%=  truncate(strip_tags(notice.title), 58) if notice.title.present? %>
+                </span>
+                <i class="fa fa-angle-right fa-fw right" style="color:#AAA; margin-top:5px;"></i>
+                <span class="right" style="color:#AAA;">
+                  <small><%= notice.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+                </span>
+              </a>
+              <div class="content <%= 'active' if i == 0 %>" id="panel-notice-<%= notice.id %>">
+                <%=  simple_format(notice.try(:description)) %>
+              </div>
+          </dd>
+          <% end %>
+          
+        </dl>
+        <% else %>
+        아직 공지사항이 없습니다.
+        <% end %>
+      </div>
+      <div class="content <%= 'active' if params[:makeup_request].present? && params[:makeup_request] == 'true' %>" id="panel-suggest">
+
+        궁금한 메이크업,하고싶은 메이크업을 알려주세요. 많은 공감을 받은 메이크업을 뷰티밋츠가 만들어드립니다. 
+
+          <div class="row" style="margin:1.5rem 0 0 0;">
+            <div class="small-12 medium-12 columns"  >   
+              <% if !user_signed_in? %>
+                <p><%= "회원가입을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+                <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>
+                OR&nbsp;<a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
+                <%= render "comments/comments" %>
+              <% else %>
+                  <%= render partial: "comments/form", locals: { form_message: "다양한 의견 부탁드립니다." }  %>    
+                  <%= render "comments/comments" %>
+              <% end %>
+            </div>
+          </div>
+      </div>
+    </div>
+
+<%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_notice_path if user_signed_in? && current_user.can_create?(Notice) %>

@@ -33,24 +33,24 @@
 
 	<div class="row " style="">
 		<div class="small-12 small-centered columns" style="">
-			<div class="tutorial-index-title">
+			<div class="">
 				<h4 class="subheader left" style="margin-top:30px;">
 					&nbsp;Tutorial&nbsp;
 
 	        <small>
-	          <%= "최근 2주간 사람들이 가장 많이 본 튜토리얼" if params[:order] == 'popular_last2w' %>
-	          <%= "사람들이 가장 많이 본 튜토리얼" if params[:order] == 'popular' %>
-	          <%= "최근 업데이트된 튜토리얼" if params[:order].nil? ||  params[:order] == 'newly' %>
+	          <%= "최근 2주간 사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular_last2w' %>
+	          <%= "사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular' %>
+	          <%= "최근 업데이트된 튜토리얼<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
 	        </small>
 					<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if user_signed_in? && current_user.can_create?(Tutorial) %></small>
 				</h4>
 
-				<div id="tutorials" class="right" style="margin-top:30px; margin-bottom:10px; ">		
+				<div id="tutorials" class="right" style="margin:30px 0 10px 0;  ">		
 					<div style="background:#f4f4f4;">
 	          <ul class="button-group radius" >
-	          <li ><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> style="padding-left:15px; padding-right:15px;">최근 2주</a></li>
-	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> style="padding-left:10px; padding-right:10px;">인기순</a></dd>
-	          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> style="padding-left:10px; padding-right:10px;">최신순</a></li>
+	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> >최근 2주</a></li>
+	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></dd>
+	          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> >최신순</a></li>
 	          </ul>
 	        </div>
 				</div>
@@ -62,8 +62,31 @@
 		<div class="small-12 small-centered columns" style="">
 				<div class="tutorial-card-outter">
 					<div class="row " style="">
-
+						<% 
+							#announcement_index = rand(0..11) 
+							extra_card_count = (@tutorials.length % 3) == 0 ? 0 : 3 - (@tutorials.length % 3) 
+							notice_index = Array.new
+							extra_card_count.times do
+								notice_index << rand(0..(@tutorials.length-1)) 
+							end 
+							#announcement_index[1] = announcement_index[1] + 1 if (announcement_index[0] % 3) == (announcement_index[1] % 3)
+						%>
 							<% @tutorials.each_with_index do |tutorial, i| %>
+								<% notice_index.each do |an| %>
+									<% if i == an %>
+										<% if (i % 2) == 0 %>
+											<%= render partial: 'notices/makeup_request_in_tutorial', locals: { cards_in_row: "3" }  %>
+										<% else #]if (i % 3) == 1 
+										%>
+											<%= render partial: 'notices/link_in_tutorial', locals: { cards_in_row: "3" }  %>
+										<% #else 
+										%>
+											<%= #render partial: 'notices/makeup_request_in_tutorial', locals: { cards_in_row: "3" }  
+											%>
+										<% end %>
+									<% end %>
+								<% end %>
+
 								<%= render tutorial %>
 								
 							<% end %>

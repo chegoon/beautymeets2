@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @notice.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @notice.description %>
+</p>
+
+
+          <div class="row" style="margin:1.5rem 0 0 0;">
+            <div class="small-12 medium-12 columns">   
+              <% if !user_signed_in? %>
+                <p><%= "회원가입을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+                <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
+                OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
+                <%= render "comments/comments" %>
+              <% else %>
+                <%= render partial: "comments/form", locals: { form_message: "다양한 의견 부탁드립니다." }  %>    
+                <%= render "comments/comments" %>
+              <% end %>
+            </div>
+          </div>
+
+<%= link_to 'Edit', edit_notice_path(@notice) %> |
+<%= link_to 'Back', notices_path %>
+<%= link_to 'Destroy', @notice, method: :delete, data: { confirm: 'Are you sure?' } %>

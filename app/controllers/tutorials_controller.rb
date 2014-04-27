@@ -18,7 +18,7 @@ class TutorialsController < ApplicationController
   # GET /tutorials
   # GET /tutorials.json
   def index
-    cards_per_page = 12
+    cards_per_page = 11
 
     if (params[:cond].present?) && (params[:cond] == "uncategorized")
         @tutorials = Tutorial.where("id NOT in (?) and published=TRUE", Tutorial.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)

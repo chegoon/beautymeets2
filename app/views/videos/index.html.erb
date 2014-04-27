@@ -1,5 +1,3 @@
-<%= link_to 'New', new_video_path if user_signed_in? && current_user.can_create?(Video) %>
-
 <div class="row" >
 	<div class="small-12 columns" >
 		<div class="panel tutorial-index-head" style="border:0; margin-bottom:0; padding:0; background: url('/assets/video_header_bg.jpg');">
@@ -33,17 +31,18 @@
 
 <div class="row " style="">
 	<div class="small-12 small-centered columns" style="">
-		<div class="tutorial-index-title">
+		<div class="">
 			<h4 class="subheader left" style="margin-top:30px;">
 				&nbsp;BeautyVideo&nbsp;
 
         <small>
-          <%= "가장 많이 본 비디오" if params[:order] == 'popular' %>
-          <%= "최근 업데이트된 비디오" if params[:order].nil? ||  params[:order] == 'newly' %>
+          <%= "가장 많이 본 비디오<br>".html_safe if params[:order] == 'popular' %>
+          <%= "최근 업데이트된 비디오<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
         </small>
+        <small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_video_path if user_signed_in? && current_user.can_create?(Video) %></small>
 			</h4>
 
-			<div id="tutorials" class="right" style="margin-top:30px; margin-bottom:10px; ">		
+			<div id="tutorials" class="right" style="margin:30px 0 10px 0; ">		
 				<div style="background:#f4f4f4;">
           <ul class="button-group radius" >
           <li><a class="button small <%= 'secondary' if params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>인기순</a></li>
@@ -61,7 +60,30 @@
 			<div class="video-card-outter">
 				<div class="row " style="">
 
+						<% 
+							#announcement_index = rand(0..11) 
+							extra_card_count = (@videos.length % 4) == 0 ? 0 : 4 - (@videos.length % 4) 
+							notice_index = Array.new
+							extra_card_count.times do
+								notice_index << rand(0..(@videos.length-1)) 
+							end 
+						%>
+
 							<% @videos.each_with_index do |video, i| %>
+								<% notice_index.each do |an| %>
+									<% if i == an %>
+										<% if (i % 2) == 0 %>
+											<%= render partial: 'notices/makeup_request_in_video', locals: { cards_in_row: "4" } %>
+										<% else #if (i % 4) == 1
+										 %>
+											<%= render partial: 'notices/link_in_video', locals: { cards_in_row: "4" }  %>
+										<% #else 
+										%>
+											<%= #render partial: 'notices/suggest_in_video', locals: { cards_in_row: "4" }  
+											%>
+										<% end %>
+									<% end %>
+								<% end %>
 
 								<%= render video %>
 								

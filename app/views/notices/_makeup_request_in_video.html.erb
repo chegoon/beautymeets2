@@ -1,0 +1,12 @@
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " style="padding:0 10px;">
+  <div class="video-card" style="">
+    <div class="video-card-thumb  text-center " style="height:190px; word-spacing:1.5px; font-size:1.1rem;color:#FFF;padding-top:15%; background:#c999ed;">
+
+
+											<div style="padding:10px;">궁금한 메이크업 <br/>
+								      하고싶은 메이크업을 알려주세요!</div>
+											<hr style="margin:20px auto; width:40px; height:2px; line-height:4px; opacity:0.8; background:#efe1fa;">
+											<div style="font-size:0.9rem;line-height:115%; padding:10px;color:#666;"><%= link_to '뷰티밋츠가 만들어드립니다 <i class="fa fa-angle-right fa-fw"></i>'.html_safe, { :controller => "notices", :makeup_request => "true"} %></div>
+    </div>
+  </div>
+</div>

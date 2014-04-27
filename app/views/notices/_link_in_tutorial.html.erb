@@ -1,0 +1,18 @@
+
+								<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " >
+									<div class="tutorial-card" style="">
+										<a class="tutorial-card-thumb text-center " href="<%= notices_path %>" style="word-spacing:1.5px; font-size:1.1rem;color:#FFF;padding-top:20%; background:#4ce0c2;">
+											BEAUTYMEETS
+											<hr style="margin:20px auto; width:40px; height:2px; line-height:4px; opacity:0.8; background:#efe1fa;">
+											<div style="font-size:0.9rem;line-height:115%; color:#333;">뷰티밋츠에서<br/>
+											새로운 소식이 있어요!</div>
+										</a>
+
+										<div class="tutorial-card-desc" style="">
+											<h6 class="tutorial-card-title subheader text-center"  style="line-height:105%; margin:10px;padding:0; ">
+												<%= link_to '소식확인하기 <i class="fa fa-angle-right fa-fw"></i>'.html_safe, notices_path %>
+											</h6>
+										</div>
+
+									</div>
+								</div>

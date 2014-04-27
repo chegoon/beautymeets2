@@ -160,8 +160,32 @@
     <div id="item-card-group">
     <h4 class="subheader" style="color:#999; padding-left:10px; padding-bottom:10px;">이 제품이 사용된 튜토리얼</h4>
 
-              <% @tutorials.each_with_index do |tutorial, i| %>
+            <% 
+              #announcement_index = rand(0..11) 
+              extra_card_count = 3 - (@tutorials.length % 3) 
+              notice_index = Array.new
+              extra_card_count.times do
+                notice_index << rand(0..(@tutorials.length-1)) 
+              end 
+              #announcement_index[1] = announcement_index[1] + 1 if (announcement_index[0] % 3) == (announcement_index[1] % 3)
+            %>
 
+              <% @tutorials.each_with_index do |tutorial, i| %>
+                <% notice_index.each do |an| %>
+                  <% if i == an %>
+                    <% if (i % 3) == 0 %>
+                      <%= render partial: 'notices/makeup_request_in_tutorial', locals: { cards_in_row: "3" }  %>
+                    <% else #]if (i % 3) == 1 
+                    %>
+                      <%= render partial: 'notices/link_in_tutorial', locals: { cards_in_row: "3" }  %>
+                    <% #else 
+                    %>
+                      <%= #render partial: 'notices/makeup_request_in_tutorial', locals: { cards_in_row: "3" }  
+                      %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                
                 <%= render tutorial %>
                 
               <% end %>

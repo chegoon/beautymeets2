@@ -1,0 +1,18 @@
+
+							 	<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " >
+								  <div class="tutorial-card" style="">
+								    <a class="tutorial-card-thumb text-center " href="/notices?makeup_request=true" style="word-spacing:1.5px; font-size:1.1rem;color:#FFF;padding-top:20%; background:#c999ed;">
+								    	BEAUTYMEETS
+								    	<hr style="margin:20px auto; width:40px; height:2px; line-height:4px; opacity:0.8; background:#efe1fa;">
+								      <div style="font-size:0.9rem;line-height:115%; color:#333;">궁금한 메이크업 <br/>
+								      하고싶은 메이크업을 알려주세요!</div>
+								    </a>
+
+								    <div class="tutorial-card-desc" style="">
+								      <h6 class="tutorial-card-title subheader text-center"  style="line-height:105%; margin:10px;padding:0; ">
+								        <%= link_to '뷰티밋츠가 만들어드립니다. <i class="fa fa-angle-right fa-fw"></i>'.html_safe, { :controller => "notices", :makeup_request => "true"} %>
+								      </h6>
+								    </div>
+
+								  </div>
+								</div>

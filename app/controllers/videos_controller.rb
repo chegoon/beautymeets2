@@ -12,7 +12,7 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    cards_per_page = 16
+    cards_per_page = 15
 
     if (params[:order].present?) && (params[:order] == "popular")
         if user_signed_in?

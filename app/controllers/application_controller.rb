@@ -1,9 +1,26 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  # redirect to previous page when signup/login
+  after_filter :store_location
+  
   include SimpleCaptcha::ControllerHelpers
   
-  
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    if (request.fullpath != "/users/login" &&
+        request.fullpath != "/users/join" &&
+        request.fullpath != "/users/password" &&
+        request.fullpath != "/users/logout" &&
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath 
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
+
   # public_activity gem의 tracked method를 model에서 사용할때 controller.current_user메소드를 사용하려면
   # 모델에서 current_user접근이 이루어져야하는데 이는 private 메소드이기에 application_controller에서 public으로 선언해주고 
   # 대신 hide_action 지정
