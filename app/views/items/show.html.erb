@@ -85,7 +85,7 @@
 
   <% if (!@items_in_category.nil?)  && (@items_in_category.count > 0) %>        
 
-    <div class="small-12 medium-12 columns" style="padding:0;">   
+    <div class="small-12 medium-12 columns" style="padding:0; margin-top:10px;">   
       <h5 class="subheader" style="color:#999; line-height:101%;padding: 10px 10px 15px 10px;">다른 
         <% @parent_categories.each do |p_cat| %>
         <%=  p_cat.name  %>
@@ -159,9 +159,12 @@
   <div class="small-12 medium-12 columns"  style="padding:0;">   
     <div id="item-card-group">
     <h4 class="subheader" style="color:#999; padding-left:10px; padding-bottom:10px;">이 제품이 사용된 튜토리얼</h4>
-    <% @tutorials.each do |tutorial| %>
-      <%= render tutorial  %>
-    <% end %>
+
+              <% @tutorials.each_with_index do |tutorial, i| %>
+
+                <%= render tutorial %>
+                
+              <% end %>
     </div>
   </div>
 

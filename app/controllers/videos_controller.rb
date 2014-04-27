@@ -12,19 +12,21 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
+    cards_per_page = 16
+
     if (params[:order].present?) && (params[:order] == "popular")
         if user_signed_in?
           #@videos = Video.where("published=TRUE").order("view_count DESC").unread_by(current_user).page(params[:page]).per_page(20)
-          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("view_count DESC").page(params[:page]).per_page(20)
+          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
         else
-          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("view_count DESC").page(params[:page]).per_page(20)
+          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
         end
     else   
         if user_signed_in?
           #@videos = Video.where("published=TRUE").order("created_at DESC").unread_by(current_user).page(params[:page]).per_page(20)
-          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").page(params[:page]).per_page(20)
+          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").page(params[:page]).per_page(cards_per_page)
         else
-          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").page(params[:page]).per_page(20)
+          @videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").page(params[:page]).per_page(cards_per_page)
         end
     end
     

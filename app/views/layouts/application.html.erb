@@ -175,6 +175,41 @@
         })(window, document);
     </script>
 
+    <script type="text/javascript">
+    $(".accordion").on("click", "dd", function (event){
+            
+
+        if($(this).hasClass('active')){
+          $("dd.active").removeClass('active').find(".content").slideUp("fast");    
+          $(this).find("a").find("i").toggleClass("fa-angle-down fa-angle-right");  
+        }
+        else {
+          // 다른 dropdown된 아코디언을 닫음
+          $("dd.active").removeClass('active').find(".content").slideUp("fast");
+          $("dd").find("a").find("i").removeClass("fa-angle-down");
+          $("dd").find("a").find("i").addClass("fa-angle-right");
+
+          // 이번 아코디언을 dropdown
+          $(this).addClass('active').find(".content").slideToggle("fast");
+          $(this).find("a").find("i").toggleClass("fa-angle-right fa-angle-down");
+        }
+
+    });
+
+    $(".tabs").on("click", "dd", function (event){
+
+        if($(this).hasClass('active')){
+          $(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
+        }
+        else {
+          $("dd.active").removeClass('active').find("a").css("background", "");
+          $(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
+        }
+
+    });
+
+
+    </script>
     <script>
     // Include the UserVoice JavaScript SDK (only needed once on a page)
     UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();

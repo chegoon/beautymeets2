@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140419122206) do
+ActiveRecord::Schema.define(:version => 20140425060338) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -70,7 +70,12 @@ ActiveRecord::Schema.define(:version => 20140419122206) do
     t.boolean  "published"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+    t.integer  "picture_id"
   end
+
+  add_index "announcements", ["picture_id"], :name => "index_announcements_on_picture_id"
+  add_index "announcements", ["user_id"], :name => "index_announcements_on_user_id"
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -414,6 +419,20 @@ ActiveRecord::Schema.define(:version => 20140419122206) do
 
   add_index "members", ["gender_id"], :name => "index_members_on_gender_id"
   add_index "members", ["slug"], :name => "index_members_on_slug"
+
+  create_table "notices", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "view_count"
+    t.boolean  "published"
+    t.integer  "user_id"
+    t.integer  "picture_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "notices", ["picture_id"], :name => "index_notices_on_picture_id"
+  add_index "notices", ["user_id"], :name => "index_notices_on_user_id"
 
   create_table "pictures", :force => true do |t|
     t.string   "image"

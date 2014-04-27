@@ -248,7 +248,7 @@ GEM
     request-log-analyzer (1.12.10)
     responders (1.0.0)
       railties (>= 3.2, < 5)
-    rmagick (2.13.2)
+    rmagick (2.13.1)
     rolify (3.4.0)
     safe_yaml (1.0.1)
     sass (3.2.14)
@@ -352,8 +352,9 @@ DEPENDENCIES
   rabl
   rails (= 3.2.6)
   rails3-jquery-autocomplete
+  rake (~> 10.1.1)
   request-log-analyzer
-  rmagick
+  rmagick (~> 2.13.1)
   rolify
   sass-rails (~> 3.2.3)
   simple-rss

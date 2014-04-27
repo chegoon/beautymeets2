@@ -5,11 +5,15 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+group :development do
+	gem 'rake', '~> 10.1.1'
+end
+
 gem 'mysql2'
 
 # Gem for image upload
 gem 'carrierwave'
-gem 'rmagick'
+gem 'rmagick', "~> 2.13.1"
 
 gem 'simple_form'
 

@@ -1,6 +1,12 @@
 Beautymeets2::Application.routes.draw do
 
-  resources :announcements
+  resources :notices do 
+    resources :comments
+  end
+
+  resources :announcements do
+    resources :comments
+  end
 
   root :to => 'welcome#index'
   

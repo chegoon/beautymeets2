@@ -18,7 +18,7 @@ development:
 #  password: reallplays
 #  socket: /var/lib/mysql/mysql.sock
 # for local below
-  password: "82606119"
+  password: "bd0516"
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -31,7 +31,7 @@ test:
   database: beautymeets2_test
   pool: 5
   username: root
-  password:
+  password: bd0516
   socket: /tmp/mysql.sock
 
 production:
@@ -41,5 +41,5 @@ production:
   database: beautymeets2_production
   pool: 5
   username: root
-  password:
+  password: bd0516
   socket: /tmp/mysql.sock

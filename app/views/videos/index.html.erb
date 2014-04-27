@@ -60,7 +60,13 @@
 	<div class="small-12 small-centered columns" style="">
 			<div class="video-card-outter">
 				<div class="row " style="">
-					<%= render @videos %>
+
+							<% @videos.each_with_index do |video, i| %>
+
+								<%= render video %>
+								
+							<% end %>
+					
 				</div>
 
 			<div class="pagination-centered">

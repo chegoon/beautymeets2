@@ -65,7 +65,7 @@
   clear: none;
   display: block;
   margin: 0 5px;
-  background: #4ce0d0;
+  background: #ccc; //4ce0d0;
 
   /*
   width: 12px;
@@ -79,9 +79,9 @@
 }
 
 .slider-nav__item:hover {
-  background: #ccc;
+  background: #4ce0d0; //#ccc;
 }
 
 .slider-nav__item--current {
-  background: #ccc;
+  background: #4ce0d0; //#ccc;
 }

@@ -37,17 +37,17 @@
 	</div>
 	<div class="small-12 medium-10 columns">
 
-		<% if @video.tag_list.present? %>
-    <p style="margin-top:0; margin-bottom:2px;">
-    	<% @video.tag_list.each do |t| %>
-	    	<span class="label secondary radius"><%= t %></span>
-		 	<% end %>
-		</p>
+	<% if @video.tag_list.present? %>
+   	<p style="margin-top:10px; margin-bottom:2px;">
+	    	<% @video.tag_list.each do |t| %>
+		    	<span class="label secondary radius"><%= t %></span>
+		<% end %>
+		
 	  <% end %>
-
+	</p>
 	  	<div class="fb-like" data-href="<%= video_url(@video) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
 	  	</div>
-	  <p style="margin-bottom:4px;"></p>
+	  <p style="margin-bottom:10px;"></p>
   </div>
   <div class="medium-2 columns" style="margin-bottom:10px;">
     <h3 class="show-for-medium-up" style=" margin-right:-26px;">
@@ -78,7 +78,7 @@
 
 		<dl class=" accordion" data-accordion >
 			<dd >
-					<a href="#video-description"><i class="fa fa-info-circle"></i>&nbsp;<em><%=  truncate(strip_tags(@video.description), 58) if !@video.description.nil? %></em><i class="right fa fa-chevron-down"></i></a>
+					<a href="#video-description"><i class="fa fa-angle-irinfo-circle"></i>&nbsp;<em><%=  truncate(strip_tags(@video.description), 58) if !@video.description.nil? %></em><i class="fa fa-angle-right fa-fw right" style="color:#AAA; margin-top:5px;"></i></a>
 					<div class="content" id="video-description">
 					<p><%=  simple_format(@video.try(:description)) %></p><cite>from <%= @video.video_group.try(:name) %></cite>
 				</div>
@@ -92,6 +92,9 @@
 	<div class="small-12 columns" style="">
 		<h5>
 			추천 튜토리얼&nbsp;<small>뷰티밋츠가 제작한 리얼 뷰티 튜토리얼</small>
+
+			<%= link_to image_tag("/assets/btn_plus@2x.png", :alt => "더 살펴보기", :style => "width:14px; height:14px; margin-right:10px;", :class => "right "), {controller: "tutorials", order: "newly"} %>
+			
 		</h5>
 	 	<%= render @tutorials %>
 	</div>
