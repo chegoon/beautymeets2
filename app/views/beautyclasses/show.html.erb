@@ -2,18 +2,16 @@
 <% page_thumb "#{full_url(@beautyclass.thumbnail.image_url)}" if @beautyclass.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@beautyclass.title.present? ? "#{@beautyclass.title} 클래스를 만나보세요." : "") %>
 
-<div class="row" style="">
-	<div class="small-12 columns " >
-		<h6 class="subheader"><%= render "layouts/go_back" %></h6>
-		<h3 style="letter-spacing:-0.5px;">Beauclass</h3>
-		<%= link_to 'Edit', edit_beautyclass_path(@beautyclass) if can? :author, @beautyclass %> <%= link_to 'Destroy', @beautyclass, :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :author, @beautyclass %>
-	</div>
-</div>
+  	<div style="height:90px; position:relative; ">
+			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+				<%= render 'layouts/go_back' %>
+    				<%= @beautyclass.title %>
+			<small><%= link_to 'Edit', edit_beautyclass_path(@beautyclass) if can? :author, @beautyclass %> <%= link_to 'Destroy', @beautyclass, :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :author, @beautyclass %></small>
+    	</h4>
+    </div>
+
 <div class="row" >
 	<div class="small-12 medium-12 columns">
-		<div class="" style="width:100%; font-size:9px; color: #666; "></div>
-		
-		<h2><%= "[Draft]" if @beautyclass.published.nil? || !@beautyclass.published? %><%= @beautyclass.title %></h2>
 		<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
 	</div>
 </div>

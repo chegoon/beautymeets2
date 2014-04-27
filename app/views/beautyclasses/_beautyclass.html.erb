@@ -52,7 +52,7 @@
 
 						<div class="small-7 columns" style="position:relative; height:100px;">
 							<% if beautyclass.categories.first.present? && beautyclass.categories.first.name == "프라이빗 클래스" %>
-								<%= link_to "신청하기", beautyclass_path(beautyclass), :class => "right button radius secondary" %>	
+								<%= link_to "문의하기", beautyclass_path(beautyclass), :class => "right button radius secondary" %>	
 							<% end %>
 							<h5 class="subheader right" style="position:absolute; bottom:0; right:10px; "><small><%= link_to "<span><i class='fa fa-file-text-o'></i>&nbsp;Class Review</span>".html_safe, beautyclass.review_url, :target => "_blank" if beautyclass.review_url? %>&nbsp;&nbsp;<i class="fa fa-eye"></i> <%= filtered_number(beautyclass.view_count) %></small></h5>	
 						</div>
