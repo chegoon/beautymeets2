@@ -48,9 +48,9 @@
 				<div id="tutorials" class="right" style="margin-top:30px; margin-bottom:10px; ">		
 					<div style="background:#f4f4f4;">
 	          <ul class="button-group radius" >
-	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %>>최근 2주</a></li>
-	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %>>인기순</a></dd>
-	          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %>>최신순</a></li>
+	          <li ><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> style="padding-left:15px; padding-right:15px;">최근 2주</a></li>
+	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> style="padding-left:10px; padding-right:10px;">인기순</a></dd>
+	          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> style="padding-left:10px; padding-right:10px;">최신순</a></li>
 	          </ul>
 	        </div>
 				</div>
