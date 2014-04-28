@@ -1,0 +1,14 @@
+<% if activity.trackable %>
+<div class="row">
+  <div class="small-12 columns"> 새로운 공지사항입니다.    
+  </div>
+</div>
+<div class="row">
+  <div class="small-10 small-offset-1 columns">
+    <%= link_to activity.trackable.title, activity.trackable %><br/>
+    <%= truncate(activity.trackable.description, 100) %>
+      <div class="text-right" style=" color:#AAA;"><small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small></div>
+    </div>
+  </div>
+<% end %>
+
