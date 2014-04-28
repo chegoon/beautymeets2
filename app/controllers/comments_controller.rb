@@ -30,12 +30,11 @@ class CommentsController < ApplicationController
 	      	end
 	      	#@comment.create_activity :create, owner: current_user, recipient: @commentable.author
       
-      		if (@commentable.class.name == "Notice")
-      		elsif @parent
+      		if @parent
       			@comment.move_to_child_of(@parent)
-      			@comment.create_activity :create, owner: current_user, recipient: @parent.author
+      			@comment.create_activity :create, owner: current_user, recipient: @parent.author if !(@commentable.class.name == "Notice")
       		else
-      			@comment.create_activity :create, owner: current_user, recipient: @commentable.author
+      			@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice")
       		end
 
       		if !(@commentable.class.name == "Notice")

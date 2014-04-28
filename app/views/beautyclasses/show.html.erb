@@ -2,73 +2,115 @@
 <% page_thumb "#{full_url(@beautyclass.thumbnail.image_url)}" if @beautyclass.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@beautyclass.title.present? ? "#{@beautyclass.title} 클래스를 만나보세요." : "") %>
 
-  	<div style="height:90px; position:relative; ">
-			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
-				<%= render 'layouts/go_back' %>
-    				<%= @beautyclass.title %>
-			<small><%= link_to 'Edit', edit_beautyclass_path(@beautyclass) if can? :author, @beautyclass %> <%= link_to 'Destroy', @beautyclass, :data => { :confirm => 'Are you sure?' }, method: :delete  if can? :author, @beautyclass %></small>
+
+<div style="height:90px; position:relative; ">
+	<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+		<%= render 'layouts/go_back' %>
+    		<%= @beautyclass.title%>
+    		<%= link_to "Edit", edit_beautyclass_path if user_signed_in? && current_user.can_update?(@beautyclass) %>
     	</h4>
-    </div>
-
-<div class="row" >
-	<div class="small-12 medium-12 columns">
-		<h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
-	</div>
 </div>
-<div class="row" >
-	<div class="small-12 medium-12 columns" >
+
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+	<div class="small-12 medium-8 columns right text-right">		
 		<% if @beautyclass.categories.present? %>
-			<small>Category : </small>
-			<% @beautyclass.categories.each do |category| %>
-				&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
-			<% end %>
-		<% end %>
-		<% if !@beautyclass.closed? && @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
-		<div class="right">
-			<span class="right" style=" color:#000; "><strong>정원 <%= @beautyclass.capacity %> 명</strong></span><br/>
-			<span class="right" style="  color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능</span>
-		</div>
-		<% end %>
-	</div>
-</div>
-<div class="row" >
-	<div class="small-12 medium-12 columns" >
-		<hr>
-	</div>
-</div>
-<div class="row" >
-	<div class="small-12 medium-4 columns" > 
-		<div class="" >
-			<%= image_tag @beautyclass.thumbnail.image_url(:large) if @beautyclass.thumbnail.present? %>
-		</div>
-	</div>
-	<div class="small-12 medium-8 columns" > 
-
-			<%= render :partial => 'pictures/gallery', locals: { :thumb_size => :small } %>
-			<%= render 'pictures/form' if (can? :author, @beautyclass)  %>
-	</div>
-</div>
-<div class="row" >
-	<div class="small-12 medium-12 columns" >
-		<hr>
-	</div>
-</div>
-<div class="row">
-	<div class="small-12 medium-8 columns" style="">
-		<div class="panel" style="border:0;">	
-	      <% if @beautyclass.closed? %>
-					<span class="radius alert label">SOLD OUT</span> 클래스가 마감되었습니다. 
+			<span class="beautyclass-show-category" >
+				BEAUTYCLASS > 
+				<% @beautyclass.categories.each_with_index do |category, i| %>
+					&nbsp;<%=  category.name %><%= "&nbsp;/".html_safe if i < (@beautyclass.categories.count - 1) %>
 				<% end %>
-				<p>
-					<%= simple_format(@beautyclass.try(:description)) %><br/><%= link_to "후기 보러 가기", @beautyclass.review_url, :class => "button secondary tiny", :target => "_blank" if @beautyclass.review_url.present? %>
-				</p>
-	    	<p>
-	    		<% @beautyclass.tag_list.each do |t| %>
-		  	  	<span class="label secondary radius"><%= link_to t, tag_path(t) %></span>
-			   	<% end %>
-				</p>
-		</div>	
-		<div class="panel"  style="border:0;">
+			</span>
+		<% end %>
+	</div>
+	<div class="small-12 medium-4 columns" style="">
+		<div style="width:100%; min-height:36px;">
+			<div class="left" style="margin:0 10px 0 0;">
+				<%= link_to image_tag(@beautyclass.author.image_url(:very_small), :style => "width:36px; height:36px;"), (@beautyclass.author.has_role? :admin) ? "#" : beautystar_path(@beautyclass.author.profile) %>
+			</div>
+			<div class="left">
+				<span style="font-size:0.75rem;"><%= "#{@beautyclass.author.profile.try(:job_title)}" if !@beautyclass.author.has_role?(:admin) %>
+				</span><br/>
+	      		<span style="font-size:1.5rem;"><%= @beautyclass.author.has_role?(:admin) ? @beautyclass.author.try(:name) : link_to(@beautyclass.author.try(:name), beautystar_path(@beautyclass.author.profile)) %>
+	      		</span>
+			</div>
+		</div>
+	</div>
+	<div class="small-12 medium-10 columns">
+      	<div class="" style="padding:10px;">
+			<%= simple_format(@beautyclass.description, :style => "margin-bottom:4px;") %>
+			<p style="margin-top:0; margin-bottom:2px;">
+				<% @beautyclass.tag_list.each do |t| %>
+					<span class="label secondary radius"><%= t %></span>
+			 	<% end %>
+			</p>
+	  
+		  	<div class="fb-like" data-href="<%= tutorial_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+		  	</div>
+		  	<p style="margin-bottom:4px;"></p>
+		</div>
+	</div>
+	<div class="medium-2 columns">
+		<h3 class="show-for-medium-up" style=" margin-right:-26px;">
+			<small class="right">
+				<%= render 'bookmarks/star' %>
+    			</small>
+		</h3>
+	</div>
+
+
+	<div class="small-12 columns show-for-small-only text-center" style="border:0px #EEE solid; margin:20px auto 20px auto;">
+		<%= render 'bookmarks/star' %>
+	</div>
+
+	<div class="small-12 columns " >
+		<div class="slider">
+			<ul class="slides">
+			
+			<% @pictures.each do |p| %>
+				<li class="slide"  style="padding:0; text-align:center; ">
+				<% if user_signed_in? && current_user.can_update?(@pictureable) %>
+					<div class="left" style="margin:10px;">
+						<img src="<%= p.image_url(:small).to_s %>">
+                			<%= simple_form_for [@pictureable] do |f| %>
+	                  			<%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+	                  			<%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+	                  			<%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+                			<% end %>
+              			</div>
+          			<% else %>
+            			<img style="margin:0 auto; height:auto; max-height:100%;" src="<%= p.image_url(:large).to_s %>">        
+          			<% end %>
+        			</li>
+        		<% end %>
+      		</ul>
+      		<%= render 'pictures/form' if user_signed_in? && current_user.can_update?(@beautyclass)  %>
+     		</div>
+	</div>
+</div>
+
+<% if !@beautyclass.closed? && @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
+	<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+		<div class="small-12 medium-10 medium-centered columns" >
+		
+			<div class="right">
+				<span class="right" style=" color:#000; "><strong>정원 <%= @beautyclass.capacity %> 명</strong></span><br/>
+				<span class="right" style="  color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능</span>
+			</div>
+		
+	</div>
+</div>
+<% end %>
+
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+	<div class="small-12 medium-10 medium-centered  columns" style="">
+		
+	     <% if @beautyclass.closed? %>
+	     		<div class="panel" style="border:0;">	
+				<span class="radius alert label">SOLD OUT</span> 클래스가 마감되었습니다. 
+			</div>	
+		<% end %>
+		
+
 			<% if @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
 				<p>
 					<span ><i class="fa fa-calendar-o"></i> 일시</span><br/>
@@ -90,16 +132,16 @@
 					<%= @beautyclass.supply %></span>
 				</p>
 			<% end %>
-		</div>
+
 		<div style="margin:10px 0;">
     	<div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
   	</div>
 
-		<div class="panel"  style="border:0;">
+
 			<% if @beautyclass.closed? %>
 
 				<div class="row">
-					<div class="small-12 columns">
+					<div class="small-12 medium-10 medium-centered columns">
 
 						<% if @beautyclass.price.nil? || @beautyclass.price == 0 %>
 
@@ -107,21 +149,20 @@
 							<div class="right" style="color:#333; "><span class="right" style="font-size:30px; color:#666; font-family:'Nanum Gothic';  "><strong><%= number_with_delimiter(@beautyclass.price, :delimiter => ',') %></strong>&nbsp;<small>won</small></div>
 						<% end %>
 					</div>
-					<a href="#"  class="button secondary expand disabled" ><%= "클래스가 마감되었습니다." %></a>
 				</div>
 			<% else %>
 
 				<div class="row">
 
 					<% if @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
-						<div class="small-12 columns">
+						<div class="small-12 medium-10 medium-centered columns">
 							<div>							
 								<span class="left" style="color:#666;  ">현재 <%= @beautyclass.capacity %>명중&nbsp;</span>
 								<span class="left" style="color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능 합니다.</span>				
 							</div>
 						</div>
 					<% end %>
-					<div class="small-12 columns">
+					<div class="small-12 medium-10 medium-centered columns">
 
 						<% if @beautyclass.price.nil? || @beautyclass.price == 0 || @beautyclass.categories.first.name == "프라이빗 클래스" %>
 
@@ -130,40 +171,31 @@
 							</div>
 						<% end %>
 					</div>
-					<div class="small-12 columns">
+					<div class="small-12 columns text-center">
 						<%= render "checkout_status" %>
 					</div>
 				</div>
 			<% end %>
 
-		</div>
-
-
-		<div class="row" style="">
-			<div class="large-12 columns" style="margin:20px 0 0 0;">		
-
-				Comments(<%= @beautyclass.comments.count %>)
-				<%= render partial: "comments/form", locals: { form_message: "#{@beautyclass.title}에 대한 질문들을 남겨주세요." }    %>    
-				<%= render "comments/comments" %>
-			</div>
-		</div>
-	</div>
-	<div class="small-12 medium-4 columns" > 
-		<div class="user-avatar "  style="margin:10px 0 0 0; height:44px;"> 
-			<h6 class="subheader" style="font-size: 0.8em;">
-				<%= render partial: 'users/avatar_thumb', locals: { user: @beautyclass.author } if @beautyclass.author.present? && @beautyclass.author.image.present? %>
-				<strong><%= link_to (@beautyclass.author.has_role? :admin) ? "BEAUTYMEETS " : @beautyclass.author.try(:name), beautystar_path(@beautyclass.author) %></strong>
-				<%= (@beautyclass.author.has_role? :admin) ? "| 뷰티밋츠" : " | #{@beautyclass.author.profile.try(:job_title)}" %>
-			</h6>	
-		</div>
-		<div  style=" color:#666; margin:20px 0 0 0 ;">
-			<%= simple_format(truncate(@beautyclass.author.profile.try(:introduction), 200)) %>
-		</div>
-		
-		<%= render partial: "pricing_table" %>
 	</div>
 </div>
 
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
+	<div class="small-12 medium-10 medium-centered columns">		
+		<h3 class="subheader" style="margin:1rem 0 0 0;"><small><%= @beautyclass.title %>에 대해 자유롭게 이야기해봐요.</small>
+		</h3>
+
+    <% if !user_signed_in? %>
+      <p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+      <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
+      OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
+      <%= render "comments/comments" %>
+    <% else %>
+			<%= render partial: "comments/form", locals: { form_message: "#{@beautyclass.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
+			<%= render "comments/comments" || "댓글이 없습니다." %>
+		<% end %>
+	</div>
+</div>
 
 <div id="modal-beautyclass-regist" class="reveal-modal medium"  data-reveal>	
 	<% if user_signed_in? %>
