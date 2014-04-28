@@ -3,16 +3,14 @@
 <div class="row">
 	<div class="small-12 columns" style="background:#FFF;  padding:20px;">
 		<%= render 'sub_nav' %>
-		<h5 class="subheader">Notifications</h5>
-		<p>
-			<%= link_to "GET New Notifications", member_notifications_path, :class => "button tiny secondary" %>
-			<%= link_to "SEE Previous Notifications", member_notifications_path(go_prev: 1) , :class => "button tiny secondary" %>
-			<%= link_to "DELETE All Notifications", member_notifications_path(clean_history: 1) , :class => "button tiny secondary" %>
-		</p>
+		<h5 class="subheader">알림 </h5>
+			<%= link_to "새 소식 보기", member_notifications_path, :class => "button tiny secondary" %>
+			<%= link_to "이전 소식 보기", member_notifications_path(go_prev: 1) , :class => "button tiny secondary" %>
+			<%= link_to "이전 소식 삭제하기", member_notifications_path(clean_history: 1) , :class => "button tiny secondary" %>
 		<% if @activities.present? %>
 			<%= render @activities %>		
 		<% else %>
-			<p>No Notification</p>
+			<p>새로운 소식이 없습니다.</p>
 		<% end %>
 	</div>
 </div>

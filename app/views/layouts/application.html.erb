@@ -58,7 +58,7 @@
           font-family: "Nanum Gothic", sans-serif;
       } 
 
-      p, h1, h2, h3, h4, h5, h6 {
+      p, h1, h2, h3, h4, h5, h6, li, dd {
         font-family: "Nanum Gothic", sans-serif;
       }
 
@@ -204,7 +204,7 @@
           $(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
         }
         else {
-          $("dd.active").removeClass('active').find("a").css("background", "");
+          $("dd.active").removeClass('active').find("a").css("background", "#DDD");
           $(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
         }
 

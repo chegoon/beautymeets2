@@ -3,9 +3,13 @@
 <div class="row">
 	<div class="small-12 columns" style="background:#FFF;  padding:20px;">
 		<%= render 'sub_nav' %>
-		<h5 class="subheader"><%= @checkouts.count %> Beautyclasses you've taken.&nbsp;<small>View more <%= link_to "Beautyclasses.", beautyclasses_path %></small></h5> 
-		<% @checkouts.each do |co| %>
-			<%= render partial: 'beautyclasses/beautyclass', locals: { beautyclass: co.beautyclass } %>
+		<% if @checkouts && @checkouts.count > 0 %>
+			<h5 class="subheader"><%= @checkouts.count %>개 뷰티클래스를 신청하였습니다. &nbsp;<small><%= link_to "다른 뷰티클래스 보러가기.", beautyclasses_path %></small></h5> 
+			<% @checkouts.each do |co| %>
+				<%= render partial: 'beautyclasses/beautyclass', locals: { beautyclass: co.beautyclass } %>
+			<% end %>
+		<% else %>
+			<h6 class="subheader">아직 뷰티클래스를 신청하지 않으셨어요. 한번 구경가볼까요? &nbsp;<%= link_to "뷰티클래스 보러가기", beautyclasses_path %></h6> 
 		<% end %>
 	</div>
 </div>

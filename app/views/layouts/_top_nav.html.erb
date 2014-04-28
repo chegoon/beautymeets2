@@ -17,7 +17,7 @@
           <ul class="nav right" >
             <li class="nav__item " >
               <% if @notifications && (@notifications.count > 0) %>
-                <%= link_to "<i class='fa fa-bell fa-fw'></i>#{@notifications.count}".html_safe, member_notifications_path(current_user.profile) if current_user.has_role? :member %>   
+                <%= link_to "<i class='fa fa-bell fa-fw' style='color:#71bdc2;'></i>#{@notifications.count}".html_safe, member_notifications_path(current_user.profile) if current_user.has_role? :member %>   
               <% else %>
                 <%= link_to "<i class='fa fa-bell-o fa-fw'></i>".html_safe, member_notifications_path(current_user.profile) if user_signed_in? && (current_user.has_role? :member) %>   
               <% end %>              
