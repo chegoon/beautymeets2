@@ -22,7 +22,7 @@
     <div class="beautyclass-card-desc" style="">
       <h4 class="beautyclass-card-title subheader text-left"  style=" line-height:105%; margin:0;padding:0; ">
         <a href="<%= beautyclass_path(beautyclass) %>" >
-          <%= truncate(beautyclass.try(:title), 18) %>
+          <%= truncate(beautyclass.try(:title), 18) %> <i class="fa fa-angle-right"></i>
         </a>
       </h4>
       <div style="margin:6px 0;"><%= truncate(beautyclass.try(:description), 56) %></div>
