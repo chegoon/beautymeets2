@@ -15,6 +15,8 @@ class Notice < ActiveRecord::Base
   has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
   
+  has_many :comments, :as => :commentable
+  
 	def increment_view_count(by = 1)
 	  self.view_count ||= 0
 	  self.view_count += by
