@@ -44,7 +44,7 @@
 			 	<% end %>
 			</p>
 	  
-		  	<div class="fb-like" data-href="<%= tutorial_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+		  	<div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
 		  	</div>
 		  	<p style="margin-bottom:4px;"></p>
 		</div>
@@ -132,11 +132,6 @@
 					<%= @beautyclass.supply %></span>
 				</p>
 			<% end %>
-
-		<div style="margin:10px 0;">
-    	<div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-  	</div>
-
 
 			<% if @beautyclass.closed? %>
 
