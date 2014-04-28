@@ -2,7 +2,7 @@
 <div class="row">
   <div class="small-12 columns">
     <%= link_to image_tag(activity.owner.image_url(:very_small),  :style => "width:40px; height:40px;"), (activity.owner.has_role? :admin) ? "#" : beautystar_path(activity.owner.profile) %>
-    <%= link_to activity.owner.name || activity.owner.email, (activity.owner.has_role? :admin) ? "#" : beautystar_path(activity.owner.profile) if activity.owner %>님이 <%= link_to activity.trackable.title, activity.trackable %> 튜토리얼이 업로드 하였습니다.
+    <%= link_to activity.owner.name || activity.owner.email, (activity.owner.has_role? :admin) ? "#" : beautystar_path(activity.owner.profile) if activity.owner %>님이 <%= link_to activity.trackable.title, activity.trackable %> 튜토리얼을 업로드 하였습니다.
     
   </div>
 </div>
