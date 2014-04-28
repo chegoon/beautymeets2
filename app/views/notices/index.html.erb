@@ -4,10 +4,10 @@
     <div style="width:100%;">
       <dl class="tabs" data-tab >
         <dd class=" <%= 'active' if params[:makeup_request].nil? %> " style="width:50%; text-align:center; ">
-          <a href="#panel-notice" style="color:#FFF; <%= params[:makeup_request].nil? ? 'background: url(/assets/tutorial_header_bg.jpg);' : 'background: #DDD;' %> font-size:1.4rem;">공지사항</a>
+          <a href="#panel-notice" style="color:#FFF; <%= params[:makeup_request].nil? ? 'background: url(/assets/tutorial_header_bg.jpg);' : 'background: #DDD;' %> font-family: 'Nanum Gothic', sans-serif; font-size:1.4rem;">공지사항</a>
         </dd>
         <dd class="<%= 'active' if params[:makeup_request].present? && params[:makeup_request] == 'true' %>" style="width:50%;text-align:center;">
-          <a href="#panel-suggest" style="color:#FFF; <%=  params[:makeup_request].present? && params[:makeup_request] == 'true'  ? 'background: url(/assets/tutorial_header_bg.jpg);' : 'background: #DDD;' %> font-size:1.4rem;">아이디어</a>
+          <a href="#panel-suggest" style="color:#FFF; <%=  params[:makeup_request].present? && params[:makeup_request] == 'true'  ? 'background: url(/assets/tutorial_header_bg.jpg);' : 'background: #DDD;' %> font-family: 'Nanum Gothic', sans-serif; font-size:1.4rem;">아이디어</a>
         </dd>
       </dl>
     </div>
