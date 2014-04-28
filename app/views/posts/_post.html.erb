@@ -2,7 +2,7 @@
 <div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " style="margin-bottom:20px;">
   <div class="post-card">
     <div class="text-center" style="position: relative; margin:0 auto; ">
-      <a class="reveal post-card-thumb " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
+      <a class=" post-card-thumb " href="<%= post_path(post) %>" style='background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
         <div  style=" padding:6px 8px;width:100%; background:rgba(255,255,255, 0.5); position:absolute; left:0; bottom:0; ">
 
           <span class="right " style="color:#515d61;"><%= truncate(post.try(:title), 26) %>&nbsp;<i class="fa fa-angle-right"></i></span>

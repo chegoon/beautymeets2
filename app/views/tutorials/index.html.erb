@@ -49,7 +49,7 @@
 					<div style="background:#f4f4f4;">
 	          <ul class="button-group radius" >
 	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> >최근 2주</a></li>
-	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></dd>
+	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></li>
 	          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> >최신순</a></li>
 	          </ul>
 	        </div>

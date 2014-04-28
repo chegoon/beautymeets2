@@ -1,25 +1,26 @@
-<div class="row" style="" >
-	<div class="large-12 columns" style="">  
-		<h3 style="letter-spacing:-0.5px;">Beautyclass</h3>    			
-		<hr>
-	</div>
+<div style="height:90px; position:relative; ">
+	<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+    		BeautyClass
+    	</h4>
 </div>
 
-<div class="row">
-	<div class="small-12 columns">
-		<ul class="breadcrumbs">
+<div class="row " style="">
+	<div class="small-12 medium-6 columns">
+		<ul class="breadcrumbs" style="border:0; background:#FCFCFC;">
 			<% Category.where(parent_id: Category.find_by_name("beautyclass").id).each do |cat| %>
 				<li><%= link_to cat.name, { controller: "beautyclasses", cat: cat.id } %></li>
 			<% end %>
 		</ul>
 	</div>
-</div>
-<div class="row">
-	<div class="small-12 columns">
-		<%= link_to 'New Beauclass', new_beautyclass_path, :class => "button secondary radius tiny"   if can? :manage, Beautyclass %>
-		<%= link_to 'See Draft', {  controller: "beautyclasses", published: 0 }, :class => "button secondary radius tiny " if can? :manage, Beautyclass %>
-		<%= link_to "참여가능한 클래스 살펴보기", {  controller: "beautyclasses", closed: 0 }, :class => "button secondary radius tiny " %>
-		<%= link_to "종료된 클래스 살펴보기", {  controller: "beautyclasses", closed: 1 }, :class => "button secondary radius tiny right" %>
+	<div class="small-12 medium-6 columns" style="">
+		<div id="" class="right" style=" ">		
+			<div style="background:#f4f4f4;">
+				<ul class="button-group radius" >
+					<li><a class="button small <%= 'secondary' if params[:closed] == '1' %> sort"  data-sort="view_count" href=<%= "#{beautyclasses_path}?closed=0" %> >참여가능 클래스</a></li>
+					<li><a class="button small <%= 'secondary' if  params[:closed].nil? || params[:closed] == '0' %> sort"  data-sort="published_at" href=<%= "#{beautyclasses_path}?closed=1" %> >종료된 클래스</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -27,6 +28,14 @@
 if @beautyclasses.present? 
 %>
 <div class="row" >
-	<%= render @beautyclasses %>
+	<div class="small-12 columns">
+		<div class="card-outter">
+			<div class="row " style="">
+				<% @beautyclasses.each do |beautyclass| %>
+					<%= render beautyclass %>
+				<% end %>
+			</div>
+		</div>
+	</div>
 </div>
 <% end %>

@@ -1,63 +1,31 @@
-	<div class="small-12 medium-6 columns" style="margin-bottom:20px;">
-		<div class="panel beautyclass-card" style="border:0; padding-bottom:0; background:#FFF;">
-			<div class="row">
-				<div class="small-12 columns">
-					<%= link_to "", beautyclass.closed? ? "#" : beautyclass_path(beautyclass), :class => "beautyclass-card-thumb button radius #{ 'disabled' if beautyclass.closed? }", :style => " background-image: url(#{beautyclass.thumbnail.present? ? beautyclass.thumbnail.image_url : beautyclass.image_url}); 
-              background-repeat: no-repeat; " %>
-					<h3 style=" height:3.0rem;"><small><%= "[Draft]" if beautyclass.published.nil? || !beautyclass.published? %></small><%= link_to truncate(beautyclass.title, 26), beautyclass_path(beautyclass) %></h3>
 
-		      <h5 class="subheader  text-left" style="margin:5px 10px;  color:#999; ">
-		        <%= render partial: 'users/avatar_thumb', locals: { user: beautyclass.author } if beautyclass.author.present? && beautyclass.author.image.present? %>
-		        <span class="group_name" >
-		          <small>
-		          	<% if beautyclass.author.has_role? :admin %>
-		          		<strong><%= beautyclass.author.try(:name) %></strong>
-		          	<% else %>
-		            	<strong><%=  link_to beautyclass.author.try(:name), beautystar_path(beautyclass.author.profile) %></strong>
-		          		&nbsp;<%= "| #{beautyclass.author.profile.job_title}" if beautyclass.author.profile.job_title.present? %>
-		          	<% end %>
-		          </small>
-		        </span>
-		      </h5>    
-					<div style=" height:3.0rem; margin:5px;"><%= truncate(beautyclass.description, 70) %></div>
-					
-					<% if user_signed_in? && (current_user.has_role? :member) %>
-						<% current_user.checkouts.where(beautyclass_id: beautyclass.id).each do |co|  %>
-							<span class="label radius " ><strong><%= co.status_name %></strong></span>
-						<% end %>
-					<% end %>
-					<div class="row">
-						<div class="small-9 columns">
-							<span class='subheader'><i class="fa fa-map-marker"></i>&nbsp;<%= beautyclass.location.present? ? "<strong>#{beautyclass.location.name}</strong>".html_safe : "장소 정보 없음" %></span>
-						</div>
-						<div class="small-3 columns">
-							<h4 class='subheader right' >
-								<small>
-								<%= '<span class="label alert radius right" >sold out</span>'.html_safe if beautyclass.closed? %>
-								</small>
-							</h4>
-						</div>
-						<div class="small-5 columns">
-							<% if beautyclass.categories.first.present? && beautyclass.categories.first.name == "프라이빗 클래스" %>
-							<% else %>								
-								<% if beautyclass.start_date && beautyclass.end_date %>
-								<div class="panel radius <%= 'callout' if !beautyclass.closed? %> text-center" style=" border:0; padding:6px; max-width:80px;">
-									<small><%= beautyclass.start_date.strftime("%Y.%m") %></small>
-									<h2 ><%= beautyclass.start_date.strftime("%d") %></h2>
-									<small><%= beautyclass.start_date.strftime("%H:%M") %>~<%= beautyclass.try(:end_date).strftime("%H:%M")  %></small>
-								</div>
-								<% end %>
-							<% end %>
-						</div>
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "2").to_i %>  columns " >
+  <div class=" beautyclass-card">
+    <div class="text-center " style="position: relative;  ">
 
-						<div class="small-7 columns" style="position:relative; height:100px;">
-							<% if beautyclass.categories.first.present? && beautyclass.categories.first.name == "프라이빗 클래스" %>
-								<%= link_to "문의하기", beautyclass_path(beautyclass), :class => "right button radius secondary" %>	
-							<% end %>
-							<h5 class="subheader right" style="position:absolute; bottom:0; right:10px; "><small><%= link_to "<span><i class='fa fa-file-text-o'></i>&nbsp;Class Review</span>".html_safe, beautyclass.review_url, :target => "_blank" if beautyclass.review_url? %>&nbsp;&nbsp;<i class="fa fa-eye"></i> <%= filtered_number(beautyclass.view_count) %></small></h5>	
-						</div>
-					</div>
-				</div>
+	<a  class="beautyclass-card-thumb  " href="<%= beautyclass_path(beautyclass) %>" style="background-image: url( <%= beautyclass.thumbnail.image_url(:medium) if beautyclass.thumbnail.present? %>); background-repeat: no-repeat;">
+        
+		<div style=" padding:18px 20px; width:100%; background:rgba(255,255,255, 0.7); position:absolute; left:0; bottom:0; ">
+			<div class="left" style="margin:0 10px 0 0;">
+				<%= image_tag(beautyclass.author.image_url(:very_small), :style => "width:34px; height:34px;") %>
 			</div>
-		</div>
-	</div>
+			<div class="left text-left" style="color:#333;" >
+				<span style="font-size:0.75rem;"><%= "#{beautyclass.author.profile.try(:job_title)}" if !beautyclass.author.has_role?(:admin) %>
+				</span><br/>
+			      <span style="font-size:1.5rem;"><%= beautyclass.author.try(:name) %>
+			      </span>
+			</div>
+        	</div>
+      </a>
+    </div>
+    <div class="beautyclass-card-desc" style="">
+      <h4 class="beautyclass-card-title subheader text-left"  style=" line-height:105%; margin:0;padding:0; ">
+        <a href="<%= beautyclass_path(beautyclass) %>" >
+          <%= truncate(beautyclass.try(:title), 18) %>
+        </a>
+      </h4>
+      <div style="margin:6px 0;"><%= truncate(beautyclass.try(:description), 56) %></div>
+      <%= link_to "<span style='font-size:0.78rem;'><i class='fa fa-file-text-o'></i>&nbsp;Class Review</span>".html_safe, beautyclass.review_url, :target => "_blank" if beautyclass.review_url? %>
+    </div>
+  </div>
+</div>
