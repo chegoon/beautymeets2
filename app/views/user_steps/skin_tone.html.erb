@@ -1,10 +1,11 @@
-<div class="progress small-12 success radius" style="border:0;">
-  <span class="meter" style="width: 75%"></span>
+<div class="progress small-12 success radius" style="border:0; margin-top:30px;">
+  <span class="meter" style="width: 75%; background:#60DCC6; height:10px;"></span>
 </div>
-<h3>피부톤을 체크해주세요.</h3>
+<h3 class="subheader"><strong>피부톤</strong>을 체크해주세요.</h3>
 <%= simple_form_for @member, url: wizard_path do |f| %>
-	<%= f.input :skin_tone_list, :as => :check_boxes, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply"%>
-	<%= f.input :skin_tone_list, :placeholder => "여러개를 적으실 경우, ','로 표시" %>
+	<%= f.input :skin_tone_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply", :label => "" %>
+	<%= #f.input :skin_tone_list, :placeholder => "여러개를 적으실 경우, ','로 표시" 
+	%>
 	<%= f.button :submit, "Continue" %>
 	<%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
 <% end %>

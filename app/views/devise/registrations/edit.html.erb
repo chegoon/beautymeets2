@@ -5,10 +5,10 @@
     <%= render 'members/sub_nav' if current_user.has_role? :member  %>
 
     <dl class="tabs" data-tab>
-      <dd class="active"><a href="#panel2-1">Name</a></dd>
-      <dd><a href="#panel2-2">Image</a></dd>
-      <dd><a href="#panel2-3">Password</a></dd>
-      <dd><a href="#panel2-4">Membership out</a></dd>
+      <dd class="active"><a href="#panel2-1">이름</a></dd>
+      <dd><a href="#panel2-2">프로필이미지</a></dd>
+      <dd><a href="#panel2-3">패스워드</a></dd>
+      <dd><a href="#panel2-4">탈퇴</a></dd>
     </dl>
     <div class="tabs-content">
       <div class="content active" id="panel2-1">
@@ -95,7 +95,7 @@
         <% end %>
       </div>
       <div class="content" id="panel2-4">
-        <p>Really? <%= link_to "Membership OUT!!", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+        <p>정말 탈퇴하시겠어요? <%= link_to "Membership OUT!!", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
       </div>
     </div>
   </div>

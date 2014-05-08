@@ -5,15 +5,18 @@
     <div class="text-center item-card-thumb" style="position: relative; ">
       
       <%= link_to image_tag(item.thumbnail.image_url(:medium), :style => "height:100px; width:auto; "), item_path(item) if item.thumbnail.present? %>
-      <span style="position:absolute; right:10px; top:10px; color:#F59C66;"><%= "New" if (Time.zone.now - item.created_at).to_i / 1.day <= 20 %>
-      </span>
     </div>
     <div class="item-card-desc" style="padding:5px;">
     	<hr style="margin:0;">
-    	<h5 class="subheader  text-left" style="margin:-4px 0; padding:0;  color:#999; ">
+    	<h5 class="subheader  text-left" style="margin:-4px 0; position:relative; padding:0;  color:#999; ">
           <small>
-            <strong><%= item.brand.try(:name) %></strong>
+            <strong><%= item.brand.try(:name) %>
+              <span style="position:absolute; right:10px; top:10px; color:#F59C66;"><%= "New" if (Time.zone.now - item.created_at).to_i / 1.day <= 20 %>
+            </strong>
+          </span>
           </small>
+
+          
       </h5>  
       <h6 class="item-card-title subheader text-left"  style="letter-spacing:-0.5px; margin:0;padding:0; line-height:110%; ">
 

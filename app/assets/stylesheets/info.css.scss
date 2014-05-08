@@ -1,3 +1,85 @@
 // Place all the styles related to the info controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Backgrounds will cover all the section
+* --------------------------------------- */
+#section0, 
+#section1,
+#section2,
+#section3, 
+#section4 {
+	background-size: cover;
+}
+
+/* Defining each sectino background and styles 
+* --------------------------------------- */
+#section0 {
+	background-image: url(/assets/about_intro_bg.png);
+	position: relative;
+
+	.bm_introduction {
+		position:absolute;
+		top:0; 
+		background:rgba(0, 232, 216, 0.85);
+		padding:20px 40px;
+	}
+}
+
+#section1 {
+	background-position: 0 -400px; 
+	background-repeat: no-repeat; 
+	background-image:url(/assets/about_intro_bg.png);
+	position: relative;
+
+	.app_introduction {
+		width: 100%;
+		position:absolute;
+		bottom:0; 
+		padding:40px 60px 30px 40px;
+		min-height: 450px;
+		background:rgba(0, 232, 216, 0.9);
+	}
+
+}
+
+#section2 {
+	background-image: url(/assets/about_tutorial_bg.png);
+	padding: 50px 40px;
+	position: relative;
+
+	.tutorial_introduction {
+		bottom:100px; 
+		position:absolute;
+		width: 100%;
+		position:absolute;
+		top:0; 
+	}
+}
+
+#section3 {
+	background-image: url(/assets/about_beautyvideo_bg.png);
+	padding: 50px 40px;
+
+	.beautyvideo_introduction {
+		width: 100%;
+		top:0; 
+	}
+}
+
+#section4 {
+	background-image: url(/assets/about_beautyclass_bg.png);
+	padding: 50px 40px;
+}
+
+.beautyvideo_introduction, .beautyclass_introduction {
+	text-align:right;	
+}
+
+.bm_introduction, .app_introduction, .tutorial_introduction, .beautyvideo_introduction, .beautyclass_introduction {
+
+	h1, h2, h3, h4, h5, p {
+		color:#FFF;
+		text-align:left;
+	}	
+}

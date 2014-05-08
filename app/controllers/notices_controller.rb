@@ -2,7 +2,7 @@ class NoticesController < ApplicationController #InheritedResources::Base
 	inherit_resources
 
 	def index
-		@commentable = Notice.last
+		@commentable = Notice.find(2)
 		@comments = @commentable.root_comments.order("created_at ASC")
 
 		if user_signed_in?

@@ -1,11 +1,11 @@
 <%= render 'member_header' %>
 
 <div class="row" >
-	<div class="small-12 small-centered columns" style="background:#FFF; padding:20px;">
+	<div class="small-12 small-centered columns" style="background:#FFF; padding:20px 20px 60px 20px;">
 		<%= render 'sub_nav' %>
 
 
-		<%= link_to '프로필 수정', edit_user_registration_path(@member.user), :class => "right button radius " if (user_signed_in? && current_user.id == @member.user.id) %>
+		<%= link_to '프로필 수정', edit_user_registration_path(@member.user), :class => "right button radius ", :style => "padding: 10px 25px; font-family: 'Nanum Gothic', sans-serif;" if (user_signed_in? && current_user.id == @member.user.id) %>
 		<table style="border:0; width:100%;">
 			<tbody>
 				<tr style="border-bottom:1px #EEE solid">
@@ -13,7 +13,7 @@
 						이름
 					</td>
 					<td  style="background:#FFF; padding-left:20px;">
-						<%= @member.user.name %>
+						<%=  @member.user.name %>
 					</td>
 				</tr >
 				<tr style="border-bottom:1px #EEE solid">
@@ -28,65 +28,86 @@
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
 						성별
 					</td>
-					<td  style="background:#FFF; padding-left:20px;">
-						<%= @member.gender.name if @member.gender.present? %>
-						<%= link_to '수정', edit_member_path(current_user.profile), :class => "right "  if (user_signed_in? && current_user.id == @member.user.id) %>
+					<td  style="background:#FFF; padding-left:20px; color:#4ce0d0;">
+						<%= best_in_place_if @member.gender_id,  @member, :gender_id, type: :select, :collection => [[1, "여"], [2, "남"]] if (user_signed_in? && current_user.id == @member.user.id) %>
+						<!-- <i class="fa fa-pencil" style="color:#CCC;"></i> -->
 					</td>
 				</tr>
 				<tr>
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
-						생년월일
+						출생년도
 					</td>
-					<td  style="background:#FFF; padding-left:20px;">
-						<%= best_in_place @member, :year_of_birth, type: :integer if @member.year_of_birth.present?%>
-						<%= link_to '수정', edit_member_path(current_user.profile), :class => "right"  if (user_signed_in? && current_user.id == @member.user.id) %>
+					<td  style="background:#FFF; padding-left:20px; color:#4ce0d0;">
+						<%
+						#year_list = (Date.today.year-40)..(Date.today.year-15)
+						#year_collection = Hash.new
+						#year_list.each do |y|
+						#	year_collection[y] = y
+						#end
+						%>
+						<%= best_in_place_if @member.year_of_birth, @member, :year_of_birth, type: :input  if (user_signed_in? && current_user.id == @member.user.id) %>
+						<%= #best_in_place_if @member.year_of_birth, @member, :year_of_birth,  type: :select, :collection => [[1, "1"], [2, "2"]] if (user_signed_in? && current_user.id == @member.user.id) 
+						%>
+						<!-- <i class="fa fa-pencil" style="color:#CCC;"></i> -->
 					</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<%= link_to '피부정보 수정', edit_member_path(current_user.profile), :class => "right button radius"  if (user_signed_in? && current_user.id == @member.user.id) %>
+		<%= link_to '피부정보 수정', edit_member_path(current_user.profile), :class => " right button radius", :style => "padding: 10px 25px; font-family: 'Nanum Gothic', sans-serif;"  if (user_signed_in? && current_user.id == @member.user.id) %>
 
 		<table style="border:0; width:100%;">
 			<tbody>
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
-						피부 타입
+						<% if (user_signed_in? && current_user.id == @member.user.id) %>
+							<%= link_to "피부 타입", edit_member_path(current_user.profile) %>
+						<% else %>
+							피부 타입
+						<% end %>
 					</td>
 					<td  style="background:#FFF; padding-left:20px;">
 						<ul class="inline-list" style="margin-bottom:0;">
 						<% @member.skin_type_list.each do |t| %>
-							<li><span class="label secondary radius"><%= t %></span></li>
+							<li><span class="  "><%= t %></span></li>
 						<% end %>
 						</ul>
 					</td>
 				</tr >
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
-						피부 톤
+						<% if (user_signed_in? && current_user.id == @member.user.id) %>
+							<%= link_to "피부 톤", edit_member_path(current_user.profile) %>
+						<% else %>
+							피부 톤
+						<% end %>
 					</td>
 					<td  style="background:#FFF; padding-left:20px;">
 						<ul class="inline-list" style="margin-bottom:0;">
 							<% @member.skin_tone_list.each do |t| %>
-								<li><span class="label secondary radius"><%= t %></span></li>
+								<li><span class=""><%= t %></span></li>
 							<% end %>
 						</ul>
 					</td>
 				</tr >
 				<tr style="">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
-						피부 고민
+						<% if (user_signed_in? && current_user.id == @member.user.id) %>
+							<%= link_to "피부 고민", edit_member_path(current_user.profile) %>
+						<% else %>
+							피부 고민
+						<% end %>
 					</td>
 					<td  style="background:#FFF; padding-left:20px;">
 						<ul class="inline-list" style="margin-bottom:0;">
 							<% @member.skin_trouble_list.each do |t| %>
-								<li><span class="label secondary radius" ><%= t %></span></li>
+								<li><span class="" ><%= t %></span></li>
 							<% end %>
 						</ul>
 					</td>
 				</tr >
 			</tbody>
 		</table>
-		<%= link_to "로그아웃", destroy_user_session_path, :class => "right ", method: :delete  %>
+		<%= link_to "로그아웃", destroy_user_session_path,  :class => "right button secondary radius", :style => "padding: 10px 25px; font-family: 'Nanum Gothic', sans-serif;", method: :delete  if user_signed_in? %>
 	</div>
 </div>

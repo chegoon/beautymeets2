@@ -68,7 +68,7 @@
 
       a {
         color: #589B9F; 
-
+        
       }
       .wrap{
         margin-left: auto;
@@ -98,8 +98,20 @@
       </div>
     <% end %>
 
+    <% if controller_name == "info" && action_name == "about"  %>
+
+        <%= yield %>
+
+        <%= render "layouts/to_top" %>
+
+        <%= yield :scripts %>
+        <!-- dif for static footer-position -->
+
+        <%= render "layouts/footer" %>
+    <% else %>
     <div class="row" >
       <div class="small-12 small-centered columns ">
+
         <%= yield %>
 
         <%= render "layouts/to_top" %>
@@ -110,7 +122,7 @@
         <%= render "layouts/footer" %>
       </div>
     </div>
-
+    <% end %>
     <%= javascript_include_tag "application" %>
     <!-- Foundation 3 for IE 8 and earlier -->
     <!--[if lt IE 9]>
