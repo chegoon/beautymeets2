@@ -1,18 +1,30 @@
 
 <div class="section active" id="section0" style="">
 	<div class="left bm_introduction" style="">
-		<%= image_tag "/assets/about_intro_desc.png", :style => "height: 235px; width:auto;" %>
+
+		<%= image_tag "/assets/about_intro_bg.png", :class => "show-for-small-only", :style => "width:100%; height:auto;" %> 
+		<div class="bm_introduction_inner">
+			<div  class="show-for-medium-up" style="margin-bottom:40px;  width: 120px; height:2px; background:rgba(221, 221, 221, 0.5);">
+			</div>
+			<%= image_tag "/assets/about_intro_desc.png", :style => "height: 137px; width:auto;" %>
+		</div>
 	</div>
 </div>
 
 <div class="section" id="section1" style="">
-		<div class="app_introduction">
-			<div style="width:100%; text-align:left;">
-				<%= image_tag "/assets/about_app_desc.png", :style => "height: 235px; width:auto;" %>
-			</div>
-			<div style="width:100%; text-align:left;">
-				<%= link_to image_tag("/assets/about_btn_join.png", :style => "height: 38px; width:auto;") , new_user_registration_path %>
-				<%= link_to image_tag("/assets/about_btn_googleplay.png", :style => "height: 38px; width:auto;") , "https://play.google.com/store/apps/details?id=com.beautymeets.app" %>
+		<div class="left app_introduction">
+			<%= image_tag "/assets/about_intro_bg.png", :class => "show-for-small-only", :style => "width:100%; height:auto;" %> 
+
+			<div class="app_introduction_inner">
+				<div class="show-for-medium-up" style="margin-bottom:40px;  width: 120px; height:2px; background:rgba(221, 221, 221, 0.5);">
+				</div>
+				<div style="text-align:left;">
+					<%= image_tag "/assets/about_app_desc.png", :style => "height: 137px; width:auto;" %>
+				</div>
+				<div style="text-align:left;">
+					<%= link_to image_tag("/assets/about_btn_join.png", :style => "height: 38px; width:auto;") , new_user_registration_path %>
+					<%= link_to image_tag("/assets/about_btn_googleplay.png", :style => "height: 38px; width:auto;") , "https://play.google.com/store/apps/details?id=com.beautymeets.app" %>
+				</div>
 			</div>
 		</div>
 
@@ -20,19 +32,28 @@
 
 <div class="section" id="section2" style=" ">
 	<div class="tutorial_introduction text-left">
-		<%= image_tag "/assets/about_tutorial_desc.png", :style => "height: 235px; width:auto;" %>
+		<%= image_tag "/assets/about_tutorial_bg.png", :class => "show-for-small-only", :style => "width:100%; height:auto;" %> 
+		<div class="tutorial_introduction_inner">
+			<%= image_tag "/assets/about_tutorial_desc.png", :style => "height: 233px; width:auto;" %>
+		</div>
 	</div>
 </div>
 
 <div class="section" id="section3" style=" ">
 	<div class="beautyvideo_introduction">
-		<%= image_tag "/assets/about_beautyvideo_desc.png", :style => "height: 235px; width:auto;" %>
+		<%= image_tag "/assets/about_beautyvideo_bg.png", :class => "show-for-small-only", :style => "width:100%; height:auto;" %> 
+		<div class="beautyvideo_introduction_inner">
+			<%= image_tag "/assets/about_beautyvideo_desc.png", :style => "height: 233px; width:auto;" %>
+		</div>
 	</div>
 </div>
 
 <div class="section" id="section4" style=" ">
 	<div class="beautyclass_introduction">
-		<%= image_tag "/assets/about_beautyclass_desc.png", :style => "height: 235px; width:auto;" %>
+		<%= image_tag "/assets/about_beautyclass_bg.png", :class => "show-for-small-only", :style => "width:100%; height:auto;" %> 
+		<div class="beautyclass_introduction_inner">
+			<%= image_tag "/assets/about_beautyclass_desc.png", :style => "height: 233px; width:auto;" %>
+		</div>
 	</div>
 </div>
 
@@ -64,7 +85,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.fn.fullpage({
-			/*  verticalCentered: false, */
+			verticalCentered: true, 
 			loopTop: true,
 			loopBottom: true
     });
