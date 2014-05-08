@@ -18,28 +18,24 @@
 		</div>
 	</div>
 	<div class="small-12 columns ">
-		<ul class="breadcrumbs show-for-medium-up " style="border:0; margin-top:10px;">
-	  		<li  style="font-size:0.9rem;font-weight:bold;">
-	  			<div class="text-center" style="margin-top:2px; ">
+		<div class="panel show-for-medium-up" style="border:0; height:30px; padding: 8px 10px;">
+
+	  			<div class="left text-center" style="width:23%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "Profile", member_path(@member), :style => (action_name == 'show' ?  "color:#68F0D8;" :   "color:#AAA;" ) %>
 	  			</div>
-	  		</li>
-	  		<li   style="font-size:0.9rem;font-weight:bold;">
-	  			<div class="text-center" style="margin-top:-18px;margin-left:20px;font-weight:bold;">
+	  			<div class="left text-center" style="color:#AAA;">|</div>
+	  			<div class="left text-center" style="width:26%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "Notification", member_notifications_path(@member), :style => (action_name == 'notifications' ?  "color:#68F0D8;" :   "color:#AAA;" ) %>
 	  			</div>
-	  		</li>
-	  		<li  style="font-size:0.9rem;font-weight:bold;">
-	  			<div class="text-center" style="margin-top:-18px;margin-left:20px;">
+	  			<div class="left text-center" style="color:#AAA;">|</div>
+	  			<div class="left text-center" style="width:26%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "Bookmark", member_bookmarks_path(@member), :style => (action_name == 'bookmarks' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
 	  			</div>
-	  		</li>
-	  		<li   style="font-size:0.9rem;font-weight:bold;">
-	  			<div class="text-center" style="margin-top:-18px;margin-left:20px;">
+	  			<div class="left text-center" style="color:#AAA;">|</div>
+	  			<div class="left text-center" style="width:22%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "Beautyclass", member_beautyclasses_path(@member), :style => (action_name == 'beautyclasses' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
 	  			</div>
-	  		</li>
-  		</ul>
+		</div>
 		<div class="panel show-for-small-only text-center" style="border:0; margin: 20px -10px 20px -10px; padding:20px 10px 60px 10px;">
 	  		<div class="text-center left" style="width:25%; font-size:0.785rem;">
 	  			<i class="fa fa-user fa-lg fa-fw" style="color:#999; margin:10px 20px 10px 20px;"></i><br/>
