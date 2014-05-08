@@ -19,22 +19,22 @@
 	</div>
 	<div class="small-12 columns ">
 		<ul class="breadcrumbs show-for-medium-up " style="border:0; margin-top:10px;">
-	  		<li class="text-center" style="width:22%;font-size:0.9rem;font-weight:bold;">
+	  		<li  style="font-size:0.9rem;font-weight:bold;">
 	  			<div class="text-center" style="margin-top:2px; ">
 	  				<%= link_to "Profile", member_path(@member), :style => (action_name == 'show' ?  "color:#68F0D8;" :   "color:#AAA;" ) %>
 	  			</div>
 	  		</li>
-	  		<li   style="width:26%;font-size:0.9rem;font-weight:bold;">
+	  		<li   style="font-size:0.9rem;font-weight:bold;">
 	  			<div class="text-center" style="margin-top:-18px;margin-left:20px;font-weight:bold;">
 	  				<%= link_to "Notification", member_notifications_path(@member), :style => (action_name == 'notifications' ?  "color:#68F0D8;" :   "color:#AAA;" ) %>
 	  			</div>
 	  		</li>
-	  		<li  style="width:26%;font-size:0.9rem;font-weight:bold;">
+	  		<li  style="font-size:0.9rem;font-weight:bold;">
 	  			<div class="text-center" style="margin-top:-18px;margin-left:20px;">
 	  				<%= link_to "Bookmark", member_bookmarks_path(@member), :style => (action_name == 'bookmarks' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
 	  			</div>
 	  		</li>
-	  		<li   style="width:26%;font-size:0.9rem;font-weight:bold;">
+	  		<li   style="font-size:0.9rem;font-weight:bold;">
 	  			<div class="text-center" style="margin-top:-18px;margin-left:20px;">
 	  				<%= link_to "Beautyclass", member_beautyclasses_path(@member), :style => (action_name == 'beautyclasses' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
 	  			</div>
