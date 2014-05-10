@@ -1,0 +1,7 @@
+$('#comment_form').hide();
+$('#comments').append("<hr style='margin: 0 0 10px 0;'>");
+$('#comments').append('<%= j render(@comment) %>');
+$('#comment_form').show();
+/* $('#comment_form').children('textarea').val('');  */
+$(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+$(':checkbox, :radio').prop('checked', false);

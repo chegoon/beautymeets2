@@ -5,30 +5,61 @@
 
 
 @media only screen and (max-width: 40em) { 
+	/* Backgrounds will cover all the section
+	* --------------------------------------- */
+	#section0, 
+	#section1,
+	#section2,
+	#section3, 
+	#section4 {
+		background-size: 200%;
+		
+		background-repeat: no-repeat;
+	}
 
 	#section0, #section1 {
-		position:relative;
-		background:rgba(0, 232, 216, 0.6);
 
+		position:relative;
+		background-image: url(/assets/about_intro_bg.png);
+		background-position: center 0;
+		
 		.bm_introduction, .app_introduction {
 			position:absolute;
-			top:0;
+			bottom:40px;
+			background:rgba(0, 232, 216, 1.0);
 			width:100%;
 		}
 		.bm_introduction_inner, .app_introduction_inner {
 			padding: 20px;
 			text-align: center;
 			height:100%;
+			
 		}
 	}
-
+	
+	#section2 {
+		background-image: url(/assets/about_tutorial_bg.png);
+		background-position: center 0;
+	}
+	#section3 {
+		background-image: url(/assets/about_beautyvideo_bg.png);
+		background-position: 0 0;
+	}
+	#section4 {
+		background-image: url(/assets/about_beautyclass_bg.png);
+		background-position: -50px -30px;
+	}
+	
+	
+	
 	#section2, #section3, #section4 {
 		position:relative;
-		background:rgba(51, 51, 51, 0.6);
+		/* background:rgba(51, 51, 51, 1.0); */
 
 		.tutorial_introduction, .beautyvideo_introduction, .beautyclass_introduction {
+			background:rgba(51, 51, 51, 1.0);
 			position:absolute;
-			top:0;
+			bottom:20px;
 			width:100%;
 		}
 		.tutorial_introduction_inner, .beautyvideo_introduction_inner, .beautyclass_introduction_inner {

@@ -27,7 +27,7 @@ class RegistrationsController < Devise::RegistrationsController
         resource.profile = Member.create!
         resource.add_role :member
         resource.save
-        UserMailer.welcome(resource).deliver unless @user.invalid?
+        UserMailer.delay.welcome(resource) unless @user.invalid?
 
         yield resource if block_given?
         if resource.active_for_authentication?

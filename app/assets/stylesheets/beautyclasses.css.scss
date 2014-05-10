@@ -1,3 +1,59 @@
 // Place all the styles related to the beautyclasses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+// Small screens
+@media only screen and (max-width: 40em) { 
+  .beautyclass-show-category {
+    float:left;
+    text-align:left;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+
+  }
+  .beautyclass-index-head {
+     margin:0 -13px;
+  }
+  .beautyclass-index-head-title {
+    padding:2.5rem 1rem 2rem 1.5rem; 
+  }
+  .beautyclass-index-title {
+  	padding:0 10px;
+  }
+
+  .beautyclass-card-outter {
+      padding:20px 10px 10px 10px; 
+      background:#FCFCFC;
+  }
+} /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+// Medium screens
+@media only screen and (min-width: 40.063em) { 
+  .beautyclass-show-category {
+    float:right;
+    text-align:right;
+    font-size:0.75rem;
+    letter-spacing:-0.2px; 
+    margin-bottom:5px; color:#AAA;
+
+  }
+	.beautyclass-index-head {
+     margin:0 -0.2rem;
+	}
+  .beautyclass-index-head-title {
+    padding:3.5rem 1rem 2rem 0.5rem; 
+  }
+  .beautyclass-index-title {
+  	padding:0;
+  }
+
+  .beautyclass-card-outter {
+      padding:20px 20px 10px 20px; 
+      background:#FCFCFC;
+  }
+
+} /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+

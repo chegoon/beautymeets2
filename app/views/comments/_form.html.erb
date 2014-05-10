@@ -1,6 +1,6 @@
-<div class="row">
+<div id="comment_form" class="row comment">
   <div class="small-12 columns">
-    <%= simple_form_for [@commentable, @comment] do |f| %>
+    <%= simple_form_for [@commentable, @comment], remote: true do |f| %>
       <%= f.error_notification %>
 
       <div class="row">

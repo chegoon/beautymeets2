@@ -15,12 +15,15 @@
 			btn_msg = "클래스를 성공적으로 참가하셨습니다. "							
 		end
 		%>
-		<a class="button secondary expand" ><%= "#{btn_msg}" %></a>
+		<a class="button secondary expand" style=""><%= "#{btn_msg}" %></a>
 	<% end %>
 	<% if (@checkouts.find_by_checkout_status_id(CheckoutStatus.find_by_name("Attended successfully").try(:id)).present?) && (@beautyclass.categories.first.name == "프라이빗 클래스") %>
 		그렇다면 다시 한번 더 들어보는 건 어떨까요?
-		<a href="#" data-reveal-id="modal-beautyclass-regist" class="button  radius" ><strong>참여하기</strong></a>
+		<a href="#" data-reveal-id="modal-beautyclass-regist" class="button  radius" style="
+        font-family: 'Nanum Gothic', sans-serif;"><strong>참여신청하기</strong></a>
+
 	<% end %>							
 <% else %>
-	<a href="#" data-reveal-id="modal-beautyclass-regist" class="button  radius" ><strong>참여하기</strong></a>
+	<a href="#" data-reveal-id="modal-beautyclass-regist" class="button  radius" style="
+        font-family: 'Nanum Gothic', sans-serif;"><strong>참여신청하기</strong></a>
 <% end %>

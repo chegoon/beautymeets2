@@ -201,8 +201,8 @@
       OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
       <%= render "comments/comments" %>
     <% else %>
-			<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
-			<%= render "comments/comments" || "댓글이 없습니다." %>
+		<%= render "comments/comments" || "댓글이 없습니다." %>
+		<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
 		<% end %>
 	</div>
 </div>

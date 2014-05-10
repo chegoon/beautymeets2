@@ -105,8 +105,7 @@ class VideoGroupsController < ApplicationController
     @video_groups = VideoGroup.all
 
     @video_groups.each do |group|
-      #VideoGroup.delay.update_group(group.id)
-      VideoGroup.update_group(group.id)
+      VideoGroup.delay.update_group(group.id)
     end
 
     redirect_to video_groups_path

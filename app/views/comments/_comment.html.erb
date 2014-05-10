@@ -1,0 +1,41 @@
+
+	<div id="comment_<%= comment.id %>" class="row comment" >
+		<div class="small-12 medium-12 columns"  >
+			<h6 class="subheader" style="margin-bottom:0; color:#ccc;">
+				<%= comment.author.present? ? ((comment.author.name != "") ? comment.author.name : comment.author.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %> :
+			</h6>
+			<p style="margin-bottom:10px; line-height:110%;  color:#999; " ><%= comment.body %>
+			<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete , remote: true if can? :author, comment %>
+			<span class="right" style="color:#CCC;"><small><%= time_ago_in_words(comment.created_at) %> ago</small></span>
+			</p>
+
+			<% if @commentable.reply_enabled %>
+			<dl class=" accordion" data-accordion >
+				<% comment.children.each do |reply| %>
+					<div class="row" style="margin-bottom:5px; padding-left:3rem;">
+						<div class="small-12 medium-12 columns">
+							<h6 class="subheader" style="margin-bottom:0; color:#ccc;">
+							<strong style="padding-bottom:10px;">ㄴ</strong><%= reply.author.present? ? ((reply.author.name != "") ? reply.author.name : reply.author.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %> :
+							</h6>
+						</div>
+						<div class="small-12 columns" style="padding-left:2rem;">
+							<p style="margin-bottom:10px; line-height:110%; color:#999;">
+								<%= reply.body %>
+							<%= link_to "&nbsp;X".html_safe, [@commentable, reply], confirm: 'Are you sure?', method: :delete, remote: true  if can? :author, reply %>
+							
+							<span class="right" style="color:#CCC;"><small><%= time_ago_in_words(reply.created_at) %> ago</small></span>
+							</p>
+						</div>
+					</div>
+				<% end %>
+				<dd >
+					<a href="#reply-form-<%= comment.id %>" style="color:#aaa; background:transparent;"><i class="fa fa-fw fa-plus"></i>답변달기
+					</a>
+					<div class="content" id="reply-form-<%= comment.id %>">
+						<%= render partial: 'comments/reply_form', locals: { parent_com_id: comment.id } %>
+					</div>
+				</dd>
+			<% end %>
+			</dl>
+		</div>
+	</div>

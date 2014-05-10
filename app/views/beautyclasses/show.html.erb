@@ -6,9 +6,9 @@
 <div style="height:90px; position:relative; ">
 	<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
 		<%= render 'layouts/go_back' %>
-    		<%= @beautyclass.title%>
-    		<%= link_to "Edit", edit_beautyclass_path if user_signed_in? && current_user.can_update?(@beautyclass) %>
-    	</h4>
+				<%= @beautyclass.title%>
+				<%= link_to "Edit", edit_beautyclass_path if user_signed_in? && current_user.can_update?(@beautyclass) %>
+			</h4>
 </div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
@@ -30,30 +30,30 @@
 			<div class="left">
 				<span style="font-size:0.75rem;"><%= "#{@beautyclass.author.profile.try(:job_title)}" if !@beautyclass.author.has_role?(:admin) %>
 				</span><br/>
-	      		<span style="font-size:1.5rem;"><%= @beautyclass.author.has_role?(:admin) ? @beautyclass.author.try(:name) : link_to(@beautyclass.author.try(:name), beautystar_path(@beautyclass.author.profile)) %>
-	      		</span>
+						<span style="font-size:1.5rem;"><%= @beautyclass.author.has_role?(:admin) ? @beautyclass.author.try(:name) : link_to(@beautyclass.author.try(:name), beautystar_path(@beautyclass.author.profile)) %>
+						</span>
 			</div>
 		</div>
 	</div>
 	<div class="small-12 medium-10 columns">
-      	<div class="" style="padding:10px;">
+				<div class="" style="padding:10px 0;">
 			<%= simple_format(@beautyclass.description, :style => "margin-bottom:4px;") %>
 			<p style="margin-top:0; margin-bottom:2px;">
 				<% @beautyclass.tag_list.each do |t| %>
 					<span class="label secondary radius"><%= t %></span>
-			 	<% end %>
+				<% end %>
 			</p>
-	  
-		  	<div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
-		  	</div>
-		  	<p style="margin-bottom:4px;"></p>
+		
+				<div class="fb-like" data-href="<%= beautyclass_url(@beautyclass) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+				</div>
+				<p style="margin-bottom:4px;"></p>
 		</div>
 	</div>
 	<div class="medium-2 columns">
 		<h3 class="show-for-medium-up" style=" margin-right:-26px;">
 			<small class="right">
 				<%= render 'bookmarks/star' %>
-    			</small>
+					</small>
 		</h3>
 	</div>
 
@@ -90,7 +90,7 @@
 
 <% if !@beautyclass.closed? && @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
 	<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
-		<div class="small-12 medium-10 medium-centered columns" >
+		<div class="small-12 medium-12 medium-centered columns" >
 		
 			<div class="right">
 				<span class="right" style=" color:#000; "><strong>정원 <%= @beautyclass.capacity %> 명</strong></span><br/>
@@ -102,10 +102,10 @@
 <% end %>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
-	<div class="small-12 medium-10 medium-centered  columns" style="">
+	<div class="small-12 medium-12 medium-centered  columns" style="">
 		
-	     <% if @beautyclass.closed? %>
-	     		<div class="panel" style="border:0;">	
+			 <% if @beautyclass.closed? %>
+					<div class="panel" style="border:0;">	
 				<span class="radius alert label">SOLD OUT</span> 클래스가 마감되었습니다. 
 			</div>	
 		<% end %>
@@ -147,10 +147,10 @@
 				</div>
 			<% else %>
 
-				<div class="row">
+				<div class="row"  >
 
 					<% if @beautyclass.categories.first.present? && @beautyclass.categories.first.name != "프라이빗 클래스" %>
-						<div class="small-12 medium-10 medium-centered columns">
+						<div class="small-12 medium-12 medium-centered columns">
 							<div>							
 								<span class="left" style="color:#666;  ">현재 <%= @beautyclass.capacity %>명중&nbsp;</span>
 								<span class="left" style="color:#0bbe8c; "><%= @beautyclass.seats_available %>명 참여가능 합니다.</span>				
@@ -166,8 +166,9 @@
 							</div>
 						<% end %>
 					</div>
-					<div class="small-12 columns text-center">
+					<div class="small-12 columns text-center" >
 						<%= render "checkout_status" %>
+						<%= link_to "<strong>후기보러가기</strong>".html_safe, @beautyclass.review_url, :class => "button radius secondary", :style => "font-family: Nanum Gothic, sans-serif; ",  :target => "_blank" if @beautyclass.review_url? %>
 					</div>
 				</div>
 			<% end %>
@@ -176,18 +177,19 @@
 </div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
-	<div class="small-12 medium-10 medium-centered columns">		
+	<div class="small-12 medium-12 medium-centered columns">		
 		<h3 class="subheader" style="margin:1rem 0 0 0;"><small><%= @beautyclass.title %>에 대해 자유롭게 이야기해봐요.</small>
 		</h3>
 
-    <% if !user_signed_in? %>
-      <p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
-      <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
-      OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
-      <%= render "comments/comments" %>
-    <% else %>
-			<%= render partial: "comments/form", locals: { form_message: "#{@beautyclass.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
+		<% if !user_signed_in? %>
+			<p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+			<a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
+			OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
+			<%= render "comments/comments" %>
+		<% else %>
 			<%= render "comments/comments" || "댓글이 없습니다." %>
+			<%= render partial: "comments/form", locals: { form_message: "#{@beautyclass.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
+			
 		<% end %>
 	</div>
 </div>
@@ -202,7 +204,7 @@
 	<% else %>
 		<h5 class="subheader">로그인 이후 신청 가능합니다. </h5>
 		<a href="<%= new_user_registration_path %>"  class="button " >회원가입</a>
-    <a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
+		<a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
 	<% end %>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
