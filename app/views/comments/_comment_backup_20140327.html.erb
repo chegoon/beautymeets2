@@ -1,0 +1,50 @@
+<% if @comments.present? %>
+<div id="comments" >
+	<% @comments.each_with_index do |comment, i| %>
+	<div class="row comment" >
+		<div class="small-12 medium-12 columns"  >
+			<h6 class="subheader" >
+				<%= render partial: 'users/avatar_thumb', locals: { user: comment.author } if comment.author.present? && comment.author.image.present? %>
+				<strong><%= comment.author.try(:name) || comment.author.try(:email) %></strong> :
+			</h6>
+		</div>
+		<div class="small-12 columns" style="padding-left:4rem;">
+				<%=  comment.body %>
+				<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete  if can? :author, comment %>
+				<h5 class="right"><small><%= time_ago_in_words(comment.created_at) %> ago</small></h5>
+
+			<% if @commentable.reply_enabled %>
+			<dl class=" accordion" data-accordion >
+			<% comment.children.each do |reply| %>
+				<div class="row" style="margin-bottom:5px;">
+					<div class="small-12 medium-12 columns">
+						<h6 class="subheader">
+						<%= render partial: 'users/avatar_thumb', locals: { user: reply.author } if reply.author.present? && reply.author.image.present? %><strong><%= reply.author.name || reply.author.email %></strong> :
+						</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-12 columns" style="padding-left:4rem;">
+						<%= reply.body %>
+						<%= link_to "&nbsp;X".html_safe, [@commentable, reply], confirm: 'Are you sure?', method: :delete  if can? :author, reply %>
+						
+						<span class="right" style="color:#CCC;"><small><%= time_ago_in_words(reply.created_at) %> ago</small></span>
+					</div>
+				</div>
+			<% end %>
+				<dd >
+						<a href="#reply-form-<%= comment.id %>" style="color:#666; background:transparent;"><i class="fa fa-fw fa-plus"></i>답변달기</a>
+						<div class="content" id="reply-form-<%= comment.id %>">
+
+							<%= render partial: 'comments/reply_form', locals: { parent_com_id: comment.id } %>
+
+						</div>
+				</dd>
+			<% end %>
+			</dl>
+		</div>
+	</div>
+	<%= "<hr style='margin:0.1rem 0;'>".html_safe if i < (@comments.length - 1) %>
+	<% end %>
+</div>
+<% end %>

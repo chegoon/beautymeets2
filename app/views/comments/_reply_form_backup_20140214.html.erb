@@ -1,0 +1,5 @@
+<%= simple_form_for [@commentable, @comment] do |f| %>
+  <%= f.hidden_field :parent_id, :value => :parent_comment_id %>
+  <%= f.text_area :body, rows: 4 %>
+  <%= f.button, :submit, 'Reply It', :class => "tiny" %>
+<% end %>
