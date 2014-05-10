@@ -118,7 +118,7 @@
             <ul id="item-carousel" class="elastislide-list ">
             <% @items_in_category.each do |item| %>     
               <li >
-                <%= link_to image_tag(item.thumbnail.image_url(:small), :style => "width:110px; height:110px;"), item_path(item), :class => "th" if item.thumbnail.present? %>
+                <%= link_to image_tag(item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:110px;"), item_path(item) if item.thumbnail.present? %>
                 <div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= item.brand.try(:name) %></div>
                 <div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(item.try(:name), 10), item_path(item) %></strong>
                 </div>
@@ -150,7 +150,7 @@
   <div class="small-12 columns">    
     <h3 class="subheader" style="margin:1rem 0 0 0;">Comment&nbsp;
     </h3>
-    <%= render partial: "comments/form", locals: { form_message: "#{@item.name}에 대한 질문들을 남겨주세요." }    %>    
+    <%= render partial: "comments/form", locals: { form_message: "#{@item.name}에 대한 후기를 자유롭게 남겨주세요." }    %>    
     <%= render "comments/comments" || "댓글이 없습니다." %>
   </div>
 </div>
@@ -225,7 +225,7 @@
             <ul id="item-carousel-tutorial" class="elastislide-list ">
             <% @items_in_tutorial.each do |item| %>     
               <li >
-                <%= link_to image_tag(item.thumbnail.image_url(:small), :style => "width:110px; height:110px;"), item_path(item), :class => "th" if item.thumbnail.present? %>
+                <%= link_to image_tag(item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:110px;"), item_path(item) if item.thumbnail.present? %>
                 <div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= item.brand.try(:name) %></div>
                 <div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(item.try(:name), 10), item_path(item) %></strong>
                 </div>

@@ -156,17 +156,16 @@
 			<ul id="item-carousel" class="elastislide-list">
 				<li >
 					<% header_item = @tutorial.items.sample(1).first %>
-					<%= link_to image_tag(header_item.thumbnail.image_url(:small), :style => "width:110px; height:110px;"), item_path(header_item), :class => "th" if header_item.thumbnail.present? %>
+					<%= link_to image_tag(header_item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:auto;"), item_path(header_item)  if header_item.thumbnail.present? %>
 					<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= header_item.brand.try(:name) %></div>
 					<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(header_item.try(:name), 10), item_path(header_item) %></strong>
 					</div>
 				</li>
 				<li >
-					<div class="subheader" style="background:#fafafa;">
+
 						<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
-						<a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>&nbsp;
-		 	    	<a href="<%= new_user_session_path %>"  class="button tiny secondary">로그인</a>
-		 	    </div>
+						<a href="<%= new_user_registration_path %>"  class="button secondary" >회원가입</a>&nbsp;
+		 	    			<a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
 		 	  </li>
 			</ul>			
 			</div>	
@@ -196,10 +195,11 @@
 		</h3>
 
     <% if !user_signed_in? %>
-      <p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
-      <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
-      OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
       <%= render "comments/comments" %>
+      <p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+      <a href="<%= new_user_registration_path %>"  class="button secondary" >회원가입</a>&nbsp;
+      OR <a href="<%= new_user_session_path %>"  class="button secondary">로그인</a>
+      
     <% else %>
 		<%= render "comments/comments" || "댓글이 없습니다." %>
 		<%= render partial: "comments/form", locals: { form_message: "#{@tutorial.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
