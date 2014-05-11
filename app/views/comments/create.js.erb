@@ -1,7 +1,13 @@
-$('#comment_form').hide();
-$('#comments').append("<hr style='margin: 0 0 10px 0;'>");
-$('#comments').append('<%= j render(@comment) %>');
-$('#comment_form').show();
-/* $('#comment_form').children('textarea').val('');  */
-$(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
-$(':checkbox, :radio').prop('checked', false);
+<% if params[:comment][:parent_id] %>
+	$('#comment_<%= params[:comment][:parent_id] %>_reply').find("dl").hide();
+	$('#comment_<%= params[:comment][:parent_id] %>_reply').append("<%= j render(partial: 'comments/reply', object: @comment) %>");
+	/* $('#comment_<%= params[:comment][:parent_id] %>_reply').find("dl").show(); */
+<% else %>
+	$('#comment_form').hide();
+	$('#comments').append("<hr style='margin: 0 0 10px 0;'>");
+	$('#comments').append('<%= j render(@comment) %>');
+	$('#comment_form').show();
+	/* $('#comment_form').children('textarea').val('');  */
+	$(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+	$(':checkbox, :radio').prop('checked', false);
+<% end %>

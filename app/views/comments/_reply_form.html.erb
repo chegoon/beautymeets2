@@ -1,4 +1,4 @@
-							<%= simple_form_for [@commentable, @comment] do |f| %>
+							<%= simple_form_for [@commentable, @comment], remote: true do |f| %>
 								<%= f.hidden_field :parent_id, :value => local_assigns[:parent_com_id] %>
 
 							    <div class="row">

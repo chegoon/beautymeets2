@@ -1,8 +1,8 @@
-<% if @comments.present? %>
 <div id="comments" >
+<% if @comments.present? %>
 	<% @comments.each_with_index do |comment, i| %>
 		<%= render comment %>
 	<%= "<hr style='margin: 0 0 10px 0;'>".html_safe if i < (@comments.length - 1) %>
 	<% end %>
-</div>
 <% end %>
+</div>
