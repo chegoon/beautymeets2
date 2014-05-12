@@ -105,7 +105,7 @@
 				<ul id="item-carousel" class="elastislide-list ">
 				<% @tutorial.items.each do |tutorial_item| %>			
 					<li >
-						<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :style => "width:110px; height:110px;"), item_path(tutorial_item), :class => "th" if tutorial_item.thumbnail.present? %>
+						<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :class => "th" , :style => "width:110px; height:110px;"), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
 						<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
 						<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
 						</div>
