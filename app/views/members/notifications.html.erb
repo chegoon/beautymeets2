@@ -1,16 +1,18 @@
 <%= render 'member_header' %>
 
 <div class="row">
-	<div class="small-12 columns" style="background:#FFF;  padding:20px;">
+	<div class=" small-12 small-centered columns" style="">
+		<div class="member-body">
 		<%= render 'sub_nav' %>
 		<h5 class="subheader">알림 </h5>
-			<%= link_to "새 소식 보기", member_notifications_path, :class => "button tiny secondary" %>
-			<%= link_to "이전 소식 보기", member_notifications_path(go_prev: 1) , :class => "button tiny secondary" %>
-			<%= link_to "이전 소식 삭제하기", member_notifications_path(clean_history: 1) , :class => "button tiny secondary" %>
+			<%= link_to "새 소식", member_notifications_path, :class => "button tiny secondary" %>
+			<%= link_to "이전 소식 ", member_notifications_path(go_prev: 1) , :class => "button tiny secondary" %>
+			<%= link_to "이전 소식 삭제", member_notifications_path(clean_history: 1) , :class => "button tiny secondary" %>
 		<% if @activities.present? %>
 			<%= render @activities %>		
 		<% else %>
 			<p>새로운 소식이 없습니다.</p>
 		<% end %>
+		</div>
 	</div>
 </div>

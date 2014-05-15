@@ -1,260 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="user-scalable=no, maximum-scale=1.0, width=device-width, initial-scale=1.0" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.0/modernizr.min.js"></script>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="user-scalable=no, maximum-scale=1.0, width=device-width, initial-scale=1.0" />
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.0/modernizr.min.js"></script>
 
-    <!-- facebook share info set start -->
-    <meta http-equiv="content-language" content="ko">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta property="og:site_name" content="BEAUTYMEETS" />
-    <meta property="og:url" content="<%= request.original_url %>" />
-    <meta property="og:title" content="<%=  yield(:page_title) || 'BEAUTYMEETS' %>" />
-    <meta property="og:description" content="<%= yield(:page_desc) || 'BEAUTYMEETS' %>" />
-    <meta property="og:image" content="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
-    
-    <link rel="image_src" href="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
-    <!-- facebook share infor set end -->
+		<!-- facebook share info set start -->
+		<meta http-equiv="content-language" content="ko">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta property="og:site_name" content="BEAUTYMEETS" />
+		<meta property="og:url" content="<%= request.original_url %>" />
+		<meta property="og:title" content="<%=  yield(:page_title) || 'BEAUTYMEETS' %>" />
+		<meta property="og:description" content="<%= yield(:page_desc) || 'BEAUTYMEETS' %>" />
+		<meta property="og:image" content="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
+		
+		<link rel="image_src" href="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
+		<!-- facebook share infor set end -->
 
-    <title><%= yield(:page_title) || "BEAUTYMEETS" %></title>
+		<title><%= yield(:page_title) || "BEAUTYMEETS" %></title>
 
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
-      <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
-      <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
-    <![endif]-->
+		<!--[if lt IE 9]>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+			<script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+			<script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+		<![endif]-->
 
-    <!-- Foundation 3 for IE 8 and earlier -->
-    <!--[if lt IE 9]>
-      <%= #stylesheet_link_tag "foundation3/foundation.min.css" 
-      %>
-      <%= #stylesheet_link_tag "foundation3/app.css" 
-      %>
-    <![endif]-->
-    <!-- Foundation 4 for IE 9 and earlier -->
-    <!--[if gt IE 8]><!-->
-      <%= #stylesheet_link_tag "foundation4/normalize.css" 
-      %>
-      <%= #stylesheet_link_tag "foundation4/foundation.min.css" 
-      %>
+		<!-- Foundation 3 for IE 8 and earlier -->
+		<!--[if lt IE 9]>
+			<%= #stylesheet_link_tag "foundation3/foundation.min.css" 
+			%>
+			<%= #stylesheet_link_tag "foundation3/app.css" 
+			%>
+		<![endif]-->
+		<!-- Foundation 4 for IE 9 and earlier -->
+		<!--[if gt IE 8]><!-->
+			<%= #stylesheet_link_tag "foundation4/normalize.css" 
+			%>
+			<%= #stylesheet_link_tag "foundation4/foundation.min.css" 
+			%>
 
-    <!--<![endif]-->
+		<!--<![endif]-->
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= #javascript_include_tag "vendor/modernizr" 
-    %>
+		<%= stylesheet_link_tag    "application" %>
+		<%= #javascript_include_tag "vendor/modernizr" 
+		%>
 
-    <%= csrf_meta_tags %>
+		<%= csrf_meta_tags %>
 
-    <style type="text/css">
-      html, body {
-          background-color: #f4f4f4;
-          height: 100%; 
-          font-size: 0.9rem;
-          padding-top:1.45rem;
-          font-family: "Nanum Gothic", sans-serif;
-      } 
+		<style type="text/css">
+			html, body {
+					background-color: #f4f4f4;
+					height: 100%; 
+					font-size: 0.9rem;
+					padding-top:1.45rem;
+					font-family: "Nanum Gothic", sans-serif;
+			} 
 
-      p, h1, h2, h3, h4, h5, h6, ul li, dl dd, a {
-        font-family: "Nanum Gothic", sans-serif;
-      }
+			p, h1, h2, h3, h4, h5, h6, ul li, dl dd, a {
+				font-family: "Nanum Gothic", sans-serif;
+			}
 
-      p {
-          font-size: 0.9rem;        
-      }
+			p {
+					font-size: 0.9rem;        
+			}
 
-      a {
-        color: #589B9F; 
-      }
-      .wrap{
-        margin-left: auto;
-        margin-right: auto;
-        width: 960px;
-        position: relative;
-      }
-      .section{
-        text-align:center;
-      }
+			a {
+				color: #589B9F; 
+			}
+			.wrap{
+				margin-left: auto;
+				margin-right: auto;
+				width: 960px;
+				position: relative;
+			}
+			.section{
+				text-align:center;
+			}
 
-      
-    </style>
-  
-    <%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
-  </head>
+			
+		</style>
+	
+		<%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
+	</head>
 
-  <body>
-    <%= render :partial => "layouts/fb" if Rails.env.production?   %>
+	<body>
+		<%= render :partial => "layouts/fb" if Rails.env.production?   %>
 
-    <%= render "layouts/top_nav" %>
+		<%= render "layouts/top_nav" %>
 
-    <% flash.each do |name, msg| %>
-      <div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
-        <%= msg  %>
-        <a href="#" class="close">&times;</a>
-      </div>
-    <% end %>
+		<% flash.each do |name, msg| %>
+			<div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
+				<%= msg  %>
+				<a href="#" class="close">&times;</a>
+			</div>
+		<% end %>
 
-    <% if controller_name == "info" && action_name == "about"  %>
+		<% if controller_name == "info" && action_name == "about"  %>
 
-        <%= yield %>
+				<%= yield %>
 
-        <%= render "layouts/to_top" %>
+				<%= render "layouts/to_top" %>
 
-        <%= yield :scripts %>
-        <!-- dif for static footer-position -->
+				<%= yield :scripts %>
+				<!-- dif for static footer-position -->
 
-        <%= render "layouts/footer" %>
-    <% else %>
-    <div class="row" >
-      <div class="small-12 small-centered columns ">
+				<%= render "layouts/footer" %>
+		<% else %>
+		<div class="row" >
+			<div class="small-12 small-centered columns ">
 
-        <%= yield %>
+				<%= yield %>
 
-        <%= render "layouts/to_top" %>
+				<%= render "layouts/to_top" %>
 
-        <%= yield :scripts %>
-        <!-- dif for static footer-position -->
+				<%= yield :scripts %>
+				<!-- dif for static footer-position -->
 
-        <%= render "layouts/footer" %>
-      </div>
-    </div>
-    <% end %>
-    <%= javascript_include_tag "application" %>
-    <!-- Foundation 3 for IE 8 and earlier -->
-    <!--[if lt IE 9]>
-        <%= #javascript_include_tag "foundation3/foundation.min.js" 
-        %>
-        <%= #javascript_include_tag "foundation3/app.js" 
-        %>
-    <![endif]-->
+				<%= render "layouts/footer" %>
+			</div>
+		</div>
+		<% end %>
+		<%= javascript_include_tag "application" %>
+		<!-- Foundation 3 for IE 8 and earlier -->
+		<!--[if lt IE 9]>
+				<%= #javascript_include_tag "foundation3/foundation.min.js" 
+				%>
+				<%= #javascript_include_tag "foundation3/app.js" 
+				%>
+		<![endif]-->
 
-    <!-- Foundation 4 for IE 9 and later -->
-    <!--[if gt IE 8]>
-        <%= #javascript_include_tag "foundation4/foundation.min.js" 
-        %>
-        <script>
-            $(document).foundation();
-        </script>
-    <![endif]-->
+		<!-- Foundation 4 for IE 9 and later -->
+		<!--[if gt IE 8]>
+				<%= #javascript_include_tag "foundation4/foundation.min.js" 
+				%>
+				<script>
+						$(document).foundation();
+				</script>
+		<![endif]-->
 
-  <script type="text/javascript">
-    WebFontConfig = {
-      custom: {
-          families: ['Nanum Gothic'],
-          urls: ['http://fonts.googleapis.com/earlyaccess/nanumgothic.css']
-      }
-    };
-    (function() {
-      var wf = document.createElement('script');
-      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-        '://ajax.googleapis.com/ajax/libs/webfont/1.4.10/webfont.js';
-      wf.type = 'text/javascript';
-      wf.async = 'true';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(wf, s);
-    })(); 
-   </script>
+	<script type="text/javascript">
+		WebFontConfig = {
+			custom: {
+					families: ['Nanum Gothic'],
+					urls: ['http://fonts.googleapis.com/earlyaccess/nanumgothic.css']
+			}
+		};
+		(function() {
+			var wf = document.createElement('script');
+			wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+				'://ajax.googleapis.com/ajax/libs/webfont/1.4.10/webfont.js';
+			wf.type = 'text/javascript';
+			wf.async = 'true';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(wf, s);
+		})(); 
+	 </script>
  
-    <script type="text/javascript">
-      $('#item-carousel').elastislide();      
-      $('#item-carousel-tutorial').elastislide();  
-    </script>     
-    <script>
-      $('.slider').glide();
-    </script>
-    
+		<script type="text/javascript">
+			$('#item-carousel').elastislide();      
+			$('#item-carousel-tutorial').elastislide();  
+		</script>     
+		<script>
+			$('.slider').glide();
+		</script>
+		
 
-    <script type="text/javascript">
-      (function() {
-          new Headroom(document.querySelector("header"), {
-              tolerance: 10,
-              offset : 200,
-              classes: {
-                initial: "animated",
-                pinned: "slideDown",
-                unpinned: "slideUp"
-              }
-          }).init();
+		<script type="text/javascript">
+			(function() {
+					new Headroom(document.querySelector("header"), {
+							tolerance: 10,
+							offset : 200,
+							classes: {
+								initial: "animated",
+								pinned: "slideDown",
+								unpinned: "slideUp"
+							}
+					}).init();
 
-      }());
+			}());
 
-    </script>
-    <script>
-        (function(window, document, undefined) {
-            window.flexVerticalCenter( document.getElementsByClassName('vertical-center'));
-        })(window, document);
-    </script>
+		</script>
+		<script>
+				(function(window, document, undefined) {
+						window.flexVerticalCenter( document.getElementsByClassName('vertical-center'));
+				})(window, document);
+		</script>
 
-    <script type="text/javascript">
-    $(".accordion").on("click", "dd", function (event){
-            
+		<script type="text/javascript">
+		$(".accordion").on("click", "dd", function (event){
+						
 
-        if($(this).hasClass('active')){
-          $("dd.active").removeClass('active').find(".content").slideUp("fast");    
-          $(this).find("a").find("i").toggleClass("fa-angle-down fa-angle-right");  
-        }
-        else {
-          // 다른 dropdown된 아코디언을 닫음
-          $("dd.active").removeClass('active').find(".content").slideUp("fast");
-          $("dd").find("a").find("i").removeClass("fa-angle-down");
-          $("dd").find("a").find("i").addClass("fa-angle-right");
+				if($(this).hasClass('active')){
+					$("dd.active").removeClass('active').find(".content").slideUp("fast");    
+					$(this).find("a").find("i").toggleClass("fa-angle-down fa-angle-right");  
+				}
+				else {
+					// 다른 dropdown된 아코디언을 닫음
+					$("dd.active").removeClass('active').find(".content").slideUp("fast");
+					$("dd").find("a").find("i").removeClass("fa-angle-down");
+					$("dd").find("a").find("i").addClass("fa-angle-right");
 
-          // 이번 아코디언을 dropdown
-          $(this).addClass('active').find(".content").slideToggle("fast");
-          $(this).find("a").find("i").toggleClass("fa-angle-right fa-angle-down");
-        }
+					// 이번 아코디언을 dropdown
+					$(this).addClass('active').find(".content").slideToggle("fast");
+					$(this).find("a").find("i").toggleClass("fa-angle-right fa-angle-down");
+				}
 
-    });
+		});
 
-    $(".tabs").on("click", "dd", function (event){
+		if ($("#notices").length) {
+			$(".tabs").on("click", "dd", function (event){
 
-        if($(this).hasClass('active')){
-          $(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
-        }
-        else {
-          $("dd.active").removeClass('active').find("a").css("background", "#DDD");
-          $(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
-        }
+					if($(this).hasClass('active')){
+						$(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
+					}
+					else {
+						$("dd.active").removeClass('active').find("a").css("background", "#DDD");
+						$(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
+					}
 
-    });
+			});
+
+		};
 
 
-    </script>
-    <script>
-    // Include the UserVoice JavaScript SDK (only needed once on a page)
-    UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+		</script>
+		<script>
+		// Include the UserVoice JavaScript SDK (only needed once on a page)
+		UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
 
-    //
-    // UserVoice Javascript SDK developer documentation:
-    // https://www.uservoice.com/o/javascript-sdk
-    //
+		//
+		// UserVoice Javascript SDK developer documentation:
+		// https://www.uservoice.com/o/javascript-sdk
+		//
 
-    // Set colors
-    UserVoice.push(['set', {
-      accent_color: '#448dd6',
-      trigger_color: 'white',
-      trigger_background_color: 'rgba(46, 49, 51, 0.6)'
-    }]);
+		// Set colors
+		UserVoice.push(['set', {
+			accent_color: '#448dd6',
+			trigger_color: 'white',
+			trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+		}]);
 
-    // Identify the user and pass traits
-    // To enable, replace sample data with actual user traits and uncomment the line
-    UserVoice.push(['identify', {
-    }]);
+		// Identify the user and pass traits
+		// To enable, replace sample data with actual user traits and uncomment the line
+		UserVoice.push(['identify', {
+		}]);
 
-    // Add default trigger to the bottom-right corner of the window:
-    UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+		// Add default trigger to the bottom-right corner of the window:
+		UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
 
-    // Or, use your own custom trigger:
-    //UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+		// Or, use your own custom trigger:
+		//UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
 
-    // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
-    UserVoice.push(['autoprompt', {}]);
+		// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+		UserVoice.push(['autoprompt', {}]);
 
-    // Set the locale
-    UserVoice.push(["set", "locale", "kr"]);
-    </script>
-  </body>
+		// Set the locale
+		UserVoice.push(["set", "locale", "kr"]);
+		</script>
+	</body>
 </html>

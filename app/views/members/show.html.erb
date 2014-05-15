@@ -1,9 +1,9 @@
 <%= render 'member_header' %>
 
 <div class="row" >
-	<div class="small-12 small-centered columns" style="background:#FFF; padding:20px 20px 60px 20px;">
+	<div class=" small-12 small-centered columns" style="">
+		<div class="member-body">
 		<%= render 'sub_nav' %>
-
 
 		<%= link_to '프로필 수정', edit_user_registration_path(@member.user), :class => "show-for-medium-up right button radius ", :style => "padding: 10px 25px; font-family: 'Nanum Gothic', sans-serif;" if (user_signed_in? && current_user.id == @member.user.id) %>
 		<table style="border:0; width:100%;">
@@ -98,5 +98,6 @@
 			</tbody>
 		</table>
 		<%= link_to "로그아웃", destroy_user_session_path,  :class => "right button secondary radius", :style => "padding: 10px 25px; font-family: 'Nanum Gothic', sans-serif;", method: :delete  if user_signed_in? %>
+		</div>
 	</div>
 </div>

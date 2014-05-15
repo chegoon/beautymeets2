@@ -1,41 +1,52 @@
-
 <div class="row">
-	<div class="small-12 columns ">
-		<div class="left">
-		<%= #아래 코드 실행시 ActionView::Template::Error ( isn't precompiled): 발생 
-		%>
-
-		<%= #image_tag activity.owner.image_url(:very_small), :style => "width:40px; height:40px;" if activity.owner.present? 
-		%>
-		</div>
-		<div style="margin:0.8rem 1.0rem 0.2rem 2.9rem ;">
-
-		<%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %>
+	<div class="small-12 columns " >
 
 		<% if activity.trackable %>
-		님이
-			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video" || activity.trackable.commentable_type ==  "Event" || activity.trackable.commentable_type ==  "Post" || activity.trackable.commentable_type ==  "Notice") || %>
-				<%= #image_tag activity.trackable.commentable.concept_image_url(:thumb) 
-				%>
-				<%= link_to activity.trackable.commentable.title, activity.trackable.commentable %>
+		
+			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video" || activity.trackable.commentable_type ==  "Event" || activity.trackable.commentable_type ==  "Post" || activity.trackable.commentable_type ==  "Notice")  %>
+				<div class="head" >
+					<%= link_to image_tag(activity.trackable.commentable.thumbnail.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.thumbnail.present? %>
+				</div>
+				<div class="body">
+					<div>
+						<%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %>
+						<span class="description">
+							님이 
+						<%= link_to activity.trackable.commentable.title, activity.trackable.commentable %>
+						에 댓글을 달았습니다.
+						</span>
+					</div>
 			<% else %>
-				<%= #image_tag activity.trackable.commentable.image_url(:thumb) 
-				%> 
-				<%= link_to activity.trackable.commentable.name, activity.trackable.commentable %>
+				<div class="head">
+					<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image_url.present? %> 
+				</div>
+				<div class="body">
+					<div>
+						<strong><%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %></strong>
+						<span class="description">
+						님이 
+						<%= link_to activity.trackable.commentable.name, activity.trackable.commentable %>
+						에 댓글을 달았습니다.
+						</span>
+					</div>
 			<% end %>
-			에 댓글을 달았습니다.
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="small-11 small-offset-1 columns" style="margin-bottom:20px;">
-			<blockquote><%= activity.trackable.body %></blockquote>
-			
-			<span class="pull-right" style=" color:#AAA;">
-				<small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small>
-			</span>
+					<div>
+						<%= simple_format(activity.trackable.body) %>
+						<span class="created_at" style=" ">
+							<small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small>
+						</span>
+					</div>
+				</div>			
 		<% else %>
-		이 작성한 댓글이 삭제되었습니다.
+				<div class="head" >
+				</div>
+				<div class="body">
+					<div>
+						<span class="description">
+							이 작성한 댓글이 삭제되었습니다.
+						</span>
+					</div>
+				</div>
 		<% end %>
 	</div>
 </div>

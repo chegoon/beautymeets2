@@ -1,14 +1,14 @@
 <%= render 'members/member_header' %>
 
 <div class="row">
-  <div class="small-12  columns" style="background:#FFF;  padding:20px;">
+  <div class="small-12  columns" style="background:#FFF;  ">
     <%= render 'members/sub_nav' if current_user.has_role? :member  %>
 
-    <dl class="tabs" data-tab>
-      <dd class="active"><a href="#panel2-1">이름</a></dd>
-      <dd><a href="#panel2-2">프로필이미지</a></dd>
-      <dd><a href="#panel2-3">패스워드</a></dd>
-      <dd><a href="#panel2-4">탈퇴</a></dd>
+    <dl class="tabs" style="" data-tab>
+      <dd class="active"><a href="#panel2-1" style="padding:6px 12px;">이름</a></dd>
+      <dd><a href="#panel2-2" style="padding:6px 12px;">프로필이미지</a></dd>
+      <dd><a href="#panel2-3" style="padding:6px 12px;">패스워드</a></dd>
+      <dd><a href="#panel2-4" style="padding:6px 12px;">탈퇴</a></dd>
     </dl>
     <div class="tabs-content">
       <div class="content active" id="panel2-1">

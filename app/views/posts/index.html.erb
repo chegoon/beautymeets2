@@ -4,8 +4,8 @@
 
   <div class="row " style="">
     <div class="small-12 small-centered columns" style="padding:0 26px;">
-      <div class="tutorial-index-title">
-        <h4 class="subheader left" style="margin-top:30px; line-height:105%;">
+      <div class="page-title">
+        <h4 class="subheader " style="">
           POST
           <small>
             <%= "최근 2주간 사람들이 가장 많이 본 포스트" if params[:order] == 'popular_last2w' %>
@@ -14,8 +14,8 @@
           </small>
           <small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_post_path if user_signed_in? && current_user.can_create?(Post) %></small>
         </h4>
-
-        <div id="tutorials" class="right" style="margin-top:30px; margin-bottom:10px; ">    
+      </div>
+        <div id="tutorials" class="btn-page-sort" style="">    
           <div style="background:#f4f4f4;">
             <ul class="button-group radius" >
             <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{posts_path}?order=popular_last2w" %>>최근 2주</a></li>
@@ -24,7 +24,6 @@
             </ul>
           </div>
         </div>
-      </div>
     </div>
   </div>
 

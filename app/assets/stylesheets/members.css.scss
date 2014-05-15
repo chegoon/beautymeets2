@@ -12,3 +12,18 @@
   border: solid 2px #666;
   &:first-letter { text-transform: uppercase };
 }
+
+@media only screen and (max-width: 40em) { 
+	.member-body {
+		background:#FFF; 
+		padding:10px 10px 60px 10px;
+	}
+}
+
+@media only screen and (min-width: 40.63em) { 
+	.member-body {
+		background:#FFF; 
+		padding:20px 20px 60px 20px;
+	}
+}
+

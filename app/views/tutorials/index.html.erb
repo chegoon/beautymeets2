@@ -31,32 +31,33 @@
 	</div>
 </div>
 
-	<div class="row " style="">
-		<div class="small-12 small-centered columns" style="">
-			<div class="">
-				<h4 class="subheader left" style="margin-top:30px;">
-					&nbsp;Tutorial&nbsp;
+<div class="row " style="">
+	<div class="small-12 small-centered columns" style="">
+		<div class="page-title">
+			<h4 class="subheader " style="">
+				&nbsp;Tutorial&nbsp;
 
-	        <small>
-	          <%= "최근 2주간 사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular_last2w' %>
-	          <%= "사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular' %>
-	          <%= "최근 업데이트된 튜토리얼<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
-	        </small>
-					<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if user_signed_in? && current_user.can_create?(Tutorial) %></small>
-				</h4>
-
-				<div id="tutorials" class="right" style="margin:30px 0 10px 0;  ">		
-					<div style="background:#f4f4f4;">
-	          <ul class="button-group radius" >
-	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> >최근 2주</a></li>
-	          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></li>
-	          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> >최신순</a></li>
-	          </ul>
-	        </div>
+				<small>
+			          <%= "최근 2주간 사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular_last2w' %>
+			          <%= "사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular' %>
+			          <%= "최근 업데이트된 튜토리얼<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
+				</small>
+				<small>
+					<%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if user_signed_in? && current_user.can_create?(Tutorial) %>
+				</small>
+			</h4>
+		</div>
+			<div id="tutorials" class="btn-page-sort" style=" ">		
+				<div style="background:#f4f4f4;">
+			          <ul class="button-group radius" >
+			          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> >최근 2주</a></li>
+			          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></li>
+			          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> >최신순</a></li>
+			          </ul>
 				</div>
 			</div>
-		</div>
 	</div>
+</div>
 	
 	<div class="row " style="">
 		<div class="small-12 small-centered columns" style="">

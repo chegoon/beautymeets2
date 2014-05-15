@@ -5,7 +5,7 @@ class VideoGroupsController < ApplicationController
 
   # authorize controller thourgh authority
   authorize_actions_for VideoGroup, except: [:index, :show]
-  authority_action :update_groups => "update"
+  authority_actions :update_groups => "update"
   
   # GET /video_groups
   # GET /video_groups.json

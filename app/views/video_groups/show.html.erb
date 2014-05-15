@@ -7,31 +7,30 @@
 
  <div class="row " style="">
 	<div class="small-12 small-centered columns" style="">
-		<div class="tutorial-index-title">
-			<h4 class="subheader left" style="margin-top:30px;">
-				<% if @video_group.image? %>
-			            <%= image_tag @video_group.image_url(:small).to_s, :style => "width:44px; height:44px;" %>
-			          <% else %>
-			            <%= image_tag @video_group.thumb_url.to_s, :style => "width:44px; height:44px;" if @video_group.thumb_url.present? %>
-			          <% end %>
+		
+			<div class="page-title">
+				<h4 class="subheader " style="">
+					<% if @video_group.image? %>
+				            <%= image_tag @video_group.image_url(:small).to_s, :style => "width:44px; height:44px;" %>
+				          <% else %>
+				            <%= image_tag @video_group.thumb_url.to_s, :style => "width:44px; height:44px;" if @video_group.thumb_url.present? %>
+				          <% end %>
 
-				  		&nbsp;<%= @video_group.name %><%= link_to "EDIT", edit_video_group_path(@video_group) if user_signed_in? && current_user.can_update?(@video_group) %>
-
-        <small>
-          <%= "가장 많이 본 비디오" if params[:order] == 'popular' %>
-          <%= "최근 업데이트된 비디오" if params[:order].nil? ||  params[:order] == 'newly' %>
-        </small>
-			</h4>
-
-			<div id="videos" class="right" style="margin-top:30px; margin-bottom:10px; ">		
-				<div style="background:#f4f4f4;">
-          <ul class="button-group radius" >
-          <li><a class="button small <%= 'secondary' if params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{video_group_path(@video_group)}?order=popular" %>>인기순</a></li>
-          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{video_group_path(@video_group)}?order=newly" %>>최신순</a></li>
-          </ul>
-        </div>
+					  		&nbsp;<%= @video_group.name %><%= link_to "EDIT", edit_video_group_path(@video_group) if user_signed_in? && current_user.can_update?(@video_group) %>
+					<small>
+						<%= "가장 많이 본 비디오" if params[:order] == 'popular' %>
+						<%= "최근 업데이트된 비디오" if params[:order].nil? ||  params[:order] == 'newly' %>
+					</small>
+				</h4>
 			</div>
-		</div>
+			<div id="videos" class="btn-page-sort" style="">		
+				<div style="background:#f4f4f4;">
+			          <ul class="button-group radius" >
+			          <li><a class="button small <%= 'secondary' if params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{video_group_path(@video_group)}?order=popular" %>>인기순</a></li>
+			          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{video_group_path(@video_group)}?order=newly" %>>최신순</a></li>
+			          </ul>
+        			</div>
+			</div>
 	</div>
 </div>
 

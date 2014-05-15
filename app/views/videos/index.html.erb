@@ -31,26 +31,25 @@
 
 <div class="row " style="">
 	<div class="small-12 small-centered columns" style="">
-		<div class="">
-			<h4 class="subheader left" style="margin-top:30px;">
+		<div class="page-title">
+			<h4 class="subheader " style="">
 				&nbsp;BeautyVideo&nbsp;
-
-        <small>
-          <%= "가장 많이 본 비디오<br>".html_safe if params[:order] == 'popular' %>
-          <%= "최근 업데이트된 비디오<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
-        </small>
-        <small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_video_path if user_signed_in? && current_user.can_create?(Video) %></small>
+				<small>
+					<%= "가장 많이 본 비디오<br>".html_safe if params[:order] == 'popular' %>
+					<%= "최근 업데이트된 비디오<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
+				</small>
+				<small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_video_path if user_signed_in? && current_user.can_create?(Video) %></small>
 			</h4>
-
-			<div id="tutorials" class="right" style="margin:30px 0 10px 0; ">		
-				<div style="background:#f4f4f4;">
-          <ul class="button-group radius" >
-          <li><a class="button small <%= 'secondary' if params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>인기순</a></li>
-          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>최신순</a></li>
-          </ul>
-        </div>
-			</div>
 		</div>
+			<div id="tutorials" class="btn-page-sort" style="">		
+				<div style="background:#f4f4f4;">
+			          <ul class="button-group radius" >
+			          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' %> sort"  data-sort="view_count" href=<%= "#{videos_path}?order=popular" %>>인기순</a></li>
+			          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' %> sort"  data-sort="published_at" href=<%= "#{videos_path}?order=newly" %>>최신순</a></li>
+			          </ul>
+				</div>
+			</div>
+		
 	</div>
 </div>
 

@@ -5,7 +5,7 @@
 		<h4 class="subheader" >안녕하세요, <%= @beautystar.user.name %> 입니다. </h4>
 		<div class="panel" style="background-image: url(<%= @beautystar.image_url %>);">
 		  <h5 class="subheader " style="color:#FFF;">
-		  	<%= image_tag(@beautystar.user.image_url(:medium), :class => "circular", :style => "width:10rem; height:auto;") %>
+		  	<%= image_tag(@beautystar.user.image_url(:medium), :style => "width:10rem; height:auto;") %>
 		  	<strong><%= "#{@beautystar.user.name}"%></strong>
 		  	<%= " | #{@beautystar.job_title}" %> 
 		  	<span class="right"><small>BEAUTYMEETS BEAUTYSTAR </small></span>

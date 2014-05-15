@@ -1,17 +1,17 @@
 	
 <div class="row" >
-	<div class="small-12 columns show-for-small-only text-center" style="padding:20px 10px 10px 10px;" >
-		<%= image_tag(@member.user.image.present? ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px; margin-bottom:10px;") %>
+	<div class="small-12 columns show-for-small-only text-center" >
+		<%= image_tag(@member.user.image.present? ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px; margin-top:20px; margin-bottom:10px;") %>
 		<h5><span style="color:#CCC;">Welcome to BEAUTYMEETS</span></h5>
 		<h2 class="subheader"><%= @member.user.name.present? ? @member.user.name : @member.user.email %></h2>
 		
 	</div>
-	<div class="small-12 columns show-for-medium-up " style="margin-bottom:10px;">
+	<div class="small-12 columns show-for-medium-up " style="">
 		<div class="left" style="">
-			<%= image_tag(@member.user.image.present? ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px;") %>
+			<%= image_tag(@member.user.image.present? ? @member.user.image_url(:small) : "/assets/user_avatar_female.png", :style => "width:90px; height:90px; margin-bottom:20px; ") %>
 		</div>
 		<div class="left">
-			<h4 class="subheader" style="padding:10px;">
+			<h4 class="subheader" style="padding:10px 20px;">
 				<span style="color:#CCC;">Welcome to BEAUTYMEETS</span><br/>
 				<%= @member.user.name.present? ? @member.user.name : @member.user.email %>
 			</h4>
@@ -36,7 +36,7 @@
 	  				<%= link_to "BEAUTYCLASS", member_beautyclasses_path(@member), :style => (action_name == 'beautyclasses' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
 	  			</div>
 		</div>
-		<div class="panel show-for-small-only text-center" style="border:0; margin: 20px -10px 20px -10px; padding:20px 10px 60px 10px;">
+		<div class="panel show-for-small-only text-center" style="border:0; margin: 20px 0; padding:20px 10px 60px 10px;">
 	  		<div class="text-center left" style="width:25%; font-size:0.785rem;">
 	  			<i class="fa fa-user fa-lg fa-fw" style="color:#999; margin:10px 20px 10px 20px;"></i><br/>
 	  			<%= link_to "Profile", member_path(@member) %>
