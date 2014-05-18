@@ -6,14 +6,20 @@
 
 <div class="row " style="">
 	<div class="small-12 medium-6 columns">
-		<ul class="breadcrumbs" style="border:0; background:#FCFCFC;">
-			<% Category.where(parent_id: Category.find_by_name("beautyclass").id).each do |cat| %>
-				<li><%= link_to cat.name, { controller: "beautyclasses", cat: cat.id } %></li>
+		<div class="">
+			<div class="panel" style="width:100%; border:0; height:42px; background:#FCFCFC; padding: 14px 8px;">
+			<% Category.where(parent_id: Category.find_by_name("beautyclass").id).each_with_index do |cat, i| %>
+				<div style="width:31%; float:left; font-size:0.8rem; text-align:center;">
+					<%= link_to cat.name, { controller: "beautyclasses", cat: cat.id } %>
+				</div>
+				<div style="float:left;color:#AAA;"><%= "|" if i < (Category.where(parent_id: Category.find_by_name("beautyclass").id).count - 1) %></div>
+
 			<% end %>
-		</ul>
+			</div>
+		</div>
 	</div>
-	<div class="small-12 medium-6 columns" style="">
-		<div id="" class="right" style=" ">		
+	<div class="small-12 medium-6 columns">
+		<div id="" class="btn-page-sort" style="margin:0;">		
 			<div style="background:#f4f4f4;">
 				<ul class="button-group radius" >
 					<li><a class="button small <%= 'secondary' if params[:closed] == '1' %> sort"  data-sort="view_count" href=<%= "#{beautyclasses_path}?closed=0" %> >참여가능 클래스</a></li>

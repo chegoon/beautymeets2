@@ -3,8 +3,74 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+@media only screen and (max-width: 20.0em) { 
+	.show-for-iphone-only {
+        display: block;
+        position: absolute;
+        top:0;
+	}
+	/* Backgrounds will cover all the section
+	* --------------------------------------- */
+	#section0, 
+	#section1,
+	#section2,
+	#section3, 
+	#section4 {
+		background-size: 100%;
+		background-repeat: no-repeat;
+		position: relative;
+	}
 
-@media only screen and (max-width: 40em) { 
+	#section0, #section1 {
+		background:rgba(0, 232, 216, 1.0);
+		
+		.bm_introduction, .app_introduction {
+		}
+		.bm_introduction_inner, .app_introduction_inner {
+			position:absolute;
+			bottom:40px;
+			padding:10px;
+			text-align: center;
+			z-index:10;			
+		}
+	}
+	
+	#section2, #section3, #section4 {
+		background:rgba(51, 51, 51, 1.0);
+	}
+	
+	#section2, #section3, #section4 {
+
+		.tutorial_introduction, .beautyvideo_introduction, .beautyclass_introduction {
+			/* background:rgba(51, 51, 51, 1.0); */
+			width:100%;
+		}
+		.tutorial_introduction_inner, .beautyvideo_introduction_inner, .beautyclass_introduction_inner {
+			position:absolute;
+			bottom:40px;
+			padding:6px 10px 10px 10px;
+			text-align: center;
+			z-index:10;			
+		}
+	}
+
+	.beautyvideo_introduction, .beautyclass_introduction {
+		text-align: center;
+	}
+
+	.bm_introduction, .app_introduction, .tutorial_introduction, .beautyvideo_introduction, .beautyclass_introduction {
+
+		h1, h2, h3, h4, h5, p {
+			color:#FFF;
+			text-align: center;
+		}	
+	}
+}
+
+@media only screen and (min-width: 20.063em) and (max-width: 40.0em) { 
+	.show-for-iphone-only {
+        display: none;
+	}
 	/* Backgrounds will cover all the section
 	* --------------------------------------- */
 	#section0, 
@@ -38,14 +104,17 @@
 	}
 	
 	#section2 {
+		position:relative;
 		background-image: url(/assets/about_tutorial_bg.png);
 		background-position: center 0;
 	}
 	#section3 {
+		position:relative;
 		background-image: url(/assets/about_beautyvideo_bg.png);
 		background-position: 0 0;
 	}
 	#section4 {
+		position:relative;
 		background-image: url(/assets/about_beautyclass_bg.png);
 		background-position: -50px -30px;
 	}
@@ -53,7 +122,6 @@
 	
 	
 	#section2, #section3, #section4 {
-		position:relative;
 		/* background:rgba(51, 51, 51, 1.0); */
 
 		.tutorial_introduction, .beautyvideo_introduction, .beautyclass_introduction {
@@ -83,6 +151,9 @@
 }
 
 @media only screen and (min-width: 40.063em) { 
+	.show-for-iphone-only {
+        display: none;
+	}
 
 	/* Backgrounds will cover all the section
 	* --------------------------------------- */
@@ -100,6 +171,7 @@
 		background-image: url(/assets/about_intro_bg.png);
 
 		.bm_introduction {
+			float:left;
 			background:rgba(0, 232, 216, 0.6);
 			height:100%;
 		}
@@ -113,6 +185,7 @@
 		background-image:url(/assets/about_intro_bg.png);
 
 		.app_introduction {
+			float:left;
 			height: 100%;
 			background:rgba(0, 232, 216, 0.6);
 		}
