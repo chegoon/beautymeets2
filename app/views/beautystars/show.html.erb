@@ -44,8 +44,16 @@
 </div>
 <hr style="margin-top:0;">
 <!-- BEAUTYSTAR Portfolio -->
-<%= render 'pictures/portfolio' %>
-<%= render 'pictures/form' if (can? :manage, @beautystar)  %>
+<div class="row " style="margin:0 auto 20px auto; float:none; ">
+	<div class="large-12 columns">
+		<ul class="clearing-thumbs" data-clearing>
+	  <% @pictures.each_with_index do |portfolio, i| %>
+  			<li style="padding:0 0 10px 0;"><a href="<%= portfolio.image_url(:large)%>"><img data-caption="<%= portfolio.description %>" src="<%= portfolio.image_url(:small).to_s %>"></a></li>
+  		<% end %>	
+		</ul>
+	</div>
+</div>
+<%= render 'pictures/form' if user_signed_in? && current_user.can_update?(@beautystar)  %>
 
 <div class="row " style="margin:0 auto; float:none; ">
 	<div class="large-12 columns">	

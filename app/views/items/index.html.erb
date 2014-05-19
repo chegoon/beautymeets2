@@ -36,7 +36,15 @@
     </div>
     <div class="small-12 small-centered columns" style="">
       <div class="pagination-centered" style="margin-bottom:30px;">
-        <%= will_paginate @items, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , renderer: FoundationPagination::Rails %>
+        <%= will_paginate @items, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outer_window => 1, renderer: FoundationPagination::Rails, :class => "hide-for-small-only" %>
+        
+                <h6 class="center show-for-small-only subheader" style='font-family: "Nanum Gothic", sans-serif;'>
+                  <span style="margin-right:20px"><%= link_to '<i class="fa fa-angle-double-left"></i>'.html_safe, items_path(page: 1) %></span>
+                  <span style="margin-right:20px"><%= (@items.current_page - 1) > 0 ?  link_to('<i class="fa fa-angle-left"></i>'.html_safe, items_path(page: (@items.current_page - 1))) : '<i class="fa fa-angle-left"></i>'.html_safe %></span>
+                  <span style="color:#CCC; font-size:12px;"><%= "#{@items.current_page} / #{@items.total_pages}" %></span>
+                  <span style="margin-left:20px"><%= (@items.current_page + 1) <= @items.total_pages ? link_to('<i class="fa fa-angle-right"></i>'.html_safe, items_path(page: (@items.current_page + 1))) :  '<i class="fa fa-angle-right"></i>'.html_safe %></span>
+                  <span style="margin-left:20px"><%= link_to '<i class="fa fa-angle-double-right"></i>'.html_safe, items_path(page: @items.total_pages) %></span>
+                </h6>  
       </div>
     </div>
   </div>

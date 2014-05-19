@@ -87,7 +87,10 @@ class PostsController < InheritedResources::Base
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        @post.create_activity :create, owner: @post.author if @post.published? && PublicActivity::Activity.where(owner_id: @post.author.id, owner_type: "User", trackable_id: @post.id, trackable_type: "Post").nil?
+        #@post.create_activity :create, owner: @post.author if @post.published? && PublicActivity::Activity.where(owner_id: @post.author.id, owner_type: "User", trackable_id: @post.id, trackable_type: "Post").nil?
+        if @post.published? && PublicActivity::Activity.where(owner_id: @post.author.id, owner_type: "User", trackable_id: @post.id, trackable_type: "Post").first.nil?
+          @post.create_activity :create, owner: @post.author 
+        end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else

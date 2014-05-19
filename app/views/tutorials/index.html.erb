@@ -7,9 +7,9 @@
 <div class="row" >
 	<div class="small-12 columns" >
 		<div class="panel tutorial-index-head" style="border:0; margin-bottom:0; padding:0; background: url('/assets/tutorial_header_bg.jpg');">
-      <div class="row" style="margin:0;">
-      	<div class="medium-8 columns" style=" padding:0; " >
-      		<div class="flex-video widescreen vimeo" style=" margin:0; " >
+			<div class="row" style="margin:0;">
+				<div class="medium-8 columns" style=" padding:0; " >
+					<div class="flex-video widescreen vimeo" style=" margin:0; " >
 					<iframe width="420" height="315" src="<%= @head_tutorial.vimeo_url %>?title=0&byline=0&portrait=0" frameborder="0" allowfullscreen></iframe> 
 					</div>
 				</div>
@@ -38,9 +38,9 @@
 				&nbsp;Tutorial&nbsp;
 
 				<small>
-			          <%= "최근 2주간 사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular_last2w' %>
-			          <%= "사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular' %>
-			          <%= "최근 업데이트된 튜토리얼<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
+								<%= "최근 2주간 사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular_last2w' %>
+								<%= "사람들이 가장 많이 본 튜토리얼<br>".html_safe if params[:order] == 'popular' %>
+								<%= "최근 업데이트된 튜토리얼<br>".html_safe if params[:order].nil? ||  params[:order] == 'newly' %>
 				</small>
 				<small>
 					<%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_tutorial_path if user_signed_in? && current_user.can_create?(Tutorial) %>
@@ -49,11 +49,11 @@
 		</div>
 			<div id="tutorials" class="btn-page-sort" style=" ">		
 				<div style="background:#f4f4f4;">
-			          <ul class="button-group radius" >
-			          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> >최근 2주</a></li>
-			          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></li>
-			          <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> >최신순</a></li>
-			          </ul>
+								<ul class="button-group radius" >
+								<li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular_last2w" %> >최근 2주</a></li>
+								<li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{tutorials_path}?order=popular" %> >인기순</a></li>
+								<li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{tutorials_path}?order=newly" %> >최신순</a></li>
+								</ul>
 				</div>
 			</div>
 	</div>
@@ -92,9 +92,17 @@
 								
 							<% end %>
 					</div>
-					<div class="pagination-centered">
-						<%= will_paginate @tutorials, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , renderer: FoundationPagination::Rails %>
-					</div>
+							<div class="pagination-centered" >
+								<%= will_paginate @tutorials, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outter_window => 1, renderer: FoundationPagination::Rails, :class => "hide-for-small-only" %>
+
+								<h6 class="center show-for-small-only subheader" style='font-family: "Nanum Gothic", sans-serif;'>
+									<span style="margin-right:20px"><%= link_to '<i class="fa fa-angle-double-left"></i>'.html_safe, tutorials_path(page: 1) %></span>
+									<span style="margin-right:20px"><%= (@tutorials.current_page - 1) > 0 ?  link_to('<i class="fa fa-angle-left"></i>'.html_safe, tutorials_path(page: (@tutorials.current_page - 1))) : '<i class="fa fa-angle-left"></i>'.html_safe %></span>
+									<span style="color:#CCC; font-size:12px;"><%= "#{@tutorials.current_page} / #{@tutorials.total_pages}" %></span>
+									<span style="margin-left:20px"><%= (@tutorials.current_page + 1) <= @tutorials.total_pages ? link_to('<i class="fa fa-angle-right"></i>'.html_safe, tutorials_path(page: (@tutorials.current_page + 1))) :  '<i class="fa fa-angle-right"></i>'.html_safe %></span>
+									<span style="margin-left:20px"><%= link_to '<i class="fa fa-angle-double-right"></i>'.html_safe, tutorials_path(page: @tutorials.total_pages) %></span>
+								</h6>  
+							</div>
 				</div>
-  	</div>
+		</div>
 	</div>
