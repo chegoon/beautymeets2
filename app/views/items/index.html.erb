@@ -10,7 +10,7 @@
         <small>
           <%= "최근 2주간 사람들이 가장 많이 본 화장품" if params[:order] == 'popular_last2w' %>
           <%= "사람들이 가장 많이 본 화장품" if params[:order] == 'popular' %>
-          <%= "튜토리얼에 최근 사용된 화장품" if params[:order] == 'newly' %>
+          <%= "튜토리얼에 최근 사용된 화장품" if params[:order].nil? || params[:order] == 'newly' %>
         </small>
         <small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_item_path if user_signed_in? && current_user.can_create?(Item) %>
         </small>
