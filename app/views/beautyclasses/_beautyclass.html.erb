@@ -26,7 +26,6 @@
       </h4>
       <div style="margin:6px 0;"><%= truncate(beautyclass.try(:description), 56) %></div>
       <%= "<span class='label secondary radius'>CLOSED</span>".html_safe if beautyclass.closed? %>
-      <%= link_to "<span style='font-size:0.78rem;'><i class='fa fa-file-text-o'></i>&nbsp;Class Review</span>".html_safe, beautyclass.review_url, :target => "_blank" if beautyclass.review_url? %>
     </div>
   </div>
 </div>
