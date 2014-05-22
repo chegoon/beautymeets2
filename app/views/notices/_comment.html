@@ -8,9 +8,20 @@
 				<%= comment.body %>
 
 				<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete , remote: true if  user_signed_in? && current_user.can_update?(comment) %>
-				<span class="right" style="color:#CCC;">
-					<small><%= time_ago_in_words(comment.created_at) %> ago</small>
-				</span>
+				<div class="right" style="width:auto; min-width:100px; color:#CCC; font-size:0.8rem;">
+					<span style="margin-left:10px; margin-right:10px;font-size:0.7rem;"><%= time_ago_in_words(comment.created_at) %> ago</span>
+					공감&nbsp;
+					<span id="comment_<%= comment.id %>_vote">
+					<% if user_signed_in? && current_user.voted_for?(comment)  %>
+						<%= link_to '<i class="fa fa-heart" style="color:#E98A9C;"></i>'.html_safe, notice_comment_unvote_path(comment.commentable, comment), :remote => true %>
+					<% else %>
+						<%= link_to '<i class="fa fa-heart-o " style="color:#E98A9C;"></i>'.html_safe, notice_comment_vote_path(comment.commentable, comment), :remote => true %>
+					<% end %>
+						<span id="comment_<%= comment.id %>_vote_size" style="">
+							<%= comment.votes_for.size %>
+						</span>
+					</span>
+				</div>
 			</p>
 
 			<div id="comment_<%= comment.id %>_reply" >

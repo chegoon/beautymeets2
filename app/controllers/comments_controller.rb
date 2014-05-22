@@ -42,7 +42,11 @@ class CommentsController < ApplicationController
 					format.js 
 				end
 			else
-				redirect_to "/notices?makeup_request=true", notice: "Comment created."
+				respond_to do |format|
+					format.html { redirect_to "/notices?makeup_request=true", notice: "Comment created." }
+					format.js 
+				end
+				#redirect_to "/notices?makeup_request=true", notice: "Comment created."
 			end
 		else
 			render :new
@@ -56,6 +60,25 @@ class CommentsController < ApplicationController
 
 		respond_to do |format|
 			format.html { redirect_to @commentable, notice: "Comment destroied"  }
+			format.js
+			format.json { head :no_content }
+		end
+	end
+
+	def vote
+		@comment = @commentable.comments.find(params[:comment_id])
+		@comment.liked_by current_user
+		respond_to do |format|
+			format.html { redirect_to @commentable, notice: "Comment liked"  }
+			format.js
+			format.json { head :no_content }
+		end
+	end
+	def unvote
+		@comment = @commentable.comments.find(params[:comment_id])
+		@comment.unliked_by current_user
+		respond_to do |format|
+			format.html { redirect_to @commentable, notice: "Comment liked"  }
 			format.js
 			format.json { head :no_content }
 		end

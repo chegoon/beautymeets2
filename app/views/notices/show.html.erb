@@ -1,32 +1,48 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Title:</b>
-  <%= @notice.title %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @notice.description %>
-</p>
 
 
-          <div class="row" style="margin:1.5rem 0 0 0;">
-            <div class="small-12 medium-12 columns">   
+
+<% page_title "BEAUTYMEETS > #{@notice.try(:title)}" %>
+<% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@notice.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
+
+
+    <div style="height:90px; position:relative; ">
+      <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+        <%= render 'layouts/go_back' %>
+        <%= @notice.title%>
+
+        <% if user_signed_in? && current_user.can_update?(@notice) %>
+          <%= link_to 'Edit', edit_notice_path(@notice) %> |
+          <%= link_to 'Destroy', @notice, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </h4>
+    </div>
+
+
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+  <div class="small-12 columns">
+      
+    <%= simple_format(@notice.description, :style => "margin-bottom:4px;") %>
+      <div class="fb-like" data-href="<%= notice_url(@notice) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+      </div>
+    <p style="margin-bottom:4px;"></p>
+  </div>
+</div>
+
+          <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
+            <div class="small-12 medium-12 columns"  >   
               <% if !user_signed_in? %>
                 <p><%= "회원가입을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
-                <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>&nbsp;
-                OR <a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
-                <%= render "comments/comments" %>
+                <a href="<%= new_user_registration_path %>"  class="button radius secondary" >회원가입</a>
+                OR&nbsp;<a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
+                <% @comments.each do |c| %>
+                  <%= render partial: "comment", object: c %>
+                <% end %>
+                
               <% else %>
-                <%= render partial: "comments/form", locals: { form_message: "다양한 의견 부탁드립니다." }  %>    
-                <%= render "comments/comments" %>
+                  <% @comments.each do |c| %>
+                  <%= render partial: "comment", object: c %>
+                <% end %>
+                  <%= render partial: "comments/form", locals: { form_message: "다양한 의견 부탁드립니다." }  %>    
               <% end %>
             </div>
           </div>
-
-<% if user_signed_in? && current_user.can_update?(@notice) %>
-  <%= link_to 'Edit', edit_notice_path(@notice) %> |
-  <%= link_to 'Back', notices_path %>
-  <%= link_to 'Destroy', @notice, method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>

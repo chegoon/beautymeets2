@@ -226,6 +226,33 @@
 
 
 		</script>
+		<script type="text/javascript">
+
+			function swapVoteStatus(comment_id)
+			{
+				var c_id = comment_id;
+			    //$('#bookmark_star').toggleClass('fa-star fa-star-o');
+			    var oriStatus = $("#comment_" + c_id + "_vote").find("i");
+			    var oriSize = $("#comment_" + c_id + "_vote_size");
+			    //oriI.toggleClass('fa-star fa-star-o');
+			    
+			    // Change the image src toggle based on the current image
+			    if (oriStatus.hasClass("fa-heart")) {
+			        oriStatus.removeClass("fa-heart");
+			        oriStatus.addClass("fa-heart-o");
+			        oriSize.text(parseInt(oriSize.text()) - 1);
+			        //oriMsg.text("You unvote");
+			    }
+			    else {
+			        oriStatus.removeClass("fa-heart-o");
+			        oriStatus.addClass("fa-heart");
+			        oriSize.text(parseInt(oriSize.text()) + 1);
+			        //oriMsg.text("You vote");
+			    };
+			    
+			}
+
+		</script>
 		<script>
 		// Include the UserVoice JavaScript SDK (only needed once on a page)
 		UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();

@@ -1,41 +1,41 @@
 class User < ActiveRecord::Base
 	# reg. controller에서 직접 add_role 호출
-  #after_create :assign_member_role
+	#after_create :assign_member_role
 	#after_create :welcome
-	
+	acts_as_voter
 	acts_as_reader
-  
-  rolify
-  include Authority::UserAbilities
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable#, :omniauth_providers => [:facebook]
+	
+	rolify
+	include Authority::UserAbilities
+	# Include default devise modules. Others available are:
+	# :confirmable, :lockable, :timeoutable and :omniauthable
+	devise :database_authenticatable, :registerable, :confirmable,
+				 :recoverable, :rememberable, :trackable, :validatable, :omniauthable#, :omniauth_providers => [:facebook]
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :current_password, :email, :password, :password_confirmation, :remember_me, :username, :image, :remote_image_url
-  attr_accessor :current_password
+	# Setup accessible (or protected) attributes for your model
+	attr_accessible :current_password, :email, :password, :password_confirmation, :remember_me, :username, :image, :remote_image_url
+	attr_accessor :current_password
 
-  belongs_to :profile, polymorphic: true, dependent: :destroy
-  has_many :tutorials
-  has_many :beautyclasses
-  has_many :checkouts
-  has_many :bookmarks
+	belongs_to :profile, polymorphic: true, dependent: :destroy
+	has_many :tutorials
+	has_many :beautyclasses
+	has_many :checkouts
+	has_many :bookmarks
 	has_many :authentications,  :dependent => :destroy
 	has_many :posts
 	
 	has_many :events, through: :event_entrys
 	has_many :event_entrys
-  #validates :username, uniqueness: {case_sensitive: true}
+	#validates :username, uniqueness: {case_sensitive: true}
 
-  mount_uploader :image, ImageUploader
+	mount_uploader :image, ImageUploader
 
 	def name
-	  self.try(:username)
+		self.try(:username)
 	end
-	  
+		
 	def name=(u_name)
-	  self.username = u_name if u_name.present?
+		self.username = u_name if u_name.present?
 	end
 
 # The below method was used before authentication model created
@@ -63,14 +63,14 @@ class User < ActiveRecord::Base
 	# This is only useful when your Facebook/Omniauth session already exists and you want to prefill your Registration form with some data from omniauth. 
 	# (assuming you didn't already create the account automatically on callback)
 	def self.new_with_session(params, session)
-	  if session["devise.user_attributes"]
-	    new(session["devise.user_attributes"], without_protection: true) do |user|
-	      user.attributes = params
-	      user.valid?
-	    end
-	  else
-	    super
-	  end    
+		if session["devise.user_attributes"]
+			new(session["devise.user_attributes"], without_protection: true) do |user|
+				user.attributes = params
+				user.valid?
+			end
+		else
+			super
+		end    
 	end
 
 	# if user regists through omniauth, user be able to pass password field
@@ -80,22 +80,22 @@ class User < ActiveRecord::Base
 	
 	# if user regsits through omniauth, user can update their profile with password or without password
 	def update_with_password(params, *options)
-	  if encrypted_password.blank?
-	    update_attributes(params, *options)
-	  else
-	    super
-	  end
+		if encrypted_password.blank?
+			update_attributes(params, *options)
+		else
+			super
+		end
 	end
 
 	def facebook
 		fb_auth = self.authentications.find_by_provider("facebook")
-	  @facebook ||= Koala::Facebook::API.new(fb_auth.oauth_token)
+		@facebook ||= Koala::Facebook::API.new(fb_auth.oauth_token)
 	end
 
 	# Not to send confirmation mail even if confirmable
 	protected
 	def confirmation_required?
-	  false
+		false
 	end
 
 =begin
@@ -105,8 +105,8 @@ class User < ActiveRecord::Base
 =end
 =begin
 	private
-  def welcome
-    UserMailer.welcome(self).deliver
-  end
+	def welcome
+		UserMailer.welcome(self).deliver
+	end
 =end
 end

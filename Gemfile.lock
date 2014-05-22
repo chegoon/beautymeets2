@@ -60,6 +60,7 @@ GEM
       awesome_nested_set (>= 2.0)
     acts_as_tree (1.5.0)
       activerecord (>= 3.0.0)
+    acts_as_votable (0.9.0)
     addressable (2.3.5)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
@@ -321,6 +322,7 @@ DEPENDENCIES
   acts-as-taggable-on
   acts_as_commentable_with_threading
   acts_as_tree
+  acts_as_votable (~> 0.9.0)
   authority
   best_in_place
   cancan

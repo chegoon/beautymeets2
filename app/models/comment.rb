@@ -6,6 +6,7 @@ class Comment < ActiveRecord::Base
   #tracked only: :create, owner: Proc.new{ |controller, model| controller && controller.current_user }, recipient: :commentable
 
   resourcify
+  acts_as_votable
   include Authority::Abilities
   self.authorizer_name = 'BasicAuthorizer'
   

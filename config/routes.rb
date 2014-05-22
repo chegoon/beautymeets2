@@ -1,9 +1,14 @@
 Beautymeets2::Application.routes.draw do
 
   resources :notices do 
-    resources :comments
+    resources :comments do
+      match 'vote' => 'comments#vote', :via => [:get]     
+      match 'unvote' => 'comments#unvote', :via => [:get]     
+    end
   end
 
+  #match 'like' => 'comments#like', :via => [:get]    
+  
   root :to => 'welcome#index'
   
   devise_for :admin_users, ActiveAdmin::Devise.config

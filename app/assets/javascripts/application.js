@@ -84,7 +84,7 @@ function swapBookmarkImage()
 */
 
 
-
+/*
 $("#container").mason({
     itemSelector: ".box",
     ratio: 1.5,
@@ -93,3 +93,4 @@ $("#container").mason({
         [2,2]
     ]
 });
+*/

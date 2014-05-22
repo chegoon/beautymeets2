@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140425060338) do
+ActiveRecord::Schema.define(:version => 20140521061542) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -62,20 +62,6 @@ ActiveRecord::Schema.define(:version => 20140425060338) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
-
-  create_table "announcements", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "view_count"
-    t.boolean  "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "user_id"
-    t.integer  "picture_id"
-  end
-
-  add_index "announcements", ["picture_id"], :name => "index_announcements_on_picture_id"
-  add_index "announcements", ["user_id"], :name => "index_announcements_on_user_id"
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -614,5 +600,22 @@ ActiveRecord::Schema.define(:version => 20140425060338) do
   end
 
   add_index "videos", ["video_group_id"], :name => "index_videos_on_video_group_id"
+
+  create_table "votes", :force => true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], :name => "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], :name => "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
 end
