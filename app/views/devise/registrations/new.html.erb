@@ -32,9 +32,9 @@
   
   <p>뷰티밋츠의 <%= link_to "이용약관(Terms of Service)", terms_path %> 과 <%= link_to "개인정보 수집 및 이용(Privacy Policy)", privacy_path %>을 잘 확인하시고 아래 가입버튼(Sign up)을 눌러주세요.</p>
 
-          <%= f.button :submit, "Sign up", :class => "left", :style => "margin-right:5px;" %> 
-          <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), :class => "left show-for-medium-up button secondary ", :style => "max-width:250px; width:auto;  padding-left:60px; padding-rigft:20px; background-image: url('/assets/btn_login_facebook_mobile.png');  background-repeat: no-repeat; margin-right:5px; " %>
-          <%= link_to "Sign up with Twitter", user_omniauth_authorize_path(:twitter), :class => "left show-for-medium-up button secondary ", :style => "max-width:230px;  width:auto; padding-left:60px; padding-rigft:20px;  background-image: url('/assets/btn_login_twitter_mobile.png'); background-repeat: no-repeat; "  %>
+          <%= f.button :submit, "Sign up", :class => "text-center left", :style => "width:104px; margin-right:10px;" %> 
+          <%= link_to image_tag("/assets/btn_join_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px;"), user_omniauth_authorize_path(:facebook) %>
+          <%= link_to image_tag("/assets/btn_join_twitter.png", :class => "right show-for-medium-up ", :style => "width:218px; height:auto; "), user_omniauth_authorize_path(:twitter) %>
           <%= link_to image_tag("/assets/btn_login_facebook_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
           <%= link_to image_tag("/assets/btn_login_twitter_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
 <% end %>

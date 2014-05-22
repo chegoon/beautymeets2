@@ -8,7 +8,7 @@
       <h4 class="subheader " style="">
         &nbsp;Item&nbsp;
         <small>
-          <%= "최근 2주간 사람들이 가장 많이 본 화장품" if params[:order] == 'popular_last2w' %>
+          <%= "최근 1주간 사람들이 가장 많이 본 화장품" if params[:order] == 'popular_weekly' %>
           <%= "사람들이 가장 많이 본 화장품" if params[:order] == 'popular' %>
           <%= "튜토리얼에 최근 사용된 화장품" if params[:order].nil? || params[:order] == 'newly' %>
         </small>
@@ -19,7 +19,7 @@
       <div id="tutorials" class="btn-page-sort" style=" ">   
         <div style="background:#f4f4f4;">
           <ul class="button-group radius" >
-          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular_last2w" %>>최근 2주</a></li>
+          <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular_weekly" %>>최근 2주</a></li>
           <li><a class="button small <%= 'secondary' if params[:order].nil? || params[:order] == 'newly' || params[:order] == 'popular_last2w' %> sort"  data-sort="view_count" href=<%= "#{items_path}?order=popular" %>>인기순</a></li>
           <li><a class="button small <%= 'secondary' if params[:order] == 'popular' || params[:order] == 'popular_last2w' %> sort"  data-sort="published_at" href=<%= "#{items_path}?order=newly" %>>최신순</a></li>
           </ul>

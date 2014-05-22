@@ -16,9 +16,9 @@
 		  </div>
 		  <div class="row">
 		  	<div class="small-12 columns">
-			    <%= f.button :submit, "Sign in", :class => "left", :style => "margin-right:5px;" %> 
-			    <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => "left show-for-medium-up button secondary ", :style => "max-width:240px; width:auto;  padding-left:70px; background-image: url('/assets/btn_login_facebook_mobile.png'); background-repeat: no-repeat; margin-right:5px; " %>
-			    <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => "left show-for-medium-up button secondary ", :style => "max-width:220px;  width:auto; padding-left:70px; background-image: url('/assets/btn_login_twitter_mobile.png'); background-repeat: no-repeat; "  %>
+			    <%= f.button :submit, "Sign in", :class => "text-center left", :style => "width:100px; margin-right:10px;" %> 
+			    <%= link_to image_tag("/assets/btn_login_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px;"), user_omniauth_authorize_path(:facebook) %>
+			    <%= link_to image_tag("/assets/btn_login_twitter.png", :class => "right show-for-medium-up ",:style => "width:218px; height:auto;" ), user_omniauth_authorize_path(:twitter) %>
 			    <%= link_to image_tag("/assets/btn_login_facebook_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
 			    <%= link_to image_tag("/assets/btn_login_twitter_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
 			  </div>

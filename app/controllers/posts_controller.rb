@@ -18,8 +18,8 @@ class PostsController < InheritedResources::Base
         @posts = Post.where("id NOT in (?) and published=TRUE", Post.joins(:categories).map(&:id)).order("creatd_at DESC").page(params[:page]).per_page(cards_per_page)
     elsif (params[:order].present?) && (params[:order] == "popular")
         @posts = Post.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
-    elsif (params[:order] == "popular_last2w")
-        @posts = Post.joins("JOIN impressions ON impressions.impressionable_id = posts.id").where("impressions.impressionable_type = 'Post' AND (impressions.created_at > CURDATE() - INTERVAL 2 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)        
+    elsif (params[:order] == "popular_weekly")
+        @posts = Post.joins("JOIN impressions ON impressions.impressionable_id = posts.id").where("impressions.impressionable_type = 'Post' AND (impressions.created_at > CURDATE() - INTERVAL 1 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)        
     else      
         @posts = Post.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(cards_per_page)
     end
