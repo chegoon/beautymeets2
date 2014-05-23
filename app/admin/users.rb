@@ -18,7 +18,7 @@ ActiveAdmin.register User do
 			end     
 		end
 
-		default_actions 
+		actions 
 
 	end
 

@@ -15,7 +15,7 @@ ActiveAdmin.register Video do
 		column "Action" do |v|
 			link_to 'video review', video_path(v)
 		end
-		default_actions
+		actions
 	end
 
     show do |v|
