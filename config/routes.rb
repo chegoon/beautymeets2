@@ -6,8 +6,6 @@ Beautymeets2::Application.routes.draw do
       match 'unvote' => 'comments#unvote', :via => [:get]     
     end
   end
-
-  #match 'like' => 'comments#like', :via => [:get]    
   
   root :to => 'welcome#index'
   

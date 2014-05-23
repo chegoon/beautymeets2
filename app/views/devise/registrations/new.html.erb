@@ -1,46 +1,54 @@
 <div style="margin:10px 10px 40px 10px; ">
-<div class="row">
-  <div class="small-12 medium-8 medium-centered large-8 large-centered columns">
+  <div class="row">
+    <div class="small-12 medium-9 medium-centered large-8 large-centered columns">
 
-    <div style="height:90px; position:relative; ">
-      <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
-        <%= render 'layouts/go_back' %>
-        JOIN
-      </h4>
+      <div style="height:90px; position:relative; ">
+        <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+          <%= render 'layouts/go_back' %>
+          JOIN
+        </h4>
+      </div>
+      <h4 class="subheader"><small>* 표시된 부분은 필수 입력사항입니다.</small></h4>
+      <%= current_user if user_signed_in? %>
+
+      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+
+          <%= f.input :email, :required => true, :autofocus => true %>
+          <%= f.input :username, :required => false %>
+          <%= f.input :image, :required => false, :class => "file", :type => "file" %> 
+          업로드된 이미지 <%= image_tag f.object.image_url(:medium) if f.object.image? %><br/>
+          <div class="upload-preview">
+              <img width="300" />
+          </div>
+
+        <% if f.object.password_required? %>
+          <%= f.input :password, :required => true %>
+          <%= f.input :password_confirmation, :required => true %>
+        <% end %>
+        
+        <%= #show_simple_captcha 
+        %>
+        
+        <p>뷰티밋츠의 <%= link_to "이용약관(Terms of Service)", terms_path %> 과 <%= link_to "개인정보 수집 및 이용(Privacy Policy)", privacy_path %>을 잘 확인하시고 아래 가입버튼(Sign up)을 눌러주세요.</p>
+
+                <%= f.button :submit, "JOIN", :class => "text-center left", :style => "width:100px; margin-right:10px;" %> 
+                <%= link_to image_tag("/assets/btn_auth_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px; margin-bottom:10px;"), user_omniauth_authorize_path(:facebook) %>
+                <%= link_to image_tag("/assets/btn_auth_twitter.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; "), user_omniauth_authorize_path(:twitter) %>
+                <%= link_to image_tag("/assets/btn_facebook_small.png", :style => "height:46px; width:auto;margin-right:6px;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
+                <%= link_to image_tag("/assets/btn_twitter_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
+
+      <% end %>
+  <div class="row">
+    <div class="small-12 columns">
+      <p><%= link_to "이미 가입했어요!!", new_user_session_path %></p>
     </div>
-    <h4 class="subheader"><small>* 표시된 부분은 필수 입력사항입니다.</small></h4>
-<%= current_user if user_signed_in? %>
+  </div>
+  </div>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :username, :required => false %>
-    <%= f.input :image, :required => false, :class => "file", :type => "file" %> 
-    업로드된 이미지 <%= image_tag f.object.image_url(:medium) if f.object.image? %><br/>
-    <div class="upload-preview">
-        <img width="300" />
-    </div>
-
-  <% if f.object.password_required? %>
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
-  <% end %>
-  
-  <%= #show_simple_captcha 
-  %>
-  
-  <p>뷰티밋츠의 <%= link_to "이용약관(Terms of Service)", terms_path %> 과 <%= link_to "개인정보 수집 및 이용(Privacy Policy)", privacy_path %>을 잘 확인하시고 아래 가입버튼(Sign up)을 눌러주세요.</p>
-
-          <%= f.button :submit, "Sign up", :class => "text-center left", :style => "width:104px; margin-right:10px;" %> 
-          <%= link_to image_tag("/assets/btn_join_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px;"), user_omniauth_authorize_path(:facebook) %>
-          <%= link_to image_tag("/assets/btn_join_twitter.png", :class => "right show-for-medium-up ", :style => "width:218px; height:auto; "), user_omniauth_authorize_path(:twitter) %>
-          <%= link_to image_tag("/assets/btn_login_facebook_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
-          <%= link_to image_tag("/assets/btn_login_twitter_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
-<% end %>
+  </div>
 </div>
-</div>
-</div>
+
 <script type="text/javascript">
     var preview = $(".upload-preview img");
 

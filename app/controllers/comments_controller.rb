@@ -2,7 +2,7 @@
 class CommentsController < ApplicationController
 	before_filter :load_commentable
 	before_filter :authenticate_user!, except: [:index, :show]  
-	authorize_actions_for Comment, except: [:index, :show]
+	authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 	def index
 		@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC")
@@ -67,18 +67,24 @@ class CommentsController < ApplicationController
 
 	def vote
 		@comment = @commentable.comments.find(params[:comment_id])
+		authorize_action_for @comment
+
 		@comment.liked_by current_user
+
 		respond_to do |format|
-			format.html { redirect_to @commentable, notice: "Comment liked"  }
+			format.html { redirect_to @commentable, notice: "Comment voted"  }
 			format.js
 			format.json { head :no_content }
 		end
 	end
+
 	def unvote
 		@comment = @commentable.comments.find(params[:comment_id])
+		authorize_action_for @comment
+		
 		@comment.unliked_by current_user
 		respond_to do |format|
-			format.html { redirect_to @commentable, notice: "Comment liked"  }
+			format.html { redirect_to @commentable, notice: "Comment unvoted"  }
 			format.js
 			format.json { head :no_content }
 		end

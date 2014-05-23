@@ -4,6 +4,7 @@ class Notice < ActiveRecord::Base
   
   resourcify
   include Authority::Abilities
+  #self.authorizer_name = "AdminAuthorizer"
   
   belongs_to :author, class_name: "User", :foreign_key => "user_id"
   acts_as_taggable

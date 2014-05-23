@@ -1,7 +1,7 @@
 
 
 <div class="row">
-  <div class="small-12 medium-8 medium-centered large-8 large-centered columns">
+  <div class="small-12 medium-9 medium-centered large-8 large-centered columns">
   	<div style="height:90px; position:relative; ">
   		<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
 			<%= render 'layouts/go_back' %>
@@ -16,18 +16,20 @@
 		  </div>
 		  <div class="row">
 		  	<div class="small-12 columns">
-			    <%= f.button :submit, "Sign in", :class => "text-center left", :style => "width:118px; margin-right:10px;" %> 
-			    <%= link_to image_tag("/assets/btn_login_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px;"), user_omniauth_authorize_path(:facebook) %>
-			    <%= link_to image_tag("/assets/btn_login_twitter.png", :class => "right show-for-medium-up ",:style => "width:218px; height:auto;" ), user_omniauth_authorize_path(:twitter) %>
-			    <%= link_to image_tag("/assets/btn_login_facebook_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
-			    <%= link_to image_tag("/assets/btn_login_twitter_mobile.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
+			    <%= f.button :submit, "LOGIN", :class => "text-center left", :style => "width:110px; margin-right:10px;" %> 
+			    <%= link_to image_tag("/assets/btn_auth_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px; margin-bottom:10px;"), user_omniauth_authorize_path(:facebook) %>
+			    <%= link_to image_tag("/assets/btn_auth_twitter.png", :class => "left show-for-medium-up ",:style => "width:218px; height:auto;" ), user_omniauth_authorize_path(:twitter) %>
+			    <%= link_to image_tag("/assets/btn_facebook_small.png", :style => "height:46px; width:auto;margin-right:6px;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
+			    <%= link_to image_tag("/assets/btn_twitter_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
 			  </div>
 			</div>
 		    
 		<% end %>
-		
+		<p>
 		<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-		  <%= link_to "비밀번호가 기억이 안나요", new_password_path(resource_name) %><br />
+			<%= link_to "비밀번호가 기억이 안나요!", new_password_path(resource_name) %><br/>
 		<% end -%>
+		<%= link_to "가입을 아직 못했어요!", new_user_registration_path %>
+		</p>
 	</div>
 </div>

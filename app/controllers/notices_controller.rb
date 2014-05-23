@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController #InheritedResources::Base
 	inherit_resources
+	authorize_actions_for Notice, except: [:index, :show]
 
 	def index
 		@commentable = Notice.find(2)

@@ -28,8 +28,8 @@ Authority.configure do |config|
     :edit    => 'update',
     :update  => 'update',
     :destroy => 'delete',
-    :vote => 'read',
-    :unvote => 'read'
+    :vote => 'vote',
+    :unvote => 'vote'
   }
 
   # ABILITIES
@@ -39,13 +39,14 @@ Authority.configure do |config|
   # me like that.
   #
   # Defaults are as follows:
-  #
-  # config.abilities =  {
-  #   :create => 'creatable',
-  #   :read   => 'readable',
-  #   :update => 'updatable',
-  #   :delete => 'deletable'
-  # }
+  
+   config.abilities =  {
+     :create => 'creatable',
+     :read   => 'readable',
+     :update => 'updatable',
+     :delete => 'deletable',
+     :vote => 'votable'
+   }
 
   # LOGGER
   # ======
