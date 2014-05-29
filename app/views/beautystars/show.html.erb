@@ -1,14 +1,25 @@
 <%= link_to '프로필 수정', edit_beautystar_path(@beautystar) if (can? :manage, @beautystar) %>
 <%= link_to '계정 수정', edit_user_registration_path(@beautystar.user) if (can? :manage, @beautystar)  %>
+  	<div style="height:90px; position:relative; ">
+			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+				<%= render 'layouts/go_back' %>
+    			안녕하세요, <%= @beautystar.user.name %> 입니다.
+    	</h4>
+    </div>
 <div class="row" style="">
 	<div class="large-12 columns">	
-		<h4 class="subheader" >안녕하세요, <%= @beautystar.user.name %> 입니다. </h4>
 		<div class="panel" style="background-image: url(<%= @beautystar.image_url %>);">
-		  <h5 class="subheader " style="color:#FFF;">
+		  <h5 class="subheader show-for-medium-up" style="color:#FFF; margin-bottom:0;">
 		  	<%= image_tag(@beautystar.user.image_url(:medium), :style => "width:10rem; height:auto;") %>
-		  	<strong><%= "#{@beautystar.user.name}"%></strong>
+		  	<strong style="margin-left:10px;"><%= "#{@beautystar.user.name}"%></strong>
 		  	<%= " | #{@beautystar.job_title}" %> 
 		  	<span class="right"><small>BEAUTYMEETS BEAUTYSTAR </small></span>
+		  </h5>
+		  <h5 class="subheader show-for-small-only center text-center" style="color:#FFF; margin-bottom:20px;">
+		  	<%= image_tag(@beautystar.user.image_url(:small), :style => "margin-top:40px; margin-bottom:40px;") %>
+		  	<br/>
+		  	<strong><%= "#{@beautystar.user.name}"%></strong>
+		  	<%= " | #{@beautystar.job_title}" %> 
 		  </h5>
 		</div>
 	</div>
@@ -36,6 +47,7 @@
 </div>
 <div class="fb-like" data-href="<%= beautystar_url(@beautystar) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 
+<% if @pictures.present? %>
 <!-- BEAUTYSTAR Portfolio -->
 <div class="row " style="margin:0 auto; float:none; ">
 	<div class="large-12 columns">	
@@ -44,17 +56,22 @@
 </div>
 <hr style="margin-top:0;">
 <!-- BEAUTYSTAR Portfolio -->
-<div class="row " style="margin:0 auto 20px auto; float:none; ">
-	<div class="large-12 columns">
-		<ul class="clearing-thumbs" data-clearing>
+<div class="row " style=" ">
+	
+
 	  <% @pictures.each_with_index do |portfolio, i| %>
-  			<li style="padding:0 0 10px 0;"><a href="<%= portfolio.image_url(:large)%>"><img data-caption="<%= portfolio.description %>" src="<%= portfolio.image_url(:small).to_s %>"></a></li>
+	  		<div class="small-4 medium-2  columns text-center" style="margin-bottom:20px;">
+	  			<a  href="<%= portfolio.image_url(:large) %>">
+	  				<img class="th" src="<%= portfolio.image_url(:small).to_s %>">
+	  			</a>
+  			</div>
   		<% end %>	
-		</ul>
-	</div>
+	
 </div>
+<% end %>
 <%= render 'pictures/form' if user_signed_in? && current_user.can_update?(@beautystar)  %>
 
+<% if @tutorials.present? %>
 <div class="row " style="margin:0 auto; float:none; ">
 	<div class="large-12 columns">	
 		<h4 class="subheader">Tutorials</h4>
@@ -63,7 +80,9 @@
 <hr style="margin-top:0;">
 <!-- BEAUTYSTAR Beautorials -->
 <%= render 'tutorials/tutorials' %>
+<% end %>
 
+<% if @beautyclasses.present? %>
 <div class="row " style="margin:0 auto; float:none; ">
 	<div class="large-12 columns">	
 		<h4 class="subheader">Beautyclasses</h4>
@@ -72,3 +91,4 @@
 <hr style="margin-top:0;">
 <!-- BEAUTYSTAR Beautyclass -->
 <%= render 'beautyclasses/beautyclasses' %>
+<% end %>
