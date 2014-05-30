@@ -1,26 +1,34 @@
 
 <%= simple_form_for(@member) do |f| %>
-        
-  <%= f.error_notification %>
-  <fieldset>
-    <legend> 기본 정보 </legend>
-      <label>성별</label>
-  <%= f.association :gender, :as => :radio_buttons_label, :label => ""  %>
-  <%= f.input :year_of_birth,:collection => (Date.today.year-40)..(Date.today.year-15),  :label => "출생년도", :type => "integer" %>
-  </fieldset>
-  <hr>
-<fieldset>
-    <legend> 피부 타입 정보 </legend>
-  <%= f.input :skin_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  %>
-</fieldset>
-  <fieldset>
-    <legend> 피부 톤 정보 </legend>
-  <%= f.input :skin_tone_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply", :label => ""  %>
-  </fieldset>
-  <fieldset>
-    <legend> 피부 트러블 정보 </legend>
-  <%= f.input :skin_trouble_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_troubles").map(&:name), :hint => "Please check all that apply", :label => "" %>
-  </fieldset>
-  <%= f.button :submit, :class => "expand" %>
-    
+				
+	<%= f.error_notification %>
+	<fieldset>
+		<legend> 기본 정보 </legend>
+			<label>성별</label>
+	<%= f.association :gender, :as => :radio_buttons_label, :label => ""  %>
+	<%= f.input :year_of_birth,:collection => (Date.today.year-40)..(Date.today.year-15),  :label => "출생년도", :type => "integer" %>
+	</fieldset>
+	<hr>
+	<fieldset>
+			<legend> 피부 타입 정보 </legend>
+		<%= f.input :skin_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  %>
+	</fieldset>
+	<fieldset>
+		<legend> 피부 밝기 정보 </legend>
+	<%= f.input :skin_brightness_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_brightnesses").map(&:name), :hint => "Please check all that apply", :label => ""  %>
+	</fieldset>
+	<fieldset>
+		<legend> 피부 톤 정보 </legend>
+	<%= f.input :skin_tone_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply", :label => ""  %>
+	</fieldset>
+	<fieldset>
+		<legend> 피부 컬러 정보 </legend>
+	<%= f.input :skin_color_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_colors").map(&:name), :hint => "Please check all that apply", :label => ""  %>
+	</fieldset>
+	<fieldset>
+		<legend> 피부 트러블 정보 </legend>
+	<%= f.input :skin_trouble_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_troubles").map(&:name), :hint => "Please check all that apply", :label => "" %>
+	</fieldset>
+	<%= f.button :submit, :class => "expand" %>
+		
 <% end %>

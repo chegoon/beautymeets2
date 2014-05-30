@@ -1,0 +1,10 @@
+<div class="progress small-12 success radius" style="border:0; margin-top:30px;">
+  <span class="meter" style="width: 95%; background:#60DCC6; height:10px;"></span>
+</div>
+<h3 class="subheader"><strong>피부고민</strong>을 체크해주세요.</h3>
+<h5 class="subheader" style="color:#aaa;">여러개를 선택하셔도 됩니다. </h5>
+<%= simple_form_for @member, url: wizard_path do |f| %>
+	<%= f.input :skin_trouble_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_troubles").map(&:name), :hint => "Please check all that apply", :label => "" %>
+	<%= f.button :submit, "Continue" %>
+	<%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
+<% end %>
