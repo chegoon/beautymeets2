@@ -132,6 +132,28 @@ class ItemsController < ApplicationController
 
   end
 
+  def preview
+    puts "params[:id] : #{params[:item_id]}"
+    @item = @itemizable.items.find(params[:item_id])
+    itemization = @itemizable.itemizations.find_by_item_id(@item.id)
+    itemization.preview = true
+    itemization.save
+
+    redirect_to @itemizable
+
+  end
+
+  def unpreview
+    puts "params[:id] : #{params[:item_id]}"
+    @item = @itemizable.items.find(params[:item_id])
+    itemization = @itemizable.itemizations.find_by_item_id(@item.id)
+    itemization.preview = false
+    itemization.save
+
+    redirect_to @itemizable
+
+  end
+
   private
   def load_itemizable
     resource, id = request.path.split('/')[1,2]

@@ -45,6 +45,7 @@
 <div class="row" style="margin-bottom:30px;" >
 	<div class="small-12 medium-12 large-8 columns" style="">
 		<div class="welcome-tutorial-card-outter" style="">
+			<% if @latest_tutorials.present? %>
 			<div class="row" >
 				<div class="small-12 columns" >
 					<div class="welcome-tutorial-header" >
@@ -58,8 +59,9 @@
 				<div class="small-12 columns" >
 					<%= render partial: @latest_tutorials, locals: { cards_in_row: "2" } %>
 				</div>
-
 			</div>
+			<% end %>
+			<% if @best_tutorials.present? %>
 			<div class="row">
 				<div class="small-12 columns" style="">
 					<div class="welcome-tutorial-header">
@@ -74,6 +76,7 @@
 					<%= render partial: @best_tutorials, locals: { cards_in_row: "2" }  %>
 				</div>
 			</div>
+			<% end %>
 		</div>
 	</div>
 	<div class="small-12 medium-12 large-4 columns" style="padding:0 10px 0 10px;">
@@ -94,6 +97,7 @@
 	</div>
 </div>
 
+<% if @latest_posts.present? %>
 <div class="row">
 	<div class="small-12 columns" >
 		<div class="row">
@@ -112,3 +116,4 @@
 		</div>
 	</div>
 </div>
+<% end %>

@@ -72,7 +72,7 @@
 	<div class="small-12 columns " >
 		<h5><small>다른 이미지</small></h5>
 		<%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
-		<%= render 'pictures/form' if (can? :manage, @tutorial)  %>
+		<%= render 'pictures/form' %>
 	</div>
 <% end %>
 
@@ -105,14 +105,26 @@
 				<ul id="item-carousel" class="elastislide-list ">
 				<% @tutorial.items.each do |tutorial_item| %>			
 					<li >
-
+						<% if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<div style="font-size:0.8em; text-align:left;">
+							<%= "previewed<br/>".html_safe if @tutorial.itemizations.find_by_item_id(tutorial_item.id).preview.present? && (@tutorial.itemizations.find_by_item_id(tutorial_item.id).preview == true) %>
+							<%= link_to "P", tutorial_item_preview_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<%= link_to "Un-P", tutorial_item_unpreview_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<%= link_to "X", tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete , :style => "width:30px;" if user_signed_in? && current_user.can_update?(@tutorial) %>
+							</div>
+							<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
+							<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
+							</div>
 							<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :class => "th" , :style => "height:110px; width:110px;"), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
+
+						<% else %>
+
+						<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :class => "th" , :style => "height:110px; width:110px;"), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
 						<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
 						<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
 						</div>
-						<div>
-						<%= link_to "&nbsp;X".html_safe, tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if user_signed_in? && current_user.can_update?(@tutorial) %>
-						</div>
+						
+						<% end %>
 					</li>
 
 				<% end %>	
@@ -124,22 +136,23 @@
 			<div class="show-for-small-only">
 				<table style="width:100%;">	
 					<tbody>
-
-						<% header_item = @tutorial.items.sample(1).first %>
-		
-						<tr >
-							<td style="border: 1px solid #e9e9e9; width:80px;">
-								<%= link_to image_tag(header_item.thumbnail.image_url(:small)), item_path(header_item) if header_item.thumbnail.present? %>
-							</td>
-							<td style="border: 1px solid #e9e9e9; ">
-								<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
-									<%= header_item.brand.try(:name) %>
-								</div>
-								<div style="font-size:0.8rem; line-height:100%;">
-									<strong><%= link_to truncate(header_item.try(:name), 20), item_path(header_item) %></strong>
-								</div>
-							</td>
-						</tr>
+						<% @tutorial.items.each do |tutorial_item| %>		
+							<% if @tutorial.itemizations.find_by_item_id(tutorial_item.id).preview %>
+								<tr >
+									<td style="border: 1px solid #e9e9e9; width:80px; background:#FFF; ">
+										<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small)), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
+									</td>
+									<td style="border: 1px solid #e9e9e9; background:#FFF; ">
+										<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
+											<%= tutorial_item.brand.try(:name) %>
+										</div>
+										<div style="font-size:0.8rem; line-height:100%;">
+											<strong><%= link_to truncate(tutorial_item.try(:name), 20), item_path(tutorial_item) %></strong>
+										</div>
+									</td>
+								</tr>
+							<% end %>
+						<% end %>
 
 						<tr >
 							<td colspan="2" style="border: 1px solid #e9e9e9; ">
@@ -154,21 +167,26 @@
 				</table>
 			</div>
 			<div class="show-for-medium-up">
-			<ul id="item-carousel" class="elastislide-list">
-				<li >
-					<% header_item = @tutorial.items.sample(1).first %>
-					<%= link_to image_tag(header_item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:auto;"), item_path(header_item)  if header_item.thumbnail.present? %>
-					<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= header_item.brand.try(:name) %></div>
-					<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(header_item.try(:name), 10), item_path(header_item) %></strong>
-					</div>
-				</li>
-				<li >
+				<ul id="item-carousel" class="elastislide-list">
 
-						<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
-						<a href="<%= new_user_registration_path %>"  class="button secondary" >회원가입</a>&nbsp;
-		 	    			<a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
-		 	  </li>
-			</ul>			
+					<% @tutorial.items.each do |tutorial_item| %>		
+						<% if @tutorial.itemizations.find_by_item_id(tutorial_item.id).preview %>
+							<li >
+
+								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:auto;"), item_path(tutorial_item)  if tutorial_item.thumbnail.present? %>
+								<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
+								<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
+								</div>
+							</li>
+						<% end %>
+					<% end %>
+					<li >
+
+							<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
+							<a href="<%= new_user_registration_path %>"  class="button secondary" >회원가입</a>&nbsp;
+			 	    			<a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
+			 	 	</li>
+				</ul>			
 			</div>	
  	  <% end %>
 	</div>

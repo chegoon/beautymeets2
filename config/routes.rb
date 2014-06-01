@@ -68,6 +68,8 @@ Beautymeets2::Application.routes.draw do
     resources :comments, :pictures
     resources :items do 
       match 'unitemize' => 'items#unitemize', :via => [:delete]     
+      match 'preview' => 'items#preview', :via => [:get]     
+      match 'unpreview' => 'items#unpreview', :via => [:get]     
     end
     get :autocomplete_item_name, :on => :collection   
     #match 'tutorials/:tutorial_id/items/:id/unitemize' => 'items#unitemize', :via => [:delete]

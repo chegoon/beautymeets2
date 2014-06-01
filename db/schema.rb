@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140521061542) do
+ActiveRecord::Schema.define(:version => 20140601144335) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -357,6 +357,7 @@ ActiveRecord::Schema.define(:version => 20140521061542) do
     t.string   "itemizable_type"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.boolean  "preview"
   end
 
   add_index "itemizations", ["itemizable_id", "itemizable_type"], :name => "index_itemizations_on_itemizable_id_and_itemizable_type"
@@ -497,6 +498,16 @@ ActiveRecord::Schema.define(:version => 20140521061542) do
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
+
+  create_table "taggings_copy", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type", :limit => 45
+    t.integer  "tagger_id"
+    t.string   "tagger_type",   :limit => 45
+    t.string   "context",       :limit => 45
+    t.datetime "created_at"
+  end
 
   create_table "tags", :force => true do |t|
     t.string  "name"
