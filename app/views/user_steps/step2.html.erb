@@ -10,6 +10,11 @@
 	<fieldset>
 	    <legend> 웜톤? 쿨톤? </legend>
 	  <%= f.input :skin_tone_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  %>
+	  <p>
+	  	목이 <strong>구릿빛, 옐로우 빛</strong>이 돌면 웜톤! <strong>핑크빛</strong>이 돌면 쿨톤!<br/>
+	  <strong>창백한 피부, 검은 머리카락, 파란색</strong>을 띠는 눈의 흰자를 가졌다면 쿨톤!<br/>
+	  손목안의 핏줄이 <strong>초록색</strong>에 가까우면 웜톤! <strong>파란색</strong>에 가까우면 쿨톤!
+		</p>
 	</fieldset>
 	<fieldset>
 	    <legend> 피부 색깔 </legend>
