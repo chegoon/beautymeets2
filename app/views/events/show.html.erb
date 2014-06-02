@@ -29,18 +29,19 @@
     <% if !@pictures.nil? %>
       <% fb_page_thumb = "" %>
       <% @pictures.each do |p| %>
-          <% if user_signed_in? && current_user.can_update?(@pictureable) #can? :author, @pictureable 
+          <% if user_signed_in? && current_user.can_update?(@pictureable) 
             %>
               <div class="left" style="margin:10px;">
                 <img src="<%= p.image_url.to_s %>">
                 <%= simple_form_for [@pictureable] do |f| %>
-                  <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
-                  <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+                  Desktop<%= check_box_tag "th_to_desktop",  p.id %>
+                  Mobile<%= check_box_tag "th_to_mobile", p.id  %>
                   <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+                  <%= link_to 'x', [@pictureable, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
                 <% end %>
               </div>
           <% else %>
-            <% if p.id != @event.thumbnail.id %>
+            <% if (p.id != @event.thumbnail.id) && (p.id != @event.mobile_thumbnail.id)%>
               <img src="<%= p.image_url.to_s %>">
             <% end %>
           <% end %>

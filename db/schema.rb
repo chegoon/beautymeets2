@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140601144335) do
+ActiveRecord::Schema.define(:version => 20140602130906) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -304,8 +304,10 @@ ActiveRecord::Schema.define(:version => 20140601144335) do
     t.string   "url_candidate"
     t.boolean  "published"
     t.datetime "announcement_closed_at"
+    t.integer  "mobile_picture_id"
   end
 
+  add_index "events", ["mobile_picture_id"], :name => "index_events_on_mobile_picture_id"
   add_index "events", ["picture_id"], :name => "index_events_on_picture_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
@@ -506,6 +508,26 @@ ActiveRecord::Schema.define(:version => 20140601144335) do
     t.integer  "tagger_id"
     t.string   "tagger_type",   :limit => 45
     t.string   "context",       :limit => 45
+    t.datetime "created_at"
+  end
+
+  create_table "taggings_copy2", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  create_table "taggings_copy3", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
     t.datetime "created_at"
   end
 

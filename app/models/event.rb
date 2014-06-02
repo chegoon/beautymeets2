@@ -13,13 +13,14 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url_candidate, use: [:slugged, :history]
 
-  attr_accessible :description, :published, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id, :target_url, :url_candidate, :announcement_closed_at
+  attr_accessible :description, :published, :finish_on, :released_at, :win_released_at, :start_from, :title, :view_count, :tag_list, :picture_id, :target_url, :url_candidate, :announcement_closed_at, :mobile_picture_id
 
   belongs_to :host, class_name: "User", :foreign_key => "user_id"
 
   has_many :pictures, as: :pictureable, dependent: :destroy
 
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
+  belongs_to :mobile_thumbnail, class_name: "Picture", :foreign_key => "mobile_picture_id"
   
   has_many :entrants, class_name: "User", :foreign_key => "user_id", through: :event_entrys
   has_many :event_entrys
