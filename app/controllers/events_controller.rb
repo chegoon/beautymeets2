@@ -94,7 +94,7 @@ class EventsController < ApplicationController
 
 		respond_to do |format|
 			if @event.update_attributes(params[:event])
-				@event.create_activity :create, owner: @event.host if (Time.zone.now >= @event.released_at) && PublicActivity::Activity.where(owner: @event.host, trackable: @event).nil?
+				@event.create_activity :create, owner: @event.host if (Time.zone.now >= @event.released_at) && PublicActivity::Activity.where(owner_id: current_user.id, owner_type: "User", trackable_id: @event.id, trackable_type: "Event").nil?
 				format.html { redirect_to @event, notice: 'Event was successfully updated.' }
 				format.json { head :no_content }
 			else
