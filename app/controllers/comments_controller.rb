@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
 				@comment.move_to_child_of(@parent)
 				@comment.create_activity :create, owner: current_user, recipient: @parent.author if !(@commentable.class.name == "Notice")
 			else
-				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") || !(@commentable.class.name == "Event")
+				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 			end
 
 			if !(@commentable.class.name == "Notice")
