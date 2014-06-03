@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="small-12 columns">
 		<a href="<%= event_path(event) %>" style="display:block;">
-			<div class="panel" style='background:#FCFCFC; border:0; height:24em; padding:0;'>
-				<%= image_tag event.thumbnail.image_url, :class => "center  show-for-medium-up"  if event.thumbnail.present? %>  
+			<div class="panel" style=' border:0; height:27em; padding:0;'>
+				<%= image_tag event.thumbnail.image_url, :class => "center  show-for-medium-up", :style => "width:auto;"  if event.thumbnail.present? %>  
 				<%= image_tag event.mobile_thumbnail.image_url, :class => "show-for-small-only", :style => "width:100%, height:auto; margin:0 auto;"  if event.mobile_thumbnail.present? %>
 			</div>
 			
