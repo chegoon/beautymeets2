@@ -56,7 +56,7 @@ class TutorialsController < ApplicationController
 		#if (cannot? :author, @tutorial) || (cannot? :manage, Tutorial)
 		if !(user_signed_in? && current_user.can_update?(@tutorial))
 			@tutorial.increment_view_count 
-			impressionist(@tutorial, "", :unique => [:session_hash])
+			impressionist(@tutorial) #, "", :unique => [:session_hash]) 동일 세션에서도 reload시 count함(2014/06/05)
 		end
 
 		@commentable = @tutorial
