@@ -65,7 +65,7 @@ class VideosController < ApplicationController
       if !(user_signed_in? && current_user.can_update?(@video))
       #if cannot? :manage, @video
         @video.increment_view_count 
-        impressionist(@video, "", :unique => [:session_hash])
+        impressionist(@video) #, "", :unique => [:session_hash]) 동일 세션에서도 reload시 count
       end
 
       respond_to do |format|
