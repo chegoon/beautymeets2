@@ -110,6 +110,8 @@ gem 'newrelic_rpm'
 
 gem "galetahub-simple_captcha", :require => "simple_captcha"
 gem 'acts_as_votable', '~> 0.9.0'
+
+gem "request-log-analyzer"
 #gem 'recaptcha', :require => 'recaptcha/rails'
 =begin
 #gem 'therubyracer'

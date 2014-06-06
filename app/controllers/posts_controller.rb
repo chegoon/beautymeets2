@@ -44,7 +44,7 @@ class PostsController < InheritedResources::Base
 		@tutorials = Tutorial.where(published: true).order("view_count DESC").sample(5).first(3)
 
 		if !(user_signed_in? && current_user.can_update?(@post))
-			@tutorial.increment_view_count 
+			@post.increment_view_count 
 			impressionist(@post) #, "", :unique => [:session_hash]) 동일 세션에서도 reload시 count함(2014/06/05)
 		end
 
