@@ -16,18 +16,6 @@
     <%= render partial: "channel_log", :object => channel_log %>
 <% end %>
 
-<% @channel_logs.each do |channel_log| %>
-  <tr>
-    <td><%= channel_log.channel_loggable_id %></td>
-    <td><%= channel_log.channel_loggable_type %></td>
-    <td><%= channel_log.url %></td>
-    <td><%= channel_log.uploaded_at %></td>
-    <td><%= channel_log.channel %></td>
-    <td><%= link_to 'Show', channel_log %></td>
-    <td><%= link_to 'Edit', edit_channel_log_path(channel_log) %></td>
-    <td><%= link_to 'Destroy', channel_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
 </table>
 
 <br />
