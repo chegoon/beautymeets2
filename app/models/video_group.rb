@@ -21,7 +21,7 @@ class VideoGroup < ActiveRecord::Base
   	find(id).update_group
   end
 
-  def update_group
+  def self.update_group
   	puts "delayed_job called"
     video_group = self
     client = YouTubeIt::Client.new(:username => "hellobeauty@reallplay.com", :password =>  "reallplay0707",:dev_key => "AI39si4kYnOd5LRdnL4B9BIbBOLKPAG9y1O4Wh6a8cO8dvQ-Hsmv_fXPnmEYHu_ndnK0OijXoBtlNyAnzyJYChbuL7cnKsqjJA")

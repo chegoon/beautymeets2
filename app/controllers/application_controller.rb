@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 	include SimpleCaptcha::ControllerHelpers
 
 	def save_referer
-		puts "before_save, sessoin_referer : #{session['referer']}"
+		#puts "before_save, sessoin_referer : #{session['referer']}"
 		unless user_signed_in? 
 			unless session['referer'] 
 				session['referer'] = request.env["HTTP_REFERER"] || 'none'
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 		end
 	
 		#session['referer'] = request.env["HTTP_REFERER"] || 'none' until session['referer'] && user_signed_in?
-		puts "after_save, sessoin_referer : #{session['referer']}"
+		#puts "after_save, sessoin_referer : #{session['referer']}"
 	end
 	
 	def store_location

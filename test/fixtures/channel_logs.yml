@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  channel_loggable_id: 1
+  channel_loggable_type: MyString
+  url: MyString
+  uploaded_at: 2014-06-06 18:37:34
+  channel: 
+
+two:
+  channel_loggable_id: 1
+  channel_loggable_type: MyString
+  url: MyString
+  uploaded_at: 2014-06-06 18:37:34
+  channel: 

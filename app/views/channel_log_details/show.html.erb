@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Channel log:</b>
+  <%= @channel_log_detail.channel_log %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @channel_log_detail.view_count %>
+</p>
+
+<p>
+  <b>Like count:</b>
+  <%= @channel_log_detail.like_count %>
+</p>
+
+<p>
+  <b>Comment count:</b>
+  <%= @channel_log_detail.comment_count %>
+</p>
+
+<p>
+  <b>Share count:</b>
+  <%= @channel_log_detail.share_count %>
+</p>
+
+<p>
+  <b>Collected at:</b>
+  <%= @channel_log_detail.collected_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_channel_log_detail_path(@channel_log_detail) %> |
+<%= link_to 'Back', channel_log_details_path %>

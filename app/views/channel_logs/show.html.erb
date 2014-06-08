@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Channel loggable:</b>
+  <%= @channel_log.channel_loggable_id %>
+</p>
+
+<p>
+  <b>Channel loggable type:</b>
+  <%= @channel_log.channel_loggable_type %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @channel_log.url %>
+</p>
+
+<p>
+  <b>Uploaded at:</b>
+  <%= @channel_log.uploaded_at %>
+</p>
+
+<p>
+  <b>Channel:</b>
+  <%= @channel_log.channel %>
+</p>
+
+
+<%= link_to 'Edit', edit_channel_log_path(@channel_log) %> |
+<%= link_to 'Back', channel_logs_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140605071946) do
+ActiveRecord::Schema.define(:version => 20140606093957) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -193,6 +193,37 @@ ActiveRecord::Schema.define(:version => 20140605071946) do
   add_index "categorizations", ["categorizeable_id", "categorizeable_type"], :name => "index_categorizations_on_categorizable_id_and_categorizable_type"
 
   create_table "category_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "channel_log_details", :force => true do |t|
+    t.integer  "channel_log_id"
+    t.integer  "view_count"
+    t.integer  "like_count"
+    t.integer  "comment_count"
+    t.integer  "share_count"
+    t.datetime "collected_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "channel_log_details", ["channel_log_id"], :name => "index_channel_log_details_on_channel_log_id"
+
+  create_table "channel_logs", :force => true do |t|
+    t.integer  "channel_loggable_id"
+    t.string   "channel_loggable_type"
+    t.string   "url"
+    t.datetime "uploaded_at"
+    t.integer  "channel_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "channel_logs", ["channel_id"], :name => "index_channel_logs_on_channel_id"
+
+  create_table "channels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

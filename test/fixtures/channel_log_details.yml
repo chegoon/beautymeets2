@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  channel_log: 
+  view_count: 1
+  like_count: 1
+  comment_count: 1
+  share_count: 1
+  collected_at: 2014-06-06 18:39:57
+
+two:
+  channel_log: 
+  view_count: 1
+  like_count: 1
+  comment_count: 1
+  share_count: 1
+  collected_at: 2014-06-06 18:39:57

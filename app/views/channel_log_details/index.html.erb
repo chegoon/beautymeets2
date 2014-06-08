@@ -1,0 +1,33 @@
+<h1>Listing channel_log_details</h1>
+
+<table>
+  <tr>
+    <th>Channel log</th>
+    <th>View count</th>
+    <th>Like count</th>
+    <th>Comment count</th>
+    <th>Share count</th>
+    <th>Collected at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @channel_log_details.each do |channel_log_detail| %>
+  <tr>
+    <td><%= channel_log_detail.channel_log %></td>
+    <td><%= channel_log_detail.view_count %></td>
+    <td><%= channel_log_detail.like_count %></td>
+    <td><%= channel_log_detail.comment_count %></td>
+    <td><%= channel_log_detail.share_count %></td>
+    <td><%= channel_log_detail.collected_at %></td>
+    <td><%= link_to 'Show', channel_log_detail %></td>
+    <td><%= link_to 'Edit', edit_channel_log_detail_path(channel_log_detail) %></td>
+    <td><%= link_to 'Destroy', channel_log_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Channel log detail', new_channel_log_detail_path %>

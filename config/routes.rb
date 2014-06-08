@@ -1,5 +1,11 @@
 Beautymeets2::Application.routes.draw do
 
+  resources :channel_logs do 
+    resources :channel_log_details  
+    get :autocomplete_channel_name, :on => :collection   
+    get :update_log_details, :on => :collection   
+  end
+
   resources :notices do 
     resources :comments do
       match 'vote' => 'comments#vote', :via => [:get]     
@@ -65,6 +71,7 @@ Beautymeets2::Application.routes.draw do
   resources :members 
 
   resources :tutorials do 
+    resources :channel_logs
     resources :comments, :pictures
     resources :items do 
       match 'unitemize' => 'items#unitemize', :via => [:delete]     

@@ -1,0 +1,36 @@
+<h1>Listing channel_logs</h1>
+
+<table>
+  <tr>
+    <th>Tutorial id</th>
+    <th>Tutorial name</th>
+    <th>Channel</th>
+    <th>view</th>
+    <th>like</th>
+    <th>comment</th>
+    <th>share</th>
+    <th>Uploaded at</th>
+  </tr>
+
+<% @channel_logs.each do |channel_log| %>
+    <%= render partial: "channel_log", :object => channel_log %>
+<% end %>
+
+<% @channel_logs.each do |channel_log| %>
+  <tr>
+    <td><%= channel_log.channel_loggable_id %></td>
+    <td><%= channel_log.channel_loggable_type %></td>
+    <td><%= channel_log.url %></td>
+    <td><%= channel_log.uploaded_at %></td>
+    <td><%= channel_log.channel %></td>
+    <td><%= link_to 'Show', channel_log %></td>
+    <td><%= link_to 'Edit', edit_channel_log_path(channel_log) %></td>
+    <td><%= link_to 'Destroy', channel_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Channel log', new_channel_log_path %>
+<%= link_to 'Get Log details', update_log_details_channel_logs_path %>

@@ -1,0 +1,15 @@
+
+<% if channel_log && channel_log.channel_log_details %>
+	<% channel_log.channel_log_details.each do |detail| %>
+  <tr>
+    <td><%= channel_log.channel_loggable.id %><%= link_to 'Destroy', channel_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= channel_log.channel_loggable.title %></td>
+    <td><%= channel_log.channel.name %></td>
+    <td><%= detail.view_count %></td>
+    <td><%= detail.like_count %></td>
+    <td><%= detail.comment_count %></td>
+    <td><%= detail.share_count %></td>
+    <td><%= detail.collected_at.to_date if detail.collected_at %></td>
+  </tr>
+	<% end %>
+<% end %>

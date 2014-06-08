@@ -1,0 +1,16 @@
+<%= simple_form_for(@channel_log_detail) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :channel_log %>
+    <%= f.input :view_count %>
+    <%= f.input :like_count %>
+    <%= f.input :comment_count %>
+    <%= f.input :share_count %>
+    <%= f.input :collected_at %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

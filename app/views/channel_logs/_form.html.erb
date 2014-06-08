@@ -1,0 +1,15 @@
+<%= simple_form_for(@channel_log) do |f| %>
+	<%= f.error_notification %>
+
+	<div class="form-inputs">
+		<%= f.input :channel_loggable_id, collection: Tutorial.where(published: true).all %>
+		<%= f.input :channel_loggable_type, :value => 'Tutorial' %>
+		<%= f.input :channel_name,  :url => autocomplete_channel_name_channel_logs_path, :as => :autocomplete %>
+		<%= f.input :url %>
+		<%= f.input :uploaded_at, as: :datetime_picker  %>
+	</div>
+
+	<div class="form-actions">
+		<%= f.button :submit %>
+	</div>
+<% end %>
