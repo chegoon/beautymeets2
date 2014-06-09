@@ -26,7 +26,7 @@
 				</tr>
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
-						<%= link_to "성별", edit_member_path(current_user.profile) %>
+						<%= link_to "성별", edit_member_path(current_user.profile) if (user_signed_in? && current_user.id == @member.user.id) %>
 					</td>
 					<td  style="background:#FFF; padding-left:20px; ">
 						<%= @member.gender.name if @member.gender.present? %>
@@ -34,7 +34,7 @@
 				</tr>
 				<tr>
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
-						<%= link_to "출생년도", edit_member_path(current_user.profile) %>
+						<%= link_to "출생년도", edit_member_path(current_user.profile) if (user_signed_in? && current_user.id == @member.user.id) %>
 					</td>
 					<td  style="background:#FFF; padding-left:20px;">
 						<%= @member.year_of_birth %>
@@ -66,7 +66,7 @@
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
 						<% if (user_signed_in? && current_user.id == @member.user.id) %>
-							<%= link_to "피부 밝기", edit_member_path(current_user.profile) %>
+							<%= link_to "피부 밝기", edit_member_path(@member) %>
 						<% else %>
 							피부 밝기
 						<% end %>
@@ -82,7 +82,7 @@
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
 						<% if (user_signed_in? && current_user.id == @member.user.id) %>
-							<%= link_to "피부 톤", edit_member_path(current_user.profile) %>
+							<%= link_to "피부 톤", edit_member_path(@member) %>
 						<% else %>
 							피부 톤
 						<% end %>
@@ -98,7 +98,7 @@
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
 						<% if (user_signed_in? && current_user.id == @member.user.id) %>
-							<%= link_to "피부 컬러", edit_member_path(current_user.profile) %>
+							<%= link_to "피부 컬러", edit_member_path(@member) %>
 						<% else %>
 							피부 컬러
 						<% end %>
@@ -114,7 +114,7 @@
 				<tr style="">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
 						<% if (user_signed_in? && current_user.id == @member.user.id) %>
-							<%= link_to "피부 고민", edit_member_path(current_user.profile) %>
+							<%= link_to "피부 고민", edit_member_path(@member) %>
 						<% else %>
 							피부 고민
 						<% end %>
