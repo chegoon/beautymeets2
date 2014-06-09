@@ -27,9 +27,10 @@ class ChannelLog < ActiveRecord::Base
 					if log.url
 						#page = Nokogiri::HTML(open(log.url,'r:binary').read.encode("utf-8", invalid: :replace, undef: :replace))
 	      				#page = Nokogiri::HTML(open(log.url, 'r:binary').read.encode('utf-8', 'EUC-KR'))
-	      				browser = Watir::Browser.start log.url
-	      				page = Nokogiri::HTML.parse(browser.html)
-
+	      				#browser = Watir::Browser.start log.url
+	      				#page = Nokogiri::HTML.parse(browser.html)
+						
+						page = Nokogiri::HTML.parse(open(log.url).read)
 	      				detail = log.channel_log_details.new
 	      				#if log.channel_log_details.order("collected_at ASC").last 
 	      				#prev_detail = log.channel_log_details.order("collected_at ASC").last 
