@@ -20,10 +20,10 @@
 # Learn more: http://github.com/javan/whenever
 #set :environment, "development"
 set :output, "log/cron_log.log"
-every 1.day, :at => '23:55 pm' do
+every 1.day, :at => '11:55 pm' do
 	runner "ChannelLog.update_log_details"
 end
 
-every 2.days, :at => '23:55 pm' do
+every 2.days, :at => '11:55 pm' do
 	runner "VideoGroup.update_group"
 end

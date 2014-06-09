@@ -102,7 +102,7 @@ class VideoGroupsController < ApplicationController
   end
 
   def update_groups
-    @video_groups = VideoGroup.all
+    @video_groups = VideoGroup.where(published: true).all
 
     @video_groups.each do |group|
       VideoGroup.delay.update_group(group.id)
