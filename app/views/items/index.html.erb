@@ -28,14 +28,12 @@
     </div>
   </div>
 
-  <div class="row" style="background:#FFF;margin:0;" >
+  <div class="row" style="background:#FFF;margin:0; padding-bottom:40px;" >
     <div class="small-12 small-centered columns" style="padding:0;">
 
         <%= render @items %>
 
-    </div>
-    <div class="small-12 small-centered columns" style="">
-      <div class="pagination-centered" style="margin-bottom:30px;">
+      <div class="pagination-centered" >
         <%= will_paginate @items, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outer_window => 1, renderer: FoundationPagination::Rails, :class => "hide-for-small-only" %>
         
                 <h6 class="center show-for-small-only subheader" style='font-family: "Nanum Gothic", sans-serif;'>
