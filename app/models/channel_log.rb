@@ -38,9 +38,8 @@ class ChannelLog < ActiveRecord::Base
 						page.css("#content").each do |mv|	
 							
 							#detail.like_count = mv.css(".mv_common_area").css(".u_likeit_module").css(".u_cnt").text.delete("^0-9").to_i - prev_detail.like_count.to_i
-							
-							detail.like_count = mv.css(".mv_common_area").css(".u_likeit_module").css(".u_cnt").text.delete("^0-9")
-							detail.comment_count = mv.css(".cbox_list_info").at_css("em").text.delete("^0-9")
+							#detail.like_count = mv.css(".mv_common_area").css(".u_likeit_module").css(".u_cnt").text.delete("^0-9")
+							#detail.comment_count = mv.css(".cbox_list_info").at_css("em").text.delete("^0-9")
 							detail.view_count = mv.css(".current_mv_spec").css("dd")[0].at_css("strong").text.delete("^0-9")
 							detail.share_count = mv.css(".current_mv_spec").css("dd")[1].at_css("strong").text.delete("^0-9")
 							detail.collected_at = DateTime.now
@@ -48,13 +47,13 @@ class ChannelLog < ActiveRecord::Base
 							
 						end
 						page = nil if page
-						browser.close if browser
+						#browser.close if browser
 					end
 				elsif log.channel.name == 'Youtube'
 					if log.url
 						client = YouTubeIt::Client.new(:username => "hellobeauty@reallplay.com", :password =>  "reallplay0707",:dev_key => "AI39si4kYnOd5LRdnL4B9BIbBOLKPAG9y1O4Wh6a8cO8dvQ-Hsmv_fXPnmEYHu_ndnK0OijXoBtlNyAnzyJYChbuL7cnKsqjJA")
 						video = client.my_video(log.url.split("/").last)
-						puts video.instance_variables
+						#puts video.instance_variables
 		      			detail = log.channel_log_details.new
 
 		      			detail.comment_count = video.comment_count

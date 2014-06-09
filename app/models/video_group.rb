@@ -30,7 +30,6 @@ class VideoGroup < ActiveRecord::Base
   end
 
   def update_group
-  	puts "delayed_job called"
     video_group = self
     client = YouTubeIt::Client.new(:username => "hellobeauty@reallplay.com", :password =>  "reallplay0707",:dev_key => "AI39si4kYnOd5LRdnL4B9BIbBOLKPAG9y1O4Wh6a8cO8dvQ-Hsmv_fXPnmEYHu_ndnK0OijXoBtlNyAnzyJYChbuL7cnKsqjJA")
 
@@ -38,11 +37,7 @@ class VideoGroup < ActiveRecord::Base
       yt_profile = client.profile(video_group.youtube_id) 
       yt_videos = client.videos_by(:user => video_group.youtube_id, :max_results => 50).videos #50개가 max
 
-=begin
-      if yu_videos.count = 50
-        yu_videos = client.videos_by(:user => @video_group.youtube_id, :off_set => 49, :max_results => 50).videos
-      end
-=end
+
       # 영상이 채널인경우
       yt_videos.each do |yt_video|
 
@@ -55,9 +50,7 @@ class VideoGroup < ActiveRecord::Base
           video.yt_vi_id = yt_vi_id
           # http를 붙일경우 4.0.3 iframe에서 영상 플레이 안됨 -> 됨
           video.video_url  = "http://www.youtube.com/embed/#{yt_vi_id}"
-          #video.video_url  = "//www.youtube.com/embed/#{yt_vi_id}"
           video.title = yt_video.title
-          #video.thumb_url = "http://img.youtube.com/vi/#{yt_video.video_id.split(":").last}/maxresdefault.jpg"
           video.thumb_url = "http://img.youtube.com/vi/#{yt_video.video_id.split(":").last}/0.jpg"
           video.description = yt_video.description
           video.duration = yt_video.duration
@@ -68,18 +61,6 @@ class VideoGroup < ActiveRecord::Base
             video = video_group.videos.new
           end
         end
-
-
-
-        puts "video info"
-        puts yt_video.video_id.split(":").last #tag:youtube.com,2008:video:XI0UphKT8UA
-        puts yt_video.view_count
-        puts yt_video.description
-        puts yt_video.duration
-        puts yt_video.favorite_count
-        puts yt_video.thumbnails #http://img.youtube.com/vi/<insert-youtube-video-id-here>/0.jpg
-        puts yt_video.published_at
-
       end
       
       #puts yt_profile.inspect
