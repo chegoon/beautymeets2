@@ -1,4 +1,5 @@
-class MembersController < InheritedResources::Base
+class MembersController < ApplicationController # InheritedResources::Base
+	inherit_resources
 	respond_to :html, :json
 	
 	def update

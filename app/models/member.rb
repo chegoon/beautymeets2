@@ -21,6 +21,6 @@ class Member < ActiveRecord::Base
   has_many :categories, through: :categorizations
 
   def username
-  	self.user.try(:username)
+  	user.try(:username)
   end
 end
