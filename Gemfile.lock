@@ -366,6 +366,7 @@ DEPENDENCIES
   mysql2
   nested_form
   newrelic_rpm
+  nokogiri
   oj
   omniauth
   omniauth-facebook

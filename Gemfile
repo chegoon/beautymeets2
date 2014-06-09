@@ -112,6 +112,7 @@ gem "galetahub-simple_captcha", :require => "simple_captcha"
 gem 'acts_as_votable', '~> 0.9.0'
 
 gem "watir-rails"
+gem "nokogiri"
 
 #gem 'recaptcha', :require => 'recaptcha/rails'
 =begin
