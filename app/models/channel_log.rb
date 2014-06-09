@@ -53,7 +53,7 @@ class ChannelLog < ActiveRecord::Base
 					if log.url
 						client = YouTubeIt::Client.new(:username => "hellobeauty@reallplay.com", :password =>  "reallplay0707",:dev_key => "AI39si4kYnOd5LRdnL4B9BIbBOLKPAG9y1O4Wh6a8cO8dvQ-Hsmv_fXPnmEYHu_ndnK0OijXoBtlNyAnzyJYChbuL7cnKsqjJA")
 						video = client.my_video(log.url.split("/").last)
-						#puts video.instance_variables
+						puts video.instance_variables
 		      			detail = log.channel_log_details.new
 
 		      			detail.comment_count = video.comment_count
