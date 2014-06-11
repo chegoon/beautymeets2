@@ -52,6 +52,11 @@
 								<% @comments.each do |c| %>
 									<%= render partial: "comment", object: c %>
 								<% end %>
+
+								<div class="pagination-centered" >
+										
+								<%= will_paginate @comments, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outter_window => 1, renderer: FoundationPagination::Rails, :class => "hide-for-small-only" %>
+								</div>
 								
 							<% else %>
 									<div id="comments" >
@@ -62,9 +67,15 @@
 											<%= "<hr style='margin: 0 0 10px 0;'>".html_safe if i < (@comments.length - 1) %>
 									
 										<% end %>
+										<div class="pagination-centered" >
+											<%= will_paginate @comments, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outter_window => 1, renderer: FoundationPagination::Rails, :params => { :makeup_request => true } %>
+
+										</div>
+
 									<% end %>
 									</div>
-									<%= render partial: "comments/form", locals: { form_message: "다양한 의견 부탁드립니다." }  %>    
+
+									<%= render partial: "comments/form", locals: { form_message: "다양한 의견 부탁드립니다." }  %>
 							<% end %>
 						</div>
 					</div>

@@ -5,7 +5,8 @@ class CommentsController < ApplicationController
 	authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 	def index
-		@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC")
+		comments_per_page = 10
+		@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC").page(params[:page]).per_page(comments_per_page)
 		@comment.child.build
 	end
 

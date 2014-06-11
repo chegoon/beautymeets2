@@ -60,8 +60,11 @@ class TutorialsController < ApplicationController
 		end
 
 		@commentable = @tutorial
-		@comments = @commentable.root_comments.order("created_at ASC")
-		
+		#@comments = @commentable.root_comments.order("created_at ASC")
+		comments_per_page = 7
+		page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+		@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
+
 		if user_signed_in?
 			@comment = Comment.build_from(@commentable, current_user.id, "") 
 			@tutorial.mark_as_read! :for => current_user

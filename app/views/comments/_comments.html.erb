@@ -4,5 +4,11 @@
 		<%= render comment %>
 	<%= "<hr style='margin: 0 0 10px 0;'>".html_safe if i < (@comments.length - 1) %>
 	<% end %>
+
 <% end %>
+</div>
+
+<div class="pagination-centered" >
+	<%= will_paginate @comments, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outter_window => 1, renderer: FoundationPagination::Rails %>
+
 </div>

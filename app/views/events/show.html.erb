@@ -89,8 +89,8 @@
             OR&nbsp;<a href="<%= new_user_session_path %>"  class="button radius secondary">로그인</a>
             <%= render "comments/comments" %>
           <% else %>
-            <%= render partial: "comments/form", locals: { form_message: "많이많이 참가해주세요" }  %>    
             <%= render "comments/comments" %>
+            <%= render partial: "comments/form", locals: { form_message: "많이많이 참가해주세요" }  %>    
           <% end %>
         </div>
       </div>

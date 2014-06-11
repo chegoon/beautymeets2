@@ -1,0 +1,8 @@
+$('#comments').prepend('<%= j render(@comments) %>');
+
+// Hide link if it is last page otherwise update link
+<% if @comments.current_page == 1 %>
+    $("#show_more_link").hide();
+<% else %>
+    $("#show_more_link").attr("href", "<%= notices_path(page: (@comments.current_page - 1), :makeup_request => 'true') %>");
+<% end %>

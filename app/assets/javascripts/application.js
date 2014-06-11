@@ -27,6 +27,7 @@
 //= require jquery.elastislide
 //= require bootstrap-datetimepicker
 //= require members.js.coffee
+//= require notices.js.coffee
 //= require_tree ../../../vendor/assets/javascripts/.
 
 $(function(){ $(document).foundation(); });
