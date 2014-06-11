@@ -92,8 +92,11 @@ class ItemsController < ApplicationController
     @items_in_category = Item.where("id IN (?)", item_ids_in_category.map(&:id)).order("view_count DESC")
     
     @commentable = @item
-    @comments = @commentable.root_comments.order("created_at ASC")
-    
+    #@comments = @commentable.root_comments.order("created_at ASC")
+    comments_per_page = 7
+    page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+    @comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
+
     if user_signed_in?
       @comment = Comment.build_from(@commentable, current_user.id, "") 
     else
