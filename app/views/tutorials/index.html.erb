@@ -75,14 +75,12 @@
 							<% @tutorials.each_with_index do |tutorial, i| %>
 								<% notice_index.each do |an| %>
 									<% if i == an %>
-										<% if (i % 2) == 0 %>
+										<% if (i % 3) == 0 %>
 											<%= render partial: 'notices/makeup_request_in_tutorial', locals: { cards_in_row: "3" }  %>
-										<% else #]if (i % 3) == 1 
-										%>
+										<% elsif (i % 3) == 1 %>
 											<%= render partial: 'notices/link_in_tutorial', locals: { cards_in_row: "3" }  %>
-										<% #else 
-										%>
-											<%= #render partial: 'notices/makeup_request_in_tutorial', locals: { cards_in_row: "3" }  
+										<% else %>
+											<%= render partial: 'notices/beautymodel_in_tutorial', locals: { cards_in_row: "3" }  
 											%>
 										<% end %>
 									<% end %>
