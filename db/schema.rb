@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140606093957) do
+ActiveRecord::Schema.define(:version => 20140615173018) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -390,7 +390,7 @@ ActiveRecord::Schema.define(:version => 20140606093957) do
     t.string   "itemizable_type"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.boolean  "preview"
+    t.boolean  "featured"
   end
 
   add_index "itemizations", ["itemizable_id", "itemizable_type"], :name => "index_itemizations_on_itemizable_id_and_itemizable_type"
