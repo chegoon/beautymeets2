@@ -135,22 +135,22 @@ class ItemsController < ApplicationController
 
   end
 
-  def preview
+  def featured
     puts "params[:id] : #{params[:item_id]}"
     @item = @itemizable.items.find(params[:item_id])
     itemization = @itemizable.itemizations.find_by_item_id(@item.id)
-    itemization.preview = true
+    itemization.featured = true
     itemization.save
 
     redirect_to @itemizable
 
   end
 
-  def unpreview
+  def unfeatured
     puts "params[:id] : #{params[:item_id]}"
     @item = @itemizable.items.find(params[:item_id])
     itemization = @itemizable.itemizations.find_by_item_id(@item.id)
-    itemization.preview = false
+    itemization.featured = false
     itemization.save
 
     redirect_to @itemizable

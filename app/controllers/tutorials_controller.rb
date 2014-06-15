@@ -48,6 +48,7 @@ class TutorialsController < ApplicationController
 
 		@itemizable = @tutorial
 		@items = @itemizable.items
+		@featured_items = @tutorial.itemizations.where(preview: true) ? Item.where("id IN (?)", @tutorial.itemizations.where(preview: true).map(&:item_id)) : @tutorial.items.sample(1).first
 		@item = Item.new
 
 		@tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("created_at DESC").limit(3)

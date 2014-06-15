@@ -107,9 +107,9 @@
 					<li >
 						<% if user_signed_in? && current_user.can_update?(@tutorial) %>
 							<div style="font-size:0.8em; text-align:left;">
-							<%= "previewed<br/>".html_safe if @tutorial.itemizations.find_by_item_id(tutorial_item.id).preview.present? && (@tutorial.itemizations.find_by_item_id(tutorial_item.id).preview == true) %>
-							<%= link_to "P", tutorial_item_preview_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
-							<%= link_to "Un-P", tutorial_item_unpreview_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<%= "Feat.<br/>".html_safe if @tutorial.itemizations.find_by_item_id(tutorial_item.id).featured.present? && (@tutorial.itemizations.find_by_item_id(tutorial_item.id).featured == true) %>
+							<%= link_to "P", tutorial_item_featured_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<%= link_to "Un-Feat.", tutorial_item_unfeatured_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
 							<%= link_to "X", tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete , :style => "width:30px;" if user_signed_in? && current_user.can_update?(@tutorial) %>
 							</div>
 							<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
@@ -136,8 +136,8 @@
 			<div class="show-for-small-only">
 				<table style="width:100%;">	
 					<tbody>
-						<% @tutorial.items.each do |tutorial_item| %>		
-							<% if @tutorial.itemizations.find_by_item_id(tutorial_item.id).preview %>
+						<% @featured_items.each do |tutorial_item| %>		
+
 								<tr >
 									<td style="border: 1px solid #e9e9e9; width:80px; background:#FFF; ">
 										<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small)), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
@@ -151,7 +151,7 @@
 										</div>
 									</td>
 								</tr>
-							<% end %>
+
 						<% end %>
 
 						<tr >
@@ -168,9 +168,8 @@
 			</div>
 			<div class="show-for-medium-up">
 				<ul id="item-carousel" class="elastislide-list">
+					<% @featured_items.each do |tutorial_item| %>		
 
-					<% @tutorial.items.each do |tutorial_item| %>		
-						<% if @tutorial.itemizations.find_by_item_id(tutorial_item.id).preview %>
 							<li >
 
 								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:auto;"), item_path(tutorial_item)  if tutorial_item.thumbnail.present? %>
@@ -178,7 +177,6 @@
 								<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
 								</div>
 							</li>
-						<% end %>
 					<% end %>
 					<li >
 
