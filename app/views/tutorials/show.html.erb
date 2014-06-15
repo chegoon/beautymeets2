@@ -107,9 +107,9 @@
 					<li >
 						<% if user_signed_in? && current_user.can_update?(@tutorial) %>
 							<div style="font-size:0.8em; text-align:left;">
-							<%= "Feat.<br/>".html_safe if @tutorial.itemizations.find_by_item_id(tutorial_item.id).featured.present? && (@tutorial.itemizations.find_by_item_id(tutorial_item.id).featured == true) %>
-							<%= link_to "P", tutorial_item_featured_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
-							<%= link_to "Un-Feat.", tutorial_item_unfeatured_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<%= "Featured<br/>".html_safe if @tutorial.itemizations.find_by_item_id(tutorial_item.id).featured.present? && (@tutorial.itemizations.find_by_item_id(tutorial_item.id).featured == true) %>
+							<%= link_to "Fe.", tutorial_item_featured_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
+							<%= link_to "Un-Fe.", tutorial_item_unfeatured_path(@tutorial, tutorial_item), :id => tutorial_item.id, :style => "width:30px;"  if user_signed_in? && current_user.can_update?(@tutorial) %>
 							<%= link_to "X", tutorial_item_unitemize_path(@tutorial, tutorial_item), :id => tutorial_item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete , :style => "width:30px;" if user_signed_in? && current_user.can_update?(@tutorial) %>
 							</div>
 							<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
