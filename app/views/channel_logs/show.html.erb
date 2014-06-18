@@ -1,30 +1,26 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Channel loggable:</b>
-  <%= @channel_log.channel_loggable_id %>
-</p>
-
-<p>
-  <b>Channel loggable type:</b>
-  <%= @channel_log.channel_loggable_type %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= @channel_log.url %>
-</p>
-
-<p>
-  <b>Uploaded at:</b>
-  <%= @channel_log.uploaded_at %>
-</p>
-
-<p>
-  <b>Channel:</b>
-  <%= @channel_log.channel %>
-</p>
-
+<h3><%= @channel_log.channel_loggable.title %></h3>
+<h6 class="right"><%= @channel_log.channel.name %></h6>
+    
+<table>
+  <th>Collected at</th>
+  <th>View count</th>
+  <th>Like count</th>
+  <th>Comment count</th>
+  <th>View count</th>
+  <% delta = @channel_log.channel_log_details.first %>
+  <% @channel_log.channel_log_details.each_with_index do |detail, i| %>
+  <tr>
+    <td><%= detail.collected_at.to_date if detail.collected_at %></td>
+    <td><%= number_with_delimiter(detail.view_count) %><%= " (+#{detail.view_count - delta.view_count})" if i != 0 %></td>
+    <td><%= detail.like_count %></td>
+    <td><%= detail.comment_count %></td>
+    <td><%= detail.share_count %></td>
+    
+  </tr>
+    <% delta = detail %>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_channel_log_path(@channel_log) %> |
+<%= link_to 'Destroy', @channel_log, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', channel_logs_path %>

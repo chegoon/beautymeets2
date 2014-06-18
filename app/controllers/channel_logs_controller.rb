@@ -7,7 +7,7 @@ class ChannelLogsController < ApplicationController #InheritedResources::Base
 
 	def index
 		@tutorials = Tutorial.where(published: true).all
-		@channel_logs = ChannelLog.joins("JOIN tutorials ON tutorials.id = channel_logs.channel_loggable_id").where("channel_logs.channel_loggable_type = 'Tutorial' AND tutorials.published = TRUE")
+		@channel_logs = ChannelLog.joins("JOIN tutorials ON tutorials.id = channel_logs.channel_loggable_id").where("channel_logs.channel_loggable_type = 'Tutorial' AND tutorials.published = TRUE").order("tutorials.id ASC")
 		#authorize_action_for(@channel_logs) 
 		respond_to do |format|
 			format.html # index.html.erb

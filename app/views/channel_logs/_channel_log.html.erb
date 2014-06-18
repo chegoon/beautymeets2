@@ -1,14 +1,15 @@
 
+
 <% if channel_log && channel_log.channel_log_details %>
-	<% channel_log.channel_log_details.each do |detail| %>
+	<% channel_log.channel_log_details.select("max(view_count) as view_count, max(like_count) as like_count, max(comment_count) as comment_count, max(share_count) as share_count, max(collected_at) as collected_at").group(:channel_log_id).each do |detail| %>
   <tr>
-    <td><%= channel_log.channel_loggable.id %><%= link_to 'Destroy', channel_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <td><%= channel_log.channel_loggable.title %></td>
+    <td><%= channel_log.channel_loggable.id %></td>
+    <td><%= link_to channel_log.channel_loggable.title,  channel_log_path(channel_log.id) %></td>
     <td><%= channel_log.channel.name %></td>
-    <td><%= detail.view_count %></td>
-    <td><%= detail.like_count %></td>
-    <td><%= detail.comment_count %></td>
-    <td><%= detail.share_count %></td>
+    <td class="text-right"><%= number_with_delimiter(detail.view_count) %></td>
+    <td class="text-right"><%= number_with_delimiter(detail.like_count) %></td>
+    <td class="text-right"><%= number_with_delimiter(detail.comment_count) %></td>
+    <td class="text-right"><%= number_with_delimiter(detail.share_count) %></td>
     <td><%= detail.collected_at.to_date if detail.collected_at %></td>
   </tr>
 	<% end %>
