@@ -44,6 +44,8 @@
 		<!--<![endif]-->
 
 		<%= stylesheet_link_tag    "application" %>
+		<%= auto_discovery_link_tag :atom, "/feed" %>
+		<%= auto_discovery_link_tag :rss, "/feed.rss" %>
 		<%= #javascript_include_tag "vendor/modernizr" 
 		%>
 

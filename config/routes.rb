@@ -57,6 +57,9 @@ Beautymeets2::Application.routes.draw do
   resources :checkouts
 
   resources :welcome
+  match '/feed' => 'welcome#feed',
+      :as => :feed,
+      :defaults => { :format => 'atom' }
 
   resources :activities
   
