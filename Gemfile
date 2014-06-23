@@ -127,13 +127,9 @@ gem 'useragent'
 gem 'daemon_controller'
 gem 'passenger'
 
-
 gem 'iconv'
 
 gem 'has_permalink'
-
-
-
 
 # mail gem installed
 gem 'mailit'

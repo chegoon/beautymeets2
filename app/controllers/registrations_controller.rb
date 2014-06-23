@@ -20,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
 		build_resource(sign_up_params)
 		session[:omniauth] = nil unless @user.new_record? 
 		
-		#if simple_captcha_valid?  
+		if simple_captcha_valid?  
 		
 			if resource.save
 			 
@@ -46,10 +46,10 @@ class RegistrationsController < Devise::RegistrationsController
 				clean_up_passwords resource
 				respond_with resource
 			end
-		#else
-		#    clean_up_passwords resource
-		#    respond_with resource
-		#end
+		else
+		    clean_up_passwords resource
+		    redirect_to new_user_registration_path
+		end
 	end
 
 	def update

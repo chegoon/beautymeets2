@@ -1,12 +1,9 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"  
-#en:
-#  simple_captcha:
-#    placeholder: "Enter the image value"
-#    label: "Enter the code in the box:"
-#    message:
-#      default: "Secret Code did not match with the Image"
-#      user: "The secret Image and code were different"
+  simple_captcha:
+    placeholder: "이미지속, 글자 입력"
+    label: "이미지속의 글자를 입력하세요"
+    message:
+      default: "Secret Code did not match with the Image"
+      user: "The secret Image and code were different"
