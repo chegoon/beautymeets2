@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	after_filter :store_location
 	before_filter :save_referer
 	
-	include SimpleCaptcha::ControllerHelpers
+	#include SimpleCaptcha::ControllerHelpers
 
 	def save_referer
 		#puts "before_save, sessoin_referer : #{session['referer']}"
