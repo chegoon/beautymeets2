@@ -11,10 +11,10 @@
   <% @channel_log.channel_log_details.each_with_index do |detail, i| %>
   <tr>
     <td><%= detail.collected_at.to_date if detail.collected_at %></td>
-    <td><%= number_with_delimiter(detail.view_count) %><%= " (+#{detail.view_count - delta.view_count})" if i != 0 %></td>
-    <td><%= number_with_delimiter(detail.like_count) %><%= " (+#{detail.like_count - delta.like_count})" if i != 0 %></td>
-    <td><%= number_with_delimiter(detail.comment_count) %><%= " (+#{detail.comment_count - delta.comment_count})" if i != 0 %></td>
-    <td><%= number_with_delimiter(detail.share_count) %><%= " (+#{detail.share_count - delta.share_count})" if i != 0 %></td>
+    <td><%= number_with_delimiter(detail.view_count) %><%= " (+#{(detail.view_count ? detail.view_count : 0) - (delta.view_count ? delta.view_count : 0)})" if i != 0 %></td>
+    <td><%= number_with_delimiter(detail.like_count) %><%= " (+#{(detail.like_count ? detail.like_count : 0) - (delta.like_count ? delta.like_count : 0)})" if i != 0 %></td>
+    <td><%= number_with_delimiter(detail.comment_count) %><%= " (+#{(detail.comment_count ? detail.comment_count : 0) - (delta.comment_count ? delta.comment_count : 0)})" if i != 0 %></td>
+    <td><%= number_with_delimiter(detail.share_count) %><%= " (+#{(detail.share_count ? detail.share_count : 0) - (delta.share_count ? delta.share_count : 0)})" if i != 0 %></td>
     
   </tr>
     <% delta = detail %>

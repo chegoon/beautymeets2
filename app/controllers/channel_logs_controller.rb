@@ -1,6 +1,6 @@
 class ChannelLogsController < ApplicationController #InheritedResources::Base
 	inherit_resources
-	#authorize_actions_for ChannelLog
+	authorize_actions_for ChannelLog
 	#authority_actions :autocomplete_channel_name => 'create', :update_log_details => 'create'
 	autocomplete :channel, :name
 	#before_filter :load_channel_loggable
