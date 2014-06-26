@@ -41,6 +41,24 @@ class NoticesController < ApplicationController #InheritedResources::Base
 
 	end
 
+	# POST /tutorials
+	# POST /tutorials.json
+	def create
+		@notice = current_user.notices.create(params[:notice])
+
+		current_user.add_role :author, @notice
+
+		respond_to do |format|
+			if @notice.save
+				format.html { redirect_to @notice, notice: 'notice was successfully created.' }
+				format.json { render json: @notice, status: :created, location: @notice }
+			else
+				format.html { render action: "new" }
+				format.json { render json: @notice.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+	
 	def update
 		@notice = Notice.find(params[:id])
 
