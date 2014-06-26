@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # impressionist #comment out this line when impressionist method created in each action
 
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :load_itemizable, except: [:index, :new, :create, :autocomplete_brand_name]
+  before_filter :load_itemizable, except: [:index, :new, :create, :autocomplete_brand_name, :logs]
   
   autocomplete :brand, :name
 	
@@ -34,6 +34,17 @@ class ItemsController < ApplicationController
       format.json { render json: @items }
     end
 
+  end
+
+  def logs
+    cards_per_page = 16
+    @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' ").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+
+    @categories = Item.joins(:categories).where("parent_id IS NULL ").all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
   end
 
   def new

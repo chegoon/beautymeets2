@@ -1,0 +1,44 @@
+
+
+  <div class="row" >
+    <div class="small-12 small-centered columns" style="padding:0;">
+      <% if @items.present? %>
+      <table>
+        <tr>
+          <th>no.</th>
+          <th>brand</th>
+          <th>Name</th>
+          <th>view</th>
+          <th>comment</th>
+          <th>book_mark</th>
+        </tr>
+
+      
+        <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.brand.try(:name) %></td>
+          <td><%= item.thumbnail.image_url(:very_small) ?  image_tag(item.thumbnail.image_url(:very_small)) : image_tag(item.thumbnail.image_url(:small), :style => "width:64px; height:64px;") %><%= item.try(:name) %></td>
+          <td><%= item.try(:view_count) %></td>
+          <td><%= item.comments.length %></td>
+          <td><%= Bookmark.where(model_type_id: 1, model_id: item.id).length %></td>
+        </tr>
+        <% end %>
+        </table>
+      <% else %>
+      <% end %>
+
+      <div class="pagination-centered" >
+        <%= will_paginate @items, previous_label: '<i class="fa fa-angle-left"></i>'.html_safe, next_label: '<i class="fa fa-angle-right"></i>'.html_safe , :inner_window => 1, :outer_window => 1, renderer: FoundationPagination::Rails, :class => "hide-for-small-only" %>
+        
+                <h6 class="center show-for-small-only subheader" style='font-family: "Nanum Gothic", sans-serif;'>
+                  <span style="margin-right:20px"><%= link_to '<i class="fa fa-angle-double-left"></i>'.html_safe, items_path(page: 1) %></span>
+                  <span style="margin-right:20px"><%= (@items.current_page - 1) > 0 ?  link_to('<i class="fa fa-angle-left"></i>'.html_safe, items_path(page: (@items.current_page - 1))) : '<i class="fa fa-angle-left"></i>'.html_safe %></span>
+                  <span style="color:#CCC; font-size:12px;"><%= "#{@items.current_page} / #{@items.total_pages}" %></span>
+                  <span style="margin-left:20px"><%= (@items.current_page + 1) <= @items.total_pages ? link_to('<i class="fa fa-angle-right"></i>'.html_safe, items_path(page: (@items.current_page + 1))) :  '<i class="fa fa-angle-right"></i>'.html_safe %></span>
+                  <span style="margin-left:20px"><%= link_to '<i class="fa fa-angle-double-right"></i>'.html_safe, items_path(page: @items.total_pages) %></span>
+                </h6>  
+      </div>
+    </div>
+  </div>
+

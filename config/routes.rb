@@ -93,6 +93,7 @@ Beautymeets2::Application.routes.draw do
   resources :items do
     resources :pictures, :tutorials, :videos, :comments
     get :autocomplete_brand_name, :on => :collection  
+    get :logs, :on => :collection   
   end
 
   get "pictures/index"
