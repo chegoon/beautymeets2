@@ -17,7 +17,8 @@ class BookmarksController < InheritedResources::Base
     if ( @bookmark )
       Bookmark.delete_all(["user_id = ? AND model_type_id = ? AND model_id = ?", current_user.id, bookmark_type_id, model_id])
     else
-      Bookmark.create( :user_id => current_user.id, :model_type_id => bookmark_type_id, :model_id => model_id)
+      bookmark = Bookmark.create( :user_id => current_user.id, :model_type_id => bookmark_type_id, :model_id => model_id)
+      impressionist(bookmark)
     end
     
     respond_to do |format|

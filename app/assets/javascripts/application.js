@@ -32,6 +32,7 @@
 
 $(function(){ $(document).foundation(); });
 
+
 // The below code works for full height
 $(function() {
 	var timer;

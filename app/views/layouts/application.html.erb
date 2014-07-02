@@ -17,7 +17,9 @@
 		
 		<link rel="image_src" href="<%= yield(:page_thumb) || 'http://www.beautymeets.com/assets/fb_thumb.png' %>" />
 		<!-- facebook share infor set end -->
-
+		
+		<meta name="google-play-app" content="app-id=com.beautymeets.app">
+		<link rel="android-touch-icon" href="android-icon.png" />
 		<title><%= yield(:page_title) || "BEAUTYMEETS" %></title>
 
 		<!--[if lt IE 9]>
@@ -80,17 +82,17 @@
 			.section{
 				text-align:center;
 			}
-			
 		</style>
-	
 		<%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
+		<%= render :partial => "layouts/appsumo" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
 	</head>
 
 	<body>
+
 		<%= render :partial => "layouts/fb" if Rails.env.production?   %>
 
 		<%= render "layouts/top_nav" %>
-
+		
 		<% flash.each do |name, msg| %>
 			<div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
 				<%= msg  %>
@@ -100,28 +102,28 @@
 
 		<% if controller_name == "info" && action_name == "about"  %>
 
-				<%= yield %>
+			<%= yield %>
 
-				<%= render "layouts/to_top" %>
+			<%= render "layouts/to_top" %>
 
-				<%= yield :scripts %>
-				<!-- dif for static footer-position -->
+			<%= yield :scripts %>
+			<!-- dif for static footer-position -->
 
-				<%= render "layouts/footer" %>
+			<%= render "layouts/footer" %>
 		<% else %>
-		<div class="row" >
-			<div class="small-12 small-centered columns ">
+			<div class="row" >
+				<div class="small-12 small-centered columns ">
 
-				<%= yield %>
+					<%= yield %>
 
-				<%= render "layouts/to_top" %>
+					<%= render "layouts/to_top" %>
 
-				<%= yield :scripts %>
-				<!-- dif for static footer-position -->
+					<%= yield :scripts %>
+					<!-- dif for static footer-position -->
 
-				<%= render "layouts/footer" %>
+					<%= render "layouts/footer" %>
+				</div>
 			</div>
-		</div>
 		<% end %>
 		<%= javascript_include_tag "application" %>
 		<!-- Foundation 3 for IE 8 and earlier -->
@@ -141,32 +143,29 @@
 				</script>
 		<![endif]-->
 
-	<script type="text/javascript">
-		WebFontConfig = {
-			custom: {
-					families: ['Nanum Gothic'],
-					urls: ['http://fonts.googleapis.com/earlyaccess/nanumgothic.css']
-			}
-		};
-		(function() {
-			var wf = document.createElement('script');
-			wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-				'://ajax.googleapis.com/ajax/libs/webfont/1.4.10/webfont.js';
-			wf.type = 'text/javascript';
-			wf.async = 'true';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(wf, s);
-		})(); 
-	 </script>
+		<script type="text/javascript">
+			WebFontConfig = {
+				custom: {
+						families: ['Nanum Gothic'],
+						urls: ['http://fonts.googleapis.com/earlyaccess/nanumgothic.css']
+				}
+			};
+			(function() {
+				var wf = document.createElement('script');
+				wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+					'://ajax.googleapis.com/ajax/libs/webfont/1.4.10/webfont.js';
+				wf.type = 'text/javascript';
+				wf.async = 'true';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(wf, s);
+			})();
+		</script>
  
 		<script type="text/javascript">
 			$('#item-carousel').elastislide();      
 			$('#item-carousel-tutorial').elastislide();  
-		</script>     
-		<script>
 			$('.slider').glide();
 		</script>
-		
 
 		<script type="text/javascript">
 			(function() {
@@ -190,41 +189,36 @@
 		</script>
 
 		<script type="text/javascript">
-		$(".accordion").on("click", "dd", function (event){
-						
+			$(".accordion dd").on("click", "a:eq(0)", function (event){
+				var dd_parent = $(this).parent();
 
-				if($(this).hasClass('active')){
-					$("dd.active").removeClass('active').find(".content").slideUp("fast");    
-					$(this).find("a").find("i").toggleClass("fa-angle-down fa-angle-right");  
+				if(dd_parent.hasClass('active')) {
+					$(".accordion dd div.content:visible").slideToggle("normal");
+					dd_parent.find("a").find("i").toggleClass("fa-angle-down fa-angle-right");  
 				}
 				else {
-					// 다른 dropdown된 아코디언을 닫음
-					$("dd.active").removeClass('active').find(".content").slideUp("fast");
-					$("dd").find("a").find("i").removeClass("fa-angle-down");
-					$("dd").find("a").find("i").addClass("fa-angle-right");
-
-					// 이번 아코디언을 dropdown
-					$(this).addClass('active').find(".content").slideToggle("fast");
-					$(this).find("a").find("i").toggleClass("fa-angle-right fa-angle-down");
+					$(".accordion dd div.content:visible").slideToggle("normal");
+					$(this).parent().find(".content").slideToggle("normal");
+					$(".accordion dd").find("a").find("i").removeClass("fa-angle-down");
+					$(".accordion dd").find("a").find("i").addClass("fa-angle-right");
+					dd_parent.find("a").find("i").toggleClass("fa-angle-right fa-angle-down");
 				}
-
-		});
-
-		if ($("#notices").length) {
-			$(".tabs").on("click", "dd", function (event){
-
-					if($(this).hasClass('active')){
-						$(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
-					}
-					else {
-						$("dd.active").removeClass('active').find("a").css("background", "#DDD");
-						$(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
-					}
-
 			});
+		
+			if ($("#notices").length) {
+				$(".tabs").on("click", "dd", function (event){
 
-		};
+						if($(this).hasClass('active')){
+							$(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
+						}
+						else {
+							$("dd.active").removeClass('active').find("a").css("background", "#DDD");
+							$(this).find("a").css("background", "url('/assets/tutorial_header_bg.jpg')");
+						}
 
+				});
+
+			};
 
 		</script>
 		<script type="text/javascript">
@@ -232,60 +226,60 @@
 			function swapVoteStatus(comment_id)
 			{
 				var c_id = comment_id;
-			    //$('#bookmark_star').toggleClass('fa-star fa-star-o');
-			    var oriStatus = $("#comment_" + c_id + "_vote").find("i");
-			    var oriSize = $("#comment_" + c_id + "_vote_size");
-			    //oriI.toggleClass('fa-star fa-star-o');
-			    
-			    // Change the image src toggle based on the current image
-			    if (oriStatus.hasClass("fa-heart")) {
-			        oriStatus.removeClass("fa-heart");
-			        oriStatus.addClass("fa-heart-o");
-			        oriSize.text(parseInt(oriSize.text()) - 1);
-			        //oriMsg.text("You unvote");
-			    }
-			    else {
-			        oriStatus.removeClass("fa-heart-o");
-			        oriStatus.addClass("fa-heart");
-			        oriSize.text(parseInt(oriSize.text()) + 1);
-			        //oriMsg.text("You vote");
-			    };
-			    
+					//$('#bookmark_star').toggleClass('fa-star fa-star-o');
+					var oriStatus = $("#comment_" + c_id + "_vote").find("i");
+					var oriSize = $("#comment_" + c_id + "_vote_size");
+					//oriI.toggleClass('fa-star fa-star-o');
+					
+					// Change the image src toggle based on the current image
+					if (oriStatus.hasClass("fa-heart")) {
+							oriStatus.removeClass("fa-heart");
+							oriStatus.addClass("fa-heart-o");
+							oriSize.text(parseInt(oriSize.text()) - 1);
+							//oriMsg.text("You unvote");
+					}
+					else {
+							oriStatus.removeClass("fa-heart-o");
+							oriStatus.addClass("fa-heart");
+							oriSize.text(parseInt(oriSize.text()) + 1);
+							//oriMsg.text("You vote");
+					};
+					
 			}
 
 		</script>
 		<script>
-		// Include the UserVoice JavaScript SDK (only needed once on a page)
-		UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+			// Include the UserVoice JavaScript SDK (only needed once on a page)
+			UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
 
-		//
-		// UserVoice Javascript SDK developer documentation:
-		// https://www.uservoice.com/o/javascript-sdk
-		//
+			//
+			// UserVoice Javascript SDK developer documentation:
+			// https://www.uservoice.com/o/javascript-sdk
+			//
 
-		// Set colors
-		UserVoice.push(['set', {
-			accent_color: '#448dd6',
-			trigger_color: 'white',
-			trigger_background_color: 'rgba(46, 49, 51, 0.6)'
-		}]);
+			// Set colors
+			UserVoice.push(['set', {
+				accent_color: '#448dd6',
+				trigger_color: 'white',
+				trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+			}]);
 
-		// Identify the user and pass traits
-		// To enable, replace sample data with actual user traits and uncomment the line
-		UserVoice.push(['identify', {
-		}]);
+			// Identify the user and pass traits
+			// To enable, replace sample data with actual user traits and uncomment the line
+			UserVoice.push(['identify', {
+			}]);
 
-		// Add default trigger to the bottom-right corner of the window:
-		UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+			// Add default trigger to the bottom-right corner of the window:
+			UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
 
-		// Or, use your own custom trigger:
-		//UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+			// Or, use your own custom trigger:
+			//UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
 
-		// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
-		UserVoice.push(['autoprompt', {}]);
+			// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+			UserVoice.push(['autoprompt', {}]);
 
-		// Set the locale
-		UserVoice.push(["set", "locale", "kr"]);
+			// Set the locale
+			UserVoice.push(["set", "locale", "kr"]);
 		</script>
 	</body>
 </html>

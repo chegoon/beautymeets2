@@ -38,7 +38,16 @@ class ItemsController < ApplicationController
 
   def logs
     cards_per_page = 16
-    @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' ").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+    if params[:order].nil? or params[:order] == "view_count"
+      @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' AND (impressions.created_at > CURDATE() - INTERVAL 8 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+    elsif params[:order] == "comment_count"
+      @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' ").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+    elsif params[:order] == "bookmark_count"
+      @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' ").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+    else 
+      @items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' ").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").page(params[:page]).per_page(cards_per_page)
+    end
+
 
     @categories = Item.joins(:categories).where("parent_id IS NULL ").all
     respond_to do |format|
@@ -117,7 +126,7 @@ class ItemsController < ApplicationController
     #if cannot? :manage, @item
     if !(user_signed_in? && current_user.can_update?(@item))
       @item.increment_view_count 
-      impressionist(@item, "", :unique => [:session_hash])
+      impressionist(@item) #, "", :unique => [:session_hash]) 동일 세션에서도 reload시 count함(2014/06/29)
     end
 
     respond_to do |format|

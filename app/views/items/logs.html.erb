@@ -8,9 +8,9 @@
           <th>no.</th>
           <th>brand</th>
           <th>Name</th>
-          <th>view</th>
-          <th>comment</th>
-          <th>book_mark</th>
+          <th><%= link_to "view", logs_items_path %></th>
+          <th><%= link_to "comment", logs_items_path(order: "comment_count") %></th>
+          <th><%= link_to "bookmark", logs_items_path(order: "bookmark_count") %></th>
         </tr>
 
       

@@ -1,4 +1,5 @@
 class Bookmark < ActiveRecord::Base
+  is_impressionable
   attr_accessible :bookmarkable, :note, :user_id, :model_type_id, :model_id
 
   belongs_to :bookmarkable, :polymorphic => true

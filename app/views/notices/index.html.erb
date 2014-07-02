@@ -15,15 +15,15 @@
 		<div class="panel tabs-content" style="border:0; padding-top:20px; background:#FFF;">
 			<div class="content <%= 'active' if params[:makeup_request].nil? %>" id="panel-notice" style="width:100%;">
 				<% if @notices.present? %>
-				<dl class=" accordion" data-accordion style="background:#FFF;">
+				<dl class="notice_accordion accordion" data-accordion style="background:#FFF;">
 					
 					<% @notices.each_with_index do |notice, i| %>
 					<dd >
-							<a href="#panel-notice-<%= notice.id %>" style="background:#FFF; ">
-								<span class="left" style="color:#999;">
+							<a href="#panel-notice-<%= notice.id %>" style="padding:5px; background:#FFF; ">
+								<span style="color:#999;">
 									<%=  truncate(strip_tags(notice.title), 58) if notice.title.present? %>
 								</span>
-								<i class="fa fa-angle-right fa-fw right" style="color:#AAA; margin-top:5px;"></i>
+								<i class="fa <%= i == 0 ? 'fa-angle-down' : 'fa-angle-right' %> fa-fw right" style="color:#AAA; margin-top:5px;"></i>
 								<span class="right" style="color:#AAA;">
 									<small><%= notice.created_at.strftime("%Y-%m-%d %H:%M") %></small>
 								</span>
