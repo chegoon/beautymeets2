@@ -11,8 +11,8 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = "hellobeauty@reallplay.com"
-  config.omniauth  :twitter, 'xfpJBsdxfbtngcAaJgL7VQ', 'soPkpZEddjI4R7oiwMXfWB6AmmoAAHp2FjURcRTyaT0'  
-  config.omniauth  :facebook, '143298282497081', '84b74288ea8f52863a5330aa2dcbe5da', {:scope => 'publish_stream, email', :secure_image_url => true, :image_size => 'large'}
+  config.omniauth  :twitter, 'pLMLc34uXlV7ZurVp2qAfxPCU', 'rnGeXcy7IggdanpGPCSgEK5FmicQldoiL1W1c5oan6qnPbU0yv'  
+  config.omniauth  :facebook, '143298282497081', '84b74288ea8f52863a5330aa2dcbe5da', {:scope => 'publish_stream, email, offline_access', :secure_image_url => true, :image_size => 'square'}
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

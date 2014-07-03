@@ -99,6 +99,7 @@ class User < ActiveRecord::Base
 		false
 	end
 
+
 =begin
 	def assign_member_role
 		self.add_role :member

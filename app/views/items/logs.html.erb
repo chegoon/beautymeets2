@@ -1,5 +1,11 @@
 
-
+<%= form_tag logs_items_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search_from, params[:search_from], as: :datetime_picker  %>
+    <%= text_field_tag :search_to, params[:search_to], as: :datetime_picker %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
   <div class="row" >
     <div class="small-12 small-centered columns" style="padding:0;">
       <% if @items.present? %>

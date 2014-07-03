@@ -27,6 +27,7 @@ gem 'authority'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'twitter'
 
 gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
 
