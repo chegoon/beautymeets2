@@ -3,13 +3,13 @@
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@tutorial.title.present? ? "#{@tutorial.title} 영상을 만나보세요." : "") %>
 
 
-  	<div style="height:90px; position:relative; ">
-			<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
-				<%= render 'layouts/go_back' %>
+<div style="height:90px; position:relative; ">
+	<h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+		<%= render 'layouts/go_back' %>
     		<%= @tutorial.title%>
     		<%= link_to "Edit", edit_tutorial_path if user_signed_in? && current_user.can_update?(@tutorial) %>
     	</h4>
-    </div>
+</div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 5px; border:1px #EEE solid;">
 	<div class="small-12 medium-8 columns right text-right">		
