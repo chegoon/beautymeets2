@@ -27,6 +27,7 @@ class RegistrationsController < Devise::RegistrationsController
 				resource.profile = Member.create!
 				resource.add_role :member
 				resource.came_from = session['referer']
+				resource.joined_for = session[:previous_url]
 				resource.save
 				UserMailer.delay.welcome(resource) unless @user.invalid?
 
