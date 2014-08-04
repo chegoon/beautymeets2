@@ -20,8 +20,8 @@
 		</p>
 		<div class="panel" style="padding:10px; background:#e1fffc;">	
 			내가 쓴글 : <%= simple_format(@parent.try(:body)) %><br/>
-			질문자 : <%= @comment.user.name || @comment.user.email %><br/>
-			질문내용 : <%= simple_format(@comment.try(:body)) %>
+			답변자 : <%= @comment.user.name || @comment.user.email %><br/>
+			답변내용 : <%= simple_format(@comment.try(:body)) %>
 		</div>
 		<p>
 			확인해주시고 필요하면 답변을 부탁드려요.<br/>

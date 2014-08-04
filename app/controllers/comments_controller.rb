@@ -16,15 +16,15 @@ class CommentsController < ApplicationController
 
 	def create
 		@comment = Comment.build_from(@commentable, current_user.id, params[:comment][:body])
-
-		if params[:comment][:parent_id]
-			@parent = Comment.find(params[:comment][:parent_id]) 
-			if !(@commentable.class.name == "Event")
-				CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
-			end
-		end
-
+		
 		if @comment.save
+
+			if params[:comment][:parent_id]
+				@parent = Comment.find(params[:comment][:parent_id]) 
+				if !(@commentable.class.name == "Event")
+					CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
+				end
+			end
 
 =begin
 			if current_user.authentications.find_by_provider('facebook')
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
 			end
 =end
 			if !(@commentable.class.name == "Event")
-				CommentMailer.delay.create_notification(@commentable, @comment) 
+				CommentMailer.delay.create_notification(@commentable, @comment)
 			end
 			#@comment.create_activity :create, owner: current_user, recipient: @commentable.author
 		
