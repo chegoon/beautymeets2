@@ -1,7 +1,5 @@
 class CommentMailer < ActionMailer::Base
 	helper :application # gives access to all helpers defined within `application_helper`.
-
-	#default to: "hellobeauty@reallplay.com"
 	
 	def create_notification(commentable, comment)
 		@commentable = commentable
@@ -13,8 +11,6 @@ class CommentMailer < ActionMailer::Base
 			mailer_title = @commentable.try(:title)
 		end
 		
-		#mail(:to => @commentable.author.email, :from => @comment.user.email, :subject => "#{@commentable.try(:title)}에 댓글이 달렸습니다.")
-		#mail(:from => @comment.user.email, :subject => "[BEAUTYMEETS] 1 comment on [#{@commentable.class.name.split('::').last}] #{@commentable.try(:title)}")
 		mail(:to => "hellobeauty@reallplay.com", :from => @comment.user.email, :subject => "[BEAUTYMEETS] 1 comment on #{mailer_title}")
 	end
 
@@ -23,14 +19,12 @@ class CommentMailer < ActionMailer::Base
 		@commentable = commentable
 		@comment  = comment
 		
-
 		if (@commentable.class.name == "Item")
 			mailer_title = @commentable.try(:name)
 		else
 			mailer_title = @commentable.try(:title)
 		end
-		#puts "parent_notification info : parent #{@parent.user.email}, commentable : #{mailer_title}, comment : #{@comment.user.email}"
-		#mail(:to => @parent.user.email, :subject => "#{@commentable.try(:title)}에 작성한 댓글에 답변이 달렸습니다.")
+
 		mail(:to => @parent.user.email, :from => @comment.user.email, :subject => "[BEAUTYMEETS] 1 reply on your comment on #{mailer_title}")
 	end
 

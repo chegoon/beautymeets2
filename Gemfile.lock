@@ -196,6 +196,9 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (1.6.0)
       omniauth-oauth2 (~> 1.1)
+    omniauth-kakao (0.1.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -389,6 +392,7 @@ DEPENDENCIES
   oj
   omniauth
   omniauth-facebook
+  omniauth-kakao
   omniauth-twitter
   passenger
   public_activity

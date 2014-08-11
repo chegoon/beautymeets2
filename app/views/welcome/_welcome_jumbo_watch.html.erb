@@ -1,0 +1,24 @@
+<div class="panel show-for-small-only " style="border:0; height:24rem; background-image: url('/assets/watch_m.png');background-position:center; background-repeat: no-repeat; ">
+	<div class="row">
+		<div class="small-12 medium-9 columns " style="">
+			<div class="text-center" style="line-height:42rem; height:24rem;  vertical-align: text-bottom;">
+				<% if !user_signed_in? %>
+					<%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기",  :style => "width:116px; height:40px; margin-right:10px;"), new_user_registration_path %>
+					<%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기",  :style => "width:116px; height:40px;"), new_user_session_path  %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="panel show-for-medium-up " style="border:0; height:24rem; background-image: url('/assets/watch.png');background-size:cover; background-position:center; ">
+	<div class="row">
+		<div class="welcome-jumbo-desc small-12 medium-9 columns" style="">
+			<div style="margin-top:6.0rem;">
+				<% if !user_signed_in? %>
+					<%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기", :class => "left", :style => "width:116px; height:40px; margin-right:10px;"), new_user_registration_path %>
+					<%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기", :class => "left",  :style => "width:116px; height:40px;"), new_user_session_path  %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

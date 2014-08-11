@@ -26,14 +26,6 @@ class CommentsController < ApplicationController
 				end
 			end
 
-=begin
-			if current_user.authentications.find_by_provider('facebook')
-				client = OAuth2::Client.new('143298282497081', '84b74288ea8f52863a5330aa2dcbe5da', :site => 'https://graph.facebook.com')
-				token = OAuth2::AccessToken.new(client, auth.oauth_token)
-				token.post('/me/feed', :message => @comment.body)
-			elsif current_user.authentications.find_by_provider('twitter')
-			end
-=end
 			if !(@commentable.class.name == "Event")
 				CommentMailer.delay.create_notification(@commentable, @comment)
 			end
@@ -56,7 +48,6 @@ class CommentsController < ApplicationController
 					format.html { redirect_to "/notices?makeup_request=true", notice: "Comment created." }
 					format.js 
 				end
-				#redirect_to "/notices?makeup_request=true", notice: "Comment created."
 			end
 		else
 			render :new

@@ -3,42 +3,27 @@
 	    	
 <div class="row ">
 	<div class="small-12 welcome-jumbo " >
-		<% if user_signed_in? %> 	
-			<% if @events.present? %>
-				<% if @events.count == 1 %>
-					<% @events.each_with_index do |event, i| %>
-						<%= render event %>
-					<% end %>	
-				<% else %>
-					<div class="slider">
-		 				<ul class="slides">
-						<% @events.each_with_index do |event, i| %>
-					  <li class="slide"  style="padding:0;">
-					  	<%= render event %>
-					  </li>
-						<% end %>	
-						</ul>
-					</div>
-				<% end %>	
-			<% end %>		
-		<% else %>
-			<% if @events.present? %>
-					<div class="slider">
-						<ul class="slides">
-							<li class="slide"  style="padding:0;">
-								<%= render 'welcome_jumbo' %>
-							</li>
+		
+				<div class="slider">
+					<ul class="slides">
+						<li class="slide"  style="padding:0;">
+							<%= render 'welcome_jumbo_watch' %>
+						</li>
+						<li class="slide"  style="padding:0;">
+							<%= render 'welcome_jumbo_check' %>
+						</li>
+						<li class="slide"  style="padding:0;">
+							<%= render 'welcome_jumbo_save' %>
+						</li>
+						<% if @events.present? %>
 							<% @events.each_with_index do |event, i| %>
-						  <li class="slide"  style="padding:0;">
-						  	<%= render event %>
-						  </li>
+							<li class="slide"  style="padding:0;">
+								<%= render event %>
+							</li>
 							<% end %>	
-						</ul>
-					</div>
-			<% else %>
-				<%= render 'welcome_jumbo' %>
-			<% end %>
-		<% end %>
+						<% end %>
+					</ul>
+				</div>
 	</div>
 </div>
 
