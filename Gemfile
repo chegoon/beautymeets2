@@ -30,7 +30,8 @@ gem 'omniauth-twitter'
 gem 'twitter'
 gem 'omniauth-kakao'
 
-gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
+#gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
+gem 'activeadmin', github: 'activeadmin/active_admin', branch: '0-6-stable'
 
 # Foundation frameworks
 gem 'foundation-rails'
