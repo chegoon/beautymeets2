@@ -25,7 +25,7 @@
 //= require jquery.slimscroll.min.js
 //= require jquery.glide.js
 //= require jquery.elastislide
-//= require bootstrap-datetimepicker
+// require bootstrap-datetimepicker
 //= require members.js.coffee
 //= require notices.js.coffee
 //= require_tree ../../../vendor/assets/javascripts/.
