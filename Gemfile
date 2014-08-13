@@ -117,6 +117,9 @@ gem 'acts_as_votable', '~> 0.9.0'
 gem "watir-rails"
 gem "nokogiri"
 
+
+gem 'bootstrap-datepicker-rails'
+
 #gem 'recaptcha', :require => 'recaptcha/rails'
 =begin
 #gem 'therubyracer'
@@ -148,7 +151,6 @@ gem 'jquery-rails', '~> 2.3.0'
 gem 'activeadmin'
 gem "acts_as_tree", "~> 1.4.0"
 
-gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-timepicker-rails-addon'
 
 # for screen scrap
