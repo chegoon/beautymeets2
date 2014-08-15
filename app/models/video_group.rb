@@ -73,6 +73,8 @@ class VideoGroup < ActiveRecord::Base
       video_group.join_date = yt_profile.join_date.to_s
       video_group.subscribers = yt_profile.subscribers
       video_group.header_bg_url = ""
+
+      video_group.save
     end 
   end
 end
