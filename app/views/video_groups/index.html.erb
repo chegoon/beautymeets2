@@ -14,7 +14,7 @@
               <div class="panel">
                 <div class="row">
                   <div class="small-12 large-5 columns">
-                    <div class=""><%= image_tag video_group.try(:thumb_url), :style => "width:88px; height:88px;" %></div>
+                    <div class=""><%= image_tag video_group.try(:thumb_url), :style => "width:88px; height:88px;" if video_group.thumb_url? %></div>
                     
                   </div>
                   <div class="small-12 large-7 columns">
