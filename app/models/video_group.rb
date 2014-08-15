@@ -17,9 +17,11 @@ class VideoGroup < ActiveRecord::Base
     self.save
   end
 
+
   def self.update_group(id)
   	find(id).update_group
   end
+
 
   def self.update_groups
     vgs = VideoGroup.where(published: true).all
@@ -43,6 +45,7 @@ class VideoGroup < ActiveRecord::Base
 
         # 동일 URL이 있을경우 정보만 업데이트
         #video = @video_group.videos.find_or_create_by_video_url("http://www.youtube.com/embed/#{yt_video.video_id.split(":").last}")
+        puts "youtube video id: #{yt_video.video_id}"
         yt_vi_id = yt_video.video_id.split(":").last
         if !yt_vi_id.nil?
           video = video_group.videos.find_or_create_by_yt_vi_id(yt_vi_id)
@@ -58,13 +61,15 @@ class VideoGroup < ActiveRecord::Base
           video.published_at = yt_video.published_at.to_s
 
           if video.save
-            video = video_group.videos.new
+            #video = video_group.videos.new
           end
         end
       end
       
       #puts yt_profile.inspect
 
+      # controller에서 video_group.save를 하기 때문에 아래는 assign만 해주고
+      # save는 생략, 실제로 입력시 두번 data create 이 발
       video_group.name = yt_profile.username
       video_group.home_url = "http://www.youtube.com/user/#{yt_profile.username}"
       video_group.thumb_url = yt_profile.avatar
@@ -80,8 +85,6 @@ class VideoGroup < ActiveRecord::Base
       puts "yt_profile.videos_watched : #{yt_profile.videos_watched}"
       puts "yt_profile.subscribers : #{yt_profile.subscribers}"
       puts "yt_profile.join_date : #{yt_profile.join_date}"
-
-      video_group.save!
     end 
   end
 end
