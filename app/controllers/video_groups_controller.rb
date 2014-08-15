@@ -69,7 +69,7 @@ class VideoGroupsController < ApplicationController
   # POST /video_groups.json
   def create
     @video_group = VideoGroup.find_or_create_by_youtube_id(params[:video_group][:youtube_id])
-    VideoGroup.delay.update_group(@video_group.id)
+    VideoGroup.update_group(@video_group.id)
 
     respond_to do |format|
       if @video_group.save

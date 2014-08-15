@@ -74,6 +74,13 @@ class VideoGroup < ActiveRecord::Base
       video_group.subscribers = yt_profile.subscribers
       video_group.header_bg_url = ""
 
+      puts "yt_profile.username : #{yt_profile.username}"
+      puts "yt_profile.avatar : #{yt_profile.avatar}"
+      puts "yt_profile.description : #{yt_profile.description}"
+      puts "yt_profile.videos_watched : #{yt_profile.videos_watched}"
+      puts "yt_profile.subscribers : #{yt_profile.subscribers}"
+      puts "yt_profile.join_date : #{yt_profile.join_date}"
+
       video_group.save!
     end 
   end
