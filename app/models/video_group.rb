@@ -74,7 +74,7 @@ class VideoGroup < ActiveRecord::Base
       video_group.subscribers = yt_profile.subscribers
       video_group.header_bg_url = ""
 
-      video_group.save
+      video_group.save!
     end 
   end
 end
