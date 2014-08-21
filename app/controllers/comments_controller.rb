@@ -67,7 +67,7 @@ class CommentsController < ApplicationController
 	end
 
 	def vote
-		@comment = @commentable.comments.find(params[:comment_id])
+		@comment = @commentable.comments.find(params[:id])
 		authorize_action_for @comment
 
 		@comment.liked_by current_user
@@ -80,7 +80,7 @@ class CommentsController < ApplicationController
 	end
 
 	def unvote
-		@comment = @commentable.comments.find(params[:comment_id])
+		@comment = @commentable.comments.find(params[:id])
 		authorize_action_for @comment
 		
 		@comment.unliked_by current_user

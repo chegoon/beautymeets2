@@ -13,7 +13,7 @@ gem 'mysql2'
 
 # Gem for image upload
 gem 'carrierwave'
-gem 'rmagick', "~> 2.13.1"
+gem 'rmagick'
 
 gem 'simple_form'
 

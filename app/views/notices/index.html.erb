@@ -63,7 +63,7 @@
 									<% if @comments.present? %>
 										<% @comments.each_with_index do |comment, i| %>
 									
-											<%= render partial: "comment", object: comment %>
+											<%= render partial: "comments/comment", object: comment %>
 											<%= "<hr style='margin: 0 0 10px 0;'>".html_safe if i < (@comments.length - 1) %>
 									
 										<% end %>

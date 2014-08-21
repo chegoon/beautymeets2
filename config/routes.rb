@@ -8,8 +8,10 @@ Beautymeets2::Application.routes.draw do
 
   resources :notices do 
     resources :comments do
-      match 'vote' => 'comments#vote', :via => [:get]     
-      match 'unvote' => 'comments#unvote', :via => [:get]     
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
     end
   end
   
@@ -23,17 +25,35 @@ Beautymeets2::Application.routes.draw do
   resources :posts
 
   resources :events do
-    resources :pictures, :comments
+    resources :pictures
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
   end
 
   match 'notifications' => 'activities#index'
 
   resources :boards do 
-    resources :pictures, :comments
+    resources :pictures
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
   end
 
   resources :posts do 
-    resources :pictures, :comments
+    resources :pictures
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
   end
 
   get 'bookmarks/toggle', to: "bookmarks#toggle"
@@ -75,7 +95,13 @@ Beautymeets2::Application.routes.draw do
 
   resources :tutorials do 
     resources :channel_logs
-    resources :comments, :pictures
+    resources :pictures
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
     resources :items do 
       match 'unitemize' => 'items#unitemize', :via => [:delete]     
       match 'featured' => 'items#featured', :via => [:get]     
@@ -86,12 +112,25 @@ Beautymeets2::Application.routes.draw do
   end
 
   resources :beautyclasses do 
-    resources :shops, :pictures, :comments, :locations, :checkouts
+    resources :shops, :pictures, :locations, :checkouts
+
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
     get :autocomplete_location_name, :on => :collection   
   end
 
   resources :items do
-    resources :pictures, :tutorials, :videos, :comments
+    resources :pictures, :tutorials, :videos
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
     get :autocomplete_brand_name, :on => :collection  
     get :logs, :on => :collection   
   end
@@ -100,7 +139,13 @@ Beautymeets2::Application.routes.draw do
   get "pictures/new"
 
   resources :beautystars do 
-    resources :pictures, :comments
+    resources :pictures
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
   end
 
 
@@ -115,7 +160,14 @@ Beautymeets2::Application.routes.draw do
   resources :companies
 
   resources :videos do 
-    resources :comments, :items
+    resources :items
+    
+    resources :comments do
+      member do 
+        get 'vote'
+        get 'unvote'
+      end
+    end
   end
 
   resources :video_groups do 
