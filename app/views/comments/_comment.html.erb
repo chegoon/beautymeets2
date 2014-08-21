@@ -1,7 +1,7 @@
 
 	<div id="comment_<%= comment.id %>" class="row comment" >
 		<div class="small-12 medium-12 columns"  >
-			<h6 class="subheader" style="margin-bottom:0; color:#ccc;">
+			<h6 class="subheader" style="margin-bottom:0; color:#666;">
 				<%= comment.author.present? ? ((comment.author.name != "") ? comment.author.name : comment.author.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %> :
 			</h6>
 			<p style="margin-bottom:10px; line-height:110%;  color:#999; " >
