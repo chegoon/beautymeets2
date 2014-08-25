@@ -1,35 +1,31 @@
+<% 
+c_types = ["Tutorial", "Beautyclass", "Video", "Event", "Post", "Notice", "Item"]
+%>
 <div class="row">
 	<div class="small-12 columns " >
 
 		<% if activity.trackable %>
-		
-			<% if (activity.trackable.commentable_type == "Tutorial" || activity.trackable.commentable_type == 	"Beautyclass" || activity.trackable.commentable_type ==  "Video" || activity.trackable.commentable_type ==  "Event" || activity.trackable.commentable_type ==  "Post" || activity.trackable.commentable_type ==  "Notice")  %>
-				<div class="head" >
-					<%= link_to image_tag(activity.trackable.commentable.thumbnail.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.thumbnail.present? %>
+
+				<div class="head">
+				<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.pluralize, :picture_id) %>
+					<%= link_to image_tag(activity.trackable.commentable.thumbnail.image_url(:very_small)), activity.trackable.commentable if (activity.trackable.commentable.thumbnail.present?) %>
+				<% else %>
+					<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image_url.present? %> 
+				<% end %>
 				</div>
 				<div class="body">
 					<div>
 						<%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %>
 						<span class="description">
 							님이 
-						<%= link_to activity.trackable.commentable.title, activity.trackable.commentable %>
+						<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.pluralize, :title) %>
+							<%= link_to(activity.trackable.commentable.title, activity.trackable.commentable) %>
+						<% else %>
+							<%= link_to(activity.trackable.commentable.name, activity.trackable.commentable) %>
+						<% end %>
 						에 댓글을 달았습니다.
 						</span>
 					</div>
-			<% else %>
-				<div class="head">
-					<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image_url.present? %> 
-				</div>
-				<div class="body">
-					<div>
-						<strong><%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %></strong>
-						<span class="description">
-						님이 
-						<%= link_to activity.trackable.commentable.name, activity.trackable.commentable %>
-						에 댓글을 달았습니다.
-						</span>
-					</div>
-			<% end %>
 					<div>
 						<%= simple_format(activity.trackable.body) %>
 						<span class="created_at" style=" ">
