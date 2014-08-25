@@ -7,7 +7,7 @@ c_types = ["Tutorial", "Beautyclass", "Video", "Event", "Post", "Notice", "Item"
 		<% if activity.trackable %>
 
 				<div class="head">
-				<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.pluralize, :picture_id) %>
+				<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.downcase.pluralize, :picture_id) %>
 					<%= link_to image_tag(activity.trackable.commentable.thumbnail.image_url(:very_small)), activity.trackable.commentable if (activity.trackable.commentable.thumbnail.present?) %>
 				<% else %>
 					<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image_url.present? %> 
@@ -18,7 +18,7 @@ c_types = ["Tutorial", "Beautyclass", "Video", "Event", "Post", "Notice", "Item"
 						<%= activity.owner.present? ? ((activity.owner.name != "") ? activity.owner.name : activity.owner.email.split('@').first) : "사용자 정보가 존재하지 않습니다"  %>
 						<span class="description">
 							님이 
-						<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.pluralize, :title) %>
+						<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.downcase.pluralize, :title) %>
 							<%= link_to(activity.trackable.commentable.title, activity.trackable.commentable) %>
 						<% else %>
 							<%= link_to(activity.trackable.commentable.name, activity.trackable.commentable) %>
