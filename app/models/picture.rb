@@ -1,11 +1,12 @@
 class Picture < ActiveRecord::Base
-  resourcify
-  
-  include PublicActivity::Common
+	resourcify
+	
+	include PublicActivity::Common
 
-  attr_accessible :image, :description
+	attr_accessible :image, :description
 
-  belongs_to :pictureable, polymorphic: true
-  
-  mount_uploader :image, ImageUploader
+	belongs_to :pictureable, polymorphic: true
+	
+	mount_uploader :image, ImageUploader
+
 end

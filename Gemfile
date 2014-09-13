@@ -61,7 +61,9 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 # Rails API Gem
-gem 'rabl'
+# gem 'rabl'
+gem 'jbuilder'
+
 # Also add either `oj` or `yajl-ruby` as the JSON parser
 gem 'oj'
 
