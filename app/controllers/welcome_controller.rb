@@ -3,10 +3,8 @@ class WelcomeController < ApplicationController
 	inherit_resources
 
 	def index
-
-		#@blog_rss = SimpleRSS.parse open('http://blog.beautymeets.com/rss')
 			
-			if user_signed_in?
+		if user_signed_in?
 		
 			@user = current_user
 			@member = @user.profile

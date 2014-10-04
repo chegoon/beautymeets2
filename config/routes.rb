@@ -1,13 +1,67 @@
 Beautymeets2::Application.routes.draw do
+
+	root :to => 'welcome#index'
 	
-	namespace :api do 
-		resources :posts, :tutorials, :items, :videos
+	devise_for :admin_users, ActiveAdmin::Devise.config
+
+	# below two blocks should be defined before devise routes because of user/auth/:action/callback	                                                    
+	resources :authentications
+	match '/users/auth/:provider/callback' => 'authentications#create'
+
+	# Redirect Devise Routes
+	devise_for :users, :path_names => { :sign_up => "join", :sign_in => "login", :sign_out => "logout", :edit_name => "edit_name", :edit_avatar => "edit_avatar", :edit_password => "edit_password" }, controllers: { registrations: "registrations", sessions: "sessions"}
+	ActiveAdmin.routes(self)  
+	
+	# Let devise enabled trhough 'api' url not to change module in class definition
+	devise_scope :user do
+		match "api/join" => "registrations#create", defaults: { format: :json }#, :constraints => { method: "POST" }#,  defaults: { format: :json }
+		match "api/login" => "sessions#create", defaults: { format: :json }#, :constraints => { method: "POST" }
+		match "api/logout" => "sessions#destroy", defaults: { format: :json }#, :constraints => { method: "DELETE" }
+
+		match 'api/users/auth/:provider' => 'authentications#create', defaults: { format: :json }
+		match 'api/users/auth/:provider/callback' => 'authentications#create', defaults: { format: :json }
+	end
+	
+	# Set the default format to json
+	namespace :api,  defaults: {format: :json} do 
+		match "me" => "users#index"
+
+		match "notices" => "notices#index", :constraints => { method: "OPTIONS" }
+		match "notices/:id" => "notices#show"#, :constraints => { method: "OPTIONS" }
+		
+		match "posts" => "posts#index", :constraints => { method: "OPTIONS" }
+		match "posts/:id" => "posts#show"#, :constraints => { method: "GET" }
+		#match "posts/:id/toggleFavorite" => "posts#toggle_favorite", :constraints => { method: "POST" }
+
+		match "users" => "users#index"#, :constraints => { method: "GET" }
+		match "users/:id" => "users#show"#, :constraints => { method: "GET" }
+		match "users/:id/edit" => "users#edit"#, :constraints => { method: "GET" }
+		match "users/:id/notifications" => "users#notifications"#, :constraints => { method: "GET" }
+		match "users/:id/favorites" => "users#favorites"#, :constraints => { method: "GET" }
+
+		resources :users, :notices
+
+		resources :posts do
+			resources :comments
+			match "comments" => "comments#index", :constraints => { method: "OPTIONS" }
+			match "comments" => "comments#create", :constraints => { method: "POST" }
+
+			resources :bookmarks
+			match "favorites" => "bookmarks#index", :constraints => { method: "OPTIONS" }
+			match "favorites" => "bookmarks#create", :constraints => { method: "POST" }
+		end
+
+		resources :users do
+			resources :profiles
+			match "profiles" => "profiles#index", :constraints => { method: "OPTIONS" }
+			match "profiles" => "profiles#update", :constraints => { method: "PUT" }
+		end
 	end
 
 	resources :channel_logs do 
 		resources :channel_log_details  
-		get :autocomplete_channel_name, :on => :collection   
-		get :update_log_details, :on => :collection   
+		get :autocomplete_channel_name, on: :collection   
+		get :update_log_details, on: :collection   
 	end
 
 	resources :notices do 
@@ -18,15 +72,8 @@ Beautymeets2::Application.routes.draw do
 			end
 		end
 	end
-	
-	root :to => 'welcome#index'
-	
-	devise_for :admin_users, ActiveAdmin::Devise.config
-	ActiveAdmin.routes(self)
 
 	resources :devices
-
-	resources :posts
 
 	resources :events do
 		resources :pictures
@@ -62,9 +109,6 @@ Beautymeets2::Application.routes.draw do
 
 	get 'bookmarks/toggle', to: "bookmarks#toggle"
 
-	match '/users/auth/:provider/callback' => 'authentications#create'
-	
-	resources :authentications
 
 	resources :bookmarks
 
@@ -180,8 +224,6 @@ Beautymeets2::Application.routes.draw do
 		end
 	end
 
-	devise_for :users, :path_names => { :sign_up => "join", :sign_in => "login", :sign_out => "logout", :edit_name => "edit_name", :edit_avatar => "edit_avatar", :edit_password => "edit_password" }, controllers: { registrations: "registrations" }
-	ActiveAdmin.routes(self)  
 
 	match 'about' => 'info#about', :via => [:get]
 	match 'privacy' => 'info#privacy', :via => [:get]

@@ -19,7 +19,7 @@
 							<%= link_to '<i class="fa fa-heart-o " style="color:#E98A9C;"></i>'.html_safe, notice_comment_vote_path(comment.commentable, comment), remote: true  %>
 						<% end %>
 					<% else %>
-						<%= link_to '<i class="fa fa-heart-o " style="color:#E98A9C;"></i>'.html_safe, notice_comment_vote_path(comment.commentable, comment)  %>
+						<%=  '<i class="fa fa-heart-o " style="color:#E98A9C;"></i>'.html_safe  %>
 					<% end %>
 						<span id="comment_<%= comment.id %>_vote_size" style="">
 							<%= comment.votes_for.size %>

@@ -1,5 +1,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+#Devise.add_module :remote_authenticatable, :controller => :sessions, :route => { :session => :routes }
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -44,6 +45,7 @@ Devise.setup do |config|
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
   config.case_insensitive_keys = [ :email ]
+  #config.authentication_keys = [ :email ]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
@@ -65,6 +67,10 @@ Devise.setup do |config|
 
   # If http headers should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
+    
+    # configure devise to accept a JSON request, which is what our AJAX will send it
+    #config.http_authenticatable_on_xhr = false
+    #config.navigational_formats = ["*/*", :html, :json]
 
   # The realm used in Http Basic Authentication. 'Application' by default.
   # config.http_authentication_realm = 'Application'
@@ -79,7 +85,16 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing :skip => :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+
+  # ==> Configuration for :token_authenticatable
+  # Defines name of the authentication token params key
+  # the below is default, second line was added to enable token_auth
+  # The second line changes what you’re going to call your authentication token parameter – 
+  # I changed mine to “auth_token” because I didn’t want to be typing “authentication_token” all the time, 
+  # but you can call it whatever you want (or leave it as the default).
+  # config.skip_session_storage = [:http_auth]
+  #config.skip_session_storage = [:http_auth, :token_auth]
+  #config.token_authentication_key = :auth_token
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -239,6 +254,13 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+
+=begin
+  config.warden do |manager|
+     manager.strategies.add(:remote, Devise::Strategies::RemoteAuthenticatable)
+     manager.default_strategies(:scope => :user).unshift :remote
+  end
+=end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

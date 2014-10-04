@@ -28,7 +28,9 @@ module ApplicationHelper
 	end
 
 	def full_url(image_url)
-		request.protocol + request.host_with_port + image_url
+		if image_url
+			request.protocol + request.host_with_port + image_url
+		end
 	end
 	
 	def truncate(text, len, tail = '..')
@@ -64,7 +66,14 @@ module ApplicationHelper
 		end
 	end	
 
-	
+	def filtered_time(time)
+		if  (Time.zone.now - time).to_i / 1.month
+			return time_ago_in_words(time).to_s + " ago"
+		else
+			return time.strftime("%Y-%m-%d %H:%M")
+		end
+	end
+
 	def sortable(column, title = nil)  
 		title ||= column.titleize  
 		direction = (column == params[:sort] && params[:direction] == "ASC") ? "DESC" : "ASC"  

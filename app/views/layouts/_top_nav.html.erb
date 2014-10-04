@@ -30,8 +30,6 @@
 
             <li ><%= link_to "Tutorial", tutorials_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
             <li ><%= link_to "BeautyVideo", videos_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
-            <li ><%= link_to "BeautyClass", beautyclasses_path, {:style => "font-weight:bold;color:#elelel;"} %></li>
-
             
 
             <% if user_signed_in? %>             
@@ -43,7 +41,7 @@
                     <a href="/admin"><i class="fa fa-rocket fa-fw"></i> Admin</a>
                     <%= link_to '<i class="fa fa-plus fa-fw"></i> Item Add</a>'.html_safe, new_item_path %>
                   <% else %>
-                    <%= link_to "<i class='fa fa-square fa-fw'></i> My Page".html_safe, member_path(current_user.profile) %>
+                    <%= link_to "<i class='fa fa-square fa-fw'></i> My Page".html_safe, member_path(current_user.profile)  %>
                   <% end %>
                     </li>
                     <li class="divider"></li>

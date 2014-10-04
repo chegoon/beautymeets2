@@ -20,38 +20,30 @@
 	<div class="small-12 columns ">
 		<div class="panel show-for-medium-up" style="border:0; height:30px; padding: 8px 10px;">
 
-	  			<div class="left text-center" style="width:23%;font-size:0.9rem;font-weight:bold;">
+	  			<div class="left text-center" style="width:32%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "PROFILE", member_path(@member), :style => (action_name == 'show' ?  "color:#68F0D8;" :   "color:#AAA;" ) %>
 	  			</div>
 	  			<div class="left text-center" style="color:#AAA;">|</div>
-	  			<div class="left text-center" style="width:26%;font-size:0.9rem;font-weight:bold;">
+	  			<div class="left text-center" style="width:34%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "NOTIFICATION", member_notifications_path(@member), :style => (action_name == 'notifications' ?  "color:#68F0D8;" :   "color:#AAA;" ) %>
 	  			</div>
 	  			<div class="left text-center" style="color:#AAA;">|</div>
-	  			<div class="left text-center" style="width:26%;font-size:0.9rem;font-weight:bold;">
+	  			<div class="left text-center" style="width:33%;font-size:0.9rem;font-weight:bold;">
 	  				<%= link_to "BOOKMARK", member_bookmarks_path(@member), :style => (action_name == 'bookmarks' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
-	  			</div>
-	  			<div class="left text-center" style="color:#AAA;">|</div>
-	  			<div class="left text-center" style="width:22%;font-size:0.9rem;font-weight:bold;">
-	  				<%= link_to "BEAUTYCLASS", member_beautyclasses_path(@member), :style => (action_name == 'beautyclasses' ?  "color:#68F0D8;" :   "color:#AAA;" )  %>
 	  			</div>
 		</div>
 		<div class="panel show-for-small-only text-center" style="border:0; margin: 20px 0; padding:20px 10px 60px 10px;">
-	  		<div class="text-center left" style="width:25%; font-size:0.785rem;">
+	  		<div class="text-center left" style="width:33%; font-size:0.785rem;">
 	  			<i class="fa fa-user fa-lg fa-fw" style="color:#999; margin:10px 20px 10px 20px;"></i><br/>
 	  			<%= link_to "Profile", member_path(@member) %>
 	  		</div>
-	  		<div class="text-center left" style="width:25%; font-size:0.785rem;">
+	  		<div class="text-center left" style="width:34%; font-size:0.785rem;">
 	  			<i class="fa fa-bell-o fa-lg fa-fw" style="color:#999; margin:10px 20px 10px 20px;"></i><br/>
 	  			<%= link_to "Notification", member_notifications_path(@member) %>
 	  		</div>
-	  		<div class="text-center left" style="width:25%; font-size:0.785rem;">
+	  		<div class="text-center left" style="width:33%; font-size:0.785rem;">
 	  			<i class="fa fa-star-o fa-lg fa-fw" style="color:#999; margin:10px 20px 10px 20px;"></i><br/>
 	  			<%= link_to "Bookmark", member_bookmarks_path(@member)  %>
-	  		</div>
-	  		<div class="text-center left" style="width:25%; font-size:0.785rem;">
-	  			<i class="fa fa-ticket fa-lg fa-fw" style="color:#999; margin:10px 20px 10px 20px;"></i><br/>
-	  			<%= link_to "Beautyclass", member_beautyclasses_path(@member)  %>
 	  		</div>
   		</div>	
   	</div>

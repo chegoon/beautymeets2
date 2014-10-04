@@ -38,12 +38,11 @@ class Video < ActiveRecord::Base
 	end
 
 	def group_name
-			#brand.name if brand
-				video_group.try(:name)
+		video_group.try(:name)
 	end
 		
 	def group_name=(name)
-			self.video_group = VideoGroup.find_or_create_by_name(name) if name.present?
+		self.video_group = VideoGroup.find_or_create_by_name(name) if name.present?
 	end
 
 	def increment_view_count(by = 1)
