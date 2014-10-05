@@ -387,6 +387,7 @@ DEPENDENCIES
   inherited_resources
   jbuilder
   jquery-rails (< 3.0.0)
+  jwt (~> 0.1.11)
   koala (~> 1.8.0rc1)
   mysql2
   nested_form
