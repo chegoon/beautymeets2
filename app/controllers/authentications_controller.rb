@@ -106,14 +106,16 @@ class AuthenticationsController < ApplicationController
 			format.json {
 
 				if authentication
+					puts "exited authentication is generated"
 					authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
 					@user = authentication.user
 					#sign_in_and_redirect(:user, authentication.user) action in HTML
-					warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+					sign_in(resource_name, resource)
+					#warden.authenticate!(:scope => "user", :recall => "#{controller_path}#failure")
 					render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token } }
 			
 				elsif @user
-
+					puts "new authentication of existed user is created"
 					oauth_token = omniauth['credentials']['token']
 		 			oauth_token_secret = omniauth['credentials']['secret']
 		 
