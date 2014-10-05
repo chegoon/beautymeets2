@@ -24,7 +24,6 @@ gem 'cancan'
 gem 'authority'
 
 # Gem for oauth
-gem 'jwt', '~> 0.1.11'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
