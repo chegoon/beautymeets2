@@ -75,7 +75,7 @@ class AuthenticationsController < ApplicationController
 		 
 					current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 					flash[:notice] = "Authentication successful."
-					redirect_to welcome_url
+					redirect_to root_url
 
 				# brand new user
 				else
@@ -110,8 +110,8 @@ class AuthenticationsController < ApplicationController
 					authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
 					@user = authentication.user
 					#sign_in_and_redirect(:user, authentication.user) action in HTML
-					sign_in(resource_name, resource)
-					#warden.authenticate!(:scope => "user", :recall => "#{controller_path}#failure")
+					sign_in('user', @user)
+					#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
 					render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token } }
 			
 				elsif @user
