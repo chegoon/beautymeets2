@@ -6,10 +6,11 @@ Beautymeets2::Application.routes.draw do
 
 	# below two blocks should be defined before devise routes because of user/auth/:action/callback	                                                    
 	resources :authentications
-	match '/users/auth/:provider/callback' => 'authentications#create'
-	# for kakao authentication, upper match path can't apply in kakao developer site
-	match '/oauth' => 'authentications#create'
-
+	# for kakao authentication, upper match path can't apply in kakao developer site, 
+	# this came from omniauth-kakao 
+	
+	match '/users/auth/:provider/callback' => 'authentications#create' 
+	
 	# Redirect Devise Routes
 	devise_for :users, :path_names => { :sign_up => "join", :sign_in => "login", :sign_out => "logout", :edit_name => "edit_name", :edit_avatar => "edit_avatar", :edit_password => "edit_password" }, controllers: { registrations: "registrations", sessions: "sessions"}
 	ActiveAdmin.routes(self)  
