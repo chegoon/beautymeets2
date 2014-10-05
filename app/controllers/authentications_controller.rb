@@ -56,7 +56,8 @@ class AuthenticationsController < ApplicationController
 		puts "omniauth : #{omniauth}"
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 		puts "authentication : #{authentication}"
-
+		puts "format #{request.format}"
+		
 		respond_to do |format|
 			format.html {
 
@@ -110,7 +111,7 @@ class AuthenticationsController < ApplicationController
 					authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
 					@user = authentication.user
 					#sign_in_and_redirect(:user, authentication.user) action in HTML
-					sign_in('user', @user)
+					sign_in(:user, @user)
 					#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
 					render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token } }
 			
