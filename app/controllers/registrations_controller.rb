@@ -53,16 +53,28 @@ class RegistrationsController < Devise::RegistrationsController
 					set_flash_message :notice, :signed_up if is_flashing_format?
 					sign_up(resource_name, resource)
 					# user_steps redirect
-					respond_with resource, :location => after_sign_up_path_for(resource)
+					# respond_with resource, :location => after_sign_up_path_for(resource)
+					respond_to do |format|
+						format.html {after_sign_up_path_for(resource)}
+						format.json {render :status => 200, :json => { :success => true, :info => "Successfully joined", :params => {:user_id => current_user.id, :user_name => current_user.name,  :authToken => current_user.authentication_token } }}
+					end
 				else
 					set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
 					expire_data_after_sign_in!
 					# user_steps redirect
-					respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+					# respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+					respond_to do |format|
+						format.html {after_inactive_sign_up_path_for(resource)}
+						format.json {render :status => 401, :json => { :success => false, :info => "Something wrong in join"}}
+					end
 				end
 			else
 				clean_up_passwords resource
-				respond_with resource
+				#respond_with resource
+				respond_to do |format|
+					format.html {resource}
+					format.json {render :status => 401, :json => { :success => false, :info => "Something wrong in join"}}
+				end
 			end
 	end
 
