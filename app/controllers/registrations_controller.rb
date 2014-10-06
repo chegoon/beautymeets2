@@ -72,7 +72,7 @@ class RegistrationsController < Devise::RegistrationsController
 				clean_up_passwords resource
 				#respond_with resource
 				respond_to do |format|
-					format.html {resource}
+					format.html {redirect_to resource}
 					format.json {render :status => 401, :json => { :success => false, :info => "Something wrong in join"}}
 				end
 			end
