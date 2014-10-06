@@ -1,9 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
 	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :cors_preflight_check
-	after_filter :set_access_control_headers,  :set_csrf_cookie_for_ng
-
+	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
+	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
+	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
+	
 	# This is used to allow the cross origin POST requests made by app.
 	def set_access_control_headers
 		headers['Access-Control-Allow-Origin'] = '*'
