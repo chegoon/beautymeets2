@@ -40,9 +40,6 @@ class RegistrationsController < Devise::RegistrationsController
 		
 		build_resource(sign_up_params)
 		
-		# remove the OmniAuth data from the session once the user has successfully registered. 
-		session[:omniauth] = nil unless @user.new_record? 
-		
 		respond_to do |format|
 			format.html {
 				if resource.save
@@ -104,6 +101,10 @@ class RegistrationsController < Devise::RegistrationsController
 				
 			}
 		end
+		
+		# remove the OmniAuth data from the session once the user has successfully registered. 
+		session[:omniauth] = nil unless @user.new_record? 
+		
 	end
 
 	def update
