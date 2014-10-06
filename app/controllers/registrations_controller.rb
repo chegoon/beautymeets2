@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
 		respond_to do |format|
 			format.html {
 				if resource.save
-
+					puts "resource saved"		
 					resource.profile = Member.create!
 					resource.add_role :member
 					resource.came_from = session['referer']
@@ -63,6 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
 						respond_with resource, location: after_inactive_sign_up_path_for(resource)
 					end
 				else
+					puts "resource not saved"		
 					clean_up_passwords resource
 					@validatable = devise_mapping.validatable?
 					if @validatable
@@ -101,7 +102,7 @@ class RegistrationsController < Devise::RegistrationsController
 				
 			}
 		end
-		
+
 		# remove the OmniAuth data from the session once the user has successfully registered. 
 		session[:omniauth] = nil unless @user.new_record? 
 		
@@ -150,11 +151,12 @@ class RegistrationsController < Devise::RegistrationsController
 	private
 	def build_resource(*args)
 		super
-
+		puts "build_resource called"
 		if session[:omniauth]
 			@user.apply_omniauth(session[:omniauth])
 			@user.valid?
 		end
+		puts "build_resource done"
 	end
 
 	#def sign_up_params
