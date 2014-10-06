@@ -16,11 +16,13 @@
 		  </div>
 		  <div class="row">
 		  	<div class="small-12 columns">
-			    <%= f.button :submit, "LOGIN", :class => "text-center left", :style => "width:110px; margin-right:10px;" %> 
-			    <%= link_to image_tag("/assets/btn_auth_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px; margin-bottom:10px;"), user_omniauth_authorize_path(:facebook) %>
-			    <%= link_to image_tag("/assets/btn_auth_twitter.png", :class => "left show-for-medium-up ",:style => "width:218px; height:auto;" ), user_omniauth_authorize_path(:twitter) %>
+			    <%= f.button :submit, "LOGIN", :class => "text-center left", :style => "width:110px; margin-right:6px;" %> 
+			    <%= link_to "with facebook", user_omniauth_authorize_path(:facebook), :class => "left show-for-medium-up ", :style => "width:148px; height:47px; margin-right:6px; margin-bottom:10px; padding-left:50px; padding-top:16px; background-image: url('/assets/btn_auth_facebook.png'); background-repeat: no-repeat;"  %>
+			    <%= link_to "with twitter", user_omniauth_authorize_path(:twitter), :class => "left show-for-medium-up ", :style => "width:148px; height:47px; margin-right:6px; margin-bottom:10px; padding-left:60px; padding-top:16px; background-image: url('/assets/btn_auth_twitter.png'); background-repeat: no-repeat;"  %>
+			    <%= link_to "with kakao", user_omniauth_authorize_path(:kakao), :class => "left show-for-medium-up ", :style => "width:148px; height:47px; margin-bottom:10px; padding-left:60px; padding-top:16px; background-image: url('/assets/btn_auth_kakao.png'); background-repeat: no-repeat;"  %>
 			    <%= link_to image_tag("/assets/btn_facebook_small.png", :style => "height:46px; width:auto;margin-right:6px;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
-			    <%= link_to image_tag("/assets/btn_twitter_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
+			    <%= link_to image_tag("/assets/btn_twitter_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "" %>
+			    <%= link_to image_tag("/assets/btn_kakao_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:kakao), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
 			  </div>
 			</div>
 		    

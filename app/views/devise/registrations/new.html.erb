@@ -33,12 +33,14 @@
         </p>
         <p>뷰티밋츠의 <%= link_to "이용약관(Terms of Service)", terms_path %> 과 <%= link_to "개인정보 수집 및 이용(Privacy Policy)", privacy_path %>을 잘 확인하시고 아래 가입버튼(JOIN)을 눌러주세요. 메일주소는 한번더 확인 부탁드립니다.</p>
 
-                <%= f.button :submit, "JOIN", :class => "text-center left", :style => "width:100px; margin-right:10px;" %> 
-                <%= link_to image_tag("/assets/btn_auth_facebook.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; margin-right:10px; margin-bottom:10px;"), user_omniauth_authorize_path(:facebook) %>
-                <%= link_to image_tag("/assets/btn_auth_twitter.png", :class => "left show-for-medium-up ", :style => "width:218px; height:auto; "), user_omniauth_authorize_path(:twitter) %>
-                <%= link_to image_tag("/assets/btn_facebook_small.png", :style => "height:46px; width:auto;margin-right:6px;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
-                <%= link_to image_tag("/assets/btn_twitter_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
-
+                <%= f.button :submit, "JOIN", :class => "text-center left", :style => "width:100px; margin-right:6px;" %> 
+                 <%= link_to "with facebook", user_omniauth_authorize_path(:facebook), :class => "left show-for-medium-up ", :style => "width:148px; height:47px; margin-right:6px; margin-bottom:10px; padding-left:50px; padding-top:16px; background-image: url('/assets/btn_auth_facebook.png'); background-repeat: no-repeat;"  %>
+          <%= link_to "with twitter", user_omniauth_authorize_path(:twitter), :class => "left show-for-medium-up ", :style => "width:148px; height:47px; margin-right:6px; margin-bottom:10px; padding-left:60px; padding-top:16px; background-image: url('/assets/btn_auth_twitter.png'); background-repeat: no-repeat;"  %>
+          <%= link_to "with kakao", user_omniauth_authorize_path(:kakao), :class => "left show-for-medium-up ", :style => "width:148px; height:47px; margin-bottom:10px; padding-left:60px; padding-top:16px; background-image: url('/assets/btn_auth_kakao.png'); background-repeat: no-repeat;"  %>
+          <%= link_to image_tag("/assets/btn_facebook_small.png", :style => "height:46px; width:auto;margin-right:6px;"), user_omniauth_authorize_path(:facebook), :class => "left show-for-small-only" %>
+          <%= link_to image_tag("/assets/btn_twitter_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:twitter), :class => "left show-for-small-only", :style => "" %>
+          <%= link_to image_tag("/assets/btn_kakao_small.png", :style => "height:46px; width:auto;"), user_omniauth_authorize_path(:kakao), :class => "left show-for-small-only", :style => "margin-left:5px;" %>
+        
       <% end %>
   <div class="row">
     <div class="small-12 columns">
