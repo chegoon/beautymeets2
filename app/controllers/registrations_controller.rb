@@ -34,20 +34,18 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
 	def create
-		# sign_up_params {"email"=>"", "username"=>"", "password"=>"", "password_confirmation"=>""}
 		# build_resource param[:resource_name] after Devise 3.x (3.2 in application)
 		puts "params : #{params}"
 		sign_up_params = params[:user]
 		
-		#puts "sign_up_params : #{sign_up_params}"
 		build_resource(sign_up_params)
+		
+		# remove the OmniAuth data from the session once the user has successfully registered. 
 		session[:omniauth] = nil unless @user.new_record? 
-		resource_saved = resource.save
-		yield resource if block_given?
 		
 		respond_to do |format|
 			format.html {
-				if resource_saved
+				if resource.save
 
 					resource.profile = Member.create!
 					resource.add_role :member
@@ -79,7 +77,7 @@ class RegistrationsController < Devise::RegistrationsController
 				end
 			}
 			format.json {
-				if resource_saved
+				if resource.save
 
 					resource.profile = Member.create!
 					resource.add_role :member

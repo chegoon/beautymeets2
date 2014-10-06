@@ -99,6 +99,7 @@ class AuthenticationsController < ApplicationController
 						redirect_to user_steps_url
 						#sign_in_and_redirect(:user, user)
 					else
+						# save omniauth data in session for redirection
 						session[:omniauth] = omniauth.except('extra')
 						redirect_to new_user_registration_url
 					end
