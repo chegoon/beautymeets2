@@ -1,5 +1,4 @@
-<h1>New authentication</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', authentications_path %>
+<script type="text/javascript">
+	var ref = "<%= root_url %>" + "users/auth/" + "<%= @provider %>";
+	location.replace(ref);
+</script>

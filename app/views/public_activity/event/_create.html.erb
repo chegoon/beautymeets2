@@ -1,0 +1,17 @@
+<% if activity.trackable %>
+	<div class="row">
+		<div class="small-12 columns ">
+			<div class="head" >
+				<%=  link_to image_tag(activity.trackable.thumbnail.image_url(:very_small)), post_path(activity.trackable) if activity.trackable.thumbnail.present? %>
+			</div>
+			<div class="body">
+				<span class="description" style="">
+					<%= link_to activity.trackable.title, activity.trackable %>가 업로드 되었습니다.
+				</span>
+				<span class="created_at" style=" ">
+					<small><%= time_ago_in_words(activity.trackable.created_at) %> ago</small>
+				</span>
+			</div>			
+		</div>
+	</div>
+<% end %>

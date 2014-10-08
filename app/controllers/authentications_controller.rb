@@ -8,6 +8,13 @@ class AuthenticationsController < ApplicationController
 	after_filter :set_access_control_headers,  :if => Proc.new { |c| c.request.format == 'application/json' } 
 	after_filter :set_csrf_cookie_for_ng,  :if => Proc.new { |c| c.request.format == 'application/json' } 
 	before_filter :load_user_through_auth_token, :if => Proc.new { |c| c.request.format == 'application/json' } 
+	before_filter :default_format_json
+
+	def default_format_json
+		if (session[:request_format].present? && session[:request_format] == "json") # || (request.headers["HTTP_ACCEPT"].nil? && params[:format].nil?) || 
+			request.format = "json"
+		end
+	end
 
 	# This is used to allow the cross origin POST requests made by app.
 	def set_access_control_headers
@@ -44,113 +51,84 @@ class AuthenticationsController < ApplicationController
 			format.html # index.html.erb
 			format.json { render json: @authentications }
 		end
-
 	end
 
-
-	# POST /authentications
-	# POST /authentications.json
 	def create
-
 		omniauth = request.env["omniauth.auth"]
-		puts "omniauth : #{omniauth}"
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-		puts "authentication : #{authentication}"
-		puts "format #{request.format}"
 		
-		respond_to do |format|
-			format.html {
+		if authentication
+			flash[:notice] = "Signed in successfully."
+			authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
 
-				if authentication
-					flash[:notice] = "Signed in successfully."
-					authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
-					sign_in_and_redirect(:user, authentication.user)
-					
-				# user logged in previously, and trying to login with new authentication
-				# guide user to select among login authentications"
-				elsif current_user
-					puts "user logged in previously, and trying to login with new authentication"
-
-					oauth_token = omniauth['credentials']['token']
-		 			oauth_token_secret = omniauth['credentials']['secret']
-		 
-					current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
-					flash[:notice] = "Authentication successful."
-					redirect_to root_url
-
-				# brand new user
-				else
-					puts "brand new user"
-					user = User.new
-					# in case of facebook authentication, the below code might be needed
-		 			# user.email = omniauth['extra']['raw_info'].email
-					user.apply_omniauth(omniauth)
-
-					if user.save
-			      		#UserMailer.welcome(user).deliver
-			      		user.profile = Member.create!
-			      		user.add_role :member
-						user.save
-
-						flash[:notice] = "Signed in successfully."
-
-						# user_steps redirect
-						sign_in(:user, user)
-						redirect_to user_steps_url
-						#sign_in_and_redirect(:user, user)
-					else
-						# save omniauth data in session for redirection
-						session[:omniauth] = omniauth.except('extra')
-						redirect_to new_user_registration_url
-					end
+			if session[:request_format] == "json"
+				respond_to do |format|
+					#format.html {render :status => 200, :content_type => 'application/json', :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
+					format.json { render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
 				end
-			}
-			format.json {
-
-				if authentication
-					puts "exited authentication is generated"
-					authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
-					@user = authentication.user
-					#sign_in_and_redirect(:user, authentication.user) action in HTML
-					sign_in(:user, @user)
-					#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-					render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token } }
+			else
+				respond_to do |format|
+					format.html { sign_in_and_redirect(:user, authentication.user) }
+				end
+			end	
 			
-				elsif @user
-					puts "new authentication of existed user is created"
-					oauth_token = omniauth['credentials']['token']
-		 			oauth_token_secret = omniauth['credentials']['secret']
-		 
-					@user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
-					flash[:notice] = "Authentication successful."
-					
-					#redirect_to welcome_url action in HTML
-					render :status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token } }
-				
-				# brand new user
-				else
-					puts "brand new user"
-					user = User.new
-					user.apply_omniauth(omniauth)
+		# user logged in previously, and trying to login with new authentication
+		# guide user to select among login authentications"
+		elsif (current_user || @user)
 
-					if user.save
-			      		user.profile = Member.create!
-			      		user.add_role :member
-						user.save
+			oauth_token = omniauth['credentials']['token']
+ 			oauth_token_secret = omniauth['credentials']['secret']
+ 
+			if current_user 
+				current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+			else
+				@user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+			end	
 
-						flash[:notice] = "Signed in successfully."
+			flash[:notice] = "Authentication successful."
+			puts flash[:notice]
 
-						sign_in(:user, user)
-
-						#redirect_to user_steps_url
-						render :status => 200, :json => { :success => true, :info => "Successfully joined", :params => {:user_id => user.id, :user_name => user.name,  :authToken => user.authentication_token } }
-					else
-						session[:omniauth] = omniauth.except('extra')
-						#redirect_to new_user_registration_url
-						render :status => 401, :json => { :success => true, :info => "Somthing wrong your authetication"}
-					end
+			if session[:request_format] == "json"
+				respond_to do |format|
+					#format.html {render :text => {:status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token }}}}
+					format.json {render :status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token }}}
 				end
-			}
+			else
+				respond_to do |format|
+					format.html {redirect_to root_url}
+				end
+			end
+
+		# brand new user
+		else
+			user = User.new
+			# in case of facebook authentication, the below code might be needed
+ 			# user.email = omniauth['extra']['raw_info'].email
+			user.apply_omniauth(omniauth)
+			puts "brand new user"
+			if user.save
+	      		UserMailer.welcome(user).deliver
+	      		user.profile = Member.create!
+	      		user.add_role :member
+				user.save
+
+				flash[:notice] = "Signed in successfully."
+
+				# user_steps redirect
+				sign_in(:user, user)
+				respond_to do |format|
+					#sign_in_and_redirect(:user, user)
+					format.html {redirect_to user_steps_url} #user_step에서 json format 처리
+				end
+			else
+				# save omniauth data in session for redirection without data needed
+				session[:omniauth] = omniauth.except('extra')
+
+				respond_to do |format|
+					format.html {redirect_to new_user_registration_url}	#registartion에서 json format처리
+				end
+
+			end
 		end
 	end
 
@@ -163,6 +141,16 @@ class AuthenticationsController < ApplicationController
 		redirect_to authentications_url
 	end
 
+	def new
+		@provider = params[:provider]
+		@authentication = Authentication.new
+		session[:request_format] = params[:request_format] #request.format
+
+		respond_to do |format|
+			format.html { redirect_to '/users/auth/'+ @provider }
+			format.json  { redirect_to '/users/auth/'+ @provider + '?format=json' }
+		end
+	end
 
 	protected
 	def load_user_through_auth_token

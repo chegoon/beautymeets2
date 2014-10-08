@@ -17,12 +17,13 @@ Beautymeets2::Application.routes.draw do
 	
 	# Let devise enabled trhough 'api' url not to change module in class definition
 	devise_scope :user do
+		match "api/auth/:provider" => "authentications#new"
 		match "api/join" => "registrations#create", defaults: { format: :json }#, :constraints => { method: "POST" }#,  defaults: { format: :json }
 		match "api/login" => "sessions#create", defaults: { format: :json }#, :constraints => { method: "POST" }
 		match "api/logout" => "sessions#destroy", defaults: { format: :json }#, :constraints => { method: "DELETE" }
 
-		match 'api/users/auth/:provider' => 'authentications#create', defaults: { format: :json }
-		match 'api/users/auth/:provider/callback' => 'authentications#create', defaults: { format: :json }
+		#match 'api/users/auth/:provider' => 'authentications#create', defaults: { format: :json }
+		#match 'api/users/auth/:provider/callback' => 'authentications#create', defaults: { format: :json }
 	end
 	
 	# Set the default format to json

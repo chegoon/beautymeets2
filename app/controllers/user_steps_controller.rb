@@ -2,7 +2,14 @@ class UserStepsController < ApplicationController
 	include Wicked::Wizard
 	before_filter :set_user_steps
 	steps :step1, :step2, :step_final
-	
+	before_filter :default_format_json
+
+	def default_format_json
+		if (session[:request_format].present? && session[:request_format] == "json")
+			request.format = "json"
+		end
+	end
+
 	def show
 		render_wizard
 	end
@@ -18,5 +25,16 @@ class UserStepsController < ApplicationController
 	def set_user_steps
 		@user = current_user
 		@member = @user.profile
+	end
+
+	private
+	def redirect_to_finish_wizard
+		if session[:request_format] == "json"
+			respond_to do |format|
+				format.json {render :status => 200, :json => { :success => trues, :info => "Thanks for Join", :params => {:email => current_user.email, :name => current_user.username, :oauth_token => omniauth['credentials']['token'], :oauth_token_secret => omniauth['credentials']['secret']}}}
+			end
+		else
+			redirect_to root_url, notice: "Thanks for Join."
+		end		
 	end
 end
