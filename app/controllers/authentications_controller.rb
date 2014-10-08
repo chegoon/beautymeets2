@@ -60,11 +60,11 @@ class AuthenticationsController < ApplicationController
 		if authentication
 			flash[:notice] = "Signed in successfully."
 			authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
-
+			@auth = authentication
 			if session[:request_format] == "json"
 				respond_to do |format|
 					#format.html {render :status => 200, :content_type => 'application/json', :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
-					format.json { render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
+					format.json #{ render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
 				end
 			else
 				respond_to do |format|
@@ -150,6 +150,10 @@ class AuthenticationsController < ApplicationController
 			format.html { redirect_to '/users/auth/'+ @provider }
 			format.json  { redirect_to '/users/auth/'+ @provider + '?format=json' }
 		end
+	end
+
+	def show
+		@authentication = Authentication.find(params[:id])
 	end
 
 	protected
