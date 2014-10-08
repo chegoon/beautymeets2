@@ -154,7 +154,8 @@ class AuthenticationsController < ApplicationController
 
 	protected
 	def load_user_through_auth_token
-		@user = User.find_for_database_authentication(authentication_token: params[:authToken])
+		@user = current_user ? current_user : User.find_for_database_authentication(authentication_token: params[:authToken])
+
 		#@user = User.find_by_authenticating_token(params[:auth_token])
 	end
 end
