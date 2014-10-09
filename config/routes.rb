@@ -10,7 +10,7 @@ Beautymeets2::Application.routes.draw do
 	# this came from omniauth-kakao 
 	
 	match '/users/auth/:provider/callback' => 'authentications#create' 
-	
+
 	# Redirect Devise Routes
 	devise_for :users, :path_names => { :sign_up => "join", :sign_in => "login", :sign_out => "logout", :edit_name => "edit_name", :edit_avatar => "edit_avatar", :edit_password => "edit_password" }, controllers: { registrations: "registrations", sessions: "sessions"}
 	ActiveAdmin.routes(self)  

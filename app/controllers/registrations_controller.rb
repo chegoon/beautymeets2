@@ -62,6 +62,7 @@ class RegistrationsController < Devise::RegistrationsController
 				# user_steps redirect
 				# respond_with resource, :location => after_sign_up_path_for(resource)
 				if session[:request_format] == "json"
+					session[:request_format] = nil
 					respond_to do |format|
 						format.html { render :text => {:status => 200, :json => { :success => true, :info => "Successfully joined", :params => {:user_id => current_user.id, :user_name => current_user.name,  :authToken => current_user.authentication_token }}}}
 					end
@@ -78,10 +79,12 @@ class RegistrationsController < Devise::RegistrationsController
 				# respond_with resource, :location => after_inactive_sign_up_path_for(resource)
 
 				if session[:request_format] == "json"
+					session[:request_format] = nil
 					respond_to do |format|
 						#format.html { render :text => {:status => 401, :json => { :success => false, :info => "Something wrong in join" }}}
 						format.html { render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}
 					end
+
 				else
 					respond_to do |format|
 						format.html { redirect_to after_inactive_sign_up_path_for(resource) }
@@ -94,6 +97,7 @@ class RegistrationsController < Devise::RegistrationsController
 			#respond_with resource
 
 			if session[:request_format] == "json"
+				session[:request_format] = nil
 				respond_to do |format|
 					#format.html { render :text => {:status => 401, :json => { :success => false, :info => "Something wrong in join" }}}
 					format.html { render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}

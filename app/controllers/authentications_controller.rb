@@ -60,12 +60,18 @@ class AuthenticationsController < ApplicationController
 		if authentication
 			flash[:notice] = "Signed in successfully."
 			authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
-			@auth = authentication
+			
+
 			if session[:request_format] == "json"
+				@auth = authentication
+				session[:request_format] = nil
 				respond_to do |format|
 					#format.html {render :status => 200, :content_type => 'application/json', :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
-					format.json #{ render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
+					format.json { redirect_to authentication_path(:id => authentication.id, :user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token )
+						#render :status => 200, :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }
+					}
 				end
+				
 			else
 				respond_to do |format|
 					format.html { sign_in_and_redirect(:user, authentication.user) }
@@ -89,10 +95,13 @@ class AuthenticationsController < ApplicationController
 			puts flash[:notice]
 
 			if session[:request_format] == "json"
+				@auth = current_user ? current_user.authentication : @user.authentication
+				session[:request_format] = nil
 				respond_to do |format|
 					#format.html {render :text => {:status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token }}}}
-					format.json {render :status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token }}}
+					format.json #{render :status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token }}}
 				end
+				
 			else
 				respond_to do |format|
 					format.html {redirect_to root_url}
