@@ -11,7 +11,7 @@ class AuthenticationsController < ApplicationController
 	before_filter :default_format_json
 
 	def default_format_json
-		if (session[:request_format].present? && session[:request_format] == "json") # || (request.headers["HTTP_ACCEPT"].nil? && params[:format].nil?) || 
+		if (params[:request_format] && params[:request_format] == "json") || (session[:request_format].present? && session[:request_format] == "json") # || (request.headers["HTTP_ACCEPT"].nil? && params[:format].nil?) || 
 			request.format = "json"
 		end
 	end
@@ -67,9 +67,8 @@ class AuthenticationsController < ApplicationController
 				session[:request_format] = nil
 				respond_to do |format|
 					#format.html {render :status => 200, :content_type => 'application/json', :json => { :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }}}
-					format.json { redirect_to authentication_path(:id => authentication.id, :user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token )
+					format.json { redirect_to authentication_path(id: authentication.id, request_format: "json") }
 						#render :status => 200, :success => true, :info => "Logged in", :params => {:user_id => authentication.user.id, :user_name => authentication.user.name,  :authToken => authentication.user.authentication_token }
-					}
 				end
 				
 			else
@@ -162,6 +161,7 @@ class AuthenticationsController < ApplicationController
 	end
 
 	def show
+		#@authentication = Authentication.find_by_oauth_token(params[:id])
 		@authentication = Authentication.find(params[:id])
 	end
 
