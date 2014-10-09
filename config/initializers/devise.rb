@@ -14,7 +14,7 @@ Devise.setup do |config|
   config.mailer_sender = "hellobeauty@reallplay.com"
   config.omniauth  :twitter, 'pLMLc34uXlV7ZurVp2qAfxPCU', 'rnGeXcy7IggdanpGPCSgEK5FmicQldoiL1W1c5oan6qnPbU0yv'  
   config.omniauth  :facebook, '143298282497081', '84b74288ea8f52863a5330aa2dcbe5da', {:scope => 'publish_stream, email, offline_access', :secure_image_url => true, :image_size => 'square'}
-  config.omniauth :kakao, '9068335d59a9a69ffb22f619fcd669b6'
+  config.omniauth :kakao, '9068335d59a9a69ffb22f619fcd669b6', {:redirect_path => "/users/auth/kakao/callback"}
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
