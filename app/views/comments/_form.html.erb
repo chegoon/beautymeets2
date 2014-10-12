@@ -1,17 +1,23 @@
 <div id="comment_form" class="row comment">
-  <div class="small-12 columns">
-    <%= simple_form_for [@commentable, @comment], remote: true do |f| %>
-      <%= f.error_notification %>
+	<div class="small-12 columns">
+		<%= simple_form_for [@commentable, @comment],html: { multipart: true }, remote: true do |f| %>
+			<%= f.error_notification %>
 
-      <div class="row">
-        <div class="medium-9 columns" >
-          <%= f.text_area :body, rows: 2, :placeholder => ( local_assigns[:form_message] || "궁금한 점을 남겨주세요" ) %>
-        </div>
-        <div class="medium-3 columns">
-          <%= f.button :submit, "Comment It", :class => "expand right" %>
-        </div>
-      </div>
+			<div class="row">
+				<div class="medium-9 columns" >
+					<%= f.text_area :body, rows: 2, :placeholder => ( local_assigns[:form_message] || "궁금한 점을 남겨주세요" ) %>
+					<%= #f.input :image, :as => "file" 
+					%>
 
-    <% end %>
-  </div>
+					<%= f.simple_fields_for :picture_attributes, remote: true do |ff| %>
+						<%= ff.input :image, :as => "file" %>			
+					<% end %>          
+				</div>
+				<div class="medium-3 columns">
+					<%= f.button :submit, "Comment It", :class => "expand right" %>
+				</div>
+			</div>
+
+		<% end %>
+	</div>
 </div>

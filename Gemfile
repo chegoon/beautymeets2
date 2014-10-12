@@ -13,7 +13,7 @@ gem 'mysql2'
 
 # Gem for image upload
 gem 'carrierwave'
-gem 'rmagick'
+gem 'rmagick', :require => 'RMagick'
 
 gem 'simple_form'
 

@@ -1,7 +1,6 @@
 Beautymeets2::Application.routes.draw do
 
 	root :to => 'welcome#index'
-	
 	devise_for :admin_users, ActiveAdmin::Devise.config
 
 	# below two blocks should be defined before devise routes because of user/auth/:action/callback	                                                    
@@ -151,6 +150,7 @@ Beautymeets2::Application.routes.draw do
 		resources :channel_logs
 		resources :pictures
 		resources :comments do
+			resources :picture
 			member do 
 				get 'vote'
 				get 'unvote'

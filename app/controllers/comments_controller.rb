@@ -12,11 +12,20 @@ class CommentsController < ApplicationController
 
 	def new
 		@comment = @commentable.comments.new
+		#@comment.build_picture
+		#@comment_image = @comment.picture.build
 	end
 
 	def create
-		@comment = Comment.build_from(@commentable, current_user.id, params[:comment][:body])
-		
+		#@comment = Comment.build_from(@commentable, current_user.id, params[:comment][:body], params[:comment][:picture_attributes])
+		#@comment = @commentable.comments.new({user_id: current_user.id, body: params[:comment][:body], image: params[:comment][:image]})# picture: Picture.new(params[:comment][:picture])})
+		if params[:comment][:picture_attributes]
+			@comment = @commentable.comments.new({user_id: current_user.id, body: params[:comment][:body], picture_attributes: params[:comment][:picture_attributes]})
+		else
+			@comment = @commentable.comments.new({user_id: current_user.id, body: params[:comment][:body]})
+		end
+		#@comment = @commentable.comments.new(params[:comment])
+
 		if @comment.save
 
 			if params[:comment][:parent_id]

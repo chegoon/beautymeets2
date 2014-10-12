@@ -88,6 +88,24 @@
 </div>
 
 
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
+	<div class="small-12 columns">		
+		<h3 class="subheader" style="margin:1rem 0 0 0;">Q&A&nbsp;<small><%= @video.title %>에 대해 자유롭게 이야기해봐요.</small>
+		</h3>
+
+    <% if !user_signed_in? %>
+      <%= render "comments/comments" %>
+      <p><%= "로그인을 하셔야 댓글을 달 수 있어요, 안하셨다면 가입부터!!" %></p>
+      <a href="<%= new_user_registration_path %>"  class="button secondary" >회원가입</a>&nbsp;
+      OR <a href="<%= new_user_session_path %>"  class="button secondary">로그인</a>
+      
+    <% else %>
+		<%= render "comments/comments" || "댓글이 없습니다." %>
+		<%= render partial: "comments/form", locals: { form_message: "#{@video.title}에 대해 자유롭게 얘기해봐요." } if user_signed_in?  %>    
+		<% end %>
+	</div>
+</div>
+
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:10px 5px; border:1px #EEE solid;">
 	<div class="small-12 columns" style="">
 		<h5>

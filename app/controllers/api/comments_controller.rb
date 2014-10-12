@@ -22,12 +22,19 @@ module API
 		end
 
 		def create
-			puts "param : #{params[:comment][:body]}"
-			@comment = Comment.build_from(@commentable, @user.id, params[:comment][:body])
 
+			#@comment = Comment.build_from(@commentable, @user.id)
+			
+
+			if params[:comment][:attachement]
+				#uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => picture_path_params["filename"], :original_filename => picture_path_params["original_filename"])
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]}, picture: Picture.new(params[:comment][:attachement])})
+ 			else
+ 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
+			end
 			if @comment.save
 				puts "comment : #{@comment}"
-=begin
+
 				if params[:comment][:parent_id]
 					@parent = Comment.find(params[:comment][:parent_id]) 
 					if !(@commentable.class.name == "Event")
@@ -46,7 +53,7 @@ module API
 				else
 					@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 				end
-=end
+
 				render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 			
 			else

@@ -10,6 +10,7 @@ class PicturesController < ApplicationController
   
   def create
     @picture = @pictureable.pictures.new(params[:picture])
+
     current_user.add_role :author, @picture
     #@picture.create_activity :create, owner: @pictureable.author if @pictureable.published?
 

@@ -49,16 +49,19 @@ class VideosController < ApplicationController
 		if @video.video_group.published || (user_signed_in? && current_user.can_update?(@video))
 
 			@commentable = @video
-			@comments = @commentable.root_comments.order("created_at ASC")
-			
-			@tutorials = Tutorial.all.last(3)
+			comments_per_page = 7
+			page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+			@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
 
 			if user_signed_in?
-				@comment = Comment.build_from(@commentable, current_user.id, "") 
+				@comment = @commentable.comments.new(user_id: current_user.id)
+				@comment.build_picture 
 				@video.mark_as_read! :for => current_user
 			else
 				@comment = Comment.new
 			end
+
+			@tutorials = Tutorial.all.last(3)
 
 			if !(user_signed_in? && current_user.can_update?(@video))
 			#if cannot? :manage, @video

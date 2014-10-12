@@ -44,7 +44,7 @@ class RegistrationsController < Devise::RegistrationsController
 		
 		build_resource(sign_up_params)
 		session[:omniauth] = nil unless @user.new_record? 
-		
+
 		if resource.save
 		 
 			resource.profile = Member.create!

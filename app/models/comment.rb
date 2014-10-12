@@ -11,17 +11,23 @@ class Comment < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = "BasicAuthorizer"
   
+  mount_uploader :image, ImageUploader
+  
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
-
+  
   validates :body, :presence => true
   validates :user, :presence => true
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
   #acts_as_votable
+  
+  #has_many :pictures, as: :pictureable, dependent: :destroy
+  has_one :picture, as: :pictureable, dependent: :destroy
+  accepts_nested_attributes_for :picture, allow_destroy: true, :reject_if => lambda { |a| a['image'].blank? }
 
   belongs_to :commentable, :polymorphic => true
-  attr_accessible :commentable, :body, :user_id
+  attr_accessible :commentable, :body, :user_id, :picture_attributes
 
   # NOTE: Comments belong to a user
   belongs_to :user #:author, class_name: "User", :foreign_key => "user_id"
@@ -29,11 +35,13 @@ class Comment < ActiveRecord::Base
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme
-  def self.build_from(obj, user_id, comment)
+  def self.build_from(obj, user_id)#, comment, picture_attributes)
     new \
       :commentable => obj,
-      :body        => comment,
       :user_id     => user_id
+      #:body        => comment,
+      #:pictureable => self,
+      #:picture_attributes => picture_attributes
   end
 
   #helper method to check if a comment has children

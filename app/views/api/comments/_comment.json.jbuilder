@@ -5,7 +5,7 @@ else
 end
 
 json.author do
-	json.name comment.author ? comment.author.name : "None"
+	json.name (comment.author && comment.author.name) ? comment.author.name : comment.author.email
 end
 
 json.body comment.body
