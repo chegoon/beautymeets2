@@ -32,7 +32,7 @@ class UserStepsController < ApplicationController
 		if (session[:request_format]) && session[:request_format] == "json"
 			session[:request_format] = nil
 			respond_to do |format|
-				format.json {render :status => 200, :json => { :success => trues, :info => "Thanks for Join", :params => {:email => current_user.email, :name => current_user.username, :oauth_token => omniauth['credentials']['token'], :oauth_token_secret => omniauth['credentials']['secret']}}}
+				format.html {render :status => 200, :json => { :success => trues, :info => "Thanks for Join", :params => {:email => current_user.email, :name => current_user.username, :oauth_token => omniauth['credentials']['token'], :oauth_token_secret => omniauth['credentials']['secret']}}}
 			end
 		else
 			respond_to do |format|
