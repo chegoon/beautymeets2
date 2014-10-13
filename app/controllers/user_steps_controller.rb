@@ -29,6 +29,8 @@ class UserStepsController < ApplicationController
 
 	private
 	def redirect_to_finish_wizard
+		format.html { redirect_to root_url, notice: "Thanks for Join." }
+=begin		
 		if (session[:request_format]) && session[:request_format] == "json"
 			session[:request_format] = nil
 			respond_to do |format|
@@ -39,5 +41,6 @@ class UserStepsController < ApplicationController
 				format.html { redirect_to root_url, notice: "Thanks for Join." }
 			end			
 		end		
+=end		
 	end
 end
