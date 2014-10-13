@@ -25,7 +25,6 @@ module API
 
 			#@comment = Comment.build_from(@commentable, @user.id)
 			
-
 			if params[:comment][:attachment]
 				tempfile = Tempfile.new("fileupload")
 				tempfile.binmode
@@ -33,9 +32,11 @@ module API
 				uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:comment][:attachment], :original_filename => params[:comment][:attachment])
 				
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
+				#@comment.picture.image = uploaded_file
  			else
  				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
 			end
+
 			if @comment.save
 				puts "comment : #{@comment}"
 
