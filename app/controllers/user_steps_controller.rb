@@ -35,7 +35,9 @@ class UserStepsController < ApplicationController
 				format.json {render :status => 200, :json => { :success => trues, :info => "Thanks for Join", :params => {:email => current_user.email, :name => current_user.username, :oauth_token => omniauth['credentials']['token'], :oauth_token_secret => omniauth['credentials']['secret']}}}
 			end
 		else
-			redirect_to root_url, notice: "Thanks for Join."
+			respond_to do |format|
+				format.html { redirect_to root_url, notice: "Thanks for Join." }
+			end			
 		end		
 	end
 end
