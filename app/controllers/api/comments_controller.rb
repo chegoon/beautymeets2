@@ -27,8 +27,12 @@ module API
 			
 
 			if params[:comment][:attachement]
-				#uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => picture_path_params["filename"], :original_filename => picture_path_params["original_filename"])
-				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new({image: params[:comment][:attachment]})})
+				tempfile = Tempfile.new("fileupload")
+				tempfile.binmode
+				tempfile.write(Base64.decode64(params[:comment][:attachement]))
+				uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:comment][:attachement], :original_filename => params[:comment][:attachement])
+				
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
  			else
  				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
 			end
