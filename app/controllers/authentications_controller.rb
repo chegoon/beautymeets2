@@ -85,16 +85,16 @@ class AuthenticationsController < ApplicationController
  			oauth_token_secret = omniauth['credentials']['secret']
  
 			if current_user 
-				current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+				@auth = current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 			else
-				@user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+				@auth = @user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 			end	
 
 			flash[:notice] = "Authentication successful."
 			puts flash[:notice]
 
 			if session[:request_format] == "json"
-				@auth = current_user ? current_user.authentication : @user.authentication
+				#@auth = current_user ? current_user.authentication : @user.authentication
 				session[:request_format] = nil
 				respond_to do |format|
 					#format.html {render :text => {:status => 200, :json => { :success => true, :info => "Successfully Login", :params => {:user_id => @user.id, :user_name => @user.name,  :authToken => @user.authentication_token }}}}
