@@ -26,11 +26,11 @@ module API
 			#@comment = Comment.build_from(@commentable, @user.id)
 			
 
-			if params[:comment][:attachement]
+			if params[:comment][:attachment]
 				tempfile = Tempfile.new("fileupload")
 				tempfile.binmode
-				tempfile.write(Base64.decode64(params[:comment][:attachement]))
-				uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:comment][:attachement], :original_filename => params[:comment][:attachement])
+				tempfile.write(Base64.decode64(params[:comment][:attachment]))
+				uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:comment][:attachment], :original_filename => params[:comment][:attachment])
 				
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
  			else
