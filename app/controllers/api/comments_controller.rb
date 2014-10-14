@@ -26,9 +26,9 @@ module API
 			#@comment = Comment.build_from(@commentable, @user.id)
 			
 			if params[:image]
-				tempfile = Tempfile.new("fileupload")
-				tempfile.binmode
-				tempfile.write(Base64.decode64(params[:image]))
+				#tempfile = Tempfile.new("fileupload")
+				#tempfile.binmode
+				#tempfile.write(Base64.decode64(params[:image]))
 				uploaded_file = params[:image] #ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:imgae][:filename], :original_filename => params[:image][:original_filename])
 				
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
