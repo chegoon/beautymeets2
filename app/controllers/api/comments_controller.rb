@@ -34,7 +34,7 @@ module API
 				puts "comment: #{params[:comment]}, "
 				puts "picture: #{uploaded_file}"
 
-				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
+				@comment = @commentable.comments.new({user_id: @user.id, picture: Picture.new(uploaded_file)})
 				#@comment.picture.image = uploaded_file
  			else
  				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
