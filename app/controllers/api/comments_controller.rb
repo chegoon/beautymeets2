@@ -30,7 +30,10 @@ module API
 				#tempfile.binmode
 				#tempfile.write(Base64.decode64(params[:image]))
 				uploaded_file = params[:image] #ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:imgae][:filename], :original_filename => params[:image][:original_filename])
-				
+				puts "user_id: #{@user.id}, "
+				puts "body: #{params[:comment][:body]}, "
+				puts "picture: #{Picture.new(uploaded_file)}"
+
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
 				#@comment.picture.image = uploaded_file
  			else
