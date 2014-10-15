@@ -54,16 +54,13 @@ module API
 
 		def create    
 			#the_params = params.require(:comment).permit(:image)
-			uploaded_file = parse_image_data(params[:image]) if params[:image]
+			#uploaded_file = parse_image_data(params[:image]) if params[:image]
 
 			#@comment = Comment.build_from(@commentable, @user.id)
 			
-			if the_params[:image]
-				puts "user_id: #{@user.id}, "
-				puts "comment: #{params[:comment]}, "
-				puts "picture: #{uploaded_file}"
-
-				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
+			if params[:image]
+				
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
 				#@comment.picture.image = uploaded_file
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
