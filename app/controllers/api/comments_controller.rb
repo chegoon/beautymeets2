@@ -60,12 +60,12 @@ module API
 			
 			puts "user_id: #{@user.id}, "
 			puts "comment: #{params}, "
-
-			if params[:image]
+			the_params = ActiveSupport::JSON.decode(params) if params
+			if the_params[:image]
 				#puts "picture: #{uploaded_file}"
 
 				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {image: params[:image]}}) 
+				@comment = @commentable.comments.new({user_id: @user.id, body: the_params[:comment][:body], picture_attributes: {image: the_params[:image]}}) 
 				#@comment.picture.image = uploaded_file
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
