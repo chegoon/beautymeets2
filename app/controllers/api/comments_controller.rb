@@ -60,7 +60,7 @@ module API
 			
 			puts "user_id: #{@user.id}, "
 			puts "comment: #{params}, "
-			
+
 			if params[:image]
 				#puts "picture: #{uploaded_file}"
 
@@ -70,7 +70,8 @@ module API
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
 			end
-
+			@comment.save!
+			
 			if @comment.save
 				puts "comment : #{@comment}"
 =begin
