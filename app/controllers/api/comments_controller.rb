@@ -53,7 +53,7 @@ module API
 		end
 
 		def create    
-			the_params = params.require(:upload).permit(:image)
+			the_params = params.require(:comment).permit(:image)
 			the_params[:image] = parse_image_data(the_params[:image]) if the_params[:image]
 
 			#@comment = Comment.build_from(@commentable, @user.id)
