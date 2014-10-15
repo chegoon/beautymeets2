@@ -15,6 +15,7 @@ module API
 				Tutorial.where(published: true).last(5).each do |tutorial|
 					pre_post = {
 						postType: tutorial.class.name.underscore.humanize,
+						isVideoPlayable: true,
 						id: tutorial.id, 
 						title: tutorial.title, 
 						category: tutorial.categories.map(&:name),
@@ -32,6 +33,7 @@ module API
 				Post.where(published: true).last(5).each do |p|
 					pre_post = { 
 						postType: p.class.name.underscore.humanize,
+						isVideoPlayable: false,
 						id: p.id, 
 						title: p.title, 
 						category: p.categories.map(&:name),
@@ -49,6 +51,7 @@ module API
 				Video.where(published: true).last(5).each do |video|
 					pre_post = { 
 						postType: video.class.name.underscore.humanize,
+						isVideoPlayable: true,
 						id: video.id, 
 						title: video.title, 
 						category: video.categories.map(&:name),
@@ -66,6 +69,7 @@ module API
 				Item.last(5).each do |item|
 					pre_post = { 
 						postType: item.class.name.underscore.humanize,
+						isVideoPlayable: false,
 						id: item.id, 
 						title: item.name, 
 						category: item.categories.map(&:name),
@@ -85,6 +89,7 @@ module API
 				Tutorial.joins(:categories).where(published: true, categories: { id: category.id }).last(5).each do |tutorial|
 					pre_post = { 
 						postType: tutorial.class.name.underscore.humanize,
+						isVideoPlayable: true,
 						id: tutorial.id, 
 						title: tutorial.title, 
 						category: tutorial.categories.map(&:name),
@@ -102,6 +107,7 @@ module API
 				Post.joins(:categories).where(published: true, categories: { id: category.id }).last(5).each do |p|
 					pre_post = { 
 						postType: p.class.name.underscore.humanize,
+						isVideoPlayable: false,
 						id: p.id, 
 						title: p.title, 
 						category: p.categories.map(&:name),
@@ -119,6 +125,7 @@ module API
 				Video.joins(:categories).where(published: true, categories: { id: category.id }).last(5).each do |video|
 					pre_post = { 
 						postType: video.class.name.underscore.humanize,
+						isVideoPlayable: true,
 						id: video.id, 
 						title: video.title, 
 						category: video.categories.map(&:name),
@@ -136,6 +143,7 @@ module API
 				Item.joins(:categories).where(categories: { id: category.id }).last(5).each do |item|
 					pre_post = { 
 						postType: item.class.name.underscore.humanize,
+						isVideoPlayable: false,
 						id: item.id, 
 						title: item.name, 
 						category: item.categories.map(&:name),
