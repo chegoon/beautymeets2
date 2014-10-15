@@ -59,8 +59,12 @@ module API
 			#@comment = Comment.build_from(@commentable, @user.id)
 			
 			if params[:image]
-				
-				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
+				puts "user_id: #{@user.id}, "
+				puts "comment: #{params[:comment]}, "
+				#puts "picture: #{uploaded_file}"
+
+				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
+				@comment = @commentable.comments.new({user_id: @user.id, body: "kk", picture_attributes: {picture_attributes: params[:image]}}) 
 				#@comment.picture.image = uploaded_file
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
