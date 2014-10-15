@@ -21,23 +21,52 @@ module API
 			render json: @comment
 		end
 
-		def create
+		def parse_image_data(base64_image)
+			filename = "upload-image"
+			in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
+	 
+			@tempfile = Tempfile.new(filename)
+			@tempfile.binmode
+			@tempfile.write Base64.decode64(string)
+			@tempfile.rewind
+	 
+			# for security we want the actual content type, not just what was passed in
+			content_type = `file --mime -b #{@tempfile.path}`.split(";")[0]
+	 
+			# we will also add the extension ourselves based on the above
+			# if it's not gif/jpeg/png, it will fail the validation in the upload model
+			extension = content_type.match(/gif|jpeg|png/).to_s
+			filename += ".#{extension}" if extension
+	 
+			ActionDispatch::Http::UploadedFile.new({
+				tempfile: @tempfile,
+				content_type: content_type,
+				filename: filename
+			})
+		end
+
+		def clean_tempfile
+			if @tempfile
+				@tempfile.close
+				@tempfile.unlink
+			end
+		end
+
+		def create    
+			the_params = params.require(:upload).permit(:image)
+			the_params[:image] = parse_image_data(the_params[:image]) if the_params[:image]
 
 			#@comment = Comment.build_from(@commentable, @user.id)
 			
-			if params[:image].is_a?(ActionDispatch::Http::UploadedFile)
-				#tempfile = Tempfile.new("fileupload")
-				#tempfile.binmode
-				#tempfile.write(Base64.decode64(params[:image]))
-				uploaded_file = params[:image] #ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:imgae][:filename], :original_filename => params[:image][:original_filename])
+			if the_params[:image]
 				puts "user_id: #{@user.id}, "
 				puts "comment: #{params[:comment]}, "
 				puts "picture: #{uploaded_file}"
 
-				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(uploaded_file)})
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture: Picture.new(@tempfile)})
 				#@comment.picture.image = uploaded_file
- 			else
- 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
+			else
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
 			end
 
 			if @comment.save
