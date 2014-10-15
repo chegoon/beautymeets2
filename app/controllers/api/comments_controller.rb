@@ -60,7 +60,7 @@ module API
 			
 			if params[:image]
 				puts "user_id: #{@user.id}, "
-				puts "comment: #{params]}, "
+				puts "comment: #{params}, "
 				#puts "picture: #{uploaded_file}"
 
 				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
