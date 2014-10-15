@@ -64,7 +64,7 @@ module API
 				#puts "picture: #{uploaded_file}"
 
 				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-				@comment = @commentable.comments.new({user_id: @user.id, body: "kk", picture_attributes: {picture_attributes: params[:image]}}) 
+				@comment = @commentable.comments.new({user_id: @user.id, picture_attributes: {image: params[:image]}}) 
 				#@comment.picture.image = uploaded_file
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
@@ -72,7 +72,7 @@ module API
 
 			if @comment.save
 				puts "comment : #{@comment}"
-
+=begin
 				if params[:comment][:parent_id]
 					@parent = Comment.find(params[:comment][:parent_id]) 
 					if !(@commentable.class.name == "Event")
@@ -91,7 +91,7 @@ module API
 				else
 					@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 				end
-
+=end
 				render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 			
 			else
@@ -99,6 +99,7 @@ module API
 			
 				#render :new
 			end
+
 		end
 
 		def destroy
