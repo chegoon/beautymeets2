@@ -1,36 +1,27 @@
 class Board < ActiveRecord::Base
-  include PublicActivity::Common
-  
-  resourcify
-  include Authority::Abilities
-  
-  acts_as_taggable
-
-  acts_as_commentable
-  
-  acts_as_readable :on => :updated_at
-  
-  extend FriendlyId
-  friendly_id :url_candidate, use: [:slugged, :history]
-  
-  belongs_to :author, class_name: "User", :foreign_key => "user_id"
-  attr_accessible  :title, :view_count, :tag_list, :description, :category_ids, :picture_id, :published, :url_candidate
+	include PublicActivity::Common
 	
-	has_many :pictures, as: :pictureable, dependent: :destroy
-  belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
-  
-  has_many :categories, through: :categorizations
-  has_many :categorizations, as: :categorizeable  
+	resourcify
+	include Authority::Abilities
+	self.authorizer_name = "BasicAuthorizer"
+	
+	acts_as_taggable
 
-  has_many :items, through: :itemizations
-  has_many :itemizations, as: :itemizable
-  
-  has_many :comments, :as => :commentable
-  
+	acts_as_commentable
+	
+	#has_many :pictures, as: :pictureable, dependent: :destroy
+	has_one :picture, as: :pictureable, dependent: :destroy
+	accepts_nested_attributes_for :picture, allow_destroy: true, :reject_if => lambda { |a| a['image'].blank? }
+
+	belongs_to :author, class_name: "User", :foreign_key => "user_id"
+	attr_accessible  :title, :view_count, :tag_list, :description
+
+	has_many :comments, :as => :commentable
+	
 	def increment_view_count(by = 1)
-	  self.view_count ||= 0
-	  self.view_count += by
-	  self.save
+		self.view_count ||= 0
+		self.view_count += by
+		self.save
 	end
 
 end

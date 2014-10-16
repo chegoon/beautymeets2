@@ -30,11 +30,13 @@ if @post.class.name == "Video"
 	json.description truncate(@post.description, 100)
 	json.canShowVideo true
 	json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
+	json.favorited Bookmark.where(model_type_id: 3, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 elsif @post.class.name == "Tutorial"
 	json.description @post.description
 	json.canShowVideo true
 	json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+	json.favorited Bookmark.where(model_type_id: 2, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 	if @post.items.count > 0
 		json.canShowItems true
@@ -48,6 +50,7 @@ elsif @post.class.name == "Tutorial"
 elsif @post.class.name == "Post" 
 	json.description @post.description
 	json.canShowVideo false
+	json.favorited Bookmark.where(model_type_id: 5, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 	# post image slides
 	if @post.pictures.count > 0
@@ -56,10 +59,11 @@ elsif @post.class.name == "Post"
 			json.thumbUrl full_url(picture.image_url(:large))
 		end
 	end
-
+	
 elsif @post.class.name == "Item"
 	json.description @post.description
 	json.canShowVideo false
+	json.favorited Bookmark.where(model_type_id: 1, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 	#thumbnail slides
 	if @post.pictures.count > 0

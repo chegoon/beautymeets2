@@ -13,12 +13,7 @@ if params[:sub] == "basic"
 				json.checked true
 			end
 		end
-		json.yearOfBirths (1971..2000).each do |y|
-			json.yearOfBirth y
-			if y == @member.year_of_birth
-				json.selected true
-			end
-		end
+		json.yearOfBirth @member.year_of_birth
 	end
 
 elsif params[:sub] == "skinTypes" 

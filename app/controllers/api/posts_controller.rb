@@ -135,7 +135,7 @@ module API
 						hits: video.view_count,
 						#bookmark_type 1~5:item, tutorial, video, beautyclass, post
 						favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
-						favorited: Bookmark.where(model_type_id: 2, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
+						favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
 						created_at: video.created_at
 					}
 					@posts << pre_post
@@ -153,7 +153,7 @@ module API
 						hits: item.view_count,
 						#bookmark_type 1~5:item, tutorial, video, beautyclass, post
 						favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
-						favorited: Bookmark.where(model_type_id: 2, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
+						favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
 						created_at: item.created_at
 					}
 					@posts << pre_post

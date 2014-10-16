@@ -44,10 +44,15 @@ Beautymeets2::Application.routes.draw do
 		match "users/:id/notifications" => "users#notifications"#, :constraints => { method: "GET" }
 		match "users/:id/favorites" => "users#favorites"#, :constraints => { method: "GET" }
 
-		resources :users, :notices
+		resources :users, :notices, :boards
 
 		resources :posts do
-			resources :comments
+			resources :comments do
+				member do 
+					get 'vote'
+					get 'unvote'
+				end
+			end
 			match "comments" => "comments#index", :constraints => { method: "OPTIONS" }
 			match "comments" => "comments#create", :constraints => { method: "POST" }
 
