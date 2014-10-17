@@ -104,7 +104,8 @@ class RegistrationsController < Devise::RegistrationsController
 				end
 			else
 				respond_to do |format|
-					format.html { redirect_to resource }
+					#format.html { respond_with resource }
+					format.html { redirect_to new_user_registration_path }
 					#format.json {render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}
 				end
 			end

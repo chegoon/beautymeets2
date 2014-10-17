@@ -11,10 +11,6 @@ Beautymeets2::Application.routes.draw do
 	match '/users/auth/:provider/callback' => 'authentications#create' 
 	match '/oauth/' => 'authentications#create' 
 
-	# Redirect Devise Routes
-	devise_for :users, :path_names => { :sign_up => "join", :sign_in => "login", :sign_out => "logout", :edit_name => "edit_name", :edit_avatar => "edit_avatar", :edit_password => "edit_password" }, controllers: { registrations: "registrations", sessions: "sessions"}
-	ActiveAdmin.routes(self)  
-	
 	# Let devise enabled trhough 'api' url not to change module in class definition
 	devise_scope :user do
 		match "api/auth_providers/:provider" => "authentications#new"
@@ -26,6 +22,10 @@ Beautymeets2::Application.routes.draw do
 		#match 'api/users/auth/:provider' => 'authentications#create', defaults: { format: :json }
 		#match 'api/users/auth/:provider/callback' => 'authentications#create', defaults: { format: :json }
 	end
+	
+	# Redirect Devise Routes
+	devise_for :users, :path_names => { :sign_up => "join", :sign_in => "login", :sign_out => "logout", :edit_name => "edit_name", :edit_avatar => "edit_avatar", :edit_password => "edit_password" }, controllers: { registrations: "registrations", sessions: "sessions"}
+	ActiveAdmin.routes(self)  
 	
 	# Set the default format to json
 	namespace :api,  defaults: {format: :json} do 
