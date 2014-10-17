@@ -41,7 +41,7 @@ class MembersController < ApplicationController # InheritedResources::Base
 
 	def bookmarks
 		@member = Member.find(params[:id])
-		@bookmarks = @member.user.bookmarks
+		@bookmarks = @member.user.bookmarks.order("created_at DESC")
 
 		respond_to do |format|
 			format.html # show.html.erb

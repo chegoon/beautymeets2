@@ -1,7 +1,7 @@
 json.favorites @favorites do |fav|
 	json.id fav.model_id
 	json.postType BookmarkType.find(fav.model_type_id).model
-	json.title BookmarkType.find(fav.model_type_id).model.classify.constantize.find(fav.model_id).title
+	json.title (BookmarkType.find(fav.model_type_id).model + 's').classify.constantize.find(fav.model_id).title
 	json.createdAt time_ago_in_words(fav.created_at)
 	
 	if BookmarkType.find(fav.model_type_id).model.classify.constantize.to_s == "Video"

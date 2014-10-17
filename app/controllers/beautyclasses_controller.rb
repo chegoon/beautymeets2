@@ -34,7 +34,6 @@ class BeautyclassesController <  ApplicationController
 	def show
 		@beautyclass = Beautyclass.find(params[:id])
 		
-		
 		@location = @beautyclass.location 
 
 		@pictureable = @beautyclass
@@ -46,16 +45,17 @@ class BeautyclassesController <  ApplicationController
 			@beautyclass.increment_view_count 
 			impressionist(@beautyclass)
 		end
-
+		
 		@commentable = @beautyclass
 		comments_per_page = 7
 		page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
 		@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
-		
+
 		if user_signed_in?
+			@comment = @commentable.comments.new(user_id: current_user.id)
+			@comment.build_picture 
 			@beautyclass.mark_as_read! :for => current_user
-			@comment = Comment.build_from(@commentable, current_user.id, "") 
-			
+
 			if current_user.checkouts.present?
 				# 프라이빗 클래스는 다시 신청할 수 있으므로 쿼리 조건 변경
 				#@checkout = current_user.checkouts.find_by_beautyclass_id(@beautyclass.id)
