@@ -1,115 +1,36 @@
 class RegistrationsController < Devise::RegistrationsController
-
-	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
-	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
-	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :default_format_json
-
-	def default_format_json
-		if (session[:request_format].present? && session[:request_format] == "json")
-			request.format = "json"
-		end
-	end
-
-	# This is used to allow the cross origin POST requests made by app.
-	def set_access_control_headers
-		headers['Access-Control-Allow-Origin'] = '*'
-		headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-		headers['Access-Control-Request-Method'] = '*'
-		headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-		headers['Access-Control-Max-Age'] = "1728000"
-	end
-
-	# If this is a preflight OPTIONS request, then short-circuit the
-	# request, return only the necessary headers and return an empty
-	# text/plain.
-
-	def cors_preflight_check
-		if request.method == :options
-			headers['Access-Control-Allow-Origin'] = '*'
-			headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-			headers['Access-Control-Request-Method'] = '*'
-			headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-			headers['Access-Control-Max-Age'] = '1728000'
-			render :text => '', :content_type => 'text/plain'
-		end
-	end
-
-	def set_csrf_cookie_for_ng
-		cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
-	end
+ #before_filter :set_account
 
 	def create
 		
 		build_resource(sign_up_params)
 		session[:omniauth] = nil unless @user.new_record? 
+		
+			if resource.save
+			 
+				resource.profile = Member.create!
+				resource.add_role :member
+				resource.came_from = session['referer']
+				resource.joined_for = session[:previous_url]
+				resource.save
+				UserMailer.delay.welcome(resource) unless @user.invalid?
 
-		if resource.save
-		 
-			resource.profile = Member.create!
-			resource.add_role :member
-			resource.came_from = session['referer']
-			resource.joined_for = session[:previous_url]
-			resource.save
-			UserMailer.delay.welcome(resource) unless @user.invalid?
-
-			yield resource if block_given?
-
-			if resource.active_for_authentication?
-				set_flash_message :notice, :signed_up if is_flashing_format?
-				sign_up(resource_name, resource)
-				# user_steps redirect
-				# respond_with resource, :location => after_sign_up_path_for(resource)
-				if session[:request_format] == "json"
-					session[:request_format] = nil
-					respond_to do |format|
-						format.html { render :text => {:status => 200, :json => { :success => true, :info => "Successfully joined", :params => {:user_id => current_user.id, :user_name => current_user.name,  :authToken => current_user.authentication_token }}}}
-					end
+				yield resource if block_given?
+				if resource.active_for_authentication?
+					set_flash_message :notice, :signed_up if is_flashing_format?
+					sign_up(resource_name, resource)
+					# user_steps redirect
+					respond_with resource, :location => after_sign_up_path_for(resource)
 				else
-					respond_to do |format|
-						format.html { redirect_to after_sign_up_path_for(resource) }
-						#format.json { render :status => 200, :json => { :success => true, :info => "Successfully joined", :params => {:user_id => current_user.id, :user_name => current_user.name,  :authToken => current_user.authentication_token }}}
-					end
+					set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+					expire_data_after_sign_in!
+					# user_steps redirect
+					respond_with resource, :location => after_inactive_sign_up_path_for(resource)
 				end
 			else
-				set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-				expire_data_after_sign_in!
-				# user_steps redirect
-				# respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-
-				if session[:request_format] == "json"
-					session[:request_format] = nil
-					respond_to do |format|
-						#format.html { render :text => {:status => 401, :json => { :success => false, :info => "Something wrong in join" }}}
-						format.html { render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}
-					end
-
-				else
-					respond_to do |format|
-						format.html { redirect_to after_inactive_sign_up_path_for(resource) }
-						#format.json { render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}
-					end
-				end
+				clean_up_passwords resource
+				respond_with resource
 			end
-		else
-			clean_up_passwords resource
-			#respond_with resource
-
-			if session[:request_format] == "json"
-				session[:request_format] = nil
-				respond_to do |format|
-					#format.html { render :text => {:status => 401, :json => { :success => false, :info => "Something wrong in join" }}}
-					format.html { render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}
-				end
-			else
-				respond_to do |format|
-					#format.html { respond_with resource }
-					format.html { redirect_to new_user_registration_path }
-					#format.json {render :status => 401, :json => { :success => false, :info => "Something wrong in join" }}
-				end
-			end
-		end
 	end
 
 	def update
@@ -166,6 +87,8 @@ class RegistrationsController < Devise::RegistrationsController
 	# ie if password or email was changed
 	# extend this as needed
 	def needs_password?(user, params)
-		user.email != params[:user][:email] || params[:user][:password].present?
+		user.email != params[:user][:email] ||
+		params[:user][:password].present?
 	end
+
 end
