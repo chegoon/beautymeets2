@@ -1,3 +1,4 @@
+json.id comment.id
 if comment.parent_id
 	json.isChild true
 else
