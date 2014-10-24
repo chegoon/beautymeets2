@@ -1,7 +1,15 @@
 class SessionsController < Devise::SessionsController
 	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :cors_preflight_check
-	after_filter :set_access_control_headers,  :set_csrf_cookie_for_ng
+	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
+	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
+	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
+	before_filter :default_format_check
+
+	def default_format_check
+		if (session[:request_format].present? && session[:request_format] == "json")
+			request.format = "application/json"
+		end
+	end
 
 	# This is used to allow the cross origin POST requests made by app.
 	def set_access_control_headers
@@ -31,19 +39,20 @@ class SessionsController < Devise::SessionsController
 		cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
 	end
 
-
 	def create
+		if request_format == "application/json"
+			warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+		else
+			self.resource = warden.authenticate!(auth_options)
+			set_flash_message(:notice, :signed_in) if is_flashing_format?
+			sign_in(resource_name, resource)
+		end
+
+		username = current_user.name ? current_user.name : current_user.email
+		yield resource if block_given?
 		respond_to do |format|
-			format.html {
-				super
-			}
-			format.json {
-				#puts "params : #{params}"
-				warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-				#puts "current_user token: #{current_user.authentication_token}"
-				#sign_in(resource_name, resource)
-				render :status => 200, :json => { :success => true, :info => "Logged in", :params => {:user_id => current_user.id, :user_name => current_user.name,  :authToken => current_user.authentication_token } }
-			}
+			format.html {respond_with resource, location: after_sign_in_path_for(resource)}
+			format.json  {render json: {:status => 200, :success => true, :info => "Logged in", :params => {:user_id => current_user.id, :user_name => username,  :authToken => current_user.authentication_token }}}
 		end
 	end
 		
