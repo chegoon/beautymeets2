@@ -8,6 +8,8 @@
 /*_backup_*.[rb]
 /public/uploads/*.*
 db/schema.rb
+.DS_Store
+app/.DS_Store
 
 # Ignore bundler config
 /.bundle
