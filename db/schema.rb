@@ -289,20 +289,6 @@ ActiveRecord::Schema.define(:version => 20141016122201) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "devices", :force => true do |t|
-    t.string   "device_id"
-    t.integer  "user_id"
-    t.string   "name"
-    t.string   "os_type"
-    t.string   "os_version"
-    t.boolean  "push_notification"
-    t.text     "description"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  add_index "devices", ["user_id"], :name => "index_devices_on_user_id"
-
   create_table "event_entries", :force => true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
@@ -528,39 +514,8 @@ ActiveRecord::Schema.define(:version => 20141016122201) do
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
 
-  create_table "taggings_copy", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type", :limit => 45
-    t.integer  "tagger_id"
-    t.string   "tagger_type",   :limit => 45
-    t.string   "context",       :limit => 45
-    t.datetime "created_at"
-  end
-
-  create_table "taggings_copy2", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       :limit => 128
-    t.datetime "created_at"
-  end
-
-  create_table "taggings_copy3", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       :limit => 128
-    t.datetime "created_at"
-  end
-
   create_table "tags", :force => true do |t|
-    t.string  "name"
-    t.integer "taggings_count", :default => 0
+    t.string "name"
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
