@@ -3,7 +3,7 @@ module API
 		#authorize_actions_for Board, except: [:index, :show]
 
 		#before_filter :authenticate_user!, except: [:index, :show]  
-		before_filter :set_current_user, except: [:index, :show]  
+		before_filter :set_current_user
 		
 		# GET /boards
 		# GET /boards.json

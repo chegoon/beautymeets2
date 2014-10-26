@@ -1,7 +1,7 @@
 module API
 	class CommentsController < API::BaseController
 		before_filter :load_commentable
-		before_filter :set_current_user, except: [:index, :show]  
+		before_filter :set_current_user
 		#before_filter :authenticate_user, except: [:index, :show]  
 		#authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
@@ -117,26 +117,25 @@ module API
 
 		def vote
 			@comment = @commentable.comments.find(params[:id])
-			authorize_action_for @comment
+			#authorize_action_for @comment
 
 			@comment.liked_by @user
 
 			respond_to do |format|
 				format.html { redirect_to @commentable, notice: "Comment voted"  }
-				format.js
-				format.json { head :no_content }
+				#format.json { head :no_content }
+				format.json { render @comment }
 			end
 		end
 
 		def unvote
 			@comment = @commentable.comments.find(params[:id])
-			authorize_action_for @comment
+			#authorize_action_for @comment
 			
 			@comment.unliked_by @user
 			respond_to do |format|
 				format.html { redirect_to @commentable, notice: "Comment unvoted"  }
-				format.js
-				format.json { head :no_content }
+				format.json { render @comment }
 			end
 		end
 
@@ -150,7 +149,9 @@ module API
 
 		def set_current_user
 			token = params[:authToken] 
+			puts "token : #{token}"
 			@user = User.find_by_authentication_token(token)
+			puts "user : #{@user.email}"
 		end
 	end
 end
