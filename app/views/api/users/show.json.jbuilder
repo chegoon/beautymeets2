@@ -1,6 +1,7 @@
 json.header "Profile"
 json.id @user.id
 json.name @user.username
+json.email @user.email
 
 json.gender Gender.find(@member.gender_id).name if @member.gender_id 
 json.yearOfBirth @member.year_of_birth
