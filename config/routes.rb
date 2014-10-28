@@ -39,7 +39,8 @@ Beautymeets2::Application.routes.draw do
 		#match "posts/:id/toggleFavorite" => "posts#toggle_favorite", :constraints => { method: "POST" }
 
 		match "users" => "users#index"#, :constraints => { method: "GET" }
-		match "users/:id" => "users#show"#, :constraints => { method: "GET" }
+		match "users/:id" => "users#show", :constraints => { method: "OPTIONS" }
+		match "users/:id" => "users#update", :constraints => { method: "PUT" }
 		match "users/:id/edit" => "users#edit"#, :constraints => { method: "GET" }
 		match "users/:id/notifications" => "users#notifications"#, :constraints => { method: "GET" }
 		match "users/:id/favorites" => "users#favorites"#, :constraints => { method: "GET" }

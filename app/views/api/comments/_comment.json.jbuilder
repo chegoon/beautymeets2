@@ -10,6 +10,7 @@ end
 
 json.body comment.body
 json.createdAt filtered_time(comment.created_at)
+json.votable ((@user.can_vote?(comment)) && (@user.id != comment.author.id))
 json.voted @user.voted_for?(comment)  
 json.votes comment.votes_for.size
 
@@ -21,3 +22,5 @@ if comment.picture
 else
 	json.attachmentVisible false
 end
+
+json.deletable @user.can_delete?(comment)

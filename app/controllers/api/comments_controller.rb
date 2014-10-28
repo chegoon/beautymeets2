@@ -8,7 +8,7 @@ module API
 		def index
 			comments_per_page = 10
 			#@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC").page(params[:page]).per_page(comments_per_page)
-			@comments = @commentable.comments
+			@comments = @commentable.comment_threads#.where("parent_id IS NULL").order("created_at ASC")
 			#render json: @comments
 		end
 
@@ -72,9 +72,10 @@ module API
 			end
 
 			if @comment.save
-				puts "comment : #{@comment}"
+				puts "params[:comment][:parent_id] : #{params[:comment][:parent_id]}"
 
 				if params[:comment][:parent_id]
+					puts "replied"
 					@parent = Comment.find(params[:comment][:parent_id]) 
 					if !(@commentable.class.name == "Event")
 						CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?

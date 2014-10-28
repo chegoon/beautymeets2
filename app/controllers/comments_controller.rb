@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
 
 	def index
 		comments_per_page = 10
-		@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC").page(params[:page]).per_page(comments_per_page)
+		#@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC").page(params[:page]).per_page(comments_per_page)
+		#@comments = @commentable.root_comments.order("created_at ASC").page(params[:page]).per_page(comments_per_page)
+		@comments = @commentable.comment_threads.page(params[:page]).per_page(comments_per_page)
 		@comment.child.build
 	end
 
@@ -42,6 +44,7 @@ class CommentsController < ApplicationController
 		
 			if @parent
 				@comment.move_to_child_of(@parent)
+				puts "parent moved"
 				@comment.create_activity :create, owner: current_user, recipient: @parent.author if !(@commentable.class.name == "Notice")
 			else
 				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")

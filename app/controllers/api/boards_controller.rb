@@ -28,15 +28,9 @@ module API
 
 			@commentable = @board
 			comments_per_page = 7
-			page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
-			@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
-
-			if user_signed_in?
-				@comment = @commentable.comments.new(user_id: current_user.id)
-				@comment.build_picture 
-			else
-				@comment = Comment.new
-			end
+			page_index = params[:page] ? params[:page] : @commentable.comment_threads.order("lft ASC").order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+			#@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
+			@comments = @commentable.comment_threads.order("lft ASC").page(page_index).per_page(comments_per_page)
 
 			respond_to do |format|
 				#format.html # show.html.erb

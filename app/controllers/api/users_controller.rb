@@ -29,7 +29,7 @@ module API
 				@activities = Activity.unread_by(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @user.id,  @user.id).order("created_at desc")#order("updated_at DESC")
 			end   
 			PublicActivity::Activity.mark_as_read! :all, :for => @user
-			render json: @activities.sort_by{|e| e[:created_at]}.reverse
+			#render json: @activities.sort_by{|e| e[:created_at]}.reverse
 		end
 
 		def favorites
@@ -39,9 +39,15 @@ module API
 		end
 
 		def update
-			@user = User.find(parmas[:id])
+			@user = User.find(params[:id])
 			@member = @user.profile
-			puts (params[:member])
+
+			if @user.update_attributes(username: params[:name], password: params[:password])
+				respond_to do |format|
+					format.json {render json: {status: 200, success: true, info: "User info Updated successfully." }}
+				end
+			else
+			end
 		end
 
 		protected

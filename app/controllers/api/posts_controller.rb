@@ -17,11 +17,11 @@ module API
 						postType: tutorial.class.name.underscore.humanize,
 						isVideoPlayable: true,
 						id: tutorial.id, 
-						title: tutorial.title, 
+						title: tutorial.try(:title), 
 						category: tutorial.categories.map(&:name),
 						author: { name: tutorial.author.try(:name) },
 						url: tutorial_url(tutorial), 
-						thumbUrl: request.protocol + request.host_with_port + tutorial.thumbnail.image_url,
+						thumbUrl: tutorial.thumbnail ? (request.protocol + request.host_with_port + tutorial.thumbnail.image_url) : "",
 						hits: tutorial.view_count,
 						#bookmark_type 1~5:item, tutorial, video, beautyclass, post
 						favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
@@ -167,6 +167,12 @@ module API
 
 			@post = posttable.classify.constantize.find(params[:id])
 			@post.increment_view_count 
+
+			@commentable = @post
+			comments_per_page = 7
+			page_index = params[:page] ? params[:page] : @commentable.comment_threads.order("lft ASC").order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+			#@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
+			@comments = @commentable.comment_threads.order("lft ASC").page(page_index).per_page(comments_per_page)
 
 			videoUrl = ""
 			if posttable == "Item" 
