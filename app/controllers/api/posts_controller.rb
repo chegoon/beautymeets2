@@ -12,7 +12,7 @@ module API
 			#puts "params : #{params[:category]}"
 			#puts "category : #{category}"
 			if category.nil? 
-				Tutorial.where(published: true).last(5).each do |tutorial|
+				Tutorial.where(published: true).order("created_at DESC").limit(5).each do |tutorial|
 					pre_post = {
 						postType: tutorial.class.name.underscore.humanize,
 						isVideoPlayable: true,
@@ -30,7 +30,7 @@ module API
 					}
 					@posts << pre_post
 				end
-				Post.where(published: true).last(5).each do |p|
+				Post.where(published: true).order("created_at DESC").limit(5).each do |p|
 					pre_post = { 
 						postType: p.class.name.underscore.humanize,
 						isVideoPlayable: false,
@@ -48,7 +48,7 @@ module API
 					}
 					@posts << pre_post
 				end
-				Video.where(published: true).last(5).each do |video|
+				Video.where(published: true).order("created_at DESC").limit(5).each do |video|
 					pre_post = { 
 						postType: video.class.name.underscore.humanize,
 						isVideoPlayable: true,
@@ -66,7 +66,7 @@ module API
 					}
 					@posts << pre_post
 				end
-				Item.last(5).each do |item|
+				Item.order("created_at DESC").limit(5).each do |item|
 					pre_post = { 
 						postType: item.class.name.underscore.humanize,
 						isVideoPlayable: false,
@@ -86,7 +86,7 @@ module API
 				end
 			else
 
-				Tutorial.joins(:categories).where(published: true, categories: { id: category.id }).last(5).each do |tutorial|
+				Tutorial.joins(:categories).where(published: true, categories: { id: category.id }).order("created_at DESC").limit(5).each do |tutorial|
 					pre_post = { 
 						postType: tutorial.class.name.underscore.humanize,
 						isVideoPlayable: true,
@@ -104,7 +104,7 @@ module API
 					}
 					@posts << pre_post
 				end
-				Post.joins(:categories).where(published: true, categories: { id: category.id }).last(5).each do |p|
+				Post.joins(:categories).where(published: true, categories: { id: category.id }).order("created_at DESC").limit(5).each do |p|
 					pre_post = { 
 						postType: p.class.name.underscore.humanize,
 						isVideoPlayable: false,
@@ -122,7 +122,7 @@ module API
 					}
 					@posts << pre_post
 				end
-				Video.joins(:categories).where(published: true, categories: { id: category.id }).last(5).each do |video|
+				Video.joins(:categories).where(published: true, categories: { id: category.id }).order("created_at DESC").limit(5).each do |video|
 					pre_post = { 
 						postType: video.class.name.underscore.humanize,
 						isVideoPlayable: true,
@@ -140,7 +140,7 @@ module API
 					}
 					@posts << pre_post
 				end
-				Item.joins(:categories).where(categories: { id: category.id }).last(5).each do |item|
+				Item.joins(:categories).where(categories: { id: category.id }).order("created_at DESC").limit(5).each do |item|
 					pre_post = { 
 						postType: item.class.name.underscore.humanize,
 						isVideoPlayable: false,
