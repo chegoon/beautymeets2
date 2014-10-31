@@ -41,6 +41,8 @@ elsif @post.class.name == "Tutorial"
 	if @post.items.count > 0
 		json.canShowItems true
 		json.items @post.items do |item|
+			json.id item.id
+			json.postType "Item"
 			json.name item.name
 			json.brandName item.brand.try(:name)
 			json.thumbUrl full_url(item.thumbnail.image_url(:very_small))
