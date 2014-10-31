@@ -6,10 +6,12 @@ module API
 		#authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 		def index
-			comments_per_page = 10
-			#@comments = @commentable.comments.where("parent_id IS NULL").order("created_at ASC").page(params[:page]).per_page(comments_per_page)
-			@comments = @commentable.comment_threads#.where("parent_id IS NULL").order("created_at ASC")
-			#render json: @comments
+
+			comments_per_page = 7
+			@comment_page_index = params[:commentPage] ? params[:commentPage] : @commentable.comment_threads.order("lft ASC").paginate(:page => params[:commentPage], :per_page => comments_per_page).total_pages
+			#@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
+			@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
+
 		end
 
 		def new

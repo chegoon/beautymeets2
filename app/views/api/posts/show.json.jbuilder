@@ -100,9 +100,18 @@ end
 
 # comments partial
 if @comments.count > 0
+	json.totalComments @post.comments.count
+=begin
+	
+	json.firstPage 1
+	json.prevPage (@comment_page_index.to_i - 1) > 0 ? @comment_page_index.to_i - 1 : 1
+	json.currentPage @comment_page_index
+	json.nextPage (@comment_page_index.to_i + 1 <= @comments.total_pages) ? @comment_page_index.to_i + 1 : @comments.total_pages
+	json.lastPage @comments.total_pages
+=end
 	json.comments @comments do |comment|
 		json.partial! comment
-=begin		
+=begin
 		if comment.has_children?
 			json.partial! comment
 			json.array! comment.children do |ch|
@@ -111,6 +120,6 @@ if @comments.count > 0
 		else
 			json.partial! comment
 		end
-=end		
+=end
 	end
 end

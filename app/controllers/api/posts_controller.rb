@@ -168,11 +168,21 @@ module API
 			@post = posttable.classify.constantize.find(params[:id])
 			@post.increment_view_count 
 
+
 			@commentable = @post
 			comments_per_page = 7
-			page_index = params[:page] ? params[:page] : @commentable.comment_threads.order("lft ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
-			#@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
-			@comments = @commentable.comment_threads.order("lft ASC").page(page_index).per_page(comments_per_page)
+			if params[:page] && (params[:page] != '')
+				@comment_page_index = params[:page]
+			else
+				#@comment_page_index = @commentable.comment_threads.order("lft ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+				total_results = @commentable.comments.count
+				@comment_page_index = total_results / comments_per_page + (total_results % comments_per_page == 0 ? 0 : 1)
+    
+			end
+
+			#@comments = @commentable.root_comments.order("created_at ASC").page(@comment_page_index).per_page(comments_per_page)
+			#@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
+			@comments = @commentable.comment_threads.order("lft ASC")#page(@comment_page_index).per_page(comments_per_page)
 
 			videoUrl = ""
 			if posttable == "Item" 
