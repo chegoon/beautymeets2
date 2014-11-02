@@ -56,6 +56,8 @@ Beautymeets2::Application.routes.draw do
 			end
 			match "comments" => "comments#index", :constraints => { method: "OPTIONS" }
 			match "comments" => "comments#create", :constraints => { method: "POST" }
+			match "comments/:id" => "comments#show", :constraints => { method: "OPTIONS" }
+			match "comments/:id" => "comments#destroy", :constraints => { method: "DELETE" }
 
 			resources :bookmarks
 			match "favorites" => "bookmarks#index", :constraints => { method: "OPTIONS" }

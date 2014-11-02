@@ -10,7 +10,7 @@ end
 
 json.body comment.body
 json.createdAt filtered_time(comment.created_at)
-json.votable ((@user.can_vote?(comment)) && (@user.id != comment.author.id))
+json.votable ((@user.can_vote?(comment)) && (@user.id != (comment.author && comment.author.id)))
 json.voted @user.voted_for?(comment)  
 json.votes comment.votes_for.size
 

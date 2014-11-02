@@ -9,6 +9,7 @@ class SessionsController < Devise::SessionsController
 		if (session[:request_format].present? && session[:request_format] == "json")
 			request.format = "application/json"
 		end
+		puts "default_format_check done"
 	end
 
 	# This is used to allow the cross origin POST requests made by app.
@@ -18,6 +19,7 @@ class SessionsController < Devise::SessionsController
 		headers['Access-Control-Request-Method'] = '*'
 		headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 		headers['Access-Control-Max-Age'] = "1728000"
+		puts "set_access_control_headers done"
 	end
 
 	# If this is a preflight OPTIONS request, then short-circuit the
@@ -33,6 +35,7 @@ class SessionsController < Devise::SessionsController
 			headers['Access-Control-Max-Age'] = '1728000'
 			render :text => '', :content_type => 'text/plain'
 		end
+		puts "cors_preflight_check done"
 	end
 
 	def set_csrf_cookie_for_ng
@@ -40,14 +43,20 @@ class SessionsController < Devise::SessionsController
 	end
 
 	def create
-		if request_format == "application/json"
+
+		puts "session create start"
+		puts "request_format : #{request.format}"
+		if (request.format == "application/json")
+			puts "authenticate start for json"
 			warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
 		else
+			puts "authenticate start for not json"
 			self.resource = warden.authenticate!(auth_options)
 			set_flash_message(:notice, :signed_in) if is_flashing_format?
 			sign_in(resource_name, resource)
 		end
 
+		puts "authenticate done"
 		username = current_user.name ? current_user.name : current_user.email
 		yield resource if block_given?
 		respond_to do |format|
