@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141016122201) do
+ActiveRecord::Schema.define(:version => 20141102135139) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -565,6 +565,7 @@ ActiveRecord::Schema.define(:version => 20141016122201) do
     t.integer  "picture_id"
     t.string   "image"
     t.string   "url_candidate"
+    t.string   "video_url"
   end
 
   add_index "tutorials", ["picture_id"], :name => "index_tutorials_on_picture_id"
