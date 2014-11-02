@@ -14,6 +14,8 @@ json.createdAt filtered_time(@board.created_at)
 
 # comments partial
 if @comments.count > 0
+	json.totalComments @board.comments.count
+	
 	json.comments @comments do |comment|
 		json.partial! comment
 =begin		
