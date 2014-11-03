@@ -16,7 +16,7 @@ json.votes comment.votes_for.size
 
 if comment.picture
 	json.attachmentVisible true
-	json.attachement do
+	json.attachment do
 		json.thumbUrl full_url(comment.picture.image_url(:medium))
 	end
 else
