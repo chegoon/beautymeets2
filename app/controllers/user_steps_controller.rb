@@ -6,7 +6,7 @@ class UserStepsController < ApplicationController
 
 	def default_format_check
 		if (session[:request_format].present? && session[:request_format] == "json")
-			request.format = "application/json"
+			request.format = "json"
 		end
 	end
 

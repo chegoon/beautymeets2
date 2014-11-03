@@ -3,7 +3,7 @@ class AuthenticationsController < ApplicationController
 	# GET /authentications
 	# GET /authentications.json
 
-	#before_filter :default_format_check#, except: [:new]
+	before_filter :default_format_check#, except: [:new]
 	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_access_control_headers,  :if => Proc.new { |c| c.request.format == 'application/json' } 
@@ -13,7 +13,7 @@ class AuthenticationsController < ApplicationController
 	
 	def default_format_check
 		if (session[:request_format].present? && session[:request_format] == "json")
-			request.format = "application/json"
+			request.format = "json"
 		end
 	end
 
@@ -67,13 +67,8 @@ class AuthenticationsController < ApplicationController
 			@auth = authentication
 			
 			respond_to do |format|
-
-				if (session[:request_format].present? && session[:request_format] == "json")
-					#request.format = "application/json"
-					format.json { redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json", authentication_token: params[:authToken])}
-				else
-					format.html { sign_in_and_redirect(:user, authentication.user) }
-				end
+				format.json { redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json", authentication_token: params[:authToken])}
+				format.html { sign_in_and_redirect(:user, authentication.user) }
 
 				#format.json { redirect_to "authentications/" + authentication.id + "?request_format='json'&authentication_token=" + params[:authToken] }
 				#format.json { render json: {status: 200, success: true} }
