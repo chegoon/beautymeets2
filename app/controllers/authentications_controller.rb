@@ -3,15 +3,16 @@ class AuthenticationsController < ApplicationController
 	# GET /authentications
 	# GET /authentications.json
 
+	#before_filter :default_format_check#, except: [:new]
 	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_access_control_headers,  :if => Proc.new { |c| c.request.format == 'application/json' } 
 	after_filter :set_csrf_cookie_for_ng,  :if => Proc.new { |c| c.request.format == 'application/json' } 
-	#before_filter :default_format_check
+	
 	before_filter :load_user_through_auth_token, :if => Proc.new { |c| c.request.format == 'application/json' } 
 	
 	def default_format_check
-		if (session[:request_format].present? && session[:request_format] == "json") 
+		if (session[:request_format].present? && session[:request_format] == "json")
 			request.format = "application/json"
 		end
 	end
@@ -54,9 +55,7 @@ class AuthenticationsController < ApplicationController
 	end
 
 	def create
-		if (session[:request_format].present? && session[:request_format] == "json") 
-			request.format = "application/json"
-		end
+
 		omniauth = request.env["omniauth.auth"]
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 		
@@ -69,8 +68,9 @@ class AuthenticationsController < ApplicationController
 			
 			respond_to do |format|
 				format.html { sign_in_and_redirect(:user, authentication.user) }
+				format.json { redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json", authentication_token: params[:authToken])}
 				#format.json { redirect_to "authentications/" + authentication.id + "?request_format='json'&authentication_token=" + params[:authToken] }
-				format.json { render json: {status: 200, success: true} }
+				#format.json { render json: {status: 200, success: true} }
 			end	
 			
 		# user logged in previously, and trying to login with new authentication
