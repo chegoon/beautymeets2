@@ -55,10 +55,6 @@ class AuthenticationsController < ApplicationController
 	end
 
 	def create
-		# to retreive request.format after callback init.
-		if (session[:request_format].present? && session[:request_format] == "json")
-			request.format = "application/json"
-		end
 
 		omniauth = request.env["omniauth.auth"]
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
