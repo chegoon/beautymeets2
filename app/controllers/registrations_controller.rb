@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :default_format_check
+	#before_filter :default_format_check
 
 	def default_format_check
 		if (session[:request_format].present? && session[:request_format] == "json")
