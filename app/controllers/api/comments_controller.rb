@@ -67,14 +67,14 @@ module API
 				#puts "picture: #{uploaded_file}"
 
 				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-				@comment = @commentable.comments.new({user_id: @user.id, body: "check body", picture_attributes: {image: params[:image]}}) 
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment], picture_attributes: {image: params[:image]}}) 
 				#@comment.picture.image = uploaded_file
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
 			end
 
 			if @comment.save
-				puts "params[:comment][:parent_id] : #{params[:comment][:parent_id]}"
+				#puts "params[:comment][:parent_id] : #{params[:comment][:parent_id]}"
 
 				if params[:comment][:parent_id]
 					puts "replied"
