@@ -54,24 +54,29 @@ class AuthenticationsController < ApplicationController
 	end
 
 	def create
+		if (session[:request_format].present? && session[:request_format] == "json") 
+			request.format = "application/json"
+		end
 		omniauth = request.env["omniauth.auth"]
 		authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 		
 		if authentication
+			puts "welcome back, auth"
 			flash[:notice] = "Signed in successfully."
 			authentication.update_attributes(oauth_token: omniauth['credentials']['token'], oauth_token_secret: omniauth['credentials']['secret'])
-			
+
 			@auth = authentication
 			
 			respond_to do |format|
 				format.html { sign_in_and_redirect(:user, authentication.user) }
-				format.json { redirect_to authentication_path(id: authentication.id, request_format: "json", authentication_token: params[:authToken])}
+				#format.json { redirect_to "authentications/" + authentication.id + "?request_format='json'&authentication_token=" + params[:authToken] }
+				format.json { render json: {status: 200, success: true} }
 			end	
 			
 		# user logged in previously, and trying to login with new authentication
 		# guide user to select among login authentications"
 		elsif (current_user || @user)
-
+			puts "welcome back, from others existed auth"
 			oauth_token = omniauth['credentials']['token']
  			oauth_token_secret = omniauth['credentials']['secret']
  
@@ -91,6 +96,7 @@ class AuthenticationsController < ApplicationController
 
 		# brand new user
 		else
+			puts "welcome brand new auth"
 			user = User.new
 			# in case of facebook authentication, the below code might be needed
  			# user.email = omniauth['extra']['raw_info'].email
