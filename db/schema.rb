@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141102135139) do
+ActiveRecord::Schema.define(:version => 20141104063726) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -172,9 +172,11 @@ ActiveRecord::Schema.define(:version => 20141102135139) do
     t.integer  "view_count"
     t.string   "slug"
     t.integer  "category_type_id"
+    t.integer  "menu_id"
   end
 
   add_index "categories", ["category_type_id"], :name => "index_categories_on_category_type_id"
+  add_index "categories", ["menu_id"], :name => "index_categories_on_menu_id"
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
   add_index "categories", ["slug"], :name => "index_categories_on_slug"
 
