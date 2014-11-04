@@ -1,6 +1,6 @@
 class SessionsController < Devise::SessionsController
 	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
+	#before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
 	before_filter :default_format_check
@@ -65,24 +65,31 @@ class SessionsController < Devise::SessionsController
 	end
 		
 	def destroy
-		respond_to do |format|
-			if (session[:request_format].present? && session[:request_format] == "json")
-				format.json {
-					token = params[:authToken]
-					user = User.find_by_authentication_token(token)
-					if user
-						user.update_column(:authentication_token, nil)
-						#user.reset_authentication_token!
-						#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-						render :status => 200, :json => { :success => true, :info => "Logged out", :params => {} }
-					else
-						render :json => { :message => 'Invalid token.' }, :status => 404
-					end 
-				}
+
+	    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+	    set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
+	    yield if block_given?
+
+	    respond_to do |format|
+			if (session[:request_format] != nil? && session[:request_format] == "json")
+				puts "json destroy #{session[:request_format]}"
+				
+				token = params[:authToken]
+				user = User.find_by_authentication_token(token)
+				if user
+					user.update_column(:authentication_token, nil)
+					#user.reset_authentication_token!
+					#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+					format.json { render :status => 200, :json => { :success => true, :info => "Logged out", :params => {} }}
+				else
+					format.json {render :json => { :message => 'Invalid token.' }, :status => 404}
+				end 
+
 			else
-				format.html { super }
+				format.html { respond_to_on_destroy }
 			end
 		end
+
 	end
 	 
 	def failure
