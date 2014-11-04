@@ -64,46 +64,75 @@ module API
 			puts "comment: #{params}, "
 			#the_params = ActiveSupport::JSON.decode(params) if params
 			if params[:image]
-				params_comment = params[:comment]
 				#puts "picture: #{uploaded_file}"
 
 				#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-				@comment = @commentable.comments.new({user_id: @user.id, body: params_comment[:body], picture_attributes: {image: params[:image]}}) 
+				@comment = @commentable.comments.new({user_id: @user.id, body: params[:body], picture_attributes: {image: params[:image]}}) 
 				#@comment.picture.image = uploaded_file
+
+				if @comment.save
+
+					if params[:parent_id]
+						puts "replied"
+						@parent = Comment.find(params[:parent_id]) 
+						if !(@commentable.class.name == "Event")
+							CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
+						end
+					end
+
+					if !(@commentable.class.name == "Event")
+						CommentMailer.delay.create_notification(@commentable, @comment)
+					end
+					#@comment.create_activity :create, owner: @user, recipient: @commentable.author
+				
+					if @parent
+						@comment.move_to_child_of(@parent)
+						@comment.create_activity :create, owner: @user, recipient: @parent.author if !(@commentable.class.name == "Notice")
+					else
+						@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+					end
+
+					render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
+				
+				else
+					render :status => 200, :json => { :success => true, :info => "Something wrong.."}
+				
+					#render :new
+				end
 			else
 				@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
-			end
 
-			if @comment.save
-				#puts "params[:comment][:parent_id] : #{params[:comment][:parent_id]}"
+				if @comment.save
 
-				if params[:comment][:parent_id]
-					puts "replied"
-					@parent = Comment.find(params[:comment][:parent_id]) 
-					if !(@commentable.class.name == "Event")
-						CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
+					if params[:comment][:parent_id]
+						puts "replied"
+						@parent = Comment.find(params[:comment][:parent_id]) 
+						if !(@commentable.class.name == "Event")
+							CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
+						end
 					end
-				end
 
-				if !(@commentable.class.name == "Event")
-					CommentMailer.delay.create_notification(@commentable, @comment)
-				end
-				#@comment.create_activity :create, owner: @user, recipient: @commentable.author
-			
-				if @parent
-					@comment.move_to_child_of(@parent)
-					@comment.create_activity :create, owner: @user, recipient: @parent.author if !(@commentable.class.name == "Notice")
+					if !(@commentable.class.name == "Event")
+						CommentMailer.delay.create_notification(@commentable, @comment)
+					end
+					#@comment.create_activity :create, owner: @user, recipient: @commentable.author
+				
+					if @parent
+						@comment.move_to_child_of(@parent)
+						@comment.create_activity :create, owner: @user, recipient: @parent.author if !(@commentable.class.name == "Notice")
+					else
+						@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+					end
+
+					render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
+				
 				else
-					@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+					render :status => 200, :json => { :success => true, :info => "Something wrong.."}
+				
+					#render :new
 				end
-
-				render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
-			
-			else
-				render :status => 200, :json => { :success => true, :info => "Something wrong.."}
-			
-				#render :new
 			end
+
 
 		end
 
