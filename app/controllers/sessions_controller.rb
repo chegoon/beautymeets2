@@ -66,21 +66,22 @@ class SessionsController < Devise::SessionsController
 		
 	def destroy
 		respond_to do |format|
-			format.html {
-				super
-			}
-			format.json {
-				token = params[:authToken]
-				user = User.find_by_authentication_token(token)
-				if user
-					user.update_column(:authentication_token, nil)
-					#user.reset_authentication_token!
-					#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-					render :status => 200, :json => { :success => true, :info => "Logged out", :params => {} }
-				else
-					render :json => { :message => 'Invalid token.' }, :status => 404
-				end 
-			}
+			if (session[:request_format].present? && session[:request_format] == "json")
+				format.json {
+					token = params[:authToken]
+					user = User.find_by_authentication_token(token)
+					if user
+						user.update_column(:authentication_token, nil)
+						#user.reset_authentication_token!
+						#warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+						render :status => 200, :json => { :success => true, :info => "Logged out", :params => {} }
+					else
+						render :json => { :message => 'Invalid token.' }, :status => 404
+					end 
+				}
+			else
+				format.html { super }
+			end
 		end
 	end
 	 
