@@ -82,7 +82,6 @@
 			}
 		</style>
 		<%= render :partial => "layouts/ga" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
-		<%= render :partial => "layouts/appsumo" if Rails.env.production? && !(user_signed_in? && (current_user.has_role? :admin))  %>
 	</head>
 
 	<body>

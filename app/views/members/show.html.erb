@@ -50,6 +50,21 @@
 				<tr style="border-bottom:1px #EEE solid">
 					<td style="background:#F9F9F9; text-align:center; width:90px;">
 						<% if (user_signed_in? && current_user.id == @member.user.id) %>
+							<%= link_to "눈 모양", edit_member_path(current_user.profile) %>
+						<% else %>
+							눈모양
+						<% end %>
+					</td>
+					<td  style="background:#FFF; padding-left:20px;">
+						<ul class="inline-list" style="margin-bottom:0;">
+						<% @member.eye_type_list.each do |t| %>
+							<li><span class="  "><%= t %></span></li>
+						<% end %>
+						</ul>
+					</td>
+				<tr style="border-bottom:1px #EEE solid">
+					<td style="background:#F9F9F9; text-align:center; width:90px;">
+						<% if (user_signed_in? && current_user.id == @member.user.id) %>
 							<%= link_to "피부 타입", edit_member_path(current_user.profile) %>
 						<% else %>
 							피부 타입

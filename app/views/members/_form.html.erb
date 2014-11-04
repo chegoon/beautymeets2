@@ -10,6 +10,10 @@
 	</fieldset>
 	<hr>
 	<fieldset>
+			<legend> 눈모양 정보 </legend>
+		<%= f.input :eye_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("eye_types").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  %>
+	</fieldset>
+	<fieldset>
 			<legend> 피부 타입 정보 </legend>
 		<%= f.input :skin_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  %>
 	</fieldset>
