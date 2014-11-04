@@ -7,8 +7,8 @@ module API
 			#cards_per_page = 10
 			#page(params[:page]).per_page(cards_per_page)
 			@posts = Array.new
-			menu_id = Category.find_by_name(params[:category])
-			categories = Category.where(menu_id: menu_id)
+			menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu")).first
+			categories = menu ? Category.where(menu_id: menu.id) : nil
 			#puts "params : #{params[:category]}"
 			#puts "category : #{category}"
 			# HOME 
