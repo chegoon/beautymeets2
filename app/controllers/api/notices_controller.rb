@@ -25,7 +25,7 @@ module API
 					@comment_page_index = total_results / comments_per_page + (total_results % comments_per_page == 0 ? 0 : 1)
 	    
 				end
-				@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
+				@comments = @commentable.comment_threads.order("lft ASC")#.page(@comment_page_index).per_page(comments_per_page)
 			end
 
 
