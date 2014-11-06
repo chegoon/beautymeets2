@@ -18,7 +18,7 @@ class Tutorial < ActiveRecord::Base
 	friendly_id :url_candidate, use: [:slugged, :history]
 
 	belongs_to :author, class_name: "User", :foreign_key => "user_id"
-	attr_accessible :desc, :published, :title, :view_count, :vimeo_url, :tag_list, :description, :category_ids, :picture_id, :item_name, :url_candidate
+	attr_accessible :desc, :published, :title, :view_count, :vimeo_url, :video_url, :tag_list, :description, :category_ids, :picture_id, :item_name, :url_candidate
 	
 	has_many :pictures, as: :pictureable, dependent: :destroy
 	belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"

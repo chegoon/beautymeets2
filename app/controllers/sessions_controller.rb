@@ -1,9 +1,10 @@
 class SessionsController < Devise::SessionsController
-	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
+	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| (c.request.format == 'application/json')  }
 	#before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
-	before_filter :default_format_check
+	#before_filter :default_format_check
+	prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel, :destroy ]
 
 	def default_format_check
 		if (session[:request_format].present? && session[:request_format] == "json")
@@ -65,11 +66,9 @@ class SessionsController < Devise::SessionsController
 	end
 		
 	def destroy
-
-	    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
-	    set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
-	    yield if block_given?
-
+		puts "destroy called"
+	    
+=begin
 	    respond_to do |format|
 			if (session[:request_format] != nil? && session[:request_format] == "json")
 				puts "json destroy #{session[:request_format]}"
@@ -86,10 +85,14 @@ class SessionsController < Devise::SessionsController
 				end 
 
 			else
+				signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+	    		set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
+	    		yield if block_given?
+				
 				format.html { respond_to_on_destroy }
 			end
 		end
-
+=end
 	end
 	 
 	def failure
