@@ -4,7 +4,7 @@ class SessionsController < Devise::SessionsController
 	after_filter :set_access_control_headers, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_csrf_cookie_for_ng, :if => Proc.new { |c| c.request.format == 'application/json' }
 	#before_filter :default_format_check
-	prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel, :destroy ]
+	prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel]
 
 	def default_format_check
 		if (session[:request_format].present? && session[:request_format] == "json")
@@ -68,9 +68,10 @@ class SessionsController < Devise::SessionsController
 	def destroy
 		puts "destroy called"
 	    
-=begin
+
 	    respond_to do |format|
-			if (session[:request_format] != nil? && session[:request_format] == "json")
+			#if (session[:request_format] != nil? && session[:request_format] == "json")
+			if (request.format == "application/json")
 				puts "json destroy #{session[:request_format]}"
 				
 				token = params[:authToken]
@@ -92,7 +93,7 @@ class SessionsController < Devise::SessionsController
 				format.html { respond_to_on_destroy }
 			end
 		end
-=end
+
 	end
 	 
 	def failure
