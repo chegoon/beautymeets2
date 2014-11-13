@@ -1,14 +1,14 @@
 <div class="progress small-12 success radius" style="border:0; margin-top:30px;">
   <span class="meter" style="width: 40%; background:#60DCC6; height:10px;"></span>
 </div>
+<%= simple_form_for @member, url: wizard_path do |f| %>
 <h3 class="subheader"><strong>1. 눈모양</strong>을 알려주세요.</h3>
 <h5 class="subheader" style="color:#aaa;">자세하게 입력해주실수록, 정확한 정보를 제공해드릴 수 있어요 >.< </h5>
 	<%= f.input :eye_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("eye_types").map(&:name), :hint => "Please check all that apply", :label => "" %>
 <h3 class="subheader"><strong>2. 피부타입</strong>을 알려주세요.</h3>
-<%= simple_form_for @member, url: wizard_path do |f| %>
+
 	<%= f.input :skin_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply", :label => "" %>
 
-	<%= f.input :eye_type_list %>
 	<%= f.button :submit, "Continue" %>
   <%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
 <% end %>
