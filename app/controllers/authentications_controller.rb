@@ -145,7 +145,7 @@ class AuthenticationsController < ApplicationController
 
 		respond_to do |format|
 			format.html { redirect_to '/users/auth/'+ @provider }
-			format.json  { redirect_to '/users/auth/'+ @provider }
+			format.json  { redirect_to '/users/auth/'+ @provider + '?request_format=json' }
 		end
 	end
 
