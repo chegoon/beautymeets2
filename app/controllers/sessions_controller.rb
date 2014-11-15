@@ -46,7 +46,7 @@ class SessionsController < Devise::SessionsController
 
 		puts "session create start"
 		puts "request_format : #{request.format}"
-		if (request.format == "application/json")
+		if (session[:request_format].present? && session[:request_format] == "json")
 			puts "authenticate start for json"
 			warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
 		else
@@ -60,8 +60,12 @@ class SessionsController < Devise::SessionsController
 		username = current_user.name ? current_user.name : current_user.email
 		yield resource if block_given?
 		respond_to do |format|
-			format.html {respond_with resource, location: after_sign_in_path_for(resource)}
-			format.json  {render json: {:status => 200, :success => true, :info => "Logged in", :params => {:user_id => current_user.id, :user_name => username,  :authToken => current_user.authentication_token }}}
+			if (session[:request_format].present? && session[:request_format] == "json")
+				format.json  {render json: {:status => 200, :success => true, :info => "Logged in", :params => {:user_id => current_user.id, :user_name => username,  :authToken => current_user.authentication_token }}}
+			else
+				format.html {respond_with resource, location: after_sign_in_path_for(resource)}
+			end
+			
 		end
 	end
 		
@@ -70,8 +74,8 @@ class SessionsController < Devise::SessionsController
 	    
 
 	    respond_to do |format|
-			#if (session[:request_format] != nil? && session[:request_format] == "json")
-			if (request.format == "application/json")
+			if (session[:request_format] != nil? && session[:request_format] == "json")
+			#if (request.format == "application/json")
 				puts "json destroy #{session[:request_format]}"
 				
 				token = params[:authToken]
