@@ -3,7 +3,7 @@ class AuthenticationsController < ApplicationController
 	# GET /authentications
 	# GET /authentications.json
 
-	before_filter :default_format_check, only: [:create]
+	before_filter :default_format_check#, only: [:create]
 	skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 	before_filter :cors_preflight_check, :if => Proc.new { |c| c.request.format == 'application/json' }
 	after_filter :set_access_control_headers,  :if => Proc.new { |c| c.request.format == 'application/json' } 
