@@ -76,8 +76,8 @@ class SessionsController < Devise::SessionsController
 	    
 
 	    respond_to do |format|
-			if (session[:request_format] != nil? && session[:request_format] == "json")
-			#if (request.format == "application/json")
+			#if (session[:request_format] != nil? && session[:request_format] == "json")
+			if (request.format == "application/json")
 				puts "json destroy #{session[:request_format]}"
 				
 				token = params[:authToken]
