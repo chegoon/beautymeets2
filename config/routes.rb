@@ -9,7 +9,7 @@ Beautymeets2::Application.routes.draw do
 	# this came from omniauth-kakao 
 	
 	match '/users/auth/:provider/callback' => 'authentications#create'#, defaults: { format: :json }
-	match '/oauth/' => 'authentications#create' 
+	#match '/oauth/' => 'authentications#create' 
 
 	# Let devise enabled trhough 'api' url not to change module in class definition
 	devise_scope :user do
