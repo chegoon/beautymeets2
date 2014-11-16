@@ -8,12 +8,9 @@ Beautymeets2::Application.routes.draw do
 	# for kakao authentication, upper match path can't apply in kakao developer site, 
 	# this came from omniauth-kakao 
 	
-	match '/users/auth/:provider/callback' => 'authentications#create'#, defaults: { format: :json }
+	match '/users/auth/:provider/callback' => 'authentications#create', defaults: { format: :json }
 	match '/oauth/' => 'authentications#create' 
 
-	# below two blocks should be defined before devise routes because of user/auth/:action/callback	                                                    
-	resources :authentications
-	
 	# Let devise enabled trhough 'api' url not to change module in class definition
 	devise_scope :user do
 		match "api/auth_providers/:provider" => "authentications#new", defaults: { format: :json }
