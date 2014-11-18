@@ -67,11 +67,11 @@ class AuthenticationsController < ApplicationController
 			@auth = authentication
 			
 			respond_to do |format|
-				#if (session[:request_format].present? && session[:request_format] == "json")
+				if (session[:request_format].present? && session[:request_format] == "json")
 					format.json { redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json", authentication_token: params[:authToken])}
-				#else 
+				else 
 					format.html { sign_in_and_redirect(:user, authentication.user) }
-				#end
+				end
 				#format.json { redirect_to "authentications/" + authentication.id + "?request_format='json'&authentication_token=" + params[:authToken] }
 				#format.json { render json: {status: 200, success: true} }
 			end	
@@ -93,11 +93,11 @@ class AuthenticationsController < ApplicationController
 			puts flash[:notice]
 			
 			respond_to do |format|
-				#if (session[:request_format].present? && session[:request_format] == "json")
+				if (session[:request_format].present? && session[:request_format] == "json")
 					format.json {render json: {status: 200, success: true, info: "Successfully Login", params: {user_id: @user.id, user_name: @user.name,  authToken: @user.authentication_token }}}
-				#else
+				else
 					format.html {redirect_to root_url}
-				#end
+				end
 			end
 
 		# brand new user
