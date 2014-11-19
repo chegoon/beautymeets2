@@ -16,6 +16,19 @@ if params[:sub] == "basic"
 		json.yearOfBirth @member.year_of_birth
 	end
 
+elsif params[:sub] == "eyeTypes" 
+	json.eyeTypeVisible "true"
+
+	json.eyeTypes Member.tag_counts_on("eye_types").each do |tag|
+		json.id tag.id
+		json.name tag.name
+		@member.eye_types.each do |type|
+			if tag.id == type.id
+				json.checked true
+			end
+		end
+	end
+
 elsif params[:sub] == "skinTypes" 
 	json.skinTypeVisible "true"
 

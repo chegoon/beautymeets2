@@ -19,6 +19,15 @@ module API
 				#	end
 				#end
 				
+			elsif params[:eyeTypes]
+				@member.skin_type_list = ''
+				params[:eyeTypes].each do |type|
+
+					if type[1][:checked] == 'true'
+						@member.eye_type_list << type[1][:name].to_s
+					end
+				end
+				
 			elsif params[:skinTypes]
 				@member.skin_type_list = ''
 				params[:skinTypes].each do |type|
