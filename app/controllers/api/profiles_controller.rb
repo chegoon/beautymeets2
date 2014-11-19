@@ -20,7 +20,7 @@ module API
 				#end
 				
 			elsif params[:eyeTypes]
-				@member.skin_type_list = ''
+				@member.eye_type_list = ''
 				params[:eyeTypes].each do |type|
 
 					if type[1][:checked] == 'true'
