@@ -35,6 +35,7 @@ Beautymeets2::Application.routes.draw do
 	
 	# Set the default format to json
 	namespace :api,  defaults: {format: :json} do 
+		match "devices" => "devices#create", defaults: { format: :json }
 		match "me" => "users#index"
 
 		match "notices" => "notices#index", :constraints => { method: "OPTIONS" }
