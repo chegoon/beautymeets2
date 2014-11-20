@@ -47,4 +47,13 @@ class WelcomeController < ApplicationController
 			format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently }
 		end
 	end
+
+  def hello_pusher
+    Pusher['test_channel'].trigger('my_event', {
+      message: 'hello world'
+    })
+    respond_to do |format|
+    	format.html { redirect_to root_path }
+    end
+  end
 end

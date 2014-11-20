@@ -17,6 +17,9 @@ gem 'rmagick', :require => 'RMagick'
 
 gem 'simple_form'
 
+# gem for notifications
+gem 'pusher'
+
 # Gem for authentication & authorization
 gem 'devise'
 gem 'rolify'

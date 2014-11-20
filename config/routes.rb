@@ -3,6 +3,8 @@ Beautymeets2::Application.routes.draw do
 	root :to => 'welcome#index'
 	devise_for :admin_users, ActiveAdmin::Devise.config
 
+	match "hello_pusher" => 'welcome#hello_pusher'
+
 	# below two blocks should be defined before devise routes because of user/auth/:action/callback	                                                    
 	resources :authentications
 	# for kakao authentication, upper match path can't apply in kakao developer site, 
