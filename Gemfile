@@ -19,6 +19,7 @@ gem 'simple_form'
 
 # gem for notifications
 gem 'pusher'
+gem 'httparty'
 
 # Gem for authentication & authorization
 gem 'devise'

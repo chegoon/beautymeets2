@@ -151,6 +151,9 @@ GEM
     http (0.6.2)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpclient (2.4.0)
     i18n (0.6.11)
     impressionist (1.5.1)
@@ -391,6 +394,7 @@ DEPENDENCIES
   galetahub-simple_captcha
   geocoder
   gmaps4rails
+  httparty
   impressionist
   inherited_resources
   jbuilder

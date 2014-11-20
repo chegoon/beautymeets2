@@ -49,8 +49,8 @@ class WelcomeController < ApplicationController
 	end
 
   def hello_pusher
-    Pusher['test_channel'].trigger('my_event', {
-      message: 'hello world'
+    Pusher['public'].trigger('welcome', {
+      message: 'hello pusher'
     })
     respond_to do |format|
     	format.html { redirect_to root_path }

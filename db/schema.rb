@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141113175227) do
+ActiveRecord::Schema.define(:version => 20141120114248) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -291,6 +291,20 @@ ActiveRecord::Schema.define(:version => 20141113175227) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "devices", :force => true do |t|
+    t.string   "name"
+    t.string   "platform_type"
+    t.string   "platform_version"
+    t.text     "description"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "user_id"
+    t.string   "uuid"
+  end
+
+  add_index "devices", ["user_id"], :name => "index_devices_on_user_id"
+  add_index "devices", ["uuid"], :name => "index_devices_on_uuid"
+
   create_table "event_entries", :force => true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
@@ -467,6 +481,13 @@ ActiveRecord::Schema.define(:version => 20141113175227) do
 
   add_index "posts", ["picture_id"], :name => "index_posts_on_picture_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
+
+  create_table "pushes", :force => true do |t|
+    t.string   "title"
+    t.string   "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "read_marks", :force => true do |t|
     t.integer  "readable_id"
