@@ -1,8 +1,14 @@
 Beautymeets2::Application.routes.draw do
 
-  resources :devices
-
   resources :pushes
+
+	resources :devices
+
+	resources :pushes do
+		member do
+			get 'send'
+		end
+	end
 
 	root :to => 'welcome#index'
 	devise_for :admin_users, ActiveAdmin::Devise.config
