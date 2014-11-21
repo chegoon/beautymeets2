@@ -65,12 +65,12 @@ class SessionsController < Devise::SessionsController
 			#if (session[:request_format].present? && session[:request_format] == "json")
 				format.json  {
 
-					device = resource.devices.find_or_create_by_uuid(params[:device][:uuid])
+					device = current_user.devices.find_or_create_by_uuid(params[:device][:uuid])
 					device.platform_type = params[:device][:platform_type]
 					device.platform_version = params[:device][:platform_version]
 					device.name = params[:device][:name]
 					device.save!
-					
+
 					render json: {:status => 200, :success => true, :info => "Logged in", :params => {:user_id => current_user.id, :user_name => username,  :authToken => current_user.authentication_token }}
 				}
 			#else
