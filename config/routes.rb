@@ -1,5 +1,11 @@
 Beautymeets2::Application.routes.draw do
 
+  resources :push_notifications do
+  	member do 
+  		get 'call_send'
+  	end
+  end
+
   resources :pushes
 
 	resources :devices
