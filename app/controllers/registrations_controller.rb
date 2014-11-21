@@ -66,7 +66,7 @@ class RegistrationsController < Devise::RegistrationsController
 					# respond_with resource, :location => after_sign_up_path_for(resource)
 					format.html { redirect_to after_sign_up_path_for(resource) }
 					format.json { 
-						device = Device.find_or_create_by_uuid(uuid: params[:device][:uuid])
+						device = resource.devices.find_or_create_by_uuid(params[:device][:uuid])
 						device.platform_type = params[:device][:platform_type]
 						device.platform_version = params[:device][:platform_version]
 						device.name = params[:device][:name]

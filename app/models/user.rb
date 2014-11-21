@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
 	has_many :authentications,  :dependent => :destroy
 	has_many :posts
 	has_many :boards
+	has_many :devices, dependent: :destroy
 	
 	has_many :events, through: :event_entrys
 	has_many :event_entrys
