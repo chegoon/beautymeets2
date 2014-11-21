@@ -6,8 +6,6 @@ Beautymeets2::Application.routes.draw do
   	end
   end
 
-  resources :pushes
-
 	resources :devices
 
 	resources :pushes do

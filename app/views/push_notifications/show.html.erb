@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @push_notification.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @push_notification.body %>
+</p>
+
+<p>
+  <b>Sent:</b>
+  <%= @push_notification.sent %>
+</p>
+
+
+<%= link_to 'Edit', edit_push_notification_path(@push_notification) %> |
+<%= link_to 'Back', push_notifications_path %>
