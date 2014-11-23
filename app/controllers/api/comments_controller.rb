@@ -1,4 +1,4 @@
-# encoding: utf-8
+#encoding: utf-8
 module API
 	class CommentsController < API::BaseController
 		before_filter :load_commentable
@@ -102,7 +102,7 @@ module API
 						end
 					end
 					message = @commentable.title + "에 댓글이 달렸습니다."
-					#PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
+					PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
 				
 					render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 				
@@ -142,8 +142,8 @@ module API
 							end
 						end
 					end
-					#message = @commentable.title + "에 댓글이 달렸습니다."
-					#PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
+					message = @commentable.title + "에 댓글이 달렸습니다."
+					PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
 				
 					render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 				
