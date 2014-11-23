@@ -1,5 +1,5 @@
 class PushNotificationSender
-	include HTTParty
+	#include HTTParty
   # PushNotification.new.notify_all("This is a test notification to all devices")
   def self.notify_all(message)
 
