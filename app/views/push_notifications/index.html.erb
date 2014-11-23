@@ -1,9 +1,10 @@
 <h1>Listing push_notifications</h1>
 
-<table>
+<table style="width:100%;">
   <tr>
+    <th>No.</th>
     <th>Title</th>
-    <th>Body</th>
+    <th>Messeage</th>
     <th>Sent</th>
     <th></th>
     <th></th>
@@ -11,9 +12,10 @@
 
 <% @push_notifications.each do |push_notification| %>
   <tr>
+    <td><%= push_notification.id %></td>
     <td><%= link_to push_notification.title, push_notification %></td>
     <td><%= push_notification.body %></td>
-    <td><%= (push_notification.sent == false) ? link_to('Show', call_send_push_notification_path(push_notification), :class => "button") : push_notification.sent %></td>
+    <td><%= (push_notification.sent == false) ? link_to('SEND', call_send_push_notification_path(push_notification), :class => "button tiny") : push_notification.sent %></td>
     <td><%= link_to 'Edit', edit_push_notification_path(push_notification) %></td>
     <td><%= link_to 'Destroy', push_notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

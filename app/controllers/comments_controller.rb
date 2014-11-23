@@ -45,11 +45,22 @@ class CommentsController < ApplicationController
 			if @parent
 				@comment.move_to_child_of(@parent)
 				puts "parent moved"
-				@comment.create_activity :create, owner: current_user, recipient: @parent.author if !(@commentable.class.name == "Notice")
+				#@comment.create_activity :create, owner: current_user, recipient: @parent.author if !(@commentable.class.name == "Notice")
 			else
 				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 			end
 
+			devices = Array.new
+			@commentable.comments.each do |c|
+				if current_user.id <> c.user_id
+					@comment.create_activity :create, owner: current_user, recipient: c.user
+					c.user.devices.each do |d|
+						devices << d.uuid
+					end
+				end
+			end
+			PushNotificationSender.notify_devices({message: @commentable.title + "에 댓글이 달렸습니다.", device_type: 3, devices: {devices}}
+				
 			if !(@commentable.class.name == "Notice")
 				respond_to do |format|
 					format.html { redirect_to @commentable, notice: "Comment created." }
