@@ -52,14 +52,14 @@ class CommentsController < ApplicationController
 
 			devices = Array.new
 			@commentable.comments.each do |c|
-				if current_user.id <> c.user_id
+				if current_user.id == c.user_id
 					@comment.create_activity :create, owner: current_user, recipient: c.user
 					c.user.devices.each do |d|
 						devices << d.uuid
 					end
 				end
 			end
-			PushNotificationSender.notify_devices({message: @commentable.title + "에 댓글이 달렸습니다.", device_type: 3, devices: {devices}}
+			#PushNotificationSender.notify_devices({message: @commentable.title + "에 댓글이 달렸습니다.", device_type: 3, devices: {devices}}
 				
 			if !(@commentable.class.name == "Notice")
 				respond_to do |format|
