@@ -100,8 +100,8 @@ module API
 							end
 						end
 					end
-					message_title = @commentable.title + "에 댓글이 달렸습니다."
-					PushNotificationSender.notify_devices({message: message_title, device_type: 3, devices: {devices}}
+					#message_title = @commentable.title + "에 댓글이 달렸습니다."
+					#PushNotificationSender.notify_devices({message: message_title, device_type: 3, devices: {devices}}
 				
 					render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 				
