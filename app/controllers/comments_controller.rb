@@ -1,4 +1,4 @@
-
+# encoding: utf-8
 class CommentsController < ApplicationController
 	before_filter :load_commentable
 	before_filter :authenticate_user!, except: [:index, :show]  
@@ -51,6 +51,7 @@ class CommentsController < ApplicationController
 			end
 
 			devices = Array.new
+			#devices << "ecff720e17600e8c"
 			@commentable.comments.each do |c|
 				if current_user.id == c.user_id
 					@comment.create_activity :create, owner: current_user, recipient: c.user
@@ -59,7 +60,8 @@ class CommentsController < ApplicationController
 					end
 				end
 			end
-			#PushNotificationSender.notify_devices({message: @commentable.title + "에 댓글이 달렸습니다.", device_type: 3, devices: {devices}}
+			message = @commentable.title + "에 댓글이 달렸습니다."
+			PushNotificationSender.notify_all({message: message, device_type: 3, devices: devices})
 				
 			if !(@commentable.class.name == "Notice")
 				respond_to do |format|

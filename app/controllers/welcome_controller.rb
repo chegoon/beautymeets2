@@ -53,7 +53,7 @@ class WelcomeController < ApplicationController
 			format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently }
 		end
 	end
-
+=begin
   def hello_pusher
     Pusher['public'].trigger('welcome', {
       message: 'hello pusher'
@@ -62,4 +62,5 @@ class WelcomeController < ApplicationController
     	format.html { redirect_to root_path }
     end
   end
+=end
 end

@@ -34,8 +34,17 @@ if @post.class.name == "Video"
 
 elsif @post.class.name == "Tutorial"
 	json.description @post.description
-	json.canShowVideo true
-	json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+	
+	if @post.vimeo_url == ""
+		json.canShowVideo true
+		json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+	elsif @post.video_url == ""
+		json.canShowVideo true
+		json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
+	else
+		json.canShowVideo false
+	end
+
 	json.favorited Bookmark.where(model_type_id: 2, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 	if @post.items.count > 0
@@ -99,29 +108,18 @@ else
 	json.canShowItems false
 end
 
+if @related_posts.count > 1
+	json.canShowRelated true
+	json.relatedPosts @related_posts do |post|
+		json.partial! 'api/posts/post', post: post
+	end
+end
 
 # comments partial
 if @comments.count > 0
 	json.totalComments @post.comments.count
-=begin
-	
-	json.firstPage 1
-	json.prevPage (@comment_page_index.to_i - 1) > 0 ? @comment_page_index.to_i - 1 : 1
-	json.currentPage @comment_page_index
-	json.nextPage (@comment_page_index.to_i + 1 <= @comments.total_pages) ? @comment_page_index.to_i + 1 : @comments.total_pages
-	json.lastPage @comments.total_pages
-=end
+
 	json.comments @comments do |comment|
 		json.partial! comment
-=begin
-		if comment.has_children?
-			json.partial! comment
-			json.array! comment.children do |ch|
-				json.partial! 'api/comments/comment', comment: ch
-			end
-		else
-			json.partial! comment
-		end
-=end
 	end
 end

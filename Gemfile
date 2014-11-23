@@ -18,7 +18,7 @@ gem 'rmagick', :require => 'RMagick'
 gem 'simple_form'
 
 # gem for notifications
-gem 'pusher'
+#gem 'pusher'
 gem 'httparty'
 
 # Gem for authentication & authorization
