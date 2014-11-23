@@ -1,4 +1,4 @@
-require 'HTTParty'
+#require 'HTTParty'
 class PushNotificationsController < InheritedResources::Base
 
 	def call_send
