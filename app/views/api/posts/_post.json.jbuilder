@@ -2,9 +2,9 @@ post_type = post.class.name.underscore.humanize
 json.id post.id
 json.postType post_type
 if post.class.name.underscore.humanize == "Video"
-	json.thumbUrl = video.thumb_url
+	json.thumbUrl video.thumb_url
 else
-	json.thumbUrl = request.protocol + request.host_with_port + post.thumbnail.image_url
+	json.thumbUrl request.protocol + request.host_with_port + post.thumbnail.image_url
 end
 
 json.author do
