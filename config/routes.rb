@@ -24,11 +24,11 @@ Beautymeets2::Application.routes.draw do
 
 	# Let devise enabled trhough 'api' url not to change module in class definition
 	devise_scope :user do
-		match "api/auth_providers/:provider" => "authentications#new", defaults: { format: :json }
-		match "api/auth/:id" => "authentications#show", defaults: { format: :json }
-		match "api/join" => "registrations#create", defaults: { format: :json }#, :constraints => { method: "POST" }#,  defaults: { format: :json }
-		match "api/login" => "sessions#create", defaults: { format: :json }#, :constraints => { method: "POST" }
-		match "api/logout" => "sessions#destroy", defaults: { format: :json }, :constraints => { method: "DELETE" }
+		match "api/v1/auth_providers/:provider" => "authentications#new", defaults: { format: :json }
+		match "api/v1/auth/:id" => "authentications#show", defaults: { format: :json }
+		match "api/v1/join" => "registrations#create", defaults: { format: :json }#, :constraints => { method: "POST" }#,  defaults: { format: :json }
+		match "api/v1/login" => "sessions#create", defaults: { format: :json }#, :constraints => { method: "POST" }
+		match "api/v1/logout" => "sessions#destroy", defaults: { format: :json }, :constraints => { method: "DELETE" }
 
 		#match 'api/users/auth/:provider' => 'authentications#create', defaults: { format: :json }
 		#match 'api/users/auth/:provider/callback' => 'authentications#create', defaults: { format: :json }
@@ -40,46 +40,48 @@ Beautymeets2::Application.routes.draw do
 	
 	# Set the default format to json
 	namespace :api,  defaults: {format: :json} do 
-		match "devices" => "devices#create", defaults: { format: :json }
-		match "me" => "users#index"
+		namespace :v1 do 
+			match "devices" => "devices#create", defaults: { format: :json }
+			match "me" => "users#index"
 
-		match "notices" => "notices#index", :constraints => { method: "OPTIONS" }
-		match "notices/:id" => "notices#show"#, :constraints => { method: "OPTIONS" }
-		
-		match "posts" => "posts#index", :constraints => { method: "OPTIONS" }
-		match "posts/:id" => "posts#show"#, :constraints => { method: "GET" }
-		#match "posts/:id/toggleFavorite" => "posts#toggle_favorite", :constraints => { method: "POST" }
+			match "notices" => "notices#index", :constraints => { method: "OPTIONS" }
+			match "notices/:id" => "notices#show"#, :constraints => { method: "OPTIONS" }
+			
+			match "posts" => "posts#index", :constraints => { method: "OPTIONS" }
+			match "posts/:id" => "posts#show"#, :constraints => { method: "GET" }
+			#match "posts/:id/toggleFavorite" => "posts#toggle_favorite", :constraints => { method: "POST" }
 
-		match "users" => "users#index"#, :constraints => { method: "GET" }
-		match "users/:id" => "users#show", :constraints => { method: "OPTIONS" }
-		match "users/:id" => "users#update", :constraints => { method: "PUT" }
-		match "users/:id/edit" => "users#edit"#, :constraints => { method: "GET" }
-		match "users/:id/notifications" => "users#notifications"#, :constraints => { method: "GET" }
-		match "users/:id/favorites" => "users#favorites"#, :constraints => { method: "GET" }
+			match "users" => "users#index"#, :constraints => { method: "GET" }
+			match "users/:id" => "users#show", :constraints => { method: "OPTIONS" }
+			match "users/:id" => "users#update", :constraints => { method: "PUT" }
+			match "users/:id/edit" => "users#edit"#, :constraints => { method: "GET" }
+			match "users/:id/notifications" => "users#notifications"#, :constraints => { method: "GET" }
+			match "users/:id/favorites" => "users#favorites"#, :constraints => { method: "GET" }
 
-		resources :users, :notices, :boards
+			resources :users, :notices, :boards
 
-		resources :posts do
-			resources :comments do
-				member do 
-					get 'vote'
-					get 'unvote'
+			resources :posts do
+				resources :comments do
+					member do 
+						get 'vote'
+						get 'unvote'
+					end
 				end
+				match "comments" => "comments#index", :constraints => { method: "OPTIONS" }
+				match "comments" => "comments#create", :constraints => { method: "POST" }
+				match "comments/:id" => "comments#show", :constraints => { method: "OPTIONS" }
+				match "comments/:id" => "comments#destroy", :constraints => { method: "DELETE" }
+
+				resources :bookmarks
+				match "favorites" => "bookmarks#index", :constraints => { method: "OPTIONS" }
+				match "favorites" => "bookmarks#create", :constraints => { method: "POST" }
 			end
-			match "comments" => "comments#index", :constraints => { method: "OPTIONS" }
-			match "comments" => "comments#create", :constraints => { method: "POST" }
-			match "comments/:id" => "comments#show", :constraints => { method: "OPTIONS" }
-			match "comments/:id" => "comments#destroy", :constraints => { method: "DELETE" }
 
-			resources :bookmarks
-			match "favorites" => "bookmarks#index", :constraints => { method: "OPTIONS" }
-			match "favorites" => "bookmarks#create", :constraints => { method: "POST" }
-		end
-
-		resources :users do
-			resources :profiles
-			match "profiles" => "profiles#index", :constraints => { method: "OPTIONS" }
-			match "profiles" => "profiles#update", :constraints => { method: "PUT" }
+			resources :users do
+				resources :profiles
+				match "profiles" => "profiles#index", :constraints => { method: "OPTIONS" }
+				match "profiles" => "profiles#update", :constraints => { method: "PUT" }
+			end
 		end
 	end
 
