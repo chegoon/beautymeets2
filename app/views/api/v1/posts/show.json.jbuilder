@@ -39,11 +39,11 @@ if @post.class.name == "Video"
 elsif @post.class.name == "Tutorial"
 	json.description @post.description
 	
-	if @post.video_url.presents?
+	if @post.video_url.present?
 		json.canShowVideo true
 		json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '?rel=0&vq=hd720&showsearch=0" frameborder="0" allowfullscreen></iframe>'
 		
-	elsif @post.vimeo_url.presents?
+	elsif @post.vimeo_url.present?
 		json.canShowVideo true
 		json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
 	else
