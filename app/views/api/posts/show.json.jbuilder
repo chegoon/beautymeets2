@@ -8,7 +8,7 @@ json.tags @post.tags :name
 
 #author_info
 if @post.class.name == "Item"
-	json.canShowAuthor ture
+	json.canShowAuthor true
 	json.author do 
 		json.name @post.brand.name
 		json.thumbUrl full_url(@post.brand.image_url)
