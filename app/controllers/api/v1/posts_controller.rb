@@ -1,4 +1,3 @@
-
 module API
 	module V1
 		class PostsController < API::BaseController
@@ -30,7 +29,8 @@ module API
 							comments_count: tutorial.comments.count,
 							favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
 							favorited: Bookmark.where(model_type_id: 2, model_id: tutorial.id, user_id: @user.id).count > 0 ? 1 : nil,
-							created_at: tutorial.created_at
+							created_at: tutorial.created_at, 
+							unread: tutorial.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -49,7 +49,8 @@ module API
 							comments_count: p.comments.count,
 							favorites: Bookmark.where(model_type_id: 5, model_id: p.id).count,
 							favorited: Bookmark.where(model_type_id: 5, model_id: p.id, user_id: @user.id).count > 0 ? 1 : nil,
-							created_at: p.created_at
+							created_at: p.created_at, 
+							unread: p.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -68,7 +69,8 @@ module API
 							comments_count: video.comments.count,
 							favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
 							favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: video.created_at
+							created_at: video.created_at, 
+							unread: video.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -87,7 +89,8 @@ module API
 							comments_count: item.comments.count,
 							favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
 							favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: item.created_at
+							created_at: item.created_at, 
+							unread: item.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -109,7 +112,8 @@ module API
 							comments_count: tutorial.comments.count,
 							favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
 							favorited: Bookmark.where(model_type_id: 2, model_id: tutorial.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: tutorial.created_at
+							created_at: tutorial.created_at, 
+							unread: tutorial.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -129,7 +133,8 @@ module API
 							comments_count: p.comments.count,
 							favorites: Bookmark.where(model_type_id: 5, model_id: p.id).count,
 							favorited: Bookmark.where(model_type_id: 5, model_id: p.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: p.created_at
+							created_at: p.created_at, 
+							unread: p.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -149,7 +154,8 @@ module API
 							comments_count: video.comments.count,
 							favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
 							favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: video.created_at
+							created_at: video.created_at, 
+							unread: video.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -169,7 +175,8 @@ module API
 							comments_count: item.comments.count,
 							favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
 							favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: item.created_at
+							created_at: item.created_at, 
+							unread: item.unread?(@user)
 						}
 						@posts << pre_post
 					end
@@ -181,8 +188,10 @@ module API
 				posttable = params[:postType]
 
 				@post = posttable.classify.constantize.find(params[:id])
+				
 				@post.increment_view_count 
-
+				impressionist(@post)
+				@post.mark_as_read! :for => @user
 
 				@commentable = @post
 				comments_per_page = 7
