@@ -37,10 +37,11 @@ elsif @post.class.name == "Tutorial"
 	
 	if @post.vimeo_url == ""
 		json.canShowVideo true
-		json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+		json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '?rel=0&vq=hd720&showsearch=0" frameborder="0" allowfullscreen></iframe>'
+		
 	elsif @post.video_url == ""
 		json.canShowVideo true
-		json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
+		json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
 	else
 		json.canShowVideo false
 	end
