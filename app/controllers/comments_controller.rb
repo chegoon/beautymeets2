@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
 				end
 			end
 			message = @commentable.title + "에 댓글이 달렸습니다."
-			PushNotificationSender.notify_all({message: message, device_type: 3, devices: devices})
+			PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
 				
 			if !(@commentable.class.name == "Notice")
 				respond_to do |format|
