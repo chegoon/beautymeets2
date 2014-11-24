@@ -11,7 +11,7 @@ if @post.class.name == "Item"
 	json.canShowAuthor true
 	json.author do 
 		json.name @post.brand.name
-		json.thumbUrl full_url(@post.brand.image_url)
+		json.thumbUrl full_url(@post.brand.thumbnail.image_url(:small))
 	end
 else
 	json.canShowAuthor true
@@ -104,7 +104,7 @@ elsif @post.class.name == "Item"
 			json.postType "item"
 			json.name item.name
 			json.brandName item.brand.try(:name)
-			json.thumbUrl full_url(item.thumbnail.image_url(:very_small))
+			json.thumbUrl full_url(item.thumbnail.image_url(:small))
 		end
 	end
 else
