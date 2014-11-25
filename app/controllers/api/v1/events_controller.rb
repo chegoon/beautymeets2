@@ -5,7 +5,7 @@ module API
 
 			# Load authorizing from cancan
 			#load_and_authorize_resource
-
+			before_filter :set_current_user
 			respond_to :json
 			
 			
@@ -64,6 +64,12 @@ module API
 				end
 			end
 
+			private
+
+			def set_current_user
+				token = params[:authToken] 
+				@user = User.find_by_authentication_token(token)
+			end
 		end
 	end
 end
