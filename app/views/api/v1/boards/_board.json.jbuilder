@@ -2,6 +2,7 @@ json.id board.id
 json.title board.title
 json.author do
 	if board.author
+		json.thumbUrl full_url(board.author.image_url(:small)) if board.author.image.present?
 		json.name board.author.name ? board.author.name : board.author.email
 	end
 end
