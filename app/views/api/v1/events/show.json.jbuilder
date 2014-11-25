@@ -8,7 +8,7 @@ json.postType @event.class.name.underscore.humanize
 if (@event.pictures.present?) && (@event.pictures.count > 0)
 	json.canShowImage true
 	json.images @event.pictures do |picture|
-		json.url picture.image_url
+		json.url full_url(picture.image_url(:large))
 	end
 end
 
