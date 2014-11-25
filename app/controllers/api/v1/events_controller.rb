@@ -24,7 +24,7 @@ module API
 =end				
 				respond_to do |format|
 					format.html # index.html.erb
-					format.json { render json: @events }
+					format.json #{ render json: @events }
 				end
 			end
 
@@ -60,7 +60,7 @@ module API
 
 				respond_to do |format|
 					format.html # show.html.erb
-					format.json { render json: @event }
+					format.json #{ render json: @event }
 				end
 			end
 
