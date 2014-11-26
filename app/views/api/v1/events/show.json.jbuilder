@@ -16,6 +16,11 @@ else
 	json.canShowImage false
 end
 
+json.startFrom if @event.startFrom?
+json.finishOn if @event.finishOn?
+json.winReleasedAt if @event.winReleasedAt?
+json.targetUrl if @event.targetUrl?
+
 # comments partial
 if @comments.count > 0
 	json.totalComments @event.comments.count.to_i
