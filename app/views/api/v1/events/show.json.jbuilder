@@ -16,9 +16,9 @@ else
 	json.canShowImage false
 end
 
-json.startFrom @event.start_from if @event.start_from?
-json.finishOn @event.finish_on if @event.finish_on?
-json.winReleasedAt @event.win_released_at if @event.win_released_at?
+json.startFrom @event.start_from.strftime("%Y.%m.%d %H:%M") if @event.start_from?
+json.finishOn @event.finish_on.strftime("%Y.%m.%d %H:%M") if @event.finish_on?
+json.winReleasedAt @event.win_released_at.strftime("%Y.%m.%d %H:%M") if @event.win_released_at?
 json.targetUrl @event.target_url if @event.target_url?
 
 # comments partial
