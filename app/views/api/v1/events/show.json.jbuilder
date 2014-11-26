@@ -10,7 +10,7 @@ if (@event.pictures.present?) && (@event.pictures.count > 0)
 	json.images @event.pictures do |pic|
 		if (pic.id != @event.mobile_thumbnail.id) && (pic.id != @event.thumbnail.id)
 			json.canShowImage true
-			json.url full_url(picture.image_url(:large))
+			json.url full_url(pic.image_url)
 		end
 	end
 end
