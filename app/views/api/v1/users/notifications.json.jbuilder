@@ -4,7 +4,7 @@ json.notifications @activities do |activity|
 		json.author do
 			if activity.owner
 				json.name activity.owner.name ? activity.owner.name : activity.owner.email
-				json.thumbUrl full_url(activity.owner.image_url)
+				json.thumbUrl full_url(activity.owner.image_url(:small)) if activity.owner.image?
 			else
 				json.name ""
 			end
@@ -41,7 +41,9 @@ json.notifications @activities do |activity|
 			end
 			
 			json.body activity.trackable.description
+
 		end
+		json.thumbUrl fulll_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail?
 		json.cratedAt time_ago_in_words(activity.created_at)
 	end
 end
