@@ -6,13 +6,14 @@ json.hits @event.view_count
 json.postType @event.class.name.underscore.humanize
 
 if (@event.pictures.present?) && (@event.pictures.count > 0)
-	json.canShowImage false
+	json.canShowImage true
 	json.images @event.pictures do |pic|
-		if (pic.id != @event.mobile_thumbnail.id) && (pic.id != @event.thumbnail.id)
-			json.canShowImage true
+		if (pic.id != @event.mobile_thumbnail.id) && (pic.id != @event.thumbnail.id)		
 			json.url full_url(pic.image_url)
 		end
 	end
+else
+	json.canShowImage false
 end
 
 # comments partial
