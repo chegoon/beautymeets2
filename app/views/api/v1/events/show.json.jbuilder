@@ -16,10 +16,10 @@ else
 	json.canShowImage false
 end
 
-json.startFrom if @event.startFrom?
-json.finishOn if @event.finishOn?
-json.winReleasedAt if @event.winReleasedAt?
-json.targetUrl if @event.targetUrl?
+json.startFrom @event.start_from if @event.start_from?
+json.finishOn @event.finish_on if @event.finish_on?
+json.winReleasedAt @event.win_released_at if @event.win_released_at?
+json.targetUrl @event.target_url if @event.target_url?
 
 # comments partial
 if @comments.count > 0
