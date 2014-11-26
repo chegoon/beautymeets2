@@ -41,11 +41,6 @@ module API
 				end
 
 				@commentable = @event
-				#@comments = @commentable.root_comments.order("created_at ASC")
-				comments_per_page = 7
-				page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
-				@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
-				
 				comments_per_page = 7
 				if params[:page] && (params[:page] != '')
 					@comment_page_index = params[:page]
@@ -56,7 +51,9 @@ module API
 	    
 				end
 
-				@comments = @commentable.comment_threads.order("lft ASC")#page(@comment_page_index).per_page(comments_per_page)
+				#@comments = @commentable.root_comments.order("created_at ASC").page(@comment_page_index).per_page(comments_per_page)
+				#@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
+				@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
 
 				respond_to do |format|
 					format.html # show.html.erb
