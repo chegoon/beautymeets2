@@ -5,6 +5,11 @@ module API
 			before_filter :set_current_user
 			
 			def index
+
+				offset = params[:offset] || 0
+				limit = params[:limit] || 12
+				#@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
+
 				#cards_per_page = 10
 				#page(params[:page]).per_page(cards_per_page)
 				@posts = Array.new
@@ -14,7 +19,7 @@ module API
 				#puts "category : #{category}"
 				# HOME 
 				if categories.nil? 
-					Tutorial.where(published: true).order("created_at DESC").limit(5).each do |tutorial|
+					Tutorial.where(published: true).order("created_at DESC").offset(offset).limit(limit).each do |tutorial|
 						pre_post = {
 							postType: tutorial.class.name.underscore.humanize,
 							isVideoPlayable: true,
@@ -34,7 +39,7 @@ module API
 						}
 						@posts << pre_post
 					end
-					Post.where(published: true).order("created_at DESC").limit(5).each do |p|
+					Post.where(published: true).order("created_at DESC").offset(offset).limit(limit).each do |p|
 						pre_post = { 
 							postType: p.class.name.underscore.humanize,
 							isVideoPlayable: false,
@@ -54,7 +59,7 @@ module API
 						}
 						@posts << pre_post
 					end
-					Video.where(published: true).order("created_at DESC").limit(5).each do |video|
+					Video.where(published: true).order("created_at DESC").offset(offset).limit(limit).each do |video|
 						pre_post = { 
 							postType: video.class.name.underscore.humanize,
 							isVideoPlayable: true,
@@ -74,7 +79,7 @@ module API
 						}
 						@posts << pre_post
 					end
-					Item.order("created_at DESC").limit(5).each do |item|
+					Item.order("created_at DESC").offset(offset).limit(limit).each do |item|
 						pre_post = { 
 							postType: item.class.name.underscore.humanize,
 							isVideoPlayable: false,
@@ -97,7 +102,7 @@ module API
 				# category selected.				
 				else
 					#Tutorial.joins(:categories).where(published: true, categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |tutorial|
-					Tutorial.joins(:categories).where("tutorials.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").limit(5).each do |tutorial|
+					Tutorial.joins(:categories).where("tutorials.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |tutorial|
 						pre_post = { 
 							postType: tutorial.class.name.underscore.humanize,
 							isVideoPlayable: true,
@@ -118,7 +123,7 @@ module API
 						@posts << pre_post
 					end
 					#Post.joins(:categories).where(published: true, categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |p|
-					Post.joins(:categories).where("posts.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").limit(5).each do |p|
+					Post.joins(:categories).where("posts.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |p|
 						pre_post = { 
 							postType: p.class.name.underscore.humanize,
 							isVideoPlayable: false,
@@ -139,7 +144,7 @@ module API
 						@posts << pre_post
 					end
 					#Video.joins(:categories).where(published: true, categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |video|
-					Video.joins(:categories).where("videos.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").limit(5).each do |video|
+					Video.joins(:categories).where("videos.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |video|
 						pre_post = { 
 							postType: video.class.name.underscore.humanize,
 							isVideoPlayable: true,
@@ -160,7 +165,7 @@ module API
 						@posts << pre_post
 					end
 					#Item.joins(:categories).where(categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |item|
-					Item.joins(:categories).where("categories.id IN (?)", categories.map(&:id)).order("created_at DESC").limit(5).each do |item|	
+					Item.joins(:categories).where("categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |item|	
 						pre_post = { 
 							postType: item.class.name.underscore.humanize,
 							isVideoPlayable: false,
