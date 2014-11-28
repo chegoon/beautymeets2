@@ -6,7 +6,7 @@ module API
 			
 			def index
 
-				offset = (params[:offset].presents? && params[:offset] != "") ? (params[:offset].to_i / 4).to_i : 0
+				offset = params[:offset]? ? (params[:offset].to_f / 4).to_i : 0
 				limit = params[:limit] || 3
 				#@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 
