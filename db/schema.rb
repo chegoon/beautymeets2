@@ -490,14 +490,6 @@ ActiveRecord::Schema.define(:version => 20141121072522) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "pushes", :force => true do |t|
-    t.string   "title"
-    t.string   "body"
-    t.boolean  "sent"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "read_marks", :force => true do |t|
     t.integer  "readable_id"
     t.integer  "user_id",       :null => false

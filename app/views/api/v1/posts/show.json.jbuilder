@@ -123,6 +123,8 @@ end
 # comments partial
 if @comments.count > 0
 	json.totalComments @post.comments.count
+	json.currentCommentPage @post.comments.current_page
+	json.totalCommentPage @post.comments.total_page
 
 	json.comments @comments do |comment|
 		json.partial! comment
