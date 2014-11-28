@@ -7,7 +7,7 @@ module API
 			def index
 
 				offset = params[:offset] || 0
-				limit = params[:limit] || 12
+				limit = params[:limit] || 3
 				#@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 
 				#cards_per_page = 10
