@@ -5,8 +5,6 @@ class Comment < ActiveRecord::Base
   #tracked only: :create, owner: :author, recipient: #recipient: :commentable #commentable 에서 user로 수정(2014.04.21)
   #tracked only: :create, owner: Proc.new{ |controller, model| controller && controller.current_user }, recipient: :commentable
 
-  DEFAULT_PAGE_SIZE = 7
-
   acts_as_votable
 
   resourcify

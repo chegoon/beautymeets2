@@ -8,8 +8,8 @@ module API
 			#authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 			def index
-				offset = params[:commentOffset] || 0
-				limit = params[:commentLimit] || Comment::DEFAULT_PAGE_SIZE
+				offset = params[:offset] || 0
+				limit = params[:limit] || 10
 				@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 
 
@@ -201,7 +201,7 @@ module API
 			private
 
 			def load_commentable
-				id = request.path.split('/')[3]
+				id = request.path.split('/')[4]
 				resource = params[:postType] 
 				@commentable = (resource.singularize + "s").classify.constantize.find(id)
 			end
