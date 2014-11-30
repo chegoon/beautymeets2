@@ -54,6 +54,7 @@ elsif @post.class.name == "Tutorial"
 
 	if @post.items.count > 0
 		json.canShowItems true
+		json.relatedItemTitle "#{@post.title}에 사용된 제품"
 		json.items @post.items do |item|
 			json.id item.id
 			json.postType "Item"
@@ -99,6 +100,7 @@ elsif @post.class.name == "Item"
 
 	if items_in_category.count > 0
 		json.canShowItems true
+		json.relatedItemTitle "같은 카테고리 인기제품"
 		json.items items_in_category.limit(10) do |item|
 			json.id item.id
 			json.postType "item"
@@ -115,6 +117,11 @@ end
 
 if @related_posts.count > 1
 	json.canShowRelated true
+	if @post.class.name == "Item"
+		json.relatedVideoTitle "#{@post.title}이 사용된 영상"
+	else
+		json.relatedVideoTitle "함께봐요"
+	end
 	json.relatedPosts @related_posts do |post|
 		json.partial! 'api/posts/post', post: post
 	end
