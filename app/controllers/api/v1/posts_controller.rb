@@ -202,14 +202,14 @@ module API
 				if posttable == "Item" 
 					@related_posts = @post.tutorials
 				elsif posttable == "Tutorial"
-					@related_posts = Tutorial.unread_by(@user).where("id != ? AND published IS TRUE", @post.id).order("view_count DESC").limit(10).sample(3)
+					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					@post.author.name = "BEAUTYMEETS"
 					#videoUrl = '<iframe src=' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
 				elsif posttable == "Video"
-					@related_posts = Tutorial.unread_by(@user).where(published: true).order("view_count DESC").limit(10).sample(3)
+					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					#videoUrl = '<iframe width="560" height="315" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
 				else
-					@related_posts = Tutorial.unread_by(@user).where("id != ? AND published IS TRUE", @post.id).order("view_count DESC").limit(10).sample(3)
+					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 				end
 
 			end
