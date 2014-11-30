@@ -198,33 +198,18 @@ module API
 				impressionist(@post)
 				@post.mark_as_read! :for => @user
 
-				@commentable = @post
-				comments_per_page = 7
-				if params[:page] && (params[:page] != '')
-					@comment_page_index = params[:page]
-				else
-					#@comment_page_index = @commentable.comment_threads.order("lft ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
-					total_results = @commentable.comments.count
-					@comment_page_index = total_results / comments_per_page + (total_results % comments_per_page == 0 ? 0 : 1)
-	    
-				end
-
-				#@comments = @commentable.root_comments.order("created_at ASC").page(@comment_page_index).per_page(comments_per_page)
-				#@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
-				@comments = @commentable.comment_threads.order("lft ASC")#page(@comment_page_index).per_page(comments_per_page)
-
 				videoUrl = ""
 				if posttable == "Item" 
 					@related_posts = @post.tutorials
 				elsif posttable == "Tutorial"
-					@related_posts = Tutorial.where("id != ? AND published IS TRUE", @post.id).order("view_count DESC").limit(10).sample(3)
+					@related_posts = Tutorial.where("id != ? AND published IS TRUE", @post.id).unread_by(@user).order("view_count DESC").limit(10).sample(3)
 					@post.author.name = "BEAUTYMEETS"
 					#videoUrl = '<iframe src=' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
 				elsif posttable == "Video"
-					@related_posts = Tutorial.where(published: true).order("view_count DESC").limit(10).sample(3)
+					@related_posts = Tutorial.where(published: true).order("view_count DESC").unread_by(@user).limit(10).sample(3)
 					#videoUrl = '<iframe width="560" height="315" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
 				else
-					@related_posts = Tutorial.where("id != ? AND published IS TRUE", @post.id).order("view_count DESC").limit(10).sample(3)
+					@related_posts = Tutorial.where("id != ? AND published IS TRUE", @post.id).unread_by(@user).order("view_count DESC").limit(10).sample(3)
 				end
 
 			end
