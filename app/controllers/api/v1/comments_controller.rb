@@ -11,7 +11,7 @@ module API
 				offset = params[:offset] || 0
 				limit = params[:limit] || 10
 				@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
-				@can_load_more = true if @commentable.comment_threads.order("lft ASC").offset(offset + limit).limit(limit).count > 0
+				@can_load_more = true if @commentable.comment_threads.order("lft ASC").offset(offset.to_i + limit.to_i).limit(limit).count > 0
 
 				#comments_per_page = 7
 				#@comment_page_index = params[:commentPage] ? params[:commentPage] : @commentable.comment_threads.order("lft ASC").paginate(:page => params[:commentPage], :per_page => comments_per_page).total_pages
