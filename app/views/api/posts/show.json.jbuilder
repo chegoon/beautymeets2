@@ -121,6 +121,7 @@ if @related_posts.count > 1
 end
 
 # comments partial
+=begin
 if @comments.count > 0
 	json.totalComments @post.comments.count
 
@@ -128,3 +129,4 @@ if @comments.count > 0
 		json.partial! comment
 	end
 end
+=end

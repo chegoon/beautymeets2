@@ -6,6 +6,7 @@ json.hits @notice.view_count
 json.postType @notice.class.name.underscore.humanize
 
 # comments partial
+=begin
 if @notice.id == 2
 	if @comments.count > 0
 		json.totalComments @notice.comments.count
@@ -15,3 +16,4 @@ if @notice.id == 2
 		end
 	end
 end
+=end
