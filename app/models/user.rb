@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 				 :recoverable, :rememberable, :trackable, :validatable, :omniauthable#, :token_authenticatable#, :authentication_keys => [:email]#, :omniauth_providers => [:facebook]
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :current_password, :email, :password, :password_confirmation, :remember_me, :username, :image, :remote_image_url, :authentication_token
+	attr_accessible :current_password, :email, :password, :password_confirmation, :remember_me, :username, :image, :remote_image_url, :authentication_token, :get_push_notifications
 	attr_accessor :current_password
 
 	belongs_to :profile, polymorphic: true, dependent: :destroy
