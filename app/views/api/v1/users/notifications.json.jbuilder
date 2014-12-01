@@ -30,6 +30,7 @@ json.notifications @activities do |activity|
 			end
 
 			json.body activity.trackable.body
+			json.thumbUrl fulll_url(activity.trackable.commentable.thumbnail.image_url(:small)) if activity.trackable.commentable.thumbnail.present?
 		
 		else
 			json.title activity.trackable.title
@@ -41,9 +42,9 @@ json.notifications @activities do |activity|
 			end
 			
 			json.body activity.trackable.description
-
+			json.thumbUrl fulll_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail.present?
 		end
-		json.thumbUrl fulll_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail?
+		
 		json.cratedAt time_ago_in_words(activity.created_at)
 	end
 end
