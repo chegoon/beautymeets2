@@ -50,7 +50,7 @@ module API
 				@user = User.find(params[:id])
 				@member = @user.profile
 
-				if @user.update_attributes(username: params[:user][:name], password: params[:user][:password], get_push_notifications: params[:user][:getPushNotifications][:checked])
+				if @user.update_attributes(username: params[:user][:name], password: params[:user][:password], get_push_notifications: params[:user][:getPushNotifications])
 					respond_to do |format|
 						format.json {render json: {status: 200, success: true, info: "User info Updated successfully." }}
 					end
