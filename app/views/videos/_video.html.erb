@@ -10,18 +10,7 @@
     </div>
     <div class="video-card-desc" style="">
       <div class="video-card-title text-left"  style="margin:0;padding:0; ">
-        <a href="<%= video_path(video) %>" >
-           <% 
-        if video.categories.present? 
-          category_name ||= "" 
-          video.categories.each do |category| 
-            category_name += (category.name + ' ') 
-          end 
-        %> 
-          <span class="left " style="color:#CDD9D7;"><%= truncate(category_name, 22) %>&nbsp;|&nbsp;</span>
-          
-        <% end %>
-        
+        <a href="<%= video_path(video) %>" >        
           <%= truncate(video.try(:title), 14) %>
         </a>
         <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - video.created_at).to_i / 1.day <= 3 %></span>
