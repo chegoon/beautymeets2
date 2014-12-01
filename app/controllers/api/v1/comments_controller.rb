@@ -13,11 +13,6 @@ module API
 				@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 				@can_load_more = true if @commentable.comment_threads.order("lft ASC").offset(offset.to_i + limit.to_i).limit(limit).count > 0
 
-				#comments_per_page = 7
-				#@comment_page_index = params[:commentPage] ? params[:commentPage] : @commentable.comment_threads.order("lft ASC").paginate(:page => params[:commentPage], :per_page => comments_per_page).total_pages
-				#@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
-				#@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
-
 			end
 
 			def new
@@ -73,7 +68,7 @@ module API
 					#puts "picture: #{uploaded_file}"
 
 					#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-					@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {image: params[:image]}}) 
+					@comment = @commentable.comments.new({user_id: @user.id, body: "test_body", picture_attributes: {image: params[:image]}}) 
 					#@comment.picture.image = uploaded_file
 
 					if @comment.save
