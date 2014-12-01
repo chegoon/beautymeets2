@@ -148,7 +148,7 @@ module API
 							id: video.id, 
 							title: video.title, 
 							category: video.categories.map(&:name),
-							author: "BEAUTYMEETS", #{ name: video.author.try(:name) },
+							author: { name: video.author.try(:name) },
 							url: video_url(video), 
 							thumbUrl: video.thumb_url,
 							hits: video.view_count,
