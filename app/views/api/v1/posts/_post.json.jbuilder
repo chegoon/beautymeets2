@@ -25,7 +25,7 @@ end
 json.title post.title
 json.category post.categories.map(&:name)
 json.hits post.view_count
-json.comments_count post.comments.count
+json.commentsCount post.comments.count
 
 if post_type == "Tutorial"
 	json.isVideoPlayable true

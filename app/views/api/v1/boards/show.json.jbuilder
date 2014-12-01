@@ -9,6 +9,7 @@ json.author do
 end
 json.canShowThumb (@board.picture && @board.picture.image) ? true : false
 json.thumbUrl full_url(@board.picture.image_url(:large)) if @board.picture.present?
+
 json.description @board.description
 json.createdAt filtered_time(@board.created_at)
 
