@@ -22,6 +22,7 @@ json.winReleasedAt @event.win_released_at.strftime("%Y.%m.%d %H:%M") if @event.w
 json.targetUrl @event.target_url if @event.target_url?
 
 # comments partial
+=begin
 if @comments.count > 0
 	json.totalComments @event.comments.count.to_i
 
@@ -29,3 +30,4 @@ if @comments.count > 0
 		json.partial! comment
 	end
 end
+=end
