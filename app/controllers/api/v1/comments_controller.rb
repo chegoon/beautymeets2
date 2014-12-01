@@ -24,13 +24,6 @@ module API
 				render json: @comment
 			end
 
-			def clean_tempfile
-				if @tempfile
-					@tempfile.close
-					@tempfile.unlink
-				end
-			end
-
 			def create    
 				if params[:image]
 					#puts "picture: #{uploaded_file}"
