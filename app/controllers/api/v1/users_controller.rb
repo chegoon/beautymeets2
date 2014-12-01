@@ -51,7 +51,7 @@ module API
 				@member = @user.profile
 				push_noti = (params[:user][:getPushNotifications] && (params[:user][:getPushNotifications] == 'true')) ? 1 : 0
 
-				@user.update_attributes!(username: params[:user][:name], password: params[:user][:password], get_push_notifications: 1)
+				@user.update_attribute(get_push_notifications: 1)
 				if @user.update_attributes(username: params[:user][:name], password: params[:user][:password], get_push_notifications: 1)
 					respond_to do |format|
 						format.json {render json: {status: 200, success: true, info: "User info Updated successfully." }}
