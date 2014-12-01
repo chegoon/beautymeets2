@@ -42,12 +42,15 @@ module API
 			# POST /boards
 			# POST /boards.json
 			def create
-				@board = @user.boards.create({title: params[:board][:title], description: params[:board][:description]})
-				@user.add_role :author, @board
-				#@board = Beautorial.new(params[:board])
+				if params[:image]
+					@board = @user.boards.new({user_id: @user.id, body: params[:body], picture_attributes: {image: params[:image]}}) 
+				else
+					@board = @user.boards.create({title: params[:board][:title], description: params[:board][:description]})	
+				end
 
 				respond_to do |format|
 					if @board.save
+						@user.add_role :author, @board
 						format.html { redirect_to @board, notice: 'Board was successfully created.' }
 						format.json { render json: @board, status: :created, location: @board }
 					else

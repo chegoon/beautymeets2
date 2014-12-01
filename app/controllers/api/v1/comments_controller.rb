@@ -73,7 +73,7 @@ module API
 					#puts "picture: #{uploaded_file}"
 
 					#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-					@comment = @commentable.comments.new({user_id: @user.id, body: params[:body], picture_attributes: {image: params[:image]}}) 
+					@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {image: params[:image]}}) 
 					#@comment.picture.image = uploaded_file
 
 					if @comment.save
