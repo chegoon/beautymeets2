@@ -4,6 +4,7 @@ json.postType "Board"
 json.author do
 	if @board.author
 		json.name @board.author.name ? @board.author.name : @board.author.email
+		json.thumbUrl full_url(@board.author.image_url(:small)) if @board.author.image.present?
 	end
 end
 json.canShowThumb (@board.picture && @board.picture.image) ? true : false
