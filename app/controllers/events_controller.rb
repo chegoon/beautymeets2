@@ -57,7 +57,8 @@ class EventsController < ApplicationController
 		@comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
 
 		if user_signed_in?
-			@comment = Comment.build_from(@commentable, current_user.id, "") 
+			#@comment = Comment.build_from(@commentable, current_user.id, "") 
+			@comment = @commentable.comments.new(user_id: current_user.id)
 			@event.mark_as_read! :for => current_user
 		else
 			@comment = Comment.new
