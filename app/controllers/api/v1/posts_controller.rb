@@ -29,7 +29,7 @@ module API
 							thumbUrl: tutorial.thumbnail ? (request.protocol + request.host_with_port + tutorial.thumbnail.image_url) : "",
 							hits: tutorial.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: tutorial.comments.count,
+							commentsCount: tutorial.comments.count,
 							favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
 							favorited: Bookmark.where(model_type_id: 2, model_id: tutorial.id, user_id: @user.id).count > 0 ? 1 : nil,
 							created_at: tutorial.created_at, 
@@ -49,7 +49,7 @@ module API
 							thumbUrl: request.protocol + request.host_with_port + p.thumbnail.image_url,
 							hits: p.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: p.comments.count,
+							commentsCount: p.comments.count,
 							favorites: Bookmark.where(model_type_id: 5, model_id: p.id).count,
 							favorited: Bookmark.where(model_type_id: 5, model_id: p.id, user_id: @user.id).count > 0 ? 1 : nil,
 							created_at: p.created_at, 
@@ -69,7 +69,7 @@ module API
 							thumbUrl: video.thumb_url,
 							hits: video.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: video.comments.count,
+							commentsCount: video.comments.count,
 							favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
 							favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
 							created_at: video.created_at, 
@@ -89,7 +89,7 @@ module API
 							thumbUrl: request.protocol + request.host_with_port + item.thumbnail.image_url,
 							hits: item.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: item.comments.count,
+							commentsCount: item.comments.count,
 							favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
 							favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
 							created_at: item.created_at, 
@@ -113,7 +113,7 @@ module API
 							thumbUrl: request.protocol + request.host_with_port + tutorial.thumbnail.image_url,
 							hits: tutorial.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: tutorial.comments.count,
+							commentsCount: tutorial.comments.count,
 							favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
 							favorited: Bookmark.where(model_type_id: 2, model_id: tutorial.id, user_id: @user.id).count > 0  ? 1 : nil,
 							created_at: tutorial.created_at, 
@@ -134,7 +134,7 @@ module API
 							thumbUrl: request.protocol + request.host_with_port + p.thumbnail.image_url,
 							hits: p.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: p.comments.count,
+							commentsCount: p.comments.count,
 							favorites: Bookmark.where(model_type_id: 5, model_id: p.id).count,
 							favorited: Bookmark.where(model_type_id: 5, model_id: p.id, user_id: @user.id).count > 0  ? 1 : nil,
 							created_at: p.created_at, 
@@ -155,7 +155,7 @@ module API
 							thumbUrl: video.thumb_url,
 							hits: video.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: video.comments.count,
+							commentsCount: video.comments.count,
 							favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
 							favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
 							created_at: video.created_at, 
@@ -176,7 +176,7 @@ module API
 							thumbUrl: request.protocol + request.host_with_port + item.thumbnail.image_url,
 							hits: item.view_count,
 							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							comments_count: item.comments.count,
+							commentsCount: item.comments.count,
 							favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
 							favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
 							created_at: item.created_at, 
