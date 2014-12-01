@@ -49,7 +49,7 @@ module API
 			def update
 				@user = User.find(params[:id])
 				@member = @user.profile
-				push_noti = (params[:user][:getPushNotifications] && (params[:user][:getPushNotifications] == 'true')) ? 1 : nil
+				push_noti = (params[:user][:getPushNotifications] && (params[:user][:getPushNotifications] == 'true')) ? 1 : 0
 
 				if @user.update_attributes(username: params[:user][:name], password: params[:user][:password], get_push_notifications: push_noti)
 					respond_to do |format|
