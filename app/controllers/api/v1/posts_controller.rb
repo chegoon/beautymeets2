@@ -8,12 +8,9 @@ module API
 
 				offset = params[:offset] ? (params[:offset].to_f / 4).to_i : 0
 				limit = params[:limit] || 3
-				#@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 
-				#cards_per_page = 10
-				#page(params[:page]).per_page(cards_per_page)
 				@posts = Array.new
-				menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu")).first
+				menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
 				categories = menu ? Category.where(menu_id: menu.id) : nil
 				#puts "params : #{params[:category]}"
 				#puts "category : #{category}"

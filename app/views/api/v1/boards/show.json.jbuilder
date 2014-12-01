@@ -13,20 +13,10 @@ json.createdAt filtered_time(@board.created_at)
 
 
 # comments partial
+=begin
 if @comments.count > 0
-	json.totalComments @board.comments.count
-	
 	json.comments @comments do |comment|
 		json.partial! comment
-=begin		
-		if comment.has_children?
-			json.partial! comment
-			json.array! comment.children do |ch|
-				json.partial! 'api/comments/comment', comment: ch
-			end
-		else
-			json.partial! comment
-		end
-=end		
 	end
 end
+=end
