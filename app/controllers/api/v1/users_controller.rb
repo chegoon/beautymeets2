@@ -1,7 +1,7 @@
 module API
 	module V1
 		class UsersController < API::BaseController
-			before_filter :load_resource_through_auth_token, only: [:index, :notifications, :favorites]
+			before_filter :load_resource_through_auth_token, only: [:index, :notifications, :favorites, :update]
 			
 			# me : mypage
 			def index
@@ -47,7 +47,7 @@ module API
 			end
 
 			def update
-				@user = User.find(params[:id])
+				#@user = User.find(params[:id])
 				@member = @user.profile
 				push_noti = (params[:user][:getPushNotifications] && (params[:user][:getPushNotifications] == 'true')) ? 1 : 0
 
