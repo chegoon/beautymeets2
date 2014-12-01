@@ -24,30 +24,6 @@ module API
 				render json: @comment
 			end
 
-			def parse_image_data(base64_image)
-				filename = "upload-image"
-				in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
-		 
-				@tempfile = Tempfile.new(filename)
-				@tempfile.binmode
-				@tempfile.write Base64.decode64(string)
-				@tempfile.rewind
-		 
-				# for security we want the actual content type, not just what was passed in
-				content_type = `file --mime -b #{@tempfile.path}`.split(";")[0]
-		 
-				# we will also add the extension ourselves based on the above
-				# if it's not gif/jpeg/png, it will fail the validation in the upload model
-				extension = content_type.match(/gif|jpeg|png/).to_s
-				filename += ".#{extension}" if extension
-		 
-				ActionDispatch::Http::UploadedFile.new({
-					tempfile: @tempfile,
-					content_type: content_type,
-					filename: filename
-				})
-			end
-
 			def clean_tempfile
 				if @tempfile
 					@tempfile.close
@@ -56,19 +32,11 @@ module API
 			end
 
 			def create    
-				#the_params = params.require(:comment).permit(:image)
-				#uploaded_file = parse_image_data(params[:image]) if params[:image]
-
-				#@comment = Comment.build_from(@commentable, @user.id)
-				
-				puts "user_id: #{@user.id}, "
-				puts "comment: #{params}, "
-				#the_params = ActiveSupport::JSON.decode(params) if params
 				if params[:image]
 					#puts "picture: #{uploaded_file}"
-
+					comment = JSON.parse(params[:comment])
 					#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
-					@comment = @commentable.comments.new({user_id: @user.id, body: "test_body", picture_attributes: {image: params[:image]}}) 
+					@comment = @commentable.comments.new({user_id: @user.id, body: comment.body, picture_attributes: {image: params[:image]}}) 
 					#@comment.picture.image = uploaded_file
 
 					if @comment.save
