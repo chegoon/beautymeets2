@@ -8,8 +8,9 @@ module API
 			#authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 			def index
-				offset = params[:offset] || 0
 				limit = params[:limit] || 10
+				offset = params[:offset] || (@commentable.comments.count - limit)
+				
 				@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 				@can_load_more = true if @commentable.comment_threads.order("lft ASC").offset(offset.to_i + limit.to_i).limit(limit).count > 0
 
