@@ -10,7 +10,11 @@ c_types = ["Tutorial", "Beautyclass", "Video", "Event", "Post", "Notice", "Item"
 				<% if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.downcase.pluralize, :picture_id) %>
 					<%= link_to image_tag(activity.trackable.commentable.thumbnail.image_url(:very_small)), activity.trackable.commentable if (activity.trackable.commentable.thumbnail.present?) %>
 				<% else %>
-					<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image_url.present? %> 
+					<% if activity.trackable.commentable.class.name == "Board" %>
+						<%= link_to image_tag(activity.trackable.commentable.picture.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.picture.present? %> 
+					<% else %>
+						<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image.present? %> 
+					<% end %>
 				<% end %>
 				</div>
 				<div class="body">
