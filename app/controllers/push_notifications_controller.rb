@@ -4,7 +4,16 @@ class PushNotificationsController < InheritedResources::Base
 	def call_send
 
 		@push = PushNotification.find(params[:id])
-		PushNotificationSender.notify_all(@push.body)
+		#users = User.where(get_push_notifications: true)
+		users = User.where(id: 12059)
+		devices = Array.new
+		#devices << "ecff720e17600e8c"
+		users.each do |user|
+			user.devices.each do |d|
+				devices << d.uuid
+			end
+		end
+		PushNotificationSender.notify_devices({message: @push.body, devices: devices})
 =begin		
 		auth = {:application  => "CACFF-A127A", :auth => "3noLcqu96RSXmnoUTL8fTUuy5ZSMFhfGUUVq2sr9LLBuytvavmk7tLonAatvZE8mlMSQ8LR7KlQtMKoeh3bT"}
 		default_notification_options = {
