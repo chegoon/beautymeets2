@@ -20,21 +20,25 @@ module API
 			end
 
 			def notifications
+
+				offset = params[:offset] || 0
+				limit = params[:limit] || 12
+
 				#@user = User.find(params[:id])
 				@member = @user.profile
 				#@notifications = Activity.unread_by(current_user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc")
 				#@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
-				@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @member.user.id).order("created_at desc") #order("updated_at DESC")
+				#@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @member.user.id).order("created_at desc") #order("updated_at DESC")
 
 				if params[:seeAll] && (params[:seeAll] == 'true')
 					#@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
-					@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @member.user.id).order("created_at desc") #order("updated_at DESC")
+					@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @member.user.id).order("created_at desc").offset(offset).limit(limit) #order("updated_at DESC")
 				else
 					#@activities = Activity.unread_by(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @user.id,  @user.id).order("created_at desc")#order("updated_at DESC")
-					@activities = Activity.unread_by(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @user.id).order("created_at desc")#order("updated_at DESC")
+					@activities = Activity.unread_by(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @user.id).order("created_at desc").offset(offset).limit(limit)#order("updated_at DESC")
+					PublicActivity::Activity.mark_as_read! :all, :for => @user
 				end   
 
-				PublicActivity::Activity.mark_as_read! :all, :for => @user
 				#render json: @activities.sort_by{|e| e[:created_at]}.reverse
 			end
 
