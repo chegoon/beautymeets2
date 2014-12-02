@@ -115,7 +115,7 @@ else
 	json.canShowItems false
 end
 
-if @related_posts.count > 1
+if @related_posts.count >= 1
 	json.canShowRelated true
 	if @post.class.name == "Item"
 		json.relatedVideoTitle "#{@post.title}이 사용된 영상"
