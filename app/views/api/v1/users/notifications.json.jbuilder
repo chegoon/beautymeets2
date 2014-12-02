@@ -15,7 +15,7 @@ json.notifications @activities do |activity|
 		if activity.trackable.class.to_s == "Comment"
 
 			if ActiveRecord::Base.connection.column_exists?(activity.trackable.commentable_type.downcase.pluralize, :title)
-				json.title activity.trackable.commentable.title
+				json.title activity.trackable.commentable.try(:title)
 		
 				if activity.trackable.commentable.class.to_s == "Board"
 					json.url "#/app/boards/" + activity.trackable.commentable.id.to_s
