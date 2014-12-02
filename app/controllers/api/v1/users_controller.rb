@@ -23,17 +23,21 @@ module API
 				#@user = User.find(params[:id])
 				@member = @user.profile
 				#@notifications = Activity.unread_by(current_user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc")
-				@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
+				#@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
+				@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @member.user.id).order("created_at desc") #order("updated_at DESC")
 
 				if params[:go_prev].present?
-					@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
+					#@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @member.user.id,  @member.user.id).order("created_at desc") #order("updated_at DESC")
+					@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @member.user.id).order("created_at desc") #order("updated_at DESC")
 				elsif params[:clean_history].present?
-					@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? ) AND (recipient_type = 'User')", @member.user.id,  @member.user.id).order("created_at desc") 
+					#@activities = Activity.with_read_marks_for(@user).where("(owner_id = ? OR recipient_id = ? ) AND (recipient_type = 'User')", @member.user.id,  @member.user.id).order("created_at desc") 
+					@activities = Activity.with_read_marks_for(@user).where("(recipient_id = ? ) AND (recipient_type = 'User')",  @member.user.id).order("created_at desc") 
 					@activities.each do |a|
 						a.destroy
 					end
 				else
-					@activities = Activity.unread_by(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @user.id,  @user.id).order("created_at desc")#order("updated_at DESC")
+					#@activities = Activity.unread_by(@user).where("(owner_id = ? OR recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)", @user.id,  @user.id).order("created_at desc")#order("updated_at DESC")
+					@activities = Activity.unread_by(@user).where("(recipient_id = ? OR recipient_id IS NULL) AND (recipient_type = 'User' OR recipient_type IS NULL)",  @user.id).order("created_at desc")#order("updated_at DESC")
 				end   
 
 				PublicActivity::Activity.mark_as_read! :all, :for => @user
