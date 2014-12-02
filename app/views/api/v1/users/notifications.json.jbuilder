@@ -30,7 +30,11 @@ json.notifications @activities do |activity|
 			end
 
 			json.body activity.trackable.body
-			json.thumbUrl fulll_url(activity.trackable.commentable.thumbnail.image_url(:small)) if activity.trackable.commentable.thumbnail.present?
+			if activity.trackable.commentable.class.to_s == "Board"
+				json.thumbUrl full_url(activity.trackable.commentable.picture.image_url(:small)) if activity.trackable.commentable.picture.present?
+			else
+				json.thumbUrl full_url(activity.trackable.commentable.thumbnail.image_url(:small)) if activity.trackable.commentable.thumbnail.present?
+			end
 		
 		else
 			json.title activity.trackable.title
@@ -42,7 +46,7 @@ json.notifications @activities do |activity|
 			end
 			
 			json.body activity.trackable.description
-			json.thumbUrl fulll_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail.present?
+			json.thumbUrl full_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail.present?
 		end
 		
 		json.cratedAt time_ago_in_words(activity.created_at)
