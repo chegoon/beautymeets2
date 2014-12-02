@@ -49,6 +49,6 @@ json.notifications @activities do |activity|
 			json.thumbUrl full_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail.present?
 		end
 		
-		json.cratedAt time_ago_in_words(activity.created_at)
+		json.createdAt time_ago_in_words(activity.created_at)
 	end
 end
