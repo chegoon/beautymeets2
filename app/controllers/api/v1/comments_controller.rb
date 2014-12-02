@@ -110,6 +110,7 @@ module API
 						devices = Array.new
 						@commentable.comments.each do |c|
 							if @user.id == c.user_id
+							else
 								@comment.create_activity :create, owner: @user, recipient: c.user
 								c.user.devices.each do |d|
 									devices << d.uuid

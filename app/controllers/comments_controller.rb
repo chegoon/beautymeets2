@@ -54,6 +54,7 @@ class CommentsController < ApplicationController
 			#devices << "ecff720e17600e8c"
 			@commentable.comments.each do |c|
 				if current_user.id == c.user_id
+				else
 					@comment.create_activity :create, owner: current_user, recipient: c.user
 					c.user.devices.each do |d|
 						devices << d.uuid
