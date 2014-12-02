@@ -57,7 +57,7 @@ module API
 								CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 							end
 						else
-							@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+							@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 						end
 
 						if !(@commentable.class.name == "Event")
@@ -69,14 +69,14 @@ module API
 						@commentable.comments.each do |c|
 							if @user.id == c.user_id
 							else
-								@comment.create_activity :create, owner: @user, recipient: c.user
+								@comment.delay.create_activity :create, owner: @user, recipient: c.user
 								c.user.devices.each do |d|
 									devices << d.uuid
 								end
 							end
 						end
 						message = @commentable.title + "에 댓글이 달렸습니다."
-						PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
+						PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
 					
 						render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 					
@@ -100,7 +100,7 @@ module API
 								CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 							end
 						else
-							@comment.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+							@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 						end
 
 						if !(@commentable.class.name == "Event")
@@ -111,14 +111,14 @@ module API
 						@commentable.comments.each do |c|
 							if @user.id == c.user_id
 							else
-								@comment.create_activity :create, owner: @user, recipient: c.user
+								@comment.delay.create_activity :create, owner: @user, recipient: c.user
 								c.user.devices.each do |d|
 									devices << d.uuid
 								end
 							end
 						end
 						message = @commentable.title + "에 댓글이 달렸습니다."
-						PushNotificationSender.notify_devices({message: message, device_type: 3, devices: devices})
+						PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
 					
 						render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 					

@@ -12,8 +12,8 @@ class PushNotificationsController < InheritedResources::Base
 				devices << d.uuid
 			end
 		end
-		PushNotificationSender.notify_devices({message: @push.body, devices: devices})
-		#PushNotificationSender.notify_all({message: @push.body})
+		PushNotificationSender.notify_devices({content: @push.body, devices: devices})
+		#PushNotificationSender.notify_all({content: @push.body})
 =begin		
 		auth = {:application  => "CACFF-A127A", :auth => "3noLcqu96RSXmnoUTL8fTUuy5ZSMFhfGUUVq2sr9LLBuytvavmk7tLonAatvZE8mlMSQ8LR7KlQtMKoeh3bT"}
 		default_notification_options = {
