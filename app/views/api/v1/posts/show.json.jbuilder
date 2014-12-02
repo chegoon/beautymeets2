@@ -120,7 +120,7 @@ if @related_posts.count >= 1
 	if @post.class.name == "Item"
 		json.relatedVideoTitle "#{@post.title}이 사용된 영상"
 	else
-		json.relatedVideoTitle "함께봐요"
+		json.relatedVideoTitle "이런 영상 어때요?"
 	end
 	json.relatedPosts @related_posts do |post|
 		json.partial! 'api/posts/post', post: post
