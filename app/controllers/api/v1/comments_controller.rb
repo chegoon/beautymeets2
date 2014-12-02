@@ -9,8 +9,16 @@ module API
 
 			def index
 				limit = params[:limit] || 10
-				offset = params[:offset] || (@commentable.comments.count - limit)
-				
+				if params[:offset] && params[:offset] != ''
+					offset = params[:offset]
+				elsif @commentable.comments.count < limit
+					offset = 0
+				else
+					offset = @commentable.comments.count - limit
+				end
+				#offset = params[:offset] || (@commentable.comments.count - limit)
+				puts "offset #{offset}"
+
 				@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
 				if offset.to_i >= limit.to_i
 					@can_load_more = true if @commentable.comment_threads.order("lft ASC").offset(offset.to_i - limit.to_i).limit(limit).count > 0
