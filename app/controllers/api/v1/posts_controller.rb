@@ -198,13 +198,13 @@ module API
 				@post.mark_as_read! :for => @user
 
 				videoUrl = ""
-				if posttable == "Item" 
+				if posttable == "item" 
 					@related_posts = @post.tutorials
-				elsif posttable == "Tutorial"
+				elsif posttable == "tutorial"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					@post.author.name = "BEAUTYMEETS"
 					#videoUrl = '<iframe src=' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-				elsif posttable == "Video"
+				elsif posttable == "video"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					#videoUrl = '<iframe width="560" height="315" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
 				else
