@@ -14,7 +14,7 @@ class Board < ActiveRecord::Base
 	accepts_nested_attributes_for :picture, allow_destroy: true, :reject_if => lambda { |a| a['image'].blank? }
 
 	belongs_to :author, class_name: "User", :foreign_key => "user_id"
-	attr_accessible  :title, :view_count, :tag_list, :description
+	attr_accessible  :title, :view_count, :tag_list, :description, :picture_attributes
 
 	has_many :comments, :as => :commentable
 	
