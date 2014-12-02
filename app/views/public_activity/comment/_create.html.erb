@@ -13,7 +13,7 @@ c_types = ["Tutorial", "Beautyclass", "Video", "Event", "Post", "Notice", "Item"
 					<% if activity.trackable.commentable.class.name == "Board" %>
 						<%= link_to image_tag(activity.trackable.commentable.picture.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.picture.present? %> 
 					<% else %>
-						<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable.image %> 
+						<%= link_to image_tag(activity.trackable.commentable.image_url(:very_small)), activity.trackable.commentable if activity.trackable.commentable && activity.trackable.commentable.image %> 
 					<% end %>
 				<% end %>
 				</div>
