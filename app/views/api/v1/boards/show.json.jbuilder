@@ -13,7 +13,6 @@ json.thumbUrl full_url(@board.picture.image_url(:large)) if @board.picture.prese
 json.description @board.description
 json.createdAt filtered_time(@board.created_at)
 
-
 # comments partial
 =begin
 if @comments.count > 0

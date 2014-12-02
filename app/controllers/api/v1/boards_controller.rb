@@ -9,9 +9,11 @@ module API
 			# GET /boards
 			# GET /boards.json
 			def index
-				cards_per_page = 12
 
-				@boards = Board.order("created_at DESC").page(params[:page]).per_page(cards_per_page)
+				offset = params[:offset] || 0
+				limit = params[:limit] || 12
+
+				@boards = Board.order("created_at DESC").offset(offset).limit(limit)
 
 				respond_to do |format|
 					#format.html # index.html.erb
