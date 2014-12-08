@@ -28,7 +28,7 @@ module API
 				if user_signed_in? && !current_user.can_update?(@board)
 					@board.increment_view_count 
 				end
-
+=begin
 				@commentable = @board
 				comments_per_page = 7
 				page_index = params[:page] ? params[:page] : @commentable.comment_threads.order("lft ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
@@ -39,6 +39,7 @@ module API
 					#format.html # show.html.erb
 					format.json 
 				end
+=end				
 			end
 
 			# POST /boards

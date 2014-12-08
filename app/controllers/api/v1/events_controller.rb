@@ -39,7 +39,7 @@ module API
 				if !(user_signed_in? && current_user.can_update?(@event))
 					@event.increment_view_count 
 				end
-
+=begin
 				@commentable = @event
 				comments_per_page = 7
 				if params[:page] && (params[:page] != '')
@@ -54,7 +54,7 @@ module API
 				#@comments = @commentable.root_comments.order("created_at ASC").page(@comment_page_index).per_page(comments_per_page)
 				#@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
 				@comments = @commentable.comment_threads.order("lft ASC").page(@comment_page_index).per_page(comments_per_page)
-
+=end
 				respond_to do |format|
 					format.html # show.html.erb
 					format.json #{ render json: @event }
