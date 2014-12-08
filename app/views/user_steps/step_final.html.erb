@@ -7,4 +7,4 @@
 	<%= f.input :skin_trouble_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_troubles").map(&:name), :hint => "Please check all that apply", :label => "" %>
 	<%= f.button :submit, "Continue" %>
 	<%= link_to "Skip", next_wizard_path, :class => "button secondary" %>
-<% end %>ㅇ
+<% end %>
