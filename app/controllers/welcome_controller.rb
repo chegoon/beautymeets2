@@ -22,9 +22,9 @@ class WelcomeController < ApplicationController
 =end
 	def index
 
-		agent = request.headers["HTTP_USER_AGENT"].downcase
-		if agent == "android"
-		else
+		#agent = request.headers["HTTP_USER_AGENT"].downcase
+		#if agent == "android"
+		#else
 			if user_signed_in?
 			
 				@user = current_user
@@ -54,7 +54,7 @@ class WelcomeController < ApplicationController
 				@latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 				@tutorials = @best_tutorials
 			end
-		end
+		#end
 	end
 
 	def feed 
