@@ -9,6 +9,8 @@
 		<!-- facebook share info set start -->
 		<meta http-equiv="content-language" content="ko">
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    	<meta name="author" content="ReAllPlay">
+		<meta name="google-play-app" content="app-id=com.reallplay.beautymeets">
 		<meta property="og:site_name" content="BEAUTYMEETS" />
 		<meta property="og:url" content="<%= request.original_url %>" />
 		<meta property="og:title" content="<%=  yield(:page_title) || 'BEAUTYMEETS' %>" />
@@ -244,6 +246,15 @@
 					
 			}
 
+		</script>
+		<script type="text/javascript">
+			$(function() { $.smartbanner(
+				{
+				  title: 'BEAUTYMEETS New App', // What the title of the app should be in the banner (defaults to <title>)
+				  author: 'ReAllPlay', // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+				  force: 'android'
+				}
+								); } )
 		</script>
 		<script>
 			// Include the UserVoice JavaScript SDK (only needed once on a page)
