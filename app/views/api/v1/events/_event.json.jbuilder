@@ -10,7 +10,7 @@ else
 end
 
 json.canShowThumb (event.mobile_thumbnail && event.mobile_thumbnail.image) ? true : false
-json.thumbUrl full_url(event.mobile_thumbnail.image_url(:large)) if event.mobile_thumbnail.present?
+json.thumbUrl full_url(event.mobile_thumbnail.image_url) if event.mobile_thumbnail.present?
 
 json.description event.description
 json.commentsCount event.comments ? event.comment_threads.count : 0
