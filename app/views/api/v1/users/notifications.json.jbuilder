@@ -33,7 +33,7 @@ json.notifications @activities do |activity|
 			if activity.trackable.commentable.class.to_s == "Board"
 				json.thumbUrl full_url(activity.trackable.commentable.picture.image_url(:small)) if activity.trackable.commentable.picture.present?
 			elsif activity.trackable.commentable.class.to_s == "Video"
-				json.thumbUrl full_url(activity.trackable.commentable.thumb_url) if activity.trackable.commentable.thumb_url.present?
+				json.thumbUrl activity.trackable.commentable.thumb_url if activity.trackable.commentable.thumb_url.present?
 			else
 				json.thumbUrl full_url(activity.trackable.commentable.thumbnail.image_url(:small)) if activity.trackable.commentable.thumbnail.present?
 			end
@@ -52,7 +52,7 @@ json.notifications @activities do |activity|
 			if activity.trackable.class.to_s == "Board"
 				json.thumbUrl full_url(activity.trackable.picture.image_url(:small)) if activity.trackable.picture.present?
 			elsif activity.trackable.class.to_s == "Video"
-				json.thumbUrl full_url(activity.trackable.thumb_url) if activity.trackable.thumb_url.present?
+				json.thumbUrl activity.trackable.thumb_url if activity.trackable.thumb_url.present?
 			else
 				json.thumbUrl full_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail.present?
 			end
