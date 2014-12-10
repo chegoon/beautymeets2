@@ -23,11 +23,9 @@ module API
 
 			def show
 				@board = Board.find(params[:id])
-
-				#if (cannot? :author, @board) || (cannot? :manage, Board)
-				if user_signed_in? && !current_user.can_update?(@board)
-					@board.increment_view_count 
-				end
+				
+				@board.increment_view_count 
+				
 =begin
 				@commentable = @board
 				comments_per_page = 7
@@ -76,6 +74,18 @@ module API
 						format.html { render action: "edit" }
 						format.json { render json: @board.errors, status: :unprocessable_entity }
 					end
+				end
+			end
+
+			def destroy
+				@board = Board.find(params[:id])
+
+				@board.destroy
+
+				respond_to do |format|
+					format.html { redirect_to @board, notice: "Board destroied"  }
+					format.js
+					format.json { head :no_content }
 				end
 			end
 
