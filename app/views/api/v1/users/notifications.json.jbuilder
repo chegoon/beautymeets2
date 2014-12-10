@@ -43,6 +43,8 @@ json.notifications @activities do |activity|
 
 			if activity.trackable.class.to_s == "Board"
 				json.url "#/app/boards/" + activity.trackable.id 
+			elsif activity.trackable.class.to_s == "Notice"
+				json.url "#/app/notices/" + activity.trackable.id.to_s
 			else
 				json.url "#/app/posts/" + activity.trackable.id.to_s + "?postType=" + activity.trackable.class.to_s
 			end
@@ -53,6 +55,8 @@ json.notifications @activities do |activity|
 				json.thumbUrl full_url(activity.trackable.picture.image_url(:small)) if activity.trackable.picture.present?
 			elsif activity.trackable.class.to_s == "Video"
 				json.thumbUrl activity.trackable.thumb_url if activity.trackable.thumb_url.present?
+			elsif activity.trackable.class.to_s == "Notice"
+				json.thumbUrl full_url(activity.owner.image_url(:small)) if activity.owner.image?
 			else
 				json.thumbUrl full_url(activity.trackable.thumbnail.image_url(:small)) if activity.trackable.thumbnail.present?
 			end
