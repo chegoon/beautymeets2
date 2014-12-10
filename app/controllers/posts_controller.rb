@@ -8,6 +8,20 @@ class PostsController < InheritedResources::Base
 	before_filter :authenticate_user!, except: [:index, :show]  
 
 	autocomplete :item, :name
+
+	private
+	MOBILE_BROWSERS = ["android", "ipod", "opera mini", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
+
+
+	def detect_browser
+		agent = request.headers["HTTP_USER_AGENT"].downcase
+		MOBILE_BROWSERS.each do |m|
+			if agent.match(m) && (agent == "android")
+				#puts "android detected" 
+				@android_detected = true
+			end
+		end
+	end	
 	
 	# GET /posts
 	# GET /posts.json
