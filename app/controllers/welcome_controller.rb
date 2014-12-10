@@ -62,7 +62,7 @@ class WelcomeController < ApplicationController
 				@latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 				@tutorials = @best_tutorials
 			end
-		#end
+		end
 	end
 
 	def feed 
