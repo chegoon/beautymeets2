@@ -10,20 +10,7 @@ class EventsController < ApplicationController
 	respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
 
-	before_filter :detect_browser
-	private
-	MOBILE_BROWSERS = ["android", "ipod", "opera mini", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
 
-
-	def detect_browser
-		agent = request.headers["HTTP_USER_AGENT"].downcase
-		MOBILE_BROWSERS.each do |m|
-			if agent.match(m) && (agent == "android")
-				#puts "android detected" 
-				@android_detected = true
-			end
-		end
-	end	
 
 	# GET /events
 	# GET /events.json
