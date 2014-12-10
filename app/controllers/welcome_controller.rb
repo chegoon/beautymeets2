@@ -2,24 +2,7 @@
 class WelcomeController < ApplicationController
 	inherit_resources
 
-	#before_filter :detect_browser, :only => [:index]
 
-	#private
-	#MOBILE_BROWSERS = ["android", "ipod", "opera mini", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
-
-=begin
-	def detect_browser
-		agent = request.headers["HTTP_USER_AGENT"].downcase
-		MOBILE_BROWSERS.each do |m|
-			if agent.match(m) && (agent == "android")
-				puts "android detected" 
-			else
-				puts "android not detected"
-			end
-
-		end
-	end
-=end
 	def index
 
 		#agent = request.headers["HTTP_USER_AGENT"].downcase
