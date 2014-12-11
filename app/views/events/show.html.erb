@@ -31,7 +31,7 @@
       <% @pictures.each do |p| %>
           <% if user_signed_in? && current_user.can_update?(@pictureable) 
             %>
-              <div class="left" style="margin:10px;">
+              <div class="text-center" style="margin:10px;">
                 <img src="<%= p.image_url.to_s %>">
                 <%= simple_form_for [@pictureable] do |f| %>
                   Desktop<%= check_box_tag "th_to_desktop",  p.id %>
