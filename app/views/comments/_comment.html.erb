@@ -8,8 +8,8 @@
 				<%= comment.body %>
 
 				<%= link_to "&nbsp;X".html_safe, [@commentable, comment], confirm: 'Are you sure?', method: :delete , remote: true if  user_signed_in? && current_user.can_delete?(comment) %>
-
-				<%= image_tag comment.picture.image_url(:small) if comment.picture %>
+				<br/>
+				<%= image_tag comment.picture.image_url(:medium) if comment.picture %>
 				
 				<div class="right" style="width:auto; min-width:100px; color:#CCC; font-size:0.8rem;">
 					<span style="margin-left:10px; margin-right:10px;font-size:0.7rem;"><%= time_ago_in_words(comment.created_at) %> ago</span>
