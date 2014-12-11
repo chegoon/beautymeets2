@@ -35,7 +35,7 @@ json.notifications @activities do |activity|
 				json.thumbUrl full_url(activity.trackable.commentable.picture.image_url(:small)) if activity.trackable.commentable.picture.present?
 			elsif activity.trackable.commentable.class.to_s == "Video"
 				json.thumbUrl activity.trackable.commentable.thumb_url if activity.trackable.commentable.thumb_url.present?
-			elsif if activity.trackable.commentable.class.to_s == "Notice"
+			elsif activity.trackable.commentable.class.to_s == "Notice"
 				json.thumbUrl full_url(activity.owner.image_url(:small)) if activity.owner.image?
 			else
 				json.thumbUrl full_url(activity.trackable.commentable.thumbnail.image_url(:small)) if activity.trackable.commentable.thumbnail.present?
