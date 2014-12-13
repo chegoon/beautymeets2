@@ -39,6 +39,21 @@ class CommentsController < ApplicationController
 
 			if !(@commentable.class.name == "Event")
 				CommentMailer.delay.create_notification(@commentable, @comment)
+
+				devices = Array.new
+				#devices << "ecff720e17600e8c"
+				@commentable.comments.each do |c|
+					if current_user.id == c.user_id
+					else
+						@comment.create_activity :create, owner: current_user, recipient: c.user
+						c.user.devices.each do |d|
+							devices << d.uuid
+						end
+					end
+				end
+				message = @commentable.title + "에 댓글이 달렸습니다."
+				PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
+					
 			end
 			#@comment.create_activity :create, owner: current_user, recipient: @commentable.author
 		
@@ -50,20 +65,6 @@ class CommentsController < ApplicationController
 				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 			end
 
-			devices = Array.new
-			#devices << "ecff720e17600e8c"
-			@commentable.comments.each do |c|
-				if current_user.id == c.user_id
-				else
-					@comment.create_activity :create, owner: current_user, recipient: c.user
-					c.user.devices.each do |d|
-						devices << d.uuid
-					end
-				end
-			end
-			message = @commentable.title + "에 댓글이 달렸습니다."
-			PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
-				
 			if !(@commentable.class.name == "Notice")
 				respond_to do |format|
 					format.html { redirect_to @commentable, notice: "Comment created." }
