@@ -15,6 +15,8 @@ class WelcomeController < ApplicationController
 			if agent.match(m) && (agent == "android")
 				#puts "android detected" 
 				@android_detected = true
+			else
+				@android_detected = true
 			end
 		end
 	end
