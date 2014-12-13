@@ -16,7 +16,7 @@ class WelcomeController < ApplicationController
 				#puts "android detected" 
 				@android_detected = true
 			else
-				@android_detected = true
+				@android_detected = false
 			end
 		end
 	end
