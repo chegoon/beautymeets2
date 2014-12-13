@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
 	def detect_browser
 		agent = request.headers["HTTP_USER_AGENT"].downcase
 		MOBILE_BROWSERS.each do |m|
-			if agent.match(m) && (agent == "android")
+			if agent.include?(m) && (m == "android")
 				#puts "android detected" 
 				@android_detected = true
 			else
