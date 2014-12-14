@@ -5,6 +5,7 @@ json.postType @post.class.name.underscore.humanize
 json.title @post.title
 json.hits @post.view_count
 json.tags @post.tags :name
+json.url full_url(@post)
 
 #author_info
 if @post.class.name == "Item"
