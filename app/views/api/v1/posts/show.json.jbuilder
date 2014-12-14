@@ -5,7 +5,6 @@ json.postType @post.class.name.underscore.humanize
 json.title @post.title
 json.hits @post.view_count
 json.tags @post.tags :name
-json.url full_url(@post)
 
 #author_info
 if @post.class.name == "Item"
@@ -32,7 +31,7 @@ end
 
 #main_info
 if @post.class.name == "Video"
-
+	json.url request.protocol + request.host_with_port + video_path(@post)
 	json.thumbUrl @post.thumb_url
 	json.description truncate(@post.description, 100)
 	json.canShowVideo true
@@ -40,6 +39,7 @@ if @post.class.name == "Video"
 	json.favorited Bookmark.where(model_type_id: 3, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 elsif @post.class.name == "Tutorial"
+	json.url request.protocol + request.host_with_port + tutorial_path(@post)
 	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
 	json.description @post.description
 	
@@ -69,6 +69,7 @@ elsif @post.class.name == "Tutorial"
 	end
 
 elsif @post.class.name == "Post" 
+	json.url request.protocol + request.host_with_port + post_path(@post)
 	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
 	json.description @post.description
 	json.canShowVideo false
@@ -83,6 +84,7 @@ elsif @post.class.name == "Post"
 	end
 	
 elsif @post.class.name == "Item"
+	json.url request.protocol + request.host_with_port + item_path(@post)
 	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
 	json.description @post.description
 	json.canShowVideo false
