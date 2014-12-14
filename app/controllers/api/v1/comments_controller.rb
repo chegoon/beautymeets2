@@ -62,22 +62,22 @@ module API
 
 						if !(@commentable.class.name == "Event")
 							CommentMailer.delay.create_notification(@commentable, @comment)
-						end
-						
-						
-						devices = Array.new
-						@commentable.comments.each do |c|
-							if @user.id == c.user_id
-							else
-								@comment.delay.create_activity :create, owner: @user, recipient: c.user
-								c.user.devices.each do |d|
-									devices << d.uuid
+
+							devices = Array.new
+							@commentable.comments.each do |c|
+								if @user.id == c.user_id
+								else
+									@comment.delay.create_activity :create, owner: @user, recipient: c.user
+									c.user.devices.each do |d|
+										devices << d.uuid
+									end
 								end
 							end
-						end
-						message = @commentable.title + "에 댓글이 달렸습니다."
-						PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
+							message = @commentable.title + "에 댓글이 달렸습니다."
+							PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
 					
+						end
+						
 						render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
 					
 					else
