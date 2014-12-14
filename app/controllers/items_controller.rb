@@ -8,7 +8,12 @@ class ItemsController < ApplicationController
 	helper_method :sort_column, :sort_direction  
 	autocomplete :brand, :name
 
+	before_filter :detect_browser
 
+	def detect_browser
+		agent = request.headers["HTTP_USER_AGENT"].downcase
+		@android_detected = true if agent.include? "android" 
+	end
 
 	# GET /items/1
 	# GET /items/1.json

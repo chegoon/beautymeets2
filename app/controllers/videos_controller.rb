@@ -9,7 +9,12 @@ class VideosController < ApplicationController
 	# authorize controller thourgh authority
 	authorize_actions_for Video, except: [:index, :show]
 
+	before_filter :detect_browser
 
+	def detect_browser
+		agent = request.headers["HTTP_USER_AGENT"].downcase
+		@android_detected = true if agent.include? "android" 
+	end
 	
 	# GET /videos
 	# GET /videos.json

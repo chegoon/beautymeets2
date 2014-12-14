@@ -14,7 +14,13 @@ class TutorialsController < ApplicationController
 	before_filter :authenticate_user!, except: [:index, :show]  
 
 	autocomplete :item, :name
-	
+		
+	before_filter :detect_browser
+
+	def detect_browser
+		agent = request.headers["HTTP_USER_AGENT"].downcase
+		@android_detected = true if agent.include? "android" 
+	end
 
 	# GET /tutorials
 	# GET /tutorials.json

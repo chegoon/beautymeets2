@@ -9,7 +9,12 @@ class PostsController < InheritedResources::Base
 
 	autocomplete :item, :name
 
+	before_filter :detect_browser
 
+	def detect_browser
+		agent = request.headers["HTTP_USER_AGENT"].downcase
+		@android_detected = true if agent.include? "android" 
+	end
 
 	# GET /posts
 	# GET /posts.json
