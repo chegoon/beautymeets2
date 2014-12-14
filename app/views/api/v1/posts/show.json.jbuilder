@@ -31,12 +31,15 @@ end
 
 #main_info
 if @post.class.name == "Video"
+
+	json.thumbUrl @post.thumb_url
 	json.description truncate(@post.description, 100)
 	json.canShowVideo true
 	json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
 	json.favorited Bookmark.where(model_type_id: 3, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
 elsif @post.class.name == "Tutorial"
+	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
 	json.description @post.description
 	
 	if @post.video_url.present?
@@ -65,6 +68,7 @@ elsif @post.class.name == "Tutorial"
 	end
 
 elsif @post.class.name == "Post" 
+	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
 	json.description @post.description
 	json.canShowVideo false
 	json.favorited Bookmark.where(model_type_id: 5, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
@@ -78,6 +82,7 @@ elsif @post.class.name == "Post"
 	end
 	
 elsif @post.class.name == "Item"
+	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
 	json.description @post.description
 	json.canShowVideo false
 	json.favorited Bookmark.where(model_type_id: 1, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
