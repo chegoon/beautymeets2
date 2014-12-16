@@ -10,7 +10,7 @@
 		<meta http-equiv="content-language" content="ko">
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
     	<meta name="author" content="ReAllPlay">
-		<meta name="google-play-app" content="app-id=com.reallplay.beautymeets">
+		<meta name="google-play-app" content="app-id=com.reallplay.beautymeets.app">
 		<link name="apple-touch-icon" rel="apple-touch-icon" href="apple-touch-icon.png">
 		<meta property="og:site_name" content="BEAUTYMEETS" />
 		<meta property="og:url" content="<%= request.original_url %>" />
@@ -248,9 +248,7 @@
 			}
 
 		</script>
-		<%= 
-		#javascript_tag "$(function() { $.smartbanner({icon: 'http://www.beautymeets.com/apple-touch-icon.png'}); })" if @android_detected == true 
-		%> 
+		<%= javascript_tag "$(function() { $.smartbanner({icon: 'http://www.beautymeets.com/apple-touch-icon.png'}); })" if @android_detected == true %> 
 		<script>
 			// Include the UserVoice JavaScript SDK (only needed once on a page)
 			UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/2nG9oWkRXilakLvbLiyw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
