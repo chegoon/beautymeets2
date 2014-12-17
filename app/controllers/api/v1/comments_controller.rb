@@ -60,7 +60,7 @@ module API
 							@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
 						end
 
-						if !(@commentable.class.name == "Event")
+						if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
 							CommentMailer.delay.create_notification(@commentable, @comment)
 
 							devices = Array.new

@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
 				end
 			end
 
-			if !(@commentable.class.name == "Event")
+			if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
 				CommentMailer.delay.create_notification(@commentable, @comment)
 
 				devices = Array.new
