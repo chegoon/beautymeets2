@@ -131,7 +131,7 @@ if @related_posts.count >= 1
 		json.relatedVideoTitle "이런 영상 어때요?"
 	end
 	json.relatedPosts @related_posts do |post|
-		json.partial! 'api/posts/post', post: post
+		json.partial! 'api/v1/posts/related_post', post: post
 	end
 end
 

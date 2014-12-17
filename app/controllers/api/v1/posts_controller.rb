@@ -6,8 +6,8 @@ module API
 			
 			def index
 
-				offset = params[:offset] ? (params[:offset].to_f / 4).to_i : 0
-				limit = params[:limit] || 3
+				offset = params[:offset] || 0
+				limit = params[:limit] || 12
 
 				@posts = Array.new
 				menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
@@ -15,177 +15,87 @@ module API
 				#puts "params : #{params[:category]}"
 				#puts "category : #{category}"
 				# HOME 
+
+				@connection = ActiveRecord::Base.establish_connection( 
+					:adapter => "mysql2",
+					:host => "localhost",
+					:database => "beautymeets2_development",
+					:username => "root",
+					:password => "bd0516"
+				)
+
 				if categories.nil? 
-					Tutorial.where(published: true).order("created_at DESC").offset(offset).limit(limit).each do |tutorial|
-						pre_post = {
-							postType: tutorial.class.name.underscore.humanize,
-							isVideoPlayable: true,
-							id: tutorial.id, 
-							title: tutorial.try(:title), 
-							category: tutorial.categories.map(&:name),
-							#author: { name: tutorial.author.try(:name) },
-							author: { name: "BEAUTYMEETS" },
-							url: tutorial_url(tutorial), 
-							thumbUrl: tutorial.thumbnail ? (request.protocol + request.host_with_port + tutorial.thumbnail.image_url) : "",
-							hits: tutorial.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: tutorial.comments.count,
-							favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
-							favorited: Bookmark.where(model_type_id: 2, model_id: tutorial.id, user_id: @user.id).count > 0 ? 1 : nil,
-							created_at: tutorial.created_at, 
-							unread: tutorial.unread?(@user)
-						}
-						@posts << pre_post
-					end
-					Post.where(published: true).order("created_at DESC").offset(offset).limit(limit).each do |p|
-						pre_post = { 
-							postType: p.class.name.underscore.humanize,
-							isVideoPlayable: false,
-							id: p.id, 
-							title: p.title, 
-							category: p.categories.map(&:name),
-							author: { name: p.author.try(:name) },
-							url: post_url(p), 
-							thumbUrl: request.protocol + request.host_with_port + p.thumbnail.image_url,
-							hits: p.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: p.comments.count,
-							favorites: Bookmark.where(model_type_id: 5, model_id: p.id).count,
-							favorited: Bookmark.where(model_type_id: 5, model_id: p.id, user_id: @user.id).count > 0 ? 1 : nil,
-							created_at: p.created_at, 
-							unread: p.unread?(@user)
-						}
-						@posts << pre_post
-					end
-					Video.where(published: true).order("created_at DESC").offset(offset).limit(limit).each do |video|
-						pre_post = { 
-							postType: video.class.name.underscore.humanize,
-							isVideoPlayable: true,
-							id: video.id, 
-							title: video.title, 
-							category: video.categories.map(&:name),
-							author: { name: video.author.try(:name) },
-							url: video_url(video), 
-							thumbUrl: video.thumb_url,
-							hits: video.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: video.comments.count,
-							favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
-							favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: video.created_at, 
-							unread: video.unread?(@user)
-						}
-						@posts << pre_post
-					end
-					Item.order("created_at DESC").offset(offset).limit(limit).each do |item|
-						pre_post = { 
-							postType: item.class.name.underscore.humanize,
-							isVideoPlayable: false,
-							id: item.id, 
-							title: item.name, 
-							category: item.categories.map(&:name),
-							author:  { name: "#{item.tutorials.order("created_at DESC").first.try(:title)}" },
-							url: item_url(item), 
-							thumbUrl: request.protocol + request.host_with_port + item.thumbnail.image_url,
-							hits: item.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: item.comments.count,
-							favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
-							favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: item.created_at, 
-							unread: item.unread?(@user)
-						}
-						@posts << pre_post
-					end
-				# category selected.				
+					sql = "SELECT posts.id as id, posts.post_type as post_type, posts.created_at as created_at
+							FROM ( 
+								SELECT 
+									p.id, 'Post' as post_type, p.created_at as created_at
+								    FROM posts p
+								    WHERE p.published IS TRUE
+								UNION
+								SELECT
+									t.id, 'Tutorial' as post_type, t.created_at as created_at
+									FROM tutorials t
+									WHERE t.published IS TRUE
+								UNION
+								SELECT
+								    i.id, 'Item' as post_type, i.created_at as created_at
+									FROM items i
+								    #WHERE i.published IS TRUE
+								UNION
+								SELECT
+								    v.id, 'Video' as post_type, v.created_at as created_at
+									FROM videos v
+								    WHERE v.published IS TRUE
+							)
+							AS posts ORDER BY posts.created_at DESC LIMIT " + limit.to_s  + " OFFSET " + offset.to_s
 				else
-					#Tutorial.joins(:categories).where(published: true, categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |tutorial|
-					Tutorial.joins(:categories).where("tutorials.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |tutorial|
-						pre_post = { 
-							postType: tutorial.class.name.underscore.humanize,
-							isVideoPlayable: true,
-							id: tutorial.id, 
-							title: tutorial.title, 
-							category: tutorial.categories.map(&:name),
-							#author: { name: tutorial.author.try(:name) },
-							author: { name: "BEAUTYMEETS" },
-							url: tutorial_url(tutorial), 
-							thumbUrl: request.protocol + request.host_with_port + tutorial.thumbnail.image_url,
-							hits: tutorial.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: tutorial.comments.count,
-							favorites: Bookmark.where(model_type_id: 2, model_id: tutorial.id).count,
-							favorited: Bookmark.where(model_type_id: 2, model_id: tutorial.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: tutorial.created_at, 
-							unread: tutorial.unread?(@user)
-						}
-						@posts << pre_post
-					end
-					#Post.joins(:categories).where(published: true, categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |p|
-					Post.joins(:categories).where("posts.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |p|
-						pre_post = { 
-							postType: p.class.name.underscore.humanize,
-							isVideoPlayable: false,
-							id: p.id, 
-							title: p.title, 
-							category: p.categories.map(&:name),
-							author: { name: p.author.try(:name) },
-							url: post_url(p), 
-							thumbUrl: request.protocol + request.host_with_port + p.thumbnail.image_url,
-							hits: p.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: p.comments.count,
-							favorites: Bookmark.where(model_type_id: 5, model_id: p.id).count,
-							favorited: Bookmark.where(model_type_id: 5, model_id: p.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: p.created_at, 
-							unread: p.unread?(@user)
-						}
-						@posts << pre_post
-					end
-					#Video.joins(:categories).where(published: true, categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |video|
-					Video.joins(:categories).where("videos.published is true AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |video|
-						pre_post = { 
-							postType: video.class.name.underscore.humanize,
-							isVideoPlayable: true,
-							id: video.id, 
-							title: video.title, 
-							category: video.categories.map(&:name),
-							author: { name: video.author.try(:name) },
-							url: video_url(video), 
-							thumbUrl: video.thumb_url,
-							hits: video.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: video.comments.count,
-							favorites: Bookmark.where(model_type_id: 3, model_id: video.id).count,
-							favorited: Bookmark.where(model_type_id: 3, model_id: video.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: video.created_at, 
-							unread: video.unread?(@user)
-						}
-						@posts << pre_post
-					end
-					#Item.joins(:categories).where(categories: { menu_id: category.id }).order("created_at DESC").limit(5).each do |item|
-					Item.joins(:categories).where("categories.id IN (?)", categories.map(&:id)).order("created_at DESC").offset(offset).limit(limit).each do |item|	
-						pre_post = { 
-							postType: item.class.name.underscore.humanize,
-							isVideoPlayable: false,
-							id: item.id, 
-							title: item.name, 
-							category: item.categories.map(&:name),
-							author: { name: "#{item.tutorials.order("created_at DESC").first.try(:title)}" },
-							url: item_url(item), 
-							thumbUrl: request.protocol + request.host_with_port + item.thumbnail.image_url,
-							hits: item.view_count,
-							#bookmark_type 1~5:item, tutorial, video, beautyclass, post
-							commentsCount: item.comments.count,
-							favorites: Bookmark.where(model_type_id: 1, model_id: item.id).count,
-							favorited: Bookmark.where(model_type_id: 1, model_id: item.id, user_id: @user.id).count > 0  ? 1 : nil,
-							created_at: item.created_at, 
-							unread: item.unread?(@user)
-						}
-						@posts << pre_post
-					end
+					sql = "SELECT posts.id as id, posts.post_type as post_type, posts.created_at as created_at
+							FROM ( 
+								SELECT 
+									p.id, 'Post' as post_type, p.created_at as created_at
+								    FROM posts p
+								    INNER JOIN categorizations 
+								    	ON categorizations.categorizeable_id = p.id
+								    	AND categorizations.categorizeable_type = 'Post' 
+									INNER JOIN categories ON categories.id = categorizations.category_id
+								    WHERE p.published IS TRUE
+								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
+								UNION
+								SELECT
+									t.id, 'Tutorial' as post_type, t.created_at as created_at
+									FROM tutorials t
+								    INNER JOIN categorizations 
+								    	ON categorizations.categorizeable_id = t.id
+								    	AND categorizations.categorizeable_type = 'Tutorial' 
+									INNER JOIN categories ON categories.id = categorizations.category_id
+									WHERE t.published IS TRUE
+								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
+								UNION
+								SELECT
+								    i.id, 'Item' as post_type, i.created_at as created_at
+									FROM items i
+								    INNER JOIN categorizations 
+								    	ON categorizations.categorizeable_id = i.id
+								    	AND categorizations.categorizeable_type = 'Item' 
+									INNER JOIN categories ON categories.id = categorizations.category_id
+								    #WHERE i.published IS TRUE
+								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
+								UNION
+								SELECT
+								    v.id, 'Video' as post_type, v.created_at as created_at
+									FROM videos v
+								    INNER JOIN categorizations 
+								    	ON categorizations.categorizeable_id = v.id
+								    	AND categorizations.categorizeable_type = 'Video' 
+									INNER JOIN categories ON categories.id = categorizations.category_id
+								    WHERE v.published IS TRUE
+								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
+							)
+							AS posts ORDER BY posts.created_at DESC LIMIT " + limit.to_s  + " OFFSET " + offset.to_s
+
 				end
-				render json: @posts.sort_by{|e| e[:created_at]}.reverse
+				@posts = @connection.connection.execute(sql)
+
 			end
 
 			def show
