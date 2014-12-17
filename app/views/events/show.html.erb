@@ -42,7 +42,9 @@
               </div>
           <% else %>
             <% if (p.id != @event.thumbnail.id) && (p.id != @event.mobile_thumbnail.id)%>
-              <img src="<%= p.image_url.to_s %>">
+              <div class="text-center" style="margin:10px;">
+                <img src="<%= p.image_url.to_s %>">
+              </div>
             <% end %>
           <% end %>
       <% end %>
