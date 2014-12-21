@@ -17,7 +17,7 @@ class PushNotificationSender
 		default_notification_options = {
 							# YYYY-MM-DD HH:mm  OR 'now'
 							:send_date  => "now",
-							:android_sound => "push_sound",
+							:android_sound => "push_sound"
 							# Object( language1: 'content1', language2: 'content2' ) OR string
 							#:content  => {
 							#	:fr  => "Test",
