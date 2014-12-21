@@ -54,7 +54,7 @@
           <% if user_signed_in? && current_user.can_update?(@pictureable) %>
 
               <div class="left" style="margin:10px;">
-                <img src="<%= p.image_url(:small).to_s %>">
+                <img src="<%= p.image_url(:medium).to_s %>">
                 <%= simple_form_for [@pictureable] do |f| %>
                   
                   <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>

@@ -79,7 +79,7 @@
 <% if user_signed_in? && current_user.can_update?(@tutorial) %>
 	<div class="small-12 columns " >
 		<h5><small>다른 이미지</small></h5>
-		<%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
+		<%= render partial: 'pictures/gallery', locals: {thumb_size: :medium} %>
 		<%= render 'pictures/form' %>
 	</div>
 <% end %>
