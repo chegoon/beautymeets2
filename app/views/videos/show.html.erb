@@ -76,6 +76,9 @@
 	  &nbsp;<a href='<%= "http://www.youtube.com/watch?v=#{@video.yt_vi_id}" %>'><i class="fa fa-external-link-square"></i></a>
 	  <p><small>영상이 재생되지 않을 경우, 영상 내 우측하단의 <strong>전체 화면 아이콘</strong>을 클릭 해주세요 :)</small></p>
 
+		<p>
+			뷰티밋츠 앱 다운 : <a href="http://bit.ly/BeautymeetsApp">http://bit.ly/BeautymeetsApp</a>
+		</p>
 		<dl class=" accordion" data-accordion >
 			<dd >
 					<a href="#video-description"><i class="fa fa-angle-irinfo-circle"></i>&nbsp;<em><%=  truncate(strip_tags(@video.description), 58) if !@video.description.nil? %></em><i class="fa fa-angle-right fa-fw right" style="color:#AAA; margin-top:5px;"></i></a>
