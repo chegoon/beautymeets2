@@ -28,8 +28,8 @@
 				<%= link_to image_tag(@tutorial.author.image_url(:very_small), :style => "width:36px; height:36px;"), (@tutorial.author.has_role? :admin) ? "#" : beautystar_path(@tutorial.author.profile) %>
 			</div>
 			<div class="left">
-				<span style="font-size:0.75rem;"><%= "#{@tutorial.author.profile.try(:job_title)}" if !@tutorial.author.has_role?(:admin) %>
-				</span><br/>
+				<span style="font-size:0.75rem;"><%= "#{@tutorial.author.profile.try(:job_title)}<br/>".html_safe if !@tutorial.author.has_role?(:admin) %>
+				</span>
 	      <span style="font-size:1.5rem;"><%= @tutorial.author.has_role?(:admin) ? @tutorial.author.try(:name) : link_to(@tutorial.author.try(:name), beautystar_path(@tutorial.author.profile)) %>
 	      </span>
 			</div>
