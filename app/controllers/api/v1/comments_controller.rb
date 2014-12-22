@@ -68,8 +68,10 @@ module API
 								if @user.id == c.user_id
 								else
 									@comment.delay.create_activity :create, owner: @user, recipient: c.user
-									c.user.devices.each do |d|
-										devices << d.uuid
+									if c.user && c.user.devices
+										c.user.devices.each do |d|
+											devices << d.uuid
+										end
 									end
 								end
 							end

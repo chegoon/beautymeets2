@@ -44,8 +44,10 @@ module API
 								UNION
 								SELECT
 								    v.id, 'Video' as post_type, v.created_at as created_at
-									FROM videos v
+									FROM videos v, video_groups vg
 								    WHERE v.published IS TRUE
+								    AND v.video_group_id = vg.id
+								    AND vg.published IS TRUE
 							)
 							AS posts ORDER BY posts.created_at DESC LIMIT " + limit.to_s  + " OFFSET " + offset.to_s
 				else
@@ -83,12 +85,14 @@ module API
 								UNION
 								SELECT
 								    v.id, 'Video' as post_type, v.created_at as created_at
-									FROM videos v
+									FROM videos v, video_groups vg
 								    INNER JOIN categorizations 
 								    	ON categorizations.categorizeable_id = v.id
 								    	AND categorizations.categorizeable_type = 'Video' 
 									INNER JOIN categories ON categories.id = categorizations.category_id
 								    WHERE v.published IS TRUE
+								    AND v.video_group_id = vg.id
+								    AND vg.published IS TRUE
 								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
 							)
 							AS posts ORDER BY posts.created_at DESC LIMIT " + limit.to_s  + " OFFSET " + offset.to_s

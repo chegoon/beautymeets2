@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
 
 			if params[:comment][:parent_id]
 				@parent = Comment.find(params[:comment][:parent_id]) 
-				if !(@commentable.class.name == "Event")
+				if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
 					CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 				end
 			end
@@ -46,8 +46,10 @@ class CommentsController < ApplicationController
 					if current_user.id == c.user_id
 					else
 						@comment.create_activity :create, owner: current_user, recipient: c.user
-						c.user.devices.each do |d|
-							devices << d.uuid
+						if c.user && c.user.devices
+							c.user.devices.each do |d|
+								devices << d.uuid
+							end
 						end
 					end
 				end
