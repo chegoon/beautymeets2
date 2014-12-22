@@ -4,8 +4,8 @@ class PushNotificationsController < InheritedResources::Base
 	def call_send
 
 		@push = PushNotification.find(params[:id])
-		#users = User.where(get_push_notifications: true)
-		users = User.where(id: 4)
+		users = User.where(get_push_notifications: true)
+		#users = User.where(id: 4)
 		devices = Array.new
 		users.each do |user|
 			user.devices.each do |d|
