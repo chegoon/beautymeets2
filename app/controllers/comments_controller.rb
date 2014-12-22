@@ -19,34 +19,37 @@ class CommentsController < ApplicationController
 	end
 
 	def create
-		#@comment = Comment.build_from(@commentable, current_user.id, params[:comment][:body], params[:comment][:picture_attributes])
-		#@comment = @commentable.comments.new({user_id: current_user.id, body: params[:comment][:body], image: params[:comment][:image]})# picture: Picture.new(params[:comment][:picture])})
 		if params[:comment][:picture_attributes]
 			@comment = @commentable.comments.new({user_id: current_user.id, body: params[:comment][:body], picture_attributes: params[:comment][:picture_attributes]})
 		else
 			@comment = @commentable.comments.new({user_id: current_user.id, body: params[:comment][:body]})
 		end
-		#@comment = @commentable.comments.new(params[:comment])
 
 		if @comment.save
 
 			if params[:comment][:parent_id]
 				@parent = Comment.find(params[:comment][:parent_id]) 
+				@comment.move_to_child_of(@parent)
+				@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (current_user != @parent.user)
+				
 				if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
+					# mail to parent comment author
 					CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 				end
+			else
+				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (current_user != @commentable.author)
 			end
 
 			if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
-				CommentMailer.delay.create_notification(@commentable, @comment)
+				# mail to beautymeets team
+				CommentMailer.delay.create_notification(@commentable, @comment) if (@comment.user != @commentable.author)
 
 				devices = Array.new
-				#devices << "ecff720e17600e8c"
 				@commentable.comments.each do |c|
 					if current_user.id == c.user_id
 					else
 						@comment.create_activity :create, owner: current_user, recipient: c.user
-						if c.user && c.user.devices
+						if c.user && (c.user.get_push_notifications == true ) && c.user.devices
 							c.user.devices.each do |d|
 								devices << d.uuid
 							end
@@ -54,17 +57,7 @@ class CommentsController < ApplicationController
 					end
 				end
 				message = @commentable.title + "에 댓글이 달렸습니다."
-				PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
-					
-			end
-			#@comment.create_activity :create, owner: current_user, recipient: @commentable.author
-		
-			if @parent
-				@comment.move_to_child_of(@parent)
-				puts "parent moved"
-				#@comment.create_activity :create, owner: current_user, recipient: @parent.author if !(@commentable.class.name == "Notice")
-			else
-				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+				PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})	
 			end
 
 			if !(@commentable.class.name == "Notice")

@@ -39,99 +39,68 @@ module API
 
 			def create    
 				if params[:image]
-					#puts "picture: #{uploaded_file}"
 					comment_params = JSON.parse(params[:comment])
-					#@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body], picture_attributes: {picture_attributes: params[:image]}}) #picture: Picture.new(uploaded_file)})
 					@comment = @commentable.comments.new({user_id: @user.id, body: comment_params['body'], picture_attributes: {image: params[:image]}}) 
-					#@comment.picture.image = uploaded_file
-
-					if @comment.save
-
-						if params[:parent_id]
-							puts "replied"
-							@parent = Comment.find(params[:parent_id]) 
-							@comment.move_to_child_of(@parent)
-							#@comment.create_activity :create, owner: @user, recipient: @parent.author if !(@commentable.class.name == "Notice")
-
-							if !(@commentable.class.name == "Event")
-								CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
-							end
-						else
-							@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
-						end
-
-						if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
-							CommentMailer.delay.create_notification(@commentable, @comment)
-
-							devices = Array.new
-							@commentable.comments.each do |c|
-								if @user.id == c.user_id
-								else
-									@comment.delay.create_activity :create, owner: @user, recipient: c.user
-									if c.user && c.user.devices
-										c.user.devices.each do |d|
-											devices << d.uuid
-										end
-									end
-								end
-							end
-							message = @commentable.title + "에 댓글이 달렸습니다."
-							PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
-					
-						end
-						
-						render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
-					
-					else
-						render :status => 200, :json => { :success => true, :info => "Something wrong.."}
-					
-						#render :new
-					end
 				else
 					@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
+				end
 
-					if @comment.save
+				if @comment.save
+					# parent comment if image exists
+					if params[:parent_id]
 
-						if params[:comment][:parent_id]
-							puts "replied"
-							@parent = Comment.find(params[:comment][:parent_id]) 
-							@comment.move_to_child_of(@parent)
-							#@comment.create_activity :create, owner: @user, recipient: @parent.author if !(@commentable.class.name == "Notice")
+						@parent = Comment.find(params[:parent_id]) 
+						@comment.move_to_child_of(@parent)
+						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @parent.user)
 
-							if !(@commentable.class.name == "Event")
-								CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
-							end
-						else
-							@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event")
+						if !(@commentable.class.name == "Event")
+							# mail to parent comment author
+							CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 						end
+					# parent comment if image does not exist
+					elsif params[:comment][:parent_id]
 
-						if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
-							CommentMailer.delay.create_notification(@commentable, @comment)
+						@parent = Comment.find(params[:comment][:parent_id]) 
+						@comment.move_to_child_of(@parent)
+						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @parent.user)
 
-							devices = Array.new
-							@commentable.comments.each do |c|
-								if @user.id == c.user_id
-								else
-									@comment.delay.create_activity :create, owner: @user, recipient: c.user
+						if !(@commentable.class.name == "Event")
+							CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
+						end
+						
+					else
+						@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @commentable.author)
+					end
+
+					if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
+						# mail to beautymeets team
+						CommentMailer.delay.create_notification(@commentable, @comment)
+
+						devices = Array.new
+						@commentable.comments.each do |c|
+							if @user.id == c.user_id
+							else
+								# notify to all comment authors 
+								@comment.delay.create_activity :create, owner: @user, recipient: c.user
+								if c.user && (c.user.get_push_notifications == true ) && c.user.devices
 									c.user.devices.each do |d|
 										devices << d.uuid
 									end
 								end
 							end
-							message = @commentable.title + "에 댓글이 달렸습니다."
-							PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices})
-						end		
-					
-						render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
-					
-					else
-						render :status => 200, :json => { :success => true, :info => "Something wrong.."}
-					
-						#render :new
+						end
+						message = @commentable.title + "에 댓글이 달렸습니다."
+						PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices})
+				
 					end
+					
+					render :status => 200, :json => { :success => true, :info => "Successfully comment created"}
+				
+				else
+					render :status => 200, :json => { :success => true, :info => "Something wrong.."}
+				
+					#render :new
 				end
-
-
 			end
 
 			def destroy
