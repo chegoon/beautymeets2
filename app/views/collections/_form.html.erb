@@ -1,0 +1,16 @@
+<%= simple_form_for(@collection) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :description %>
+  </div>
+
+  <%= f.fields_for :collectings do |col| %>
+    <%= col.label :
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

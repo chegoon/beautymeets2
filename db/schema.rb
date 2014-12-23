@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141126111506) do
+ActiveRecord::Schema.define(:version => 20141223002509) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -249,6 +249,29 @@ ActiveRecord::Schema.define(:version => 20141126111506) do
   end
 
   add_index "checkouts", ["beautyclass_id"], :name => "index_checkouts_on_beautyclass_id"
+
+  create_table "collectings", :force => true do |t|
+    t.integer  "collection_id"
+    t.integer  "collectable_id"
+    t.string   "collectable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "collectings", ["collectable_id", "collectable_type"], :name => "index_collectings_on_collectable_id_and_collectable_type"
+
+  create_table "collections", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "view_count"
+    t.integer  "picture_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "collections", ["picture_id"], :name => "index_collections_on_picture_id"
+  add_index "collections", ["user_id"], :name => "index_collections_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id",   :default => 0
@@ -488,7 +511,10 @@ ActiveRecord::Schema.define(:version => 20141126111506) do
     t.boolean  "sent"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
+
+  add_index "push_notifications", ["user_id"], :name => "index_push_notifications_on_user_id"
 
   create_table "read_marks", :force => true do |t|
     t.integer  "readable_id"

@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @collection.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @collection.description %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @collection.user %>
+</p>
+
+<p>
+  <b>View count:</b>
+  <%= @collection.view_count %>
+</p>
+
+<p>
+  <b>Picture:</b>
+  <%= @collection.picture %>
+</p>
+
+<% if @collection.collectings %>
+  <% @collection.collectings.each do |col| %>
+    <p>
+      <%= col.collectable.class.find(col.collectable_id).title if col.collectable_type != 'Item' %>
+      <%= col.collectable.class.find(col.collectable_id).name if col.collectable_type == 'Item' %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if user_signed_in? && current_user.can_update?(@collection) %>
+<div class="row" style="">
+  <div class="small-12 columns " >
+    <div>
+      <h4 class="subheader"><small>다른 이미지</small></h4>
+      <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
+    </div>
+    <%= render 'pictures/form' %>
+  </div>
+</div>
+<% end %>
+
+<%= link_to 'Edit', edit_collection_path(@collection) %> |
+<%= link_to 'Back', collections_path %>

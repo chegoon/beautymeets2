@@ -3,10 +3,12 @@ class ItemsController < ApplicationController
 
 	# impressionist #comment out this line when impressionist method created in each action
 
-	before_filter :authenticate_user!, except: [:index, :show]
-	before_filter :load_itemizable, except: [:index, :new, :create, :autocomplete_brand_name, :logs]
+	before_filter :authenticate_user!, except: [:index, :show, :autocomplete_collection_title]
+	before_filter :load_itemizable, except: [:index, :new, :create, :autocomplete_brand_name, :logs, :autocomplete_collection_title]
 	helper_method :sort_column, :sort_direction  
+	
 	autocomplete :brand, :name
+	autocomplete :collection, :title
 
 	before_filter :detect_browser
 
@@ -99,6 +101,9 @@ class ItemsController < ApplicationController
 
 	def show
 		@item = Item.find(params[:id])
+
+		@collectable = @item
+		@collections = @collectable.collections
 
 		@tutorials = @item.tutorials
 		@videos = @item.videos

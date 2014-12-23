@@ -18,7 +18,7 @@ class Tutorial < ActiveRecord::Base
 	friendly_id :url_candidate, use: [:slugged, :history]
 
 	belongs_to :author, class_name: "User", :foreign_key => "user_id"
-	attr_accessible :desc, :published, :title, :view_count, :vimeo_url, :video_url, :tag_list, :description, :category_ids, :picture_id, :item_name, :url_candidate
+	attr_accessible :desc, :published, :title, :view_count, :vimeo_url, :video_url, :tag_list, :description, :category_ids, :picture_id, :item_name, :url_candidate, :collection_title
 	
 	has_many :pictures, as: :pictureable, dependent: :destroy
 	belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
@@ -28,6 +28,9 @@ class Tutorial < ActiveRecord::Base
 
 	has_many :items, through: :itemizations
 	has_many :itemizations, as: :itemizable
+
+	has_many :collections, through: :collectings
+	has_many :collectings, as: :collectable  
 	
 	has_many :comments, :as => :commentable
 	
@@ -51,6 +54,19 @@ class Tutorial < ActiveRecord::Base
 			itemization = self.itemizations.find_by_item_id(item.id) || self.itemizations.create(item_id: item.id) 
 		else
 			item = self.items.create(name: name)
+		end
+	end
+
+	def collection_title
+		self.collections.find_by_title(:title)
+	end
+
+	def collection_title=(title)
+		collection = Collection.find_by_title(title)
+		if collection.present? 
+			collecting = self.collectings.find_by_collection_id(collection.id) || self.collectings.create(collection_id: collection.id) 
+		else
+			collection = self.collections.create(title: title)
 		end
 	end
 

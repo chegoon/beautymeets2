@@ -16,13 +16,16 @@ class Post < ActiveRecord::Base
   friendly_id :url_candidate, use: [:slugged, :history]
   
   belongs_to :author, class_name: "User", :foreign_key => "user_id"
-  attr_accessible  :title, :view_count, :tag_list, :description, :category_ids, :picture_id, :published, :url_candidate
+  attr_accessible  :title, :view_count, :tag_list, :description, :category_ids, :picture_id, :published, :url_candidate, :collection_title
 	
 	has_many :pictures, as: :pictureable, dependent: :destroy
   belongs_to :thumbnail, class_name: "Picture", :foreign_key => "picture_id"
   
   has_many :categories, through: :categorizations
   has_many :categorizations, as: :categorizeable  
+
+  has_many :collections, through: :collectings
+  has_many :collectings, as: :collectable  
   
   has_many :comments, :as => :commentable
   
@@ -32,6 +35,19 @@ class Post < ActiveRecord::Base
 	  self.save
 	end
 	
+  def collection_title
+    self.collections.find_by_title(:title)
+  end
+
+  def collection_title=(title)
+    collection = Collection.find_by_title(title)
+    if collection.present? 
+      collecting = self.collectings.find_by_collection_id(collection.id) || self.collectings.create(collection_id: collection.id) 
+    else
+      collection = self.collections.create(title: title)
+    end
+  end
+
   # Method for bookmark
   def self.get_title(id)
     #self.try(:name)

@@ -8,12 +8,13 @@ class TutorialsController < ApplicationController
 
 	# authorize controller thourgh authority
 	# autocomplete_item_name을 적어주지 않을 경우, authority missing action이 발생
-	authorize_actions_for Tutorial, except: [:index, :show, :autocomplete_item_name]
+	authorize_actions_for Tutorial, except: [:index, :show, :autocomplete_item_name, :autocomplete_collection_title]
 
 	respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
 
 	autocomplete :item, :name
+	autocomplete :collection, :title
 		
 	before_filter :detect_browser
 
@@ -57,6 +58,9 @@ class TutorialsController < ApplicationController
 		@items = @itemizable.items
 		@featured_items = @tutorial.itemizations.where(featured: true).present? ? Item.where("id IN (?)", @tutorial.itemizations.where(featured: true).map(&:item_id)) : @tutorial.items.sample(1)
 		@item = Item.new
+
+		@collectable = @tutorial
+		@collections = @collectable.collections
 
 		@tutorials = Tutorial.where("id != ? AND published=TRUE", @tutorial.id).order("created_at DESC").limit(3)
 		@videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("created_at DESC").limit(10).sample(4)

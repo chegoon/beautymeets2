@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
 	friendly_id :url_candidate, use: [:slugged, :history]
 	
 	belongs_to :brand
-	attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id,  :category_ids, :url_candidate
+	attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id,  :category_ids, :url_candidate, :collection_title
 	
 	has_many :pictures, as: :pictureable, dependent: :destroy
 
@@ -25,6 +25,7 @@ class Item < ActiveRecord::Base
 
 	has_many :itemizations, dependent: :destroy  
 	belongs_to :itemizable, polymorphic: true
+
 	has_many :tutorials, through: :itemizations, source: :itemizable, source_type: 'Tutorial'
 	has_many :videos, through: :itemizations, source: :itemizable, source_type: 'Video'
 	
@@ -33,10 +34,26 @@ class Item < ActiveRecord::Base
 	has_many :categories, through: :categorizations
 	has_many :categorizations, as: :categorizeable  
 
+	has_many :collections, through: :collectings
+	has_many :collectings, as: :collectable  
+
 	def increment_view_count(by = 1)
 		self.view_count ||= 0
 		self.view_count += by
 		self.save
+	end
+
+	def collection_title
+		self.collections.find_by_title(:title)
+	end
+
+	def collection_title=(title)
+		collection = Collection.find_by_title(title)
+		if collection.present? 
+			collecting = self.collectings.find_by_collection_id(collection.id) || self.collectings.create(collection_id: collection.id) 
+		else
+			collection = self.collections.create(title: title)
+		end
 	end
 
 	def brand_name

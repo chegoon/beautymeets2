@@ -2,12 +2,13 @@ class PostsController < InheritedResources::Base
 	# Load authorizing from cancan
 	#load_and_authorize_resource
 	# authorize controller thourgh authority
-	authorize_actions_for Post, except: [:index, :show]
+	authorize_actions_for Post, except: [:index, :show, :autocomplete_collection_title]
 
 	respond_to :html, :json
 	before_filter :authenticate_user!, except: [:index, :show]  
 
 	autocomplete :item, :name
+	autocomplete :collection, :title
 
 	before_filter :detect_browser
 
@@ -43,7 +44,9 @@ class PostsController < InheritedResources::Base
 	def show
 		@post = Post.find(params[:id])
 		
-		
+		@collectable = @post
+		@collections = @collectable.collections
+
 		@pictureable = @post
 		@pictures = @pictureable.pictures
 		@picture = Picture.new

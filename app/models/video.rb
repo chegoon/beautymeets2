@@ -17,13 +17,16 @@ class Video < ActiveRecord::Base
 	
 	belongs_to :video_group
 	
-	attr_accessible :description, :title, :view_count, :thumb_url, :title, :video_url, :video_group_id, :image, :published, :category_ids, :published_at, :duration, :tag_list
+	attr_accessible :description, :title, :view_count, :thumb_url, :title, :video_url, :video_group_id, :image, :published, :category_ids, :published_at, :duration, :tag_list, :collection_title
 
 	has_many :categorizations, as: :categorizeable
 	has_many :categories, through: :categorizations
 	
 	has_many :itemization, as: :itemizable
-	has_many :items, through: :itemization
+	has_many :items, through: :itemizations
+
+	has_many :collections, through: :collectings
+	has_many :collectings, as: :collectable  
 	
 	has_many :comments, :as => :commentable
 	
@@ -35,6 +38,19 @@ class Video < ActiveRecord::Base
 
 	def author
 		video_group
+	end
+
+	def collection_title
+		self.collections.find_by_title(:title)
+	end
+
+	def collection_title=(title)
+		collection = Collection.find_by_title(title)
+		if collection.present? 
+			collecting = self.collectings.find_by_collection_id(collection.id) || self.collectings.create(collection_id: collection.id) 
+		else
+			collection = self.collections.create(title: title)
+		end
 	end
 
 	def group_name

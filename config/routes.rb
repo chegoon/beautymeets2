@@ -1,5 +1,9 @@
 Beautymeets2::Application.routes.draw do
 
+	resources :collections do
+		resources :pictures
+	end
+
   resources :push_notifications do
   	member do 
   		get 'call_send'
@@ -102,8 +106,6 @@ Beautymeets2::Application.routes.draw do
 		end
 	end
 
-	resources :devices
-
 	resources :events do
 		resources :pictures
 		resources :comments do
@@ -128,6 +130,12 @@ Beautymeets2::Application.routes.draw do
 
 	resources :posts do 
 		resources :pictures
+
+		resources :collections do 
+			match 'drop' => 'collections#drop_collecting', :via => [:delete]     
+		end
+		get :autocomplete_collection_title, :on => :collection   
+		
 		resources :comments do
 			member do 
 				get 'vote'
@@ -186,6 +194,12 @@ Beautymeets2::Application.routes.draw do
 			match 'unfeatured' => 'items#unfeatured', :via => [:get]     
 		end
 		get :autocomplete_item_name, :on => :collection   
+
+		resources :collections do 
+			match 'drop' => 'collections#drop_collecting', :via => [:delete]     
+		end
+		get :autocomplete_collection_title, :on => :collection   
+		
 		#match 'tutorials/:tutorial_id/items/:id/unitemize' => 'items#unitemize', :via => [:delete]
 	end
 
@@ -209,6 +223,10 @@ Beautymeets2::Application.routes.draw do
 				get 'unvote'
 			end
 		end
+		resources :collections do 
+			match 'drop' => 'collections#drop_collecting', :via => [:delete]     
+		end
+		get :autocomplete_collection_title, :on => :collection   
 		get :autocomplete_brand_name, :on => :collection  
 		get :logs, :on => :collection   
 	end
@@ -239,6 +257,11 @@ Beautymeets2::Application.routes.draw do
 
 	resources :videos do 
 		resources :items
+		
+		resources :collections do 
+			match 'drop' => 'collections#drop_collecting', :via => [:delete]     
+		end
+		get :autocomplete_collection_title, :on => :collection   
 		
 		resources :comments do
 			member do 

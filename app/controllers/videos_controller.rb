@@ -7,9 +7,11 @@ class VideosController < ApplicationController
 	#impressionist #comment out this line when impressionist method created in each action
 
 	# authorize controller thourgh authority
-	authorize_actions_for Video, except: [:index, :show]
+	authorize_actions_for Video, except: [:index, :show, :autocomplete_collection_title]
 
 	before_filter :detect_browser
+	
+	autocomplete :collection, :title
 
 	def detect_browser
 		agent = request.headers["HTTP_USER_AGENT"].downcase
@@ -52,6 +54,9 @@ class VideosController < ApplicationController
 	def show
 		@video = Video.find(params[:id])
 		
+		@collectable = @video
+		@collections = @collectable.collections
+
 		#@video_recs = Video.joins(:video_categories).where("published=TRUE AND video_categories.id IN (?) AND videos.id != ?", @video.video_categories.map(&:id), @video.id).order("view_count DESC LIMIT 50").sample(3)
 		if @video.video_group.published || (user_signed_in? && current_user.can_update?(@video))
 

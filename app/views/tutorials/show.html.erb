@@ -215,6 +215,30 @@
 		<% end %>
 	</div>
 <% end %>
+
+<% if user_signed_in? && current_user.can_update?(@tutorial) %>
+	<div class="small-12 columns">
+		<% if @collectable.collections %>
+			<% @collectable.collections.each do |col| %>
+				<p>
+					<%= col.title %>
+					<%= link_to "X", tutorial_collection_drop_path(@tutorial, col), :id => col.id  , :data => { :confirm => 'Are you sure?' }, method: :delete if user_signed_in? && current_user.can_update?(@tutorial) %>
+				</p>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="small-12 columns">		
+		<h4>Add Collection</h4>
+		<%= #render 'items/small_form' 
+		%>
+		<%= simple_form_for [@collectable] do |f| %>
+		  <%= f.error_notification %>
+		  <%= f.input :collection_title, :url => autocomplete_collection_title_tutorials_path, :as => :autocomplete %>
+		  <%= f.button :submit, 'Add It' %>
+
+		<% end %>
+	</div>
+<% end %>
 </div>
 
 <div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">

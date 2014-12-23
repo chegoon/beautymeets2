@@ -43,7 +43,7 @@ module API
 								    #WHERE i.published IS TRUE
 								UNION
 								SELECT
-								    v.id, 'Video' as post_type, v.created_at as created_at
+								    v.id, 'Video' as post_type, v.published_at as created_at
 									FROM videos v, video_groups vg
 								    WHERE v.published IS TRUE
 								    AND v.video_group_id = vg.id
@@ -84,7 +84,7 @@ module API
 								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
 								UNION
 								SELECT
-								    v.id, 'Video' as post_type, v.created_at as created_at
+								    v.id, 'Video' as post_type, v.published_at as created_at
 									FROM videos v, video_groups vg
 								    INNER JOIN categorizations 
 								    	ON categorizations.categorizeable_id = v.id
