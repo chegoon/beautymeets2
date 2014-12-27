@@ -10,15 +10,7 @@
   <%= @collection.description %>
 </p>
 
-<p>
-  <b>User:</b>
-  <%= @collection.user %>
-</p>
 
-<p>
-  <b>View count:</b>
-  <%= @collection.view_count %>
-</p>
 
 <p>
   <b>Picture:</b>
@@ -27,10 +19,17 @@
 
 <% if @collection.collectings %>
   <% @collection.collectings.each do |col| %>
-    <p>
-      <%= col.collectable.class.find(col.collectable_id).title if col.collectable_type != 'Item' %>
-      <%= col.collectable.class.find(col.collectable_id).name if col.collectable_type == 'Item' %>
-    </p>
+      <% collection = col.collectable.class.find(col.collectable_id) %>
+      <% if col.collectable_type == 'Item' %>
+        <%= render partial: 'items/card', locals: {item: collection} %>
+      <% elsif col.collectable_type == 'Video' %>
+        <%= render partial: 'videos/card', locals: {video: collection} %>
+      <% elsif col.collectable_type == 'Tutorial' %>
+        <%= render partial: 'tutorials/card', locals: {tutorial: collection} %>
+      <% elsif col.collectable_type == 'Post' %>
+        <%= render partial: 'posts/card', locals: {post: collection} %>
+      <% else %>
+      <% end %>
   <% end %>
 <% end %>
 
@@ -39,12 +38,33 @@
   <div class="small-12 columns " >
     <div>
       <h4 class="subheader"><small>다른 이미지</small></h4>
-      <%= render partial: 'pictures/gallery', locals: {thumb_size: :small} %>
+      <div class="row " style="">
+        <div class="small-12 columns">
+        <% if !@pictures.nil? %>
+          <% @pictures.each do |p| %>
+
+                  <div class="left" style="margin:10px;">
+                    <img src="<%= p.image_url(:small).to_s %>">
+                    <%= simple_form_for @collection, :action=>"update", :controller=>"collections" do |f| %>
+                      
+                      <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
+                      <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>
+                      <%= link_to 'x', [@collection, p], :data => { :confirm => 'Are you sure?' }, method: :delete   %>
+                    <% end %>
+                  </div>
+
+                
+          <% end %>
+        <% end %>
+        </div>
+      </div>
     </div>
     <%= render 'pictures/form' %>
   </div>
 </div>
 <% end %>
 
-<%= link_to 'Edit', edit_collection_path(@collection) %> |
-<%= link_to 'Back', collections_path %>
+<% if user_signed_in? && current_user.can_update?(@collection) %>
+  <%= link_to 'Edit', edit_collection_path(@collection) %> |
+  <%= link_to 'Back', collections_path %>
+<% end %>

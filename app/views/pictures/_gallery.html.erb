@@ -4,7 +4,7 @@
 	<!-- data-clearing을 쓰면 modal과 conflict 일어남 -->
 		<!-- <ul class="clearing-thumbs " data-clearing> -->
 	  <% @pictures.each do |p| %>
-				<% if can? :author, @pictureable %>
+	  	<% if user_signed_in? && current_user.can_update?(@pictureable) %>
 
 						<div class="left" style="margin:10px;">
 							<img src="<%= p.image_url(:small).to_s %>">

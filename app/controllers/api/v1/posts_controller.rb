@@ -87,7 +87,7 @@ module API
 								    v.id, 'Video' as post_type, v.published_at as created_at
 									FROM videos v, video_groups vg
 								    INNER JOIN categorizations 
-								    	ON categorizations.categorizeable_id = v.id
+								    	ON categorizations.categorizeable_id = videos.id
 								    	AND categorizations.categorizeable_type = 'Video' 
 									INNER JOIN categories ON categories.id = categorizations.category_id
 								    WHERE v.published IS TRUE
