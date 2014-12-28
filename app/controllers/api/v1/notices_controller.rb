@@ -1,6 +1,6 @@
 module API
 	module V1
-		class NoticesController < API::BaseController #InheritedResources::Base
+		class NoticesController < API::V1::BaseController #InheritedResources::Base
 
 			#authorize_actions_for Notice, except: [:index, :show]
 			before_filter :set_current_user

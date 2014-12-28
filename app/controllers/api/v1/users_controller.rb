@@ -1,6 +1,6 @@
 module API
 	module V1
-		class UsersController < API::BaseController
+		class UsersController < API::V1::BaseController
 			before_filter :load_resource_through_auth_token, only: [:index, :notifications, :favorites, :update]
 			
 			# me : mypage

@@ -1,6 +1,6 @@
 module API
 	module V1
-		class DevicesController < API::BaseController
+		class DevicesController < API::V1::BaseController
 			before_filter :set_current_user
 			def create
 				device = @user.devices.find_or_create_by_uuid(params[:device][:uuid])

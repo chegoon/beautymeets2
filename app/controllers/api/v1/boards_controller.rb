@@ -1,6 +1,6 @@
 module API
 	module V1
-		class BoardsController < API::BaseController
+		class BoardsController < API::V1::BaseController
 			#authorize_actions_for Board, except: [:index, :show]
 
 			#before_filter :authenticate_user!, except: [:index, :show]  

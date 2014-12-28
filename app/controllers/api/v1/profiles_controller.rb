@@ -1,6 +1,6 @@
 module API
 	module V1
-		class ProfilesController < API::BaseController
+		class ProfilesController < API::V1::BaseController
 			def index
 				
 				@user = User.find(params[:user_id])

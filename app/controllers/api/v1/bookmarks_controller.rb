@@ -1,6 +1,6 @@
 module API
 	module V1
-		class BookmarksController < API::BaseController
+		class BookmarksController < API::V1::BaseController
 			#before_filter :load_bookmarkable
 			before_filter :set_current_user, except: :index
 

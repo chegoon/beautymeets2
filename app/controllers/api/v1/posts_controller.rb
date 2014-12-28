@@ -1,6 +1,6 @@
 module API
 	module V1
-		class PostsController < API::BaseController
+		class PostsController < API::V1::BaseController
 			#before_filter :authenticate_user!
 			before_filter :set_current_user
 			

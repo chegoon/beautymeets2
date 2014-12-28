@@ -1,6 +1,6 @@
 module API
 	module V1
-		class EventsController < ApplicationController
+		class EventsController < API::V1::BaseController
 			inherit_resources
 
 			# Load authorizing from cancan

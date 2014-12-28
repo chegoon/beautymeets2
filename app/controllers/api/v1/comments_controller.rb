@@ -1,7 +1,7 @@
 #encoding: utf-8
 module API
 	module V1
-		class CommentsController < API::BaseController
+		class CommentsController < API::V1::BaseController
 			before_filter :load_commentable
 			before_filter :set_current_user
 			#before_filter :authenticate_user, except: [:index, :show]  
