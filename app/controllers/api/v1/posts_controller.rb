@@ -103,7 +103,7 @@ module API
 			end
 
 			def show
-				posttable = params[:postType]
+				posttable = params[:postType].capitalize
 
 				@post = posttable.classify.constantize.find(params[:id])
 
@@ -112,13 +112,13 @@ module API
 				@post.mark_as_read! :for => @user
 
 				videoUrl = ""
-				if posttable == "item" 
+				if posttable == "Item" 
 					@related_posts = @post.tutorials
-				elsif posttable == "tutorial"
+				elsif posttable == "Tutorial"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					@post.author.name = "BEAUTYMEETS"
 					#videoUrl = '<iframe src=' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-				elsif posttable == "video"
+				elsif posttable == "Video"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					#videoUrl = '<iframe width="560" height="315" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
 				else
