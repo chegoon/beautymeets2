@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
 			if params[:comment][:parent_id]
 				@parent = Comment.find(params[:comment][:parent_id]) 
 				@comment.move_to_child_of(@parent)
-				@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (current_user != @parent.user)
+				@comment.delay.create_activity :create, owner: current_user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@parent.user) && (current_user != @parent.user) && PublicActivity::Activity.where(owner_id: current_user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: @parent.user.id, recipient_type: "User").first.nil?
 				
 				if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
 					# mail to parent comment author
@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
 				@commentable.comments.each do |c|
 					if current_user.id == c.user_id
 					else
-						@comment.create_activity :create, owner: current_user, recipient: c.user
+						@comment.create_activity :create, owner: current_user, recipient: c.user if c.user && PublicActivity::Activity.where(owner_id: current_user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: c.user.id, recipient_type: "User").first.nil?
 						if c.user && (c.user.get_push_notifications == true ) && c.user.devices
 							c.user.devices.each do |d|
 								devices << d.uuid

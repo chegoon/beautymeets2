@@ -50,7 +50,7 @@ module API
 				if @comment.save
 					if @parent
 						@comment.move_to_child_of(@parent)
-						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @parent.user)
+						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@parent.user) && (@user != @parent.user) && PublicActivity::Activity.where(owner_id: @user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: @parent.user.id, recipient_type: "User").first.nil?
 					else
 						@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @commentable.author)
 					end
@@ -64,7 +64,7 @@ module API
 							if @user.id == c.user_id
 							else
 								# notify to all comment authors 
-								@comment.delay.create_activity :create, owner: @user, recipient: c.user
+								@comment.delay.create_activity :create, owner: @user, recipient: c.user if c.user && PublicActivity::Activity.where(owner_id: @user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: c.user.id, recipient_type: "User").first.nil?
 								if c.user && (c.user.get_push_notifications == true ) && c.user.devices
 									c.user.devices.each do |d|
 										devices << d.uuid
