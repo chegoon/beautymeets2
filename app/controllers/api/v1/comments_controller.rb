@@ -41,33 +41,16 @@ module API
 				if params[:image]
 					comment_params = JSON.parse(params[:comment])
 					@comment = @commentable.comments.new({user_id: @user.id, body: comment_params['body'], picture_attributes: {image: params[:image]}}) 
+					@parent = Comment.find(params[:parent_id]) if params[:parent_id]
 				else
 					@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
+					@parent = Comment.find(params[:comment][:parent_id]) if params[:comment][:parent_id]
 				end
 
 				if @comment.save
-					# parent comment if image exists
-					if params[:parent_id]
-
-						@parent = Comment.find(params[:parent_id]) 
+					if @parent
 						@comment.move_to_child_of(@parent)
 						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @parent.user)
-
-						if !(@commentable.class.name == "Event")
-							# mail to parent comment author
-							CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
-						end
-					# parent comment if image does not exist
-					elsif params[:comment][:parent_id]
-
-						@parent = Comment.find(params[:comment][:parent_id]) 
-						@comment.move_to_child_of(@parent)
-						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @parent.user)
-
-						if !(@commentable.class.name == "Event")
-							CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
-						end
-						
 					else
 						@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @commentable.author)
 					end
