@@ -9,7 +9,7 @@ module API
 				menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
 				categories = menu ? Category.where(menu_id: menu.id) : nil
 				
-				if categories
+				if categories.present?
 					@collections = Collection.joins(:categories).where("collections.published is TRUE AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC")
 				else
 					@collections = Collection.where(published: true).order("created_at DESC")

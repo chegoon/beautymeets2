@@ -12,7 +12,7 @@ class Collection < ActiveRecord::Base
   
 	belongs_to :user
 	belongs_to :picture
-	attr_accessible :description, :title, :view_count, :user_id, :picture_id, :category_ids, :published
+	attr_accessible :description, :title, :view_count, :user_id, :picture_id, :category_ids, :published, :url_candidate
 
 	has_many :collectings, dependent: :destroy
 	belongs_to :collectable, polymorphic: true
