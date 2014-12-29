@@ -1,21 +1,26 @@
-<h1>Listing collections</h1>
+<% page_title "BEAUTYMEETS > 뷰티밋츠가 전해드리는 깨알같은 모음집: #{@collections.first.try(:title)} " %>
+<% page_thumb "#{full_url(@collections.first.thumbnail.image_url)}" if @collections.first.thumbnail.present? %>
+<% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>View count</th>
-  </tr>
+  <div class="row " style="">
+    <div class="small-12 small-centered columns" style="padding:0 26px;">
+      <div class="page-title">
+        <h4 class="subheader " style="">
+          Collections
+          <small><%= link_to '<i class="fa fa-plus fa-fw"></i>New'.html_safe, new_collection_path if user_signed_in? && current_user.can_create?(Collection) %></small>
+        </h4>
+      </div>
+    </div>
+  </div>
 
-<% @collections.each do |col| %>
-  <tr>
-    <td><%= link_to col.title, controller: "collections", action: "show", id: col %></td>
-    <td><%= col.description %></td>
-    <td><%= col.view_count %></td>
-  </tr>
-<% end %>
-</table>
+      <div class="row">
+        <div class="small-12 small-centered columns" >
+          <div id="posts">    
+            <div class="list">    
+              <%= render @collections %>
+            </div>            
+          </div>
+        </div>
+      </div>
 
-<br />
-
-<%= link_to 'New Collection', new_collection_path %>
+      
