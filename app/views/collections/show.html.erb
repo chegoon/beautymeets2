@@ -7,16 +7,18 @@
     <%= render 'layouts/go_back' %>
         <%= @collection.title %>
         <%= link_to "Edit", edit_collection_path if user_signed_in? && current_user.can_update?(@collection) %>
-      </h4>
+  </h4>
+  <p><%= @collection.description %></p>
+
+  <div class="fb-like" data-href="<%= collection_url(@collection) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+  </div>
+  <p style="margin-bottom:4px;"></p>
 </div>
 <div class="row">
   <div class="small-12 columns">
     <div class="text-center">
       <%= image_tag @collection.thumbnail.image_url(:large) if @collection.thumbnail %>
-      <p><%= @collection.description %></p>
-
-      <div class="fb-like" data-href="<%= collection_url(@collection) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
-      </div>
+      
     </div>
   </div>
 </div>
