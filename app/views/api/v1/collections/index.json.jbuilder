@@ -1,3 +1,3 @@
-json.array! @collections do |collection|
-	json.partial! 'api/v1/collections/collection', collection: collection
+json.array! @collections do |col|
+	json.partial! 'api/v1/collections/collection', collection: col
 end
