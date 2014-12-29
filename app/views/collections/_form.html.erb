@@ -6,10 +6,16 @@
     <%= f.input :description %>
   </div>
 
-  <%= f.fields_for :collectings do |col| %>
-    <%= col.label :
-  <% end %>
-
+    <%= hidden_field_tag "collection[category_ids][]", nil %>
+    <% if Category.find_by_name("collection") %>
+      <% Category.where(parent_id: Category.find_by_name("collection").id).each do |category| %>
+        <%= check_box_tag "collection[category_ids][]", category.id, @collection.category_ids.include?(category.id), id: dom_id(category)  %>
+        <%= #best_in_place_if tutorial.tutorial_category_ids.include?(tutorial_category.id), tutorial_category, :id, :type => :checkbox, :collection => [raw("<i class='icon-check-empty'></i>"), raw("<i class='icon-check'></i>")] 
+        %>
+        <%= label_tag dom_id(category), category.name %>
+        <br/>
+      <% end %>
+    <% end %>
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

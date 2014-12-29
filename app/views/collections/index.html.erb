@@ -9,7 +9,7 @@
 
 <% @collections.each do |col| %>
   <tr>
-    <td><%= link_to col.title, "/collections/#{col.id}" %></td>
+    <td><%= link_to col.title, controller: "collections", action: "show", id: col %></td>
     <td><%= col.description %></td>
     <td><%= col.view_count %></td>
   </tr>

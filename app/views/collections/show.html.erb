@@ -1,20 +1,7 @@
-<p id="notice"><%= notice %></p>
-
+  <%= image_tag @collection.thumbnail.image_url if @collection.thumbnail %>
 <p>
-  <b>Title:</b>
   <%= @collection.title %>
-</p>
-
-<p>
-  <b>Description:</b>
   <%= @collection.description %>
-</p>
-
-
-
-<p>
-  <b>Picture:</b>
-  <%= @collection.picture %>
 </p>
 
 <% if @collection.collectings %>
@@ -45,7 +32,7 @@
 
                   <div class="left" style="margin:10px;">
                     <img src="<%= p.image_url(:small).to_s %>">
-                    <%= simple_form_for @collection, :action=>"update", :controller=>"collections" do |f| %>
+                    <%= simple_form_for @collection, url: "", :input_html => {method: :put} do |f| %>
                       
                       <%= f.input :picture_id, :as => :hidden, :input_html => {:value => p.id} %>
                       <%= f.button :submit, "Thumbnail!", :class => "secondary tiny" %>

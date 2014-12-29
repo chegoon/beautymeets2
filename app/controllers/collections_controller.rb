@@ -19,7 +19,7 @@ class CollectionsController < ApplicationController
 
 		respond_to do |format|
 			if @collection.update_attributes(params[:collection])
-				format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
+				format.html { redirect_to controller: "collections", action: "show", id: @collection.id, notice: 'Collection was successfully updated.' }
 				format.json { head :no_content }
 			else
 				format.html { render action: "edit" }

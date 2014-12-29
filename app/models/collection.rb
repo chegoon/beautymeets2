@@ -9,10 +9,13 @@ class Collection < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :picture
-	attr_accessible :description, :title, :view_count, :user_id, :picture_id
+	attr_accessible :description, :title, :view_count, :user_id, :picture_id, :category_ids
 
 	has_many :collectings, dependent: :destroy
 	belongs_to :collectable, polymorphic: true
+
+	has_many :categories, through: :categorizations
+	has_many :categorizations, as: :categorizeable  
 
 	has_many :videos, through: :collectings, source: :collectable, source_type: 'Video'
 	has_many :posts, through: :collectings, source: :collectable, source_type: 'Post'
