@@ -1,0 +1,29 @@
+<div class="small-12 medium-4 columns ">
+  <div class="tutorial-card">
+    <div class="text-center " style="position: relative; ">
+      <a class="tutorial-card-thumb" href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>); '>
+      <i class="fa fa-youtube-play fa-2x" style="position:absolute; left:10px; bottom:6px;  color:#FFF; "></i>
+      </a>
+    </div>
+
+    <div class="tutorial-card-desc" style="">
+      <h6 class="tutorial-card-title subheader text-left"  style="line-height:105%; margin:0;padding:0; ">
+        <a href="<%= video_path(video) %>" >
+          <%= truncate(video.try(:title), 18) %>
+        </a>
+      </h6>
+      <h5 class="subheader  text-left" style="margin:-4px 0; padding:0;  color:#999; ">
+        <span class="group_name" >
+          <small>
+            <strong><%= video.video_group.try(:name) %></strong>
+          </small>
+        </span>
+        <span class="right" >
+          <small>
+          <i class="fa fa-eye"></i> <%= filtered_number(video.view_count) %>
+          </small>
+        </span>
+      </h5>    
+    </div>
+  </div>
+</div>

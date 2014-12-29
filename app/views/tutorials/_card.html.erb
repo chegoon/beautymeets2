@@ -1,0 +1,43 @@
+
+<div class="small-12 medium-4 columns " >
+  <div class="tutorial-card">
+    <div class="text-center " style="position: relative; ">
+      <a class="tutorial-card-thumb" href="<%= tutorial_path(tutorial) %>" style='background-image: url("<%= tutorial.thumbnail.image_url(:medium) if tutorial.thumbnail.present? %>");'>
+        <div  style=" padding:6px 8px; width:100%; background:rgba(0,0,0, 0.5); position:absolute; left:0; bottom:0; ">
+        <% 
+        if tutorial.categories.present? 
+          category_name ||= "" 
+          tutorial.categories.each do |category| 
+            category_name += (category.name + ' ') 
+          end 
+        %> 
+          <span class="left " style="color:#CDD9D7;"><%= truncate(category_name, 22) %></span>
+          
+        <% end %>
+        <span class="right" style="color:#F59C66;"><%= "New" if (Time.zone.now - tutorial.created_at).to_i / 1.day <= 3 %></span>
+        </div>
+
+      <i class="fa fa-play-circle fa-3x" style="opacity:0.8; padding-top:25%;  color:#FFF; margin:0 auto;"></i>
+      </a>
+    </div>
+    <div class="tutorial-card-desc" style="">
+      <h6 class="tutorial-card-title subheader text-left"  style="line-height:105%; margin:0;padding:0; ">
+        <a href="<%= tutorial_path(tutorial) %>" >
+          <%= truncate(tutorial.try(:title), 18) %>
+        </a>
+      </h6>
+      <h5 class="subheader  text-left" style="margin:-4px 0; padding:0;  color:#999; ">
+        <span class="group_name" >
+          <small>
+            <strong><%= tutorial.author.try(:name) %></strong>
+          </small>
+        </span>
+        <span class="right" >
+          <small>
+          <i class="fa fa-eye"></i> <%= filtered_number(tutorial.view_count) %>
+          </small>
+        </span>
+      </h5>    
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+
+
+<div class="small-6 medium-4 columns ">
+  <div class="tutorial-card">
+    <div class="text-center item-card-thumb" style="position: relative; ">
+      
+      <%= link_to image_tag(item.thumbnail.image_url(:medium), :style => "height:100px; width:auto; "), item_path(item) if item.thumbnail.present? %>
+    </div>
+    <div class="item-card-desc" style="padding:5px;">
+    	<hr style="margin:0;">
+    	<h5 class="subheader  text-left" style="margin:-4px 0; position:relative; padding:0;  color:#999; ">
+          <small>
+            <strong><%= item.brand.try(:name) %>
+              <span style="position:absolute; right:10px; top:10px; color:#F59C66;"><%= "New" if (Time.zone.now - item.created_at).to_i / 1.day <= 20 %>
+            </strong>
+          </span>
+          </small>
+
+          
+      </h5>  
+      <h6 class="item-card-title subheader text-left"  style="letter-spacing:-0.5px; margin:0;padding:0; line-height:110%; ">
+
+        <%= link_to truncate(item.try(:name), 24), item_path(item) %>
+       
+
+
+					<% if user_signed_in? && current_user.can_update?(item) %>
+						<span><small><%= link_to 'Edit', edit_item_path(item) if user_signed_in? && current_user.can_update?(item) %>
+						<%= link_to "Delete".html_safe, item, :id => item.id  , :data => { :confirm => 'Are you sure?' }, method: :delete  if user_signed_in? && current_user.can_update?(item) %></small>
+						</span>
+					<% end %>
+      </h6>
+       
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+
+<div class="small-12 medium-4 columns ">
+  <div class="tutorial-card" >
+    <div class="text-center" style="position: relative; margin:0 auto; ">
+      <a class="tutorial-card-thumb " href="<%= post_path(post) %>" style='height:234px; background-image: url("<%= post.thumbnail.image_url(:large) if post.thumbnail.present? %>");'>
+        <div  style=" padding:6px 8px;width:100%; background:rgba(255,255,255, 0.5); position:absolute; left:0; bottom:0; ">
+
+          <span class="right " style="color:#515d61;"><%= truncate(post.try(:title), 26) %>&nbsp;<i class="fa fa-angle-right"></i></span>
+
+        </div>
+      </a>
+    </div>
+  </div>  
+</div>
