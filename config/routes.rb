@@ -71,6 +71,16 @@ Beautymeets2::Application.routes.draw do
 
 			resources :users, :notices, :boards
 
+			resources :collections do
+				resources :comments do 
+					member do 
+						get 'vote'
+						get 'unvote'
+					end
+				end
+				resources :posts
+			end
+
 			resources :posts do
 				resources :comments do
 					member do 

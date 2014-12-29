@@ -1,6 +1,22 @@
 class CollectionsController < ApplicationController
 	inherit_resources
 
+	# POST /events
+	# POST /events.json
+	def create
+		@collection = current_user.collections.create(params[:collection])
+		current_user.add_role :author, @collection
+
+		respond_to do |format|
+			if @collection.save
+				format.html { redirect_to controller: "collections", action: "show", id: @collection.id, notice: 'Event was successfully created.' }
+				format.json { render json: @collection, status: :created, location: @collection }
+			else
+				format.html { render action: "new" }
+				format.json { render json: @collection.errors, status: :unprocessable_entity }
+			end
+		end
+	end
 	def show
 		@collection = Collection.find(params[:id])
 
