@@ -16,6 +16,7 @@ module API
 				end
 					
 			end
+			
 			def show
 				@collection = Collection.find(params[:id])
 
@@ -28,6 +29,7 @@ module API
 					format.json { render json: @collection }
 				end
 			end
+
 			private
 
 			def set_current_user
