@@ -1,4 +1,4 @@
-<% page_title "BEAUTYMEETS > #{@collection.try(:title)} by #{@collection.author.try(:name)}" %>
+<% page_title "#{@collection.try(:title)} by #{@collection.author.try(:name)}" %>
 <% page_thumb "#{full_url(@collection.thumbnail.image_url)}" if @collection.thumbnail.present? %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@collection.title.present? ? "#{@collection.title}" : "") %>
 
