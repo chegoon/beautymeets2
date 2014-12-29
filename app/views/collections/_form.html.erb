@@ -1,4 +1,4 @@
-<%= simple_form_for(@collection) do |f| %>
+<%= simple_form_for(@collection, url: "", :input_html => {method: :put}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
