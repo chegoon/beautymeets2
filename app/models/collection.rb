@@ -10,7 +10,7 @@ class Collection < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :url_candidate, use: [:slugged, :history]
   
-	belongs_to :user
+	belongs_to :author, class_name: "User", :foreign_key => "user_id"
 	belongs_to :picture
 	attr_accessible :description, :title, :view_count, :user_id, :picture_id, :category_ids, :published, :url_candidate
 
