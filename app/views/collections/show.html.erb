@@ -1,8 +1,25 @@
-  <%= image_tag @collection.thumbnail.image_url if @collection.thumbnail %>
-<p>
-  <%= @collection.title %>
-  <%= @collection.description %>
-</p>
+<% page_title "BEAUTYMEETS > #{@collection.try(:title)} by #{@collection.author.try(:name)}" %>
+<% page_thumb "#{full_url(@collection.thumbnail.image_url)}" if @collection.thumbnail.present? %>
+<% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" || (@collection.title.present? ? "#{@collection.title}" : "") %>
+
+<div style="height:90px; position:relative; ">
+  <h4 class="subheader" style="letter-spacing:-0.1px; position:absolute; bottom:10px; ">
+    <%= render 'layouts/go_back' %>
+        <%= @collection.title %>
+        <%= link_to "Edit", edit_collection_path if user_signed_in? && current_user.can_update?(@collection) %>
+      </h4>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+    <div class="text-center">
+      <%= image_tag @collection.thumbnail.image_url(:large) if @collection.thumbnail %>
+      <p><%= @collection.description %></p>
+
+      <div class="fb-like" data-href="<%= post_url(@post) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+      </div>
+    </div>
+  </div>
+</div>
 
 <% if @collection.collectings %>
   <% @collection.collectings.each do |col| %>
@@ -49,9 +66,4 @@
     <%= render 'pictures/form' %>
   </div>
 </div>
-<% end %>
-
-<% if user_signed_in? && current_user.can_update?(@collection) %>
-  <%= link_to 'Edit', edit_collection_path(@collection) %> |
-  <%= link_to 'Back', collections_path %>
 <% end %>
