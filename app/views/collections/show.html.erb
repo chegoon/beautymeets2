@@ -15,7 +15,7 @@
       <%= image_tag @collection.thumbnail.image_url(:large) if @collection.thumbnail %>
       <p><%= @collection.description %></p>
 
-      <div class="fb-like" data-href="<%= post_url(@post) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+      <div class="fb-like" data-href="<%= collection_url(@collection) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
       </div>
     </div>
   </div>
