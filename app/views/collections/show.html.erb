@@ -8,12 +8,11 @@
         <%= @collection.title %>
         <%= link_to "Edit", edit_collection_path if user_signed_in? && current_user.can_update?(@collection) %>
   </h4>
+</div>
   <p><%= @collection.description %></p>
-
-  <div class="fb-like" data-href="<%= collection_url(@collection) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
+  <div class="fb-like" data-href="<%= url_for :controller => 'collections', :action => 'show', :id => @collection.id, :only_path => false %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
   </div>
   <p style="margin-bottom:4px;"></p>
-</div>
 <div class="row">
   <div class="small-12 columns">
     <div class="text-center">
