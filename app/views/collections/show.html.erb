@@ -10,11 +10,17 @@
   </h4>
 </div>
   <p><%= @collection.description %></p>
+  <% if @android_detected == true %>
+    <p>
+      뷰티밋츠 앱을 다운받으시면 더욱 다양한 튜토리얼을 만날 수 있어요<br/>
+      <a href="http://bit.ly/BeautymeetsApp">http://bit.ly/BeautymeetsApp</a>
+    </p>
+  <% end %>
   <div class="fb-like" data-href="<%= url_for controller: 'collections', action: 'show', id: @collection, only_path: false %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
   </div>
   <p style="margin-bottom:4px;"></p>
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-12 medium-8 columns">
     <div class="text-center" style="margin:20px; ">
       <%= image_tag @collection.thumbnail.image_url(:large) if @collection.thumbnail %>
     </div>
@@ -22,21 +28,25 @@
 </div>
 
 <div class="row">
-<% if @collection.collectings %>
-  <% @collection.collectings.each do |col| %>
-      <% collection = col.collectable.class.find(col.collectable_id) %>
-      <% if col.collectable_type == 'Item' %>
-        <%= render partial: 'items/card', locals: {item: collection} %>
-      <% elsif col.collectable_type == 'Video' %>
-        <%= render partial: 'videos/card', locals: {video: collection} %>
-      <% elsif col.collectable_type == 'Tutorial' %>
-        <%= render partial: 'tutorials/card', locals: {tutorial: collection} %>
-      <% elsif col.collectable_type == 'Post' %>
-        <%= render partial: 'posts/card', locals: {post: collection} %>
-      <% else %>
+  <div class="small-12 medium-8 medium-centered columns">
+    <div class="row">
+      <% if @collection.collectings %>
+        <% @collection.collectings.each do |col| %>
+            <% collection = col.collectable.class.find(col.collectable_id) %>
+            <% if col.collectable_type == 'Item' %>
+              <%= render partial: 'items/card', locals: {item: collection} %>
+            <% elsif col.collectable_type == 'Video' %>
+              <%= render partial: 'videos/card', locals: {video: collection} %>
+            <% elsif col.collectable_type == 'Tutorial' %>
+              <%= render partial: 'tutorials/card', locals: {tutorial: collection} %>
+            <% elsif col.collectable_type == 'Post' %>
+              <%= render partial: 'posts/card', locals: {post: collection} %>
+            <% else %>
+            <% end %>
+        <% end %>
       <% end %>
-  <% end %>
-<% end %>
+    </div>
+  </div>
 </div>
 
 <% if user_signed_in? && current_user.can_update?(@collection) %>
