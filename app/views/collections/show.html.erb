@@ -21,14 +21,14 @@
   <p style="margin-bottom:4px;"></p>
 <div class="row">
   <div class="small-12 medium-8 columns">
-    <div class="text-center" style="margin:20px; ">
+    <div style="margin:20px; text-align:center;">
       <%= image_tag @collection.thumbnail.image_url(:large) if @collection.thumbnail %>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="small-12 medium-8 medium-centered columns">
+  <div class="small-12 columns">
     <div class="row">
       <% if @collection.collectings %>
         <% @collection.collectings.each do |col| %>
