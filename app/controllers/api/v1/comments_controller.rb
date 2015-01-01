@@ -9,9 +9,9 @@ module API
 
 			def index
 				limit = (params[:limit] && params[:limit] != '') ? params[:limit].to_i : 10
-				if params[:offset] && params[:offset] != ''
+				if params[:offset] && params[:offset] != '' && params[:offset].to_i > 0
 					offset = params[:offset].to_i
-				elsif (@commentable.comments.count < limit) || (params[:offset] < 0)
+				elsif (@commentable.comments.count < limit) || (params[:offset].to_i < 0)
 					offset = 0
 				else
 					offset = @commentable.comments.count - limit
