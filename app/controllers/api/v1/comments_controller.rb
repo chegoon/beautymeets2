@@ -8,7 +8,7 @@ module API
 			#authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 			def index
-				limit = params[:limit].to_i || 10
+				limit = params[:limit] || 10
 				if params[:offset] && params[:offset] != ''
 					offset = params[:offset]
 				elsif @commentable.comments.count < limit
