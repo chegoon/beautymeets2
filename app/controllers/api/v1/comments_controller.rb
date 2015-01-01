@@ -8,21 +8,25 @@ module API
 			#authorize_actions_for Comment, except: [:index, :show, :vote, :unvote]
 
 			def index
-				limit = params[:limit] || 10
+				limit = (params[:limit] && params[:limit] != '') ? params[:limit].to_i : 10
 				if params[:offset] && params[:offset] != ''
-					offset = params[:offset]
-				elsif @commentable.comments.count < limit
+					offset = params[:offset].to_i
+				elsif (@commentable.comments.count < limit) || (params[:offset] < 0)
 					offset = 0
 				else
 					offset = @commentable.comments.count - limit
 				end
 				#offset = params[:offset] || (@commentable.comments.count - limit)
-				puts "offset #{offset}"
-
-				@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
-				if offset.to_i >= limit.to_i
-					@can_load_more = true if @commentable.comment_threads.order("lft ASC").offset(offset.to_i - limit.to_i).limit(limit).count > 0
+				
+				if offset > 0
+					@can_load_more = true 
+					@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
+				elsif offset == 0
+					surplus_limit = @commentable.comments.count % limit
+					@can_load_more = false
+					@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(surplus_limit)
 				else
+					@comments = @commentable.comments
 					@can_load_more = false
 				end
 
