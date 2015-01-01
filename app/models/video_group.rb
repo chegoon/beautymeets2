@@ -54,7 +54,7 @@ class VideoGroup < ActiveRecord::Base
           # http를 붙일경우 4.0.3 iframe에서 영상 플레이 안됨 -> 됨
           video.video_url  = "http://www.youtube.com/embed/#{yt_vi_id}"
           video.title = yt_video.title
-          video.thumb_url = "http://img.youtube.com/vi/#{yt_video.video_id.split(":").last}/sddefault.jpg"
+          video.thumb_url = "http://img.youtube.com/vi/#{yt_video.video_id.split(":").last}/0.jpg"
           video.description = yt_video.description
           video.duration = yt_video.duration
           video.favorite_count = yt_video.favorite_count
