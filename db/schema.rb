@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141229213132) do
+ActiveRecord::Schema.define(:version => 20150102132238) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -516,6 +516,7 @@ ActiveRecord::Schema.define(:version => 20141229213132) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.string   "url"
   end
 
   add_index "push_notifications", ["user_id"], :name => "index_push_notifications_on_user_id"
