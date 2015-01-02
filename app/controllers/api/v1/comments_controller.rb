@@ -77,7 +77,7 @@ module API
 							end
 						end
 						message = @commentable.title + "에 댓글이 달렸습니다."
-						PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices})
+						PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices, data:{ url: "#/app/#{@commentable.class.name.to_s.pluralize.downcase}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
 				
 					end
 					

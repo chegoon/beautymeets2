@@ -14,19 +14,7 @@ class BoardsController < InheritedResources::Base
   def index
     cards_per_page = 12
 
-    if (params[:order].present?) && (params[:order] == "popular")
-      if params[:tag]
-        @boards = Board.where("published=TRUE").order("view_count DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
-      else
-        @boards = Board.where("published=TRUE").order("view_count DESC").page(params[:page]).per_page(cards_per_page)
-      end
-    else      
-      if params[:tag]
-        @boards = Board.where("published=TRUE").order("created_at DESC").tagged_with(params[:tag]).page(params[:page]).per_page(cards_per_page)
-      else
-        @boards = Board.where("published=TRUE").order("created_at DESC").page(params[:page]).per_page(cards_per_page)
-      end
-    end
+    @boards = Board.order("created_at DESC").page(params[:page]).per_page(cards_per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,24 +26,22 @@ class BoardsController < InheritedResources::Base
   def show
     @board = Board.find(params[:id])
 
-    @pictureable = @board
-    @pictures = @pictureable.pictures
-    @picture = Picture.new
-
     #if (cannot? :author, @board) || (cannot? :manage, Board)
     if user_signed_in? && !current_user.can_update?(@board)
       @board.increment_view_count 
     end
 
+    comments_per_page = 7
 		@commentable = @board
-  	@comments = @commentable.root_comments.order("created_at ASC")
-		
-		if user_signed_in?
-			@comment = Comment.build_from(@commentable, current_user.id, "") 
-      @board.mark_as_read! :for => current_user
-		else
-			@comment = Comment.new
-		end
+    page_index = params[:page] ? params[:page] : @commentable.root_comments.order("created_at ASC").paginate(:page => params[:page], :per_page => comments_per_page).total_pages
+    @comments = @commentable.root_comments.order("created_at ASC").page(page_index).per_page(comments_per_page)
+
+    if user_signed_in?
+      @comment = @commentable.comments.new(user_id: current_user.id)
+      @comment.build_picture 
+    else
+      @comment = Comment.new
+    end
 
     respond_to do |format|
       format.html # show.html.erb

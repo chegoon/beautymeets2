@@ -27,4 +27,8 @@ class Board < ActiveRecord::Base
 		self.save
 	end
 
+	def reply_enabled 
+    	return true
+	end
+
 end

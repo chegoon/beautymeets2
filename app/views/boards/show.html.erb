@@ -1,33 +1,17 @@
 <% page_title "BEAUTYMEETS > #{@board.try(:title)} " %>
-<% page_thumb "#{full_url(@board.thumbnail.image_url)}" if @board.thumbnail.present? %>
+<% page_thumb "#{full_url(@board.picture.image_url)}" if @board.picture.present? %>
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS!!" %>
 
-<div class="row" style="">
-  <div class="large-12 columns"> 
-		<h4 style="letter-spacing:-0.5px;">BEAUTYMEETS SAYS</h4>
-
-		<h5 class="subheader"><small>BEAUTYMEETS SAYS > 
-		<% @board.categories.each do |category| %>
-			<%= category.name %>
-		<% end %>
-		</small></h5>
-  </div>    
-</div>
 <div class="text-right"><%= link_to "Edit", edit_board_path if can? :manage, @board %></div>
 <div class="row">
 	<div class="small-12 medium-4 columns">
-		<%= image_tag @board.thumbnail.image_url(:large) if @board.thumbnail.present? %>
+		<%= image_tag @board.picture.image_url(:large) if @board.picture.present? %>
 	</div>
 	<div class="small-12 medium-8 columns">
       <h2 class="subheader"><%= best_in_place @board, :title %></h2>
       <h3><small class="right"><%= render 'bookmarks/star' %></small></h3>
       <h6 class="subheader ">
-				<% if @board.categories.present? %>
-					<small>Category : </small>
-					<% @board.categories.each do |category| %>
-						&nbsp;<span class=" secondary tiny label"><%= link_to category.name, category_path(category) %></span>
-					<% end %>
-				<% end %>
+
 			</h6>
       
       
@@ -40,18 +24,21 @@
   </div>
 </div>
 
-<div class="row" style="">
-	<div class="small-12 columns " >
-		<%= render partial: 'pictures/gallery', locals: { thumb_size: :large } %>
-		<%= render 'pictures/form' if (can? :manage, @board)  %>
-	</div>
-</div>
 
 		<div style="margin:10px 0;">
     	<div class="fb-like" data-href="<%= board_url(@board) %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
 
-
+<div class="row" style="background:#FFFFFF; margin:0 -5px; padding:20px 9px; border:1px #EEE solid;">
+  <div class="small-12 medium-12 columns">    
+    <h3 class="subheader" style="margin:1rem 0 0 0;">COMMENT&nbsp;<small><%= @board.try(:title) %>에 대해서 자유롭게 댓글을 달아주세요.</small>
+    <%= "<br/><small>로그인하셔야 댓글 입력이 가능합니다. <a href='/users/login'>로그인 바로 가기</a></small>".html_safe if !user_signed_in? %>
+    </h3>
+    <%= render "comments/comments" || "댓글이 없습니다." %>
+    <%= render partial: "comments/form", locals: { form_message: "#{@board.try(:title)}에 대해 남겨주세요." }    %>    
+    
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_board_path(@board) %> |
 <%= link_to 'Back', boards_path %>
