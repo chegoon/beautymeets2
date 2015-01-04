@@ -72,7 +72,7 @@ class RegistrationsController < Devise::RegistrationsController
 						device.name = params[:device][:name]
 						device.save!
 						
-						render json: {status: 200, success: true, info: "Successfully joined", params: {user_id: current_user.id, user_name: current_user.name,  authToken: current_user.authentication_token }}
+						render json: {status: 200, success: true, info: "Successfully joined", params: {user_id: current_user.id, user_name: current_user.name, :get_push_notifications => current_user.get_push_notifications, authToken: current_user.authentication_token }}
 					}
 				end
 

@@ -94,7 +94,7 @@ class AuthenticationsController < ApplicationController
 			
 			respond_to do |format|
 				#if (session[:request_format].present? && session[:request_format] == "json")
-					format.json {render json: {status: 200, success: true, info: "Successfully Login", params: {user_id: @user.id, user_name: @user.name,  authToken: @user.authentication_token }}}
+					format.json {render json: {status: 200, success: true, info: "Successfully Login", params: {user_id: @user.id, user_name: @user.name, :get_push_notifications => @user.get_push_notifications, authToken: @user.authentication_token }}}
 				#else
 					format.html {redirect_to root_url}
 				#end
