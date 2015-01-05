@@ -1,6 +1,6 @@
 
 <div class="small-12 medium-4 columns " style="margin-bottom:20px;">
-  <div class="post-card">
+  <div class="">
     <div class="text-center" style="position: relative; margin:0 auto; ">
       <%= link_to image_tag(collection.thumbnail.image_url(:medium)), controller: "collections", action: "show", id: collection if collection.thumbnail %>
       <%= link_to collection.title, controller: "collections", action: "show", id: collection if collection.thumbnail.nil? %>
