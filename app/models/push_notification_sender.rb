@@ -39,7 +39,7 @@ class PushNotificationSender
 		options = {:request  => options}                                                                                                                             
 		#- Executing the POST API Call with HTTPARTY - :body => options.to_json allows us to send the json as an object instead of a string
 		response = HTTParty.post("https://cp.pushwoosh.com/json/1.3/createMessage", :body  => options.to_json,:headers => { 'Content-Type' => 'application/json' })
-
+		#response = HTTParty.post("https://cp.pushwoosh.com/json/1.3/unregisterDevice", request:{ application:"CACFF-A127A" , hwid: ['4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e', '4a0d98c015b0e80e'] }, :headers => { 'Content-Type' => 'application/json' })
 		return response
 	end
 end

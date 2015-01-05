@@ -4,7 +4,7 @@
   <div class="item-card">
     <div class="text-center item-card-thumb" style="position: relative; ">
       
-      <%= link_to image_tag(item.thumbnail.image_url(:medium), :style => "height:100px; width:auto; "), item_path(item) if item.thumbnail.present? %>
+      <%= link_to image_tag(item.thumbnail.image_url(:medium), :style => "height:128px; width:auto; "), item_path(item) if item.thumbnail.present? %>
     </div>
     <div class="item-card-desc" style="padding:5px;">
     	<hr style="margin:0;">
