@@ -68,7 +68,7 @@ module API
 							if @user.id == c.user_id
 							else
 								# notify to all comment authors 
-								@comment.delay.create_activity :create, owner: @user, recipient: c.user if c.user && Activity.where(owner_id: @user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: c.user.id, recipient_type: "User").first.nil?
+								@comment.delay.create_activity :create, owner: @user, recipient: c.user if c.user && !Activity.where(owner_id: @user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: c.user.id, recipient_type: "User")
 								if c.user && (c.user.get_push_notifications == true ) && c.user.devices
 									c.user.devices.each do |d|
 										devices << d.uuid
