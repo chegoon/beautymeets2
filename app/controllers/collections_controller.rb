@@ -24,6 +24,9 @@ class CollectionsController < ApplicationController
 		@pictures = @pictureable.pictures
 		@picture = Picture.new
 
+		@collection.increment_view_count 
+		impressionist(@collection)
+
 		respond_to do |format|
 			format.html # show.html.erb
 			format.json { render json: @collection }

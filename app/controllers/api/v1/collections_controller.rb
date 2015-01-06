@@ -24,6 +24,8 @@ module API
 				@pictures = @pictureable.pictures
 				@picture = Picture.new
 
+				@collection.increment_view_count 
+				impressionist(@collection)
 			end
 
 			private

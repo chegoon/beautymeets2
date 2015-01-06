@@ -1,5 +1,6 @@
 class Collection < ActiveRecord::Base
-
+	is_impressionable
+	
 	acts_as_taggable
 
 	acts_as_commentable
