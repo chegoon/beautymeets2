@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
 					CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 				end
 			else
-				@comment.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (current_user != @commentable.author)
+				@comment.delay.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (current_user != @commentable.author)
 			end
 
 			if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
 				@commentable.comments.each do |c|
 					if current_user.id == c.user_id
 					else
-						@comment.create_activity :create, owner: current_user, recipient: c.user if c.user && PublicActivity::Activity.where(owner_id: current_user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: c.user.id, recipient_type: "User").first.nil?
+						@comment.delay.create_activity :create, owner: current_user, recipient: c.user if c.user && !Activity.where(owner_id: current_user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: c.user.id, recipient_type: "User")
 						if c.user && (c.user.get_push_notifications == true ) && c.user.devices
 							c.user.devices.each do |d|
 								devices << d.uuid
@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
 					end
 				end
 				message = @commentable.title + "에 댓글이 달렸습니다."
-				PushNotificationSender.notify_devices({content: message, device_type: 3, devices: devices, data:{ url: "#/app/#{@commentable.class.name.to_s.pluralize.downcase}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
+				PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices, data:{ url: "#/app/#{@commentable.class.name.to_s.pluralize.downcase}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
 			end
 
 			if !(@commentable.class.name == "Notice")
