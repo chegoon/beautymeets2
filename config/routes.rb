@@ -47,8 +47,10 @@ Beautymeets2::Application.routes.draw do
 	# Set the default format to json
 	namespace :api,  defaults: {format: :json} do 
 		namespace :v1 do 
-			match "authors/:id" => "video_groups#show", defaults: { format: :json}
-			
+
+			match "authors" => "authors#index"
+			match "authors/:id" => "authors#show"
+
 			resources "events", defaults: { format: :json}
 
 			match "devices" => "devices#create", defaults: { format: :json }

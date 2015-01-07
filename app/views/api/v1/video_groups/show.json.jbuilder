@@ -7,9 +7,7 @@ json.author do
 	json.description @video_group.description
 end
 
-
-
-# comments partial
+# posts partial
 if @posts.count > 0
 	json.posts @posts do |post|
 		json.partial! 'api/v1/posts/post', post: post

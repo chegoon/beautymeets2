@@ -24,7 +24,8 @@ else
 		elsif @post.class.name == "Tutorial"
 			json.id @post.author.id
 			json.name @post.author.username
-			json.thumbUrl full_url(@post.author.image_url)
+			#json.thumbUrl full_url(@post.author.image_url)
+			json.thumbUrl full_url(User.find(4).image_url)
 		else
 			json.id 4
 			json.name "BEAUTYMEETS"
