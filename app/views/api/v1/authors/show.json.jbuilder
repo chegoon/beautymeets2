@@ -1,6 +1,6 @@
-json.id @author.id
 
 json.author do
+	json.id @author.id
 	if @author.class.to_s == "User"
 		json.canShowThumb @author.image_url ? true : false
 		json.thumbUrl full_url(@author.image_url)
@@ -18,13 +18,11 @@ json.author do
 		json.description @author.description
 	else
 	end
-	
-
-end
-
-# posts partial
-if @posts.count > 0
-	json.posts @posts do |post|
-		json.partial! 'api/v1/posts/post', post: post
+	# posts partial
+	if @posts.count > 0
+		json.posts @posts do |post|
+			json.partial! 'api/v1/posts/post', post: post
+		end
 	end
 end
+
