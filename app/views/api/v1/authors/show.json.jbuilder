@@ -2,9 +2,9 @@ json.id @author.id
 
 json.author do
 	if @author.class.to_s == "User"
-		json.canShowThumb @author.thumb_url ? true : false
-		json.thumbUrl full_url(User.find(4).image_url)
-		json.name User.find(4).username
+		json.canShowThumb @author.image_url ? true : false
+		json.thumbUrl full_url(@author.image_url)
+		json.name @author.username
 		json.description ""
 	elsif @author.class.to_s == "VideoGroup"
 		json.canShowThumb @author.thumb_url ? true : false
