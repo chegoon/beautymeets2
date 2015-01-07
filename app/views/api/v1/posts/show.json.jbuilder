@@ -10,6 +10,7 @@ json.tags @post.tags :name
 if @post.class.name == "Item"
 	json.canShowAuthor true
 	json.author do 
+		json.id @post.brand.id
 		json.name @post.brand.name
 		json.thumbUrl full_url(@post.brand.thumbnail.image_url(:very_small))
 	end
@@ -17,12 +18,15 @@ else
 	json.canShowAuthor true
 	json.author do
 		if @post.class.name == "Video"
+			json.id @post.video_group.id
 			json.name @post.video_group.name
 			json.thumbUrl @post.video_group.thumb_url
 		elsif @post.class.name == "Tutorial"
+			json.id @post.author.id
 			json.name @post.author.username
 			json.thumbUrl full_url(@post.author.image_url)
 		else
+			json.id 4
 			json.name "BEAUTYMEETS"
 			json.thumbUrl full_url(User.find(4).image_url)
 		end
