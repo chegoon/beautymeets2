@@ -1,5 +1,5 @@
 
-json.author do
+#json.author do
 	json.id @author.id
 	if @author.class.to_s == "User"
 		json.canShowThumb @author.image_url ? true : false
@@ -24,5 +24,4 @@ json.author do
 			json.partial! 'api/v1/posts/post', post: post
 		end
 	end
-end
-
+#end
