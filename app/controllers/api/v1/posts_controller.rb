@@ -117,7 +117,7 @@ module API
 				elsif posttable == "Tutorial"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					@post.author.id = 4
-					@post.author.name = "BEAUTYMEETS"
+					@post.author.name = "BEAUTYMEETS Editor"
 					#videoUrl = '<iframe src=' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
 				elsif posttable == "Video"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)

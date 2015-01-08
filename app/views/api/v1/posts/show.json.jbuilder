@@ -28,7 +28,7 @@ else
 			json.thumbUrl full_url(User.find(4).image_url)
 		else
 			json.id 4
-			json.name "BEAUTYMEETS"
+			json.name "BEAUTYMEETS Editor"
 			json.thumbUrl full_url(User.find(4).image_url)
 		end
 	end 

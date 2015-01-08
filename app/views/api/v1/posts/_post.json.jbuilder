@@ -23,7 +23,7 @@ json.author do
 	elsif post_type == "Item"
 		json.name "#{post.tutorials.order("created_at DESC").first.try(:title)}"
 	else
-		json.name "BEAUTYMEETS"
+		json.name "BEAUTYMEETS Editor"
 		json.thumbUrl full_url(User.find(4).image_url)
 	end
 end 
