@@ -5,8 +5,12 @@ json.createdAt filtered_time(event.created_at)
 
 if (event.released_at <= Time.now) && (event.announcement_closed_at >= Time.now) && (event.published == TRUE)
 	json.canPlay true
+elsif (event.released_at > Time.now) && (event.announcement_closed_at >= Time.now) && (event.published == TRUE)
+	json.canPlay false
+	json.message "준비중입니다"
 else
 	json.canPlay false
+	json.message "본 이벤트는 종료되었습니다."
 end
 
 json.canShowThumb (event.mobile_thumbnail && event.mobile_thumbnail.image) ? true : false
