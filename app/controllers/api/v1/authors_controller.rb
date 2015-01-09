@@ -44,7 +44,7 @@ module API
 			def show
 				offset = params[:offset] || 0
 				limit = params[:limit] || 12
-				
+
 				authorable = params[:postType] ? params[:postType].capitalize : params[:author_type]
 
 				if authorable == "Tutorial"
@@ -52,16 +52,20 @@ module API
 					#@author = User.find(params[:id])
 					@author = User.find(4)
 					@posts = Tutorial.where(published: true).order("created_at DESC").offset(offset).limit(limit)
+					@total_posts_count = Tutorial.where(published: true).count
 				elsif authorable == "Video"
 					@author = VideoGroup.find(params[:id])
-					@posts = @author.videos(published: true).order("created_at DESC").offset(offset).limit(limit)
+					@posts = @author.videos.where(published: true).order("created_at DESC").offset(offset).limit(limit)
+					@total_posts_count = @author.videos.where(published: true).count
 				elsif authorable == "Item"
 					@author = Brand.find(params[:id])
 					@posts = @author.items.order("created_at DESC").offset(offset).limit(limit)
+					@total_posts_count = @author.items.where(published: true).count
 				else #post
 					#@author = User.find(params[:id])
 					@author = User.find(4)
 					@posts = Post.where(published: true).order("created_at DESC").offset(offset).limit(limit)
+					@total_posts_count = Post.where(published: true).count
 				end
 			end
 
