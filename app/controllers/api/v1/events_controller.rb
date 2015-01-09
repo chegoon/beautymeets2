@@ -12,8 +12,13 @@ module API
 			# GET /events
 			# GET /events.json
 			def index
+
+				offset = params[:offset] || 0
+				limit = params[:limit] || 12
+
 				cards_per_page = 12
-				@events = Event.order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
+				#@events = Event.order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
+				@events = Event.where('released_at <= ? AND finish_on >= ?  AND published = TRUE', Time.now, Time.now).order("created_at DESC").page(params[:page]).per_page(cards_per_page).offset(offset).limit(limit) || Event.all.offset(offset).limit(limit)
 =begin
 				if user_signed_in? && current_user.has_role?(:admin)
 						@events = Event.order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
