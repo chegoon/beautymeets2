@@ -60,7 +60,7 @@ module API
 				elsif authorable == "Item"
 					@author = Brand.find(params[:id])
 					@posts = @author.items.order("created_at DESC").offset(offset).limit(limit)
-					@total_posts_count = @author.items.where(published: true).count
+					@total_posts_count = @author.items.count
 				else #post
 					#@author = User.find(params[:id])
 					@author = User.find(4)
