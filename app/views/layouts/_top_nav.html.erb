@@ -33,7 +33,6 @@
             <li ><%= link_to "Post", posts_path, {:style => "font-weight:bold; color:#elelel;"} %></li>
 
             <% if user_signed_in? %>  
-                <li><%= link_to "Advertising", ad_man_path if current_user.has_role? :admin %></li>
                 <li class="has-dropdown"><a href="#" style="color:#71bdc2;">Hi, <%= current_user.name || current_user.email %></a>
                   <ul class="dropdown">
                     <li><label>Profile</label></li>
