@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150102132238) do
+ActiveRecord::Schema.define(:version => 20150111091708) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -44,6 +44,23 @@ ActiveRecord::Schema.define(:version => 20150102132238) do
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
   add_index "activities", ["recipient_id", "recipient_type"], :name => "index_activities_on_recipient_id_and_recipient_type"
   add_index "activities", ["trackable_id", "trackable_type"], :name => "index_activities_on_trackable_id_and_trackable_type"
+
+  create_table "ad_man_advertisements", :force => true do |t|
+    t.string   "title"
+    t.string   "destination_url"
+    t.string   "ad_banner_file_name"
+    t.string   "ad_banner_content_type"
+    t.integer  "ad_banner_file_size"
+    t.datetime "ad_banner_updated_at"
+    t.integer  "display_count",          :default => 0, :null => false
+    t.integer  "priority",               :default => 1, :null => false
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "keyword_id"
+    t.integer  "click_count",            :default => 0, :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

@@ -50,7 +50,10 @@ class SessionsController < Devise::SessionsController
 		puts "request_format : #{request.format}"
 		if (session[:request_format].present? && session[:request_format] == "json")
 			puts "authenticate start for json"
-			warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+			if warden.authenticate(:scope => resource_name, :recall => "#{controller_path}#failure")
+			else
+ 				return invalid_login_attempt
+			end
 		else
 			puts "authenticate start for not json"
 			self.resource = warden.authenticate!(auth_options)
@@ -78,6 +81,26 @@ class SessionsController < Devise::SessionsController
 			#end
 			
 		end
+	end
+
+	# forward new action if any exception occurs in sesion create
+	def new
+		if (session[:request_format].present? && session[:request_format] == "json")
+
+		else
+			self.resource = resource_class.new(sign_in_params)
+	    	clean_up_passwords(resource)
+		end
+
+		yield resource if block_given?	
+		respond_to do |format|
+			format.json  {
+
+				render json: {:status => 200, :success => true, :info => "Logged in"}
+			}
+			format.html {respond_with resource, location: serialize_options(resource)}
+		end
+		#respond_with(resource, serialize_options(resource))
 	end
 		
 	def destroy
@@ -124,6 +147,11 @@ class SessionsController < Devise::SessionsController
 	def show_current_user
 		warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
 		render :status => 200, :json => { :success => true, :info => "Current User", :user => current_user }
+	end
+
+	def invalid_login_attempt
+    	warden.custom_failure!
+		render :json=> {:success=>false, :message=>"Error with your login or password"}, :status=>401
 	end
 
 	protected

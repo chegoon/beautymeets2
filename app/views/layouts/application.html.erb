@@ -91,7 +91,7 @@
 
 		<%= render :partial => "layouts/fb" if Rails.env.production?   %>
 
-		<%= render "layouts/top_nav" %>
+		<%= render "layouts/top_nav" if (controller_name != "advertisements") && (controller_name != "keywords") %>
 		
 		<% flash.each do |name, msg| %>
 			<div data-alert class="alert-box alert-<%= name == :notice ? "success" : "error" %>">
@@ -116,12 +116,12 @@
 
 					<%= yield %>
 
-					<%= render "layouts/to_top" %>
+					<%= render "layouts/to_top" if (controller_name != "advertisements") && (controller_name != "keywords") %>
 
 					<%= yield :scripts %>
 					<!-- dif for static footer-position -->
 
-					<%= render "layouts/footer" %>
+					<%= render "layouts/footer" if (controller_name != "advertisements") && (controller_name != "keywords") %>
 				</div>
 			</div>
 		<% end %>
