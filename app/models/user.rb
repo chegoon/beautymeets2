@@ -70,6 +70,13 @@ class User < ActiveRecord::Base
 	has_many :event_entrys
 	#validates :username, uniqueness: {case_sensitive: true}
 
+=begin
+	validates :email, 
+          :presence => true, 
+          :format => { :with => VALID_EMAIL_REGEX }, 
+          :uniqueness => {:case_sensitive => false },
+          :if => 'provider.blank?'
+=end
 	mount_uploader :image, ImageUploader
 
 	def name
@@ -112,6 +119,10 @@ class User < ActiveRecord::Base
 		else
 			super
 		end    
+	end
+
+	def email_required?
+		super && authentications.empty?
 	end
 
 	# if user regists through omniauth, user be able to pass password field

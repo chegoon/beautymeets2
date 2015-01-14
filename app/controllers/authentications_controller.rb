@@ -109,7 +109,7 @@ class AuthenticationsController < ApplicationController
 			user.apply_omniauth(omniauth)
 			puts "brand new user"
 			if user.save
-	      		UserMailer.delay.welcome(user).deliver
+	      		UserMailer.welcome(user).deliver
 	      		user.profile = Member.create!
 	      		user.add_role :member
 				user.save
