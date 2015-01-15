@@ -57,14 +57,15 @@ class User < ActiveRecord::Base
 	belongs_to :profile, polymorphic: true, dependent: :destroy
 	has_many :tutorials
 	has_many :beautyclasses
-	has_many :notices
-	has_many :checkouts
-	has_many :bookmarks
+	has_many :notices,  :dependent => :destroy
+	has_many :checkouts,  :dependent => :destroy
+	has_many :bookmarks,  :dependent => :destroy
 	has_many :authentications,  :dependent => :destroy
 	has_many :posts
-	has_many :boards
+	has_many :boards,  :dependent => :destroy
 	has_many :devices, dependent: :destroy
 	has_many :collections
+	has_many :comments,  :dependent => :destroy
 	
 	has_many :events, through: :event_entrys
 	has_many :event_entrys

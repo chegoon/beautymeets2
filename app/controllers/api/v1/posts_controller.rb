@@ -113,7 +113,7 @@ module API
 
 				videoUrl = ""
 				if posttable == "Item" 
-					@related_posts = @post.tutorials
+					@related_posts = @post.tutorials.where(published: true)
 				elsif posttable == "Tutorial"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					@post.author.id = 4
