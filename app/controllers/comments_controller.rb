@@ -57,7 +57,13 @@ class CommentsController < ApplicationController
 					end
 				end
 				message = @commentable.title + "에 댓글이 달렸습니다."
-				PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices, data:{ url: "#/app/#{@commentable.class.name.to_s.pluralize.downcase}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
+
+				if (@commentable.class.name.to_s.pluralize.downcase == "tutorials") || (@commentable.class.name.to_s.pluralize.downcase == "posts") || (@commentable.class.name.to_s.pluralize.downcase == "videos") || (@commentable.class.name.to_s.pluralize.downcase == "items")
+					posts = "posts"
+				else
+					posts = @commentable.class.name.to_s.pluralize.downcase
+				end
+				PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices, data:{ url: "#/app/#{posts}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
 			end
 
 			if !(@commentable.class.name == "Notice")
