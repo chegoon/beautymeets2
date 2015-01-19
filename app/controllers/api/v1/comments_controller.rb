@@ -55,6 +55,7 @@ module API
 					if @parent
 						@comment.move_to_child_of(@parent)
 						@comment.delay.create_activity :create, owner: @user, recipient: @parent.user if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@parent.user) && (@user != @parent.user) && PublicActivity::Activity.where(owner_id: @user.id, owner_type: "User", trackable_id: @comment.id, trackable_type: "Comment", recipient_id: @parent.user.id, recipient_type: "User").first.nil?
+						CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
 					else
 						@comment.delay.create_activity :create, owner: @user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (@user != @commentable.author)
 					end

@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 				
 				if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
 					# mail to parent comment author
-					CommentMailer.delay.parent_notification(@parent, @commentable, @comment) unless @parent.invalid?
+					CommentMailer.delay.parent_notification(@parent, @commentable, @comment) if @parent && (@parent.user.email) && (@comment.user.email)
 				end
 			else
 				@comment.delay.create_activity :create, owner: current_user, recipient: @commentable.author if !(@commentable.class.name == "Notice") && !(@commentable.class.name == "Event") && (current_user != @commentable.author)
@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
 
 			if !((@commentable.class.name == "Event") || (@commentable.class.name == "Notice"))
 				# mail to beautymeets team
-				CommentMailer.delay.create_notification(@commentable, @comment) if (@comment.user != @commentable.author)
+				CommentMailer.delay.create_notification(@commentable, @comment) if (@comment.user != @commentable.author) && (@commentable.author.email) && (@comment.user.email)
 
 				devices = Array.new
 				@commentable.comments.each do |c|
