@@ -2,7 +2,6 @@
 <% page_thumb "#{@videos.order('view_count DESC').last.thumb_url}" %>
 <% end %>
 <% page_title "BEAUTYMEETS > #{@video_group.name}" %>
-
 <% page_desc "Discovery, Learn, and Be beautiful in BEAUTYMEETS에서 #{@video_group.name} 이 만든 #{@videos.count}개의 비디오가 당신을 기다리고 있습니다. " %>
 
  <div class="row " style="">
@@ -17,6 +16,7 @@
 				          <% end %>
 
 					  		&nbsp;<%= @video_group.name %><%= link_to "EDIT", edit_video_group_path(@video_group) if user_signed_in? && current_user.can_update?(@video_group) %>
+					  		<%= link_to 'Destroy', @video_group, method: :delete, data: { confirm: 'Are you sure?' } if user_signed_in? && current_user.can_delete?(@video_group) %>
 					<small>
 						<%= "가장 많이 본 비디오" if params[:order] == 'popular' %>
 						<%= "최근 업데이트된 비디오" if params[:order].nil? ||  params[:order] == 'newly' %>
