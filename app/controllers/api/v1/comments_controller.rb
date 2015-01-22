@@ -144,7 +144,6 @@ module API
 				token = params[:authToken] 
 				puts "token : #{token}"
 				@user = User.find_by_authentication_token(token)
-				puts "user : #{@user.email}"
 			end
 		end
 	end
