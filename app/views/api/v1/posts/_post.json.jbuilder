@@ -1,7 +1,7 @@
 post_type = post.class.name.underscore.humanize
 json.id post.id
 json.postType post_type
-json.title truncate(post.title, 20)
+json.title truncate(post.title, 24)
 json.category post.categories.map(&:name)
 json.hits post.view_count
 json.commentsCount post.comments.count
