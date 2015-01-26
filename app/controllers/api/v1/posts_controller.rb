@@ -40,7 +40,7 @@ module API
 								SELECT
 								    i.id, 'Item' as post_type, i.created_at as created_at
 									FROM items i
-								    #WHERE i.published IS TRUE
+								    WHERE i.published IS TRUE
 								UNION
 								SELECT
 								    v.id, 'Video' as post_type, v.published_at as created_at
@@ -80,7 +80,7 @@ module API
 								    	ON categorizations.categorizeable_id = i.id
 								    	AND categorizations.categorizeable_type = 'Item' 
 									INNER JOIN categories ON categories.id = categorizations.category_id
-								    #WHERE i.published IS TRUE
+								    WHERE i.published IS TRUE
 								    AND categories.id IN (" + categories.map(&:id).join(",") + ")
 								UNION
 								SELECT

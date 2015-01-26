@@ -6,6 +6,7 @@
       <%= f.input :name %>
       <%= f.input :url_candidate %>
       <%= f.input :description %>
+      <%= f.input :published %>
       <%= f.input :tag_list, :label => "Tags (separated by commas)" %>
 
       <% CategoryType.find_by_name("item").categories.each do |category| %>

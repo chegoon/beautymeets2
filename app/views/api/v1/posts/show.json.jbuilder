@@ -61,10 +61,10 @@ elsif @post.class.name == "Tutorial"
 
 	json.favorited Bookmark.where(model_type_id: 2, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
-	if @post.items.count > 0
+	if @post.items.where(published: true).count > 0
 		json.canShowItems true
 		json.relatedItemTitle "#{@post.title}에 사용된 제품"
-		json.items @post.items do |item|
+		json.items @post.items.where(published: true) do |item|
 			json.id item.id
 			json.postType "Item"
 			json.name item.name
@@ -108,7 +108,7 @@ elsif @post.class.name == "Item"
 		p_cat_ids.push(cat.parent.id) if cat.parent
 	end
 	sibling_categories = Category.where("parent_id IN (?)", p_cat_ids)
-	item_ids_in_category = Item.joins(:categories).where("category_id IN (?) AND items.id <> ?", sibling_categories.map(&:id), @post.id).select("distinct(items.id)")
+	item_ids_in_category = Item.joins(:categories).where("items.published is true AND category_id IN (?) AND items.id <> ?", sibling_categories.map(&:id), @post.id).select("distinct(items.id)")
 	items_in_category = Item.where("id IN (?)", item_ids_in_category.map(&:id)).order("view_count DESC")
 
 	if items_in_category.count > 0

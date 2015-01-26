@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
 	friendly_id :url_candidate, use: [:slugged, :history]
 	
 	belongs_to :brand
-	attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id,  :category_ids, :url_candidate, :collection_title
+	attr_accessible :description, :name, :view_count, :brand_name, :tag_list, :picture_id,  :category_ids, :url_candidate, :collection_title, :published
 	
 	has_many :pictures, as: :pictureable, dependent: :destroy
 
