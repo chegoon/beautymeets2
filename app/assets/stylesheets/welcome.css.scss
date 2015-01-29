@@ -35,6 +35,14 @@
 	.welcome-jumbo-desc {
 		margin-top:10.8rem; 
 	}
+
+	.welcome-item-header {
+		margin:0 auto; 	
+		max-width:260px; 
+		width:auto; 
+		height:50px; 
+		position:relative;
+	}
 }
 
 @media only screen and (min-width: 40.063em)  { 
@@ -68,6 +76,13 @@
 		margin-top:9rem; 
 		margin-left:2rem;
 	}
+
+
+	.welcome-item-header {
+		width:auto; 
+		height:50px; 
+		position:relative;
+	}
 } 
 
 .welcome-post-more {
@@ -92,13 +107,6 @@
   height:118px;
 }
 
-.welcome-item-header {
-	max-width:260px; 
-	width:auto; 
-	margin:0 auto; 
-	height:50px; 
-	position:relative;
-}
 
 .welcome-item-more {
 	position:absolute; 
