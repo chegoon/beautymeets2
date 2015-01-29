@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
 	# redirect to previous page when signup/login
 	after_filter :store_location
 	before_filter :save_referer
-	
+	before_filter :increment_page_view_count
+
 	#include SimpleCaptcha::ControllerHelpers
 	#before_filter :detect_browser
 
@@ -24,6 +25,19 @@ class ApplicationController < ActionController::Base
 		end
 	end
 =end
+	protected
+	def increment_page_view_count
+		puts "increment_page_view_count called"
+		session[:page_view_count] ||= 0
+		if (session[:page_view_count] > 4 && !user_signed_in?) && (controller_name != "sessions") && (controller_name != "registrations") && (controller_name != "authentications")
+			#flash.now[:alert] = 'You need to login for forward'
+			@isGuest = true
+		else
+			session[:page_view_count] = session[:page_view_count] + 1
+			@isGuest = false
+		end
+	end
+
 	def save_referer
 		#puts "before_save, sessoin_referer : #{session['referer']}"
 		unless user_signed_in? 

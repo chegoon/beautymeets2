@@ -3,7 +3,8 @@ module API
 		class BaseController < ApplicationController
 			after_filter :set_access_control_headers, :set_csrf_cookie_for_ng
 			before_filter :cors_preflight_check
-
+			skip_before_filter :increment_page_view_count
+			
 			respond_to :json
 
 			# This is used to allow the cross origin POST requests made by app.

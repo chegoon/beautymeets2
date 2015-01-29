@@ -91,7 +91,6 @@
 <% if (!@tutorial.items.nil?)  && (@tutorial.items.count > 0) %>				
 	<div class="small-12 medium-12 columns" >		
 		<h5 class="subheader" style="margin-top:10px;">사용된 화장품 보기</h5>
-		<% if user_signed_in? %>
 			<div class="show-for-small-only">
 				<table style="width:100%;">	
 					<tbody>
@@ -143,68 +142,6 @@
 
 				</ul>				
 			</div>
-		<% else %>
-
-			<div class="show-for-small-only">
-				<table style="width:100%;">	
-					<tbody>
-						<% @featured_items.each do |tutorial_item| %>		
-
-								<tr >
-									<td style="border: 1px solid #e9e9e9; width:80px; background:#FFF; ">
-										<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small)), item_path(tutorial_item) if tutorial_item.thumbnail.present? %>
-									</td>
-									<td style="border: 1px solid #e9e9e9; background:#FFF; ">
-										<div style="font-size:0.75rem; line-height:100%; margin-top;0;">
-											<%= tutorial_item.brand.try(:name) %>
-										</div>
-										<div style="font-size:0.8rem; line-height:100%;">
-											<strong><%= link_to truncate(tutorial_item.try(:name), 20), item_path(tutorial_item) %></strong>
-										</div>
-									</td>
-								</tr>
-
-						<% end %>
-
-						<tr >
-							<td colspan="2" style="border: 1px solid #e9e9e9; ">
-								<div class="subheader" style="background:#fafafa; margin:0 auto;">
-									<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
-									<a href="<%= new_user_registration_path %>"  class="button tiny" >회원가입</a>&nbsp;
-						 	    	<a href="<%= new_user_session_path %>"  class="button tiny secondary">로그인</a>
-						 	    </div>
-						 	    <% if @android_detected == true %>
-									<p>
-										뷰티밋츠 앱을 다운받으시면 더욱 다양한 튜토리얼을 만날 수 있어요<br/>
-										<a href="http://bit.ly/BeautymeetsApp">http://bit.ly/BeautymeetsApp</a><br/>
-									</p>
-								<% end %>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="show-for-medium-up">
-				<ul id="item-carousel" class="elastislide-list">
-					<% @featured_items.each do |tutorial_item| %>		
-
-							<li >
-
-								<%= link_to image_tag(tutorial_item.thumbnail.image_url(:small), :class => "th", :style => "width:110px; height:auto;"), item_path(tutorial_item)  if tutorial_item.thumbnail.present? %>
-								<div style="font-size:0.75rem; line-height:100%; margin-top;0;"><%= tutorial_item.brand.try(:name) %></div>
-								<div style="font-size:0.8rem; line-height:100%;"><strong><%= link_to truncate(tutorial_item.try(:name), 10), item_path(tutorial_item) %></strong>
-								</div>
-							</li>
-					<% end %>
-					<li >
-
-							<p>로그인하시면 튜토리얼에서 사용된 제품을 모두 확인하실 수 있습니다.</p>
-							<a href="<%= new_user_registration_path %>"  class="button secondary" >회원가입</a>&nbsp;
-			 	    			<a href="<%= new_user_session_path %>"  class="button  secondary">로그인</a>
-			 	 	</li>
-				</ul>			
-			</div>	
- 	  <% end %>
 	</div>
 <% end %>
 
