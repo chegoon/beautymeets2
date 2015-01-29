@@ -63,7 +63,7 @@ class CommentsController < ApplicationController
 				else
 					posts = @commentable.class.name.to_s.pluralize.downcase
 				end
-				PushNotificationSender.delay.notify_devices({content: message, device_type: 3, devices: devices, data:{ url: "#/app/#{posts}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
+				PushNotificationSender.delay.notify_devices({content: message, devices: devices, data:{ url: "#/app/#{posts}/#{@commentable.id}?postType=#{@commentable.class.name}" }})	
 			end
 
 			if !(@commentable.class.name == "Notice")
