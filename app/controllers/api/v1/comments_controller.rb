@@ -17,14 +17,23 @@ module API
 					offset = @commentable.comments.count - limit
 				end
 				#offset = params[:offset] || (@commentable.comments.count - limit)
-				
+				puts "limit : #{limit}"
+				puts "offset : #{offset}"
 				if offset > 0
 					@can_load_more = true 
 					@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
+				# 이전 댓글 보기의 마지막 페이지	
 				elsif offset == 0
 					surplus_limit = @commentable.comments.count % limit
+					# 댓글이 10개일 경우
+					if surplus_limit == 0
+						@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(limit)
+					else
+						@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(surplus_limit)
+					end
 					@can_load_more = false
-					@comments = @commentable.comment_threads.order("lft ASC").offset(offset).limit(surplus_limit)
+					
+				# 댓글이 limit 보다 작을 경우
 				else
 					@comments = @commentable.comments
 					@can_load_more = false
