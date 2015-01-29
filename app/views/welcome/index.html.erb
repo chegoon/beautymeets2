@@ -73,14 +73,15 @@
 
 			<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "비디오 더 살펴보기", :class => "right welcome-post-more"), videos_path %>
 		</div>
+
+		<div class="row">
 		<%= render @latest_videos %>
+		</div>
 	</div>
 </div>
 <% end %>
 
 <% if @latest_posts.present? %>
-<div class="row">
-	<div class="small-12 columns" >
 		<div class="row">
 			<div class="small-12 columns" >
 				<div class="welcome-post-header" >
@@ -95,6 +96,4 @@
 				<%= render @latest_posts %>
 			</div>
 		</div>
-	</div>
-</div>
 <% end %>
