@@ -40,6 +40,7 @@ class WelcomeController < ApplicationController
 			#@best_items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' AND (impressions.created_at > CURDATE() - INTERVAL 1 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").limit(4)
 			@latest_items = Item.where("published is true AND id IN (?)", Itemization.pluck(:item_id)).order("created_at DESC, updated_at DESC").limit(4)
 			#@latest_items = Item.where("id IN (?)", Itemization.pluck(:item_id)).last(4).order("created_at DESC")
+			@latest_collections = Collection.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 			@latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 			#@latest_posts = Post.where(published: true).last(3).order("created_at DESC")
 			@latest_videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").limit(4)
@@ -53,6 +54,7 @@ class WelcomeController < ApplicationController
 			@latest_tutorials = Tutorial.where(published: true).order("created_at DESC, updated_at DESC").limit(2)
 			#@best_items = Item.joins("JOIN impressions ON impressions.impressionable_id = items.id").where("impressions.impressionable_type = 'Item' AND (impressions.created_at > CURDATE() - INTERVAL 1 WEEK)").group("impressions.impressionable_id").order("count(impressions.impressionable_id) DESC").limit(4)			
 			@latest_items = Item.where("published is true AND id IN (?)", Itemization.pluck(:item_id)).order("created_at DESC, updated_at DESC").limit(4)
+			@latest_collections = Collection.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 			@latest_posts = Post.where(published: true).order("created_at DESC, updated_at DESC").limit(3)
 			@latest_videos = Video.joins(:video_group).where("video_groups.published=TRUE AND videos.published=TRUE").order("published_at DESC").limit(4)
 			@tutorials = @best_tutorials

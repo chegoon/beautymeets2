@@ -69,7 +69,8 @@
 <div class="row"  style="margin-bottom:30px;">
 	<div class="small-12 columns" >
 		<div class="welcome-post-header" >
-			<span class="subheader" style="font-size:1.3rem; letter-spacing:-1px; ">최신 뷰티밋츠 비디오</span>
+			<%= image_tag "/assets/hdr_latest_video
+					@2x.png", :style => "width:auto; height:50px;" %>
 
 			<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "비디오 더 살펴보기", :class => "right welcome-post-more"), videos_path %>
 		</div>
@@ -81,13 +82,32 @@
 </div>
 <% end %>
 
+<% if @latest_collections.present? %>
+		<div class="row">
+			<div class="small-12 columns" >
+				<div class="welcome-post-header" >
+					<%= image_tag "/assets/hdr_latest_collection
+					@2x.png", :style => "width:auto; height:50px;" %>
+					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "콜렉션 더 살펴보기", :class => "hide-for-small-only right welcome-post-more"), {controller: "collections", order: "index"} %>
+					<%= link_to image_tag("/assets/btn_plus@2x.png", :alt => "콜렉션 더 살펴보기", :style => "width:14px; height:14px;", :class => "show-for-small-only right welcome-item-more"), {controller: "collections", order: "index"} %>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-12">
+				<%= render @latest_collections %>
+			</div>
+		</div>
+<% end %>
+
 <% if @latest_posts.present? %>
 		<div class="row">
 			<div class="small-12 columns" >
 				<div class="welcome-post-header" >
-					<%= image_tag "/assets/hdr_post.png", :class => "show-for-medium-up"  %>
-					<span class="show-for-small-only subheader" style="font-size:1.3rem; letter-spacing:-1px; ">최신 뷰티밋츠 포스트</span>
-					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "right welcome-post-more"), posts_path %>
+					<%= image_tag "/assets/hdr_latest_post
+					@2x.png", :style => "width:auto; height:50px;" %>
+					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "hide-for-small-only right welcome-post-more"), posts_path %>
+					<%= link_to image_tag("/assets/btn_plus@2x.png", :alt => "포스트 더 살펴보기",:style => "width:14px; height:14px;",  :class => "show-for-small-only right welcome-item-more"), posts_path %>
 				</div>
 			</div>
 		</div>
