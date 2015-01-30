@@ -187,10 +187,11 @@
 						window.flexVerticalCenter( document.getElementsByClassName('vertical-center'));
 				})(window, document);
 		</script>
-		<div id="loginModal" class="reveal-modal medium" data-reveal data-options="close_on_background_click:false;close_on_esc:false;">
-			<h2>로그인이 필요합니다.</h2>
-			<p class="lead">더 이용을 원하신다면 로그인해주세요.</p>
-			<p>가입하시면 다양한 뷰티 팁들과 이벤트 참여가 가능합니다.</p>
+		<div id="loginModal" class="reveal-modal medium" style="max-width:480px;" data-reveal data-options="close_on_background_click:false;close_on_esc:false;">
+			<h3>지금부터는<br/> 뷰티밋츠 로그인이 필요합니다.</h3>
+			<p></p>
+			<p>더 예뻐지기 위해서 뷰티밋츠에 로그인 해주세요.<br/>가입하시면 다양한 뷰티 팁들과 이벤트 참여가 가능합니다.</p>
+			<p></p>
 			<%= link_to image_tag("/assets/btn_join@2x.png", :alt => "가입하기", :class => "left", :style => "width:116px; height:40px; margin-right:10px;"), new_user_registration_path %>
 			<%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기", :class => "left",  :style => "width:116px; height:40px;"), new_user_session_path  %>
 		</div>
