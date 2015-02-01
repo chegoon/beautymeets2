@@ -277,6 +277,13 @@ Beautymeets2::Application.routes.draw do
 	resources :videos do 
 		resources :items
 		
+		resources :items do 
+			match 'unitemize' => 'items#unitemize', :via => [:delete]     
+			match 'featured' => 'items#featured', :via => [:get]     
+			match 'unfeatured' => 'items#unfeatured', :via => [:get]     
+		end
+		get :autocomplete_item_name, :on => :collection   
+
 		resources :collections do 
 			match 'drop' => 'collections#drop_collecting', :via => [:delete]     
 		end

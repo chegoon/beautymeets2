@@ -43,6 +43,18 @@ if @post.class.name == "Video"
 	json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '" frameborder="0" allowfullscreen></iframe>'
 	json.favorited Bookmark.where(model_type_id: 3, model_id: @post.id, user_id: @user.id).count > 0  ? 1 : nil
 
+	if @post.items.where(published: true).count > 0
+		json.canShowItems true
+		json.relatedItemTitle "#{@post.title}에 사용된 제품"
+		json.items @post.items.where(published: true) do |item|
+			json.id item.id
+			json.postType "Item"
+			json.name item.name
+			json.brandName item.brand.try(:name)
+			json.thumbUrl full_url(item.thumbnail.image_url(:very_small))
+		end
+	end
+	
 elsif @post.class.name == "Tutorial"
 	json.url request.protocol + request.host_with_port + tutorial_path(@post)
 	json.thumbUrl full_url(@post.thumbnail.image_url(:large))
@@ -51,7 +63,6 @@ elsif @post.class.name == "Tutorial"
 	if @post.video_url.present?
 		json.canShowVideo true
 		json.videoUrl '<iframe width="100%" height="280px;" src="' + @post.video_url + '?rel=0&vq=hd720&showsearch=0" frameborder="0" allowfullscreen></iframe>'
-		
 	elsif @post.vimeo_url.present?
 		json.canShowVideo true
 		json.videoUrl '<iframe  width="100%" src="' + @post.vimeo_url + '?title=0&amp;byline=0&amp;portrait=0&amp;color=5de0cf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
@@ -135,9 +146,19 @@ if @related_posts.count >= 1
 	else
 		json.relatedVideoTitle "이런 영상 어때요?"
 	end
+=begin
 	json.relatedPosts @related_posts do |post|
 		json.partial! 'api/v1/posts/related_post', post: post
 	end
+=end
+	json.relatedPosts @related_posts do |p|
+		puts "class type : #{p.class.name}"
+		if p.class.name == "Array"
+			json.partial! 'api/v1/posts/related_post', post: p[1].classify.constantize.find(p[0])
+		else
+			json.partial! 'api/v1/posts/related_post', post: p
+		end
+	end	
 end
 
 # comments partial

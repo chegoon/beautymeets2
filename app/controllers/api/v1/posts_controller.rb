@@ -16,13 +16,17 @@ module API
 				#puts "category : #{category}"
 				# HOME 
 
+
 				@connection = ActiveRecord::Base.establish_connection( 
 					:adapter => "mysql2",
 					:host => "localhost",
-					:database => "beautymeets2_production",
+					#:database => "beautymeets2_production",
+					:database => "beautymeets2_development",
 					:username => "root",
-					:password => "Reallplay0707"
+					:password => "bd0516"
+					#:password => "Reallplay0707"
 				)
+
 
 				if categories.nil? 
 					sql = "SELECT posts.id as id, posts.post_type as post_type, posts.created_at as created_at
@@ -107,13 +111,55 @@ module API
 
 				@post = posttable.classify.constantize.find(params[:id])
 
+				offset = params[:offset] || 0
+				limit = params[:limit] || 12
+
 				@post.increment_view_count 
 				impressionist(@post)
 				@post.mark_as_read! :for => @user
 
 				videoUrl = ""
 				if posttable == "Item" 
-					@related_posts = @post.tutorials.where(published: true)
+
+					@connection = ActiveRecord::Base.establish_connection( 
+						:adapter => "mysql2",
+						:host => "localhost",
+						#:database => "beautymeets2_production",
+						:database => "beautymeets2_development",
+						:username => "root",
+						:password => "bd0516"
+						#:password => "Reallplay0707"
+					)
+
+					
+					#@related_posts = @post.tutorials.where(published: true)
+					#puts "#{@related_posts}"
+
+					@related_posts = Array.new
+					sql = "SELECT posts.id as id, posts.post_type as post_type, posts.created_at as created_at
+							FROM ( 
+								SELECT
+									t.id, 'Tutorial' as post_type, t.created_at as created_at
+									FROM tutorials t, itemizations it
+									WHERE t.published IS TRUE
+									AND t.id = it.itemizable_id
+									AND it.itemizable_type = 'Tutorial'
+									AND it.item_id = " + @post.id.to_s + "
+								UNION
+								SELECT
+								    v.id, 'Video' as post_type, v.created_at as created_at
+									FROM videos v, video_groups vg, itemizations it
+								    WHERE v.published IS TRUE
+								    AND v.video_group_id = vg.id
+								    AND vg.published IS TRUE
+									AND v.id = it.itemizable_id
+									AND it.itemizable_type = 'Video'
+									AND it.item_id = " + @post.id.to_s + "
+							)
+							AS posts ORDER BY posts.created_at DESC LIMIT " + limit.to_s  + " OFFSET " + offset.to_s
+
+					@related_posts = @connection.connection.execute(sql)
+
 				elsif posttable == "Tutorial"
 					@related_posts = Tutorial.where(published: true).unread_by(@user).order("tutorials.view_count DESC").limit(10).sample(3)
 					@post.author.id = 4

@@ -17,13 +17,13 @@ class Video < ActiveRecord::Base
 	
 	belongs_to :video_group
 	
-	attr_accessible :description, :title, :view_count, :thumb_url, :title, :video_url, :video_group_id, :image, :published, :category_ids, :published_at, :duration, :tag_list, :collection_title
+	attr_accessible :description, :title, :view_count, :thumb_url, :title, :video_url, :video_group_id, :image, :published, :category_ids, :published_at, :duration, :tag_list, :collection_title, :item_name
 
 	has_many :categorizations, as: :categorizeable
 	has_many :categories, through: :categorizations
 	
-	has_many :itemization, as: :itemizable
 	has_many :items, through: :itemizations
+	has_many :itemizations, as: :itemizable
 
 	has_many :collections, through: :collectings
 	has_many :collectings, as: :collectable  
@@ -40,6 +40,19 @@ class Video < ActiveRecord::Base
 		video_group
 	end
 
+	def item_name
+		self.items.find_by_name(:name)
+	end
+
+	def item_name=(name)
+		item = Item.find_by_name(name)
+		if item.present? 
+			itemization = self.itemizations.find_by_item_id(item.id) || self.itemizations.create(item_id: item.id) 
+		else
+			item = self.items.create(name: name)
+		end
+	end
+	
 	def collection_title
 		self.collections.find_by_title(:title)
 	end
