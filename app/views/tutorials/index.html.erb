@@ -8,10 +8,18 @@
 	<div class="small-12 columns" >
 		<div class="panel tutorial-index-head" style="border:0; margin-bottom:0; padding:0; background: url('/assets/tutorial_header_bg.jpg');">
 			<div class="row" style="margin:0;">
+
 				<div class="medium-8 columns" style=" padding:0; " >
-					<div class="flex-video widescreen vimeo" style=" margin:0; " >
-					<iframe width="420" height="315" src="<%= @head_tutorial.vimeo_url %>?title=0&byline=0&portrait=0" frameborder="0" allowfullscreen></iframe> 
-					</div>
+					<% if @head_tutorial.video_url %>
+						<div class="flex-video widescreen" style="display:block; margin:0; ">
+						  <iframe width="360px" height="180px" src="<%= @head_tutorial.video_url %>?vq=hd720&autohide=1" frameborder="0" allowfullscreen></iframe>	      
+						</div>
+					<% elsif @head_tutorial.vimeo_url %>
+						<div class="flex-video widescreen vimeo">
+							<iframe width="420" height="315" src="<%= @head_tutorial.vimeo_url %>?title=0&byline=0&portrait=0" frameborder="0" allowfullscreen></iframe> 
+						</div> 
+					<% else %>
+					<% end %>
 				</div>
 				<div class="medium-4 columns"  style="padding:0;">
 					<div class="index-head-title" style="">
