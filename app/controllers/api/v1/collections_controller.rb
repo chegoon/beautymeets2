@@ -10,7 +10,7 @@ module API
 				categories = menu ? Category.where(menu_id: menu.id) : nil
 				
 				if categories.present?
-					@collections = Collection.joins(:categories).where("collections.published is TRUE AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC")
+					@collections = Collection.joins(:categories).where("collections.published is TRUE AND categories.id IN (?)", categories.map(&:id)).order("created_at DESC").limit(5)
 				else
 					@collections = Collection.where("published IS TRUE AND featured IS TRUE").order("created_at DESC")
 				end
