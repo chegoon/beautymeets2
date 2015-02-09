@@ -51,7 +51,7 @@ if @post.class.name == "Video"
 			json.postType "Item"
 			json.name item.name
 			json.brandName item.brand.try(:name)
-			json.thumbUrl full_url(item.thumbnail.image_url(:very_small))
+			json.thumbUrl full_url(item.thumbnail.image_url(:small))
 		end
 	end
 	
@@ -80,7 +80,7 @@ elsif @post.class.name == "Tutorial"
 			json.postType "Item"
 			json.name item.name
 			json.brandName item.brand.try(:name)
-			json.thumbUrl full_url(item.thumbnail.image_url(:very_small))
+			json.thumbUrl full_url(item.thumbnail.image_url(:small))
 		end
 	end
 
