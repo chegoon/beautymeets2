@@ -22,7 +22,11 @@ json.author do
 		#json.thumbUrl full_url(post.author.image_url)
 	elsif post_type == "Item"
 		#json.name "#{post.tutorials.where(published: true).order("created_at DESC").first.try(:title)}"
-		json.name "#{post.tutorials.order("created_at DESC").first.try(:title)}"
+		if post.tutorials
+			json.name "#{post.tutorials.order("created_at DESC").first.try(:title)}"
+		else
+			json.name "#{post.videos.order("created_at DESC").first.try(:title)}"
+		end
 	else
 		json.name "BEAUTYMEETS Editor"
 		json.thumbUrl full_url(User.find(4).image_url)
