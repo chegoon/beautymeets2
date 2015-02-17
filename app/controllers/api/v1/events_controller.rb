@@ -15,18 +15,12 @@ module API
 
 				offset = params[:offset] || 0
 				limit = params[:limit] || 12
-
+				platform = params[:platform].downcase || 'android'
 				cards_per_page = 12
-				@events = Event.where(published: true).order("created_at DESC").offset(offset).limit(limit) || Event.all
+				#@events = Event.where(published: true).order("created_at DESC").offset(offset).limit(limit) || Event.all
+				@events = Event.joins(:categories).where("events.published IS true AND categories.name = ?", platform).order("created_at DESC").offset(offset).limit(limit) || Event.all
 				#@events = Event.where('released_at <= ? AND finish_on >= ?  AND published = TRUE', Time.now, Time.now).order("created_at DESC").offset(offset).limit(limit) || Event.all.offset(offset).limit(limit)
-=begin
-				if user_signed_in? && current_user.has_role?(:admin)
-						@events = Event.order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
-					else
-						@events = Event.where('released_at <= ? AND finish_on >= ? AND  published = TRUE', Time.now, Time.now).order("created_at DESC").page(params[:page]).per_page(cards_per_page) || Event.all
-					end
-				end
-=end				
+			
 				respond_to do |format|
 					format.html # index.html.erb
 					format.json #{ render json: @events }

@@ -13,8 +13,14 @@
     <%= f.input :announcement_closed_at, as: :datetime_picker, label: "당첨자 발표 종료일" %>
     <%= f.input :released_at, as: :datetime_picker, label: "이벤트 게시물 공고일" %>
 
-
-
+    <p>
+    이벤트 환경<br/>
+    <%= hidden_field_tag "event[category_ids][]", nil %>
+    <% Category.where(parent_id: Category.find_by_name("platform").id).each do |category| %>
+        <%= check_box_tag "event[category_ids][]", category.id, @event.category_ids.include?(category.id), id: dom_id(category)  %>
+        <%= label_tag dom_id(category), category.name %>
+    <% end %>
+    </p>
     <%= f.button :submit %>
 
 <% end %>
