@@ -48,16 +48,19 @@
   <div class="small-12 columns"> 
     <h5 class="subheader"><strong><%= @brand.name %></strong> 제품들이 사용된 튜토리얼&nbsp;(<%= @items.count %>)</h5>
     <% @items.each do |item| %>
-      <% @tutorials = item.tutorials.order("view_count DESC") %>
       <div class="row">
         <div class="small-12 columns">
+      
+      <% @tutorials = item.tutorials.order("view_count DESC") %>
           <h6 class="subheader"><%= link_to image_tag(item.try(:thumbnail).image_url(:small), :class => "th", :style => "width:40px; height:40px;"), item_path(item) if item.thumbnail.present? %>&nbsp;<strong><%= link_to item.name, item_path(item) %></strong>&nbsp;(<%= @tutorials.count %>)
-          </h6>
-          
-          <%= render partial: @tutorials %>
+          </h6>    
+      <%= render partial: @tutorials %>
+      <% @videos = item.videos.order("view_count DESC") %>          
+      <%= render partial: @videos %>
         </div>
       </div>
-    <% end %>    
+    <% end %>  
+    </div>  
+    </div>  
   </div>
 </div>
-
