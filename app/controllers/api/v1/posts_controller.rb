@@ -111,7 +111,7 @@ module API
 
 				@post = posttable.classify.constantize.find(params[:id])
 
-				offset = params[:offset] || 0
+				offset = !(params[:offset] == "") || 0
 				limit = params[:limit] || 12
 
 				@post.increment_view_count 
