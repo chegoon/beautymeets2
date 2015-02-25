@@ -6,7 +6,7 @@ module API
 			
 			def index
 
-				offset = params[:offset] || 0
+				offset = !(params[:offset] == "") || 0
 				limit = params[:limit] || 12
 
 				@posts = Array.new
