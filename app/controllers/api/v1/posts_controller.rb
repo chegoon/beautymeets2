@@ -6,7 +6,11 @@ module API
 			
 			def index
 
-				offset = !(params[:offset] == "") || 0
+				if params[:offset].present? && !(params[:offset] == "")
+					offset = params[:offset]
+				else
+					offset = 0
+				end
 				limit = params[:limit] || 12
 
 				@posts = Array.new
@@ -111,7 +115,12 @@ module API
 
 				@post = posttable.classify.constantize.find(params[:id])
 
-				offset = !(params[:offset] == "") || 0
+				
+				if params[:offset].present? && !(params[:offset] == "")
+					offset = params[:offset]
+				else
+					offset = 0
+				end
 				limit = params[:limit] || 12
 
 				@post.increment_view_count 
