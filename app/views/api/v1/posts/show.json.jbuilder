@@ -124,8 +124,8 @@ elsif @post.class.name == "Item"
 
 	if items_in_category.count > 0
 		json.canShowItems true
-		json.relatedItemTitle "같은 카테고리 인기제품"
-		json.items items_in_category.limit(10) do |item|
+		json.relatedItemTitle "같은 카테고리 인기 TOP 5(조회순)"
+		json.items items_in_category.limit(5) do |item|
 			json.id item.id
 			json.postType "item"
 			json.name item.name
