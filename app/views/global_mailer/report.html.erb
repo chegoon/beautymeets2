@@ -1,0 +1,22 @@
+<div style=" font-size:12px; background-color:#FAFAFA; text-align:center;  padding:0 0 50px 0;">
+
+	<img style="width:50%; min-width:300px; max-width:600px;margin:30px auto;" src="http://www.beautymeets.com/assets/logo_black.png">
+
+	<div style="text-align:left !important; width:80%; min-width:300px; max-width:600px;margin:0 auto;">
+		<div class="page-header">
+			<h1><%= @title %>에 <%= @sender.name || @sender.email %>님의 제보입니다.</h1>
+		</div>
+
+		<div class="panel" style="padding:10px; background:#e1fffc;">
+			<p>
+				작성자 : <%= @sender.name %>, <%= @sender.email %>
+			</p>
+			<p>
+				제보내용 : <%= @description %>
+			</p>
+		</div>
+		
+ 		<div style="text-align:right; margin:20px 20px;">-  뷰티밋츠 팀(hellobeauty@reallplay.com) -</div>
+
+	</div>
+</div>
