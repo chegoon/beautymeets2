@@ -1,5 +1,7 @@
 Beautymeets2::Application.routes.draw do
 
+  resources :suggests
+
 	resources :collections do
 
 		#match ":id" => "collections#update", :constraints => { method: "PUT" }

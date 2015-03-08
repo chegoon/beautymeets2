@@ -67,7 +67,7 @@ module API
 
 				respond_to do |format|
 					if @board.update_attributes(params[:board])
-						@board.create_activity :create, owner: @board.author if @board.published? && PublicActivity::Activity.where(owner_id: @board.author.id, owner_type: "User", trackable_id: @board.id, trackable_type: "Board").nil?
+						#@board.create_activity :create, owner: @board.author if @board.published? && PublicActivity::Activity.where(owner_id: @board.author.id, owner_type: "User", trackable_id: @board.id, trackable_type: "Board").nil?
 						format.html { redirect_to @board, notice: 'Board was successfully updated.' }
 						format.json { head :no_content }
 					else
