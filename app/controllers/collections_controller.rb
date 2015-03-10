@@ -3,6 +3,18 @@ class CollectionsController < ApplicationController
 
 	# POST /events
 	# POST /events.json
+	def index
+		if user_signed_in? && (current_user.has_role? :admin)
+			@collections = Collection.order("created_at DESC")
+		else
+			@collections = Collection.where(published: true).order("created_at DESC")
+		end
+
+		respond_to do |format|
+			format.html # index.html.erb
+			format.json { render json: @collections }
+		end
+	end
 	def create
 		@collection = current_user.collections.create(params[:collection])
 		current_user.add_role :author, @collection
