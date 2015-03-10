@@ -50,6 +50,7 @@ Beautymeets2::Application.routes.draw do
 	namespace :api,  defaults: {format: :json} do 
 		namespace :v1 do 
 
+			match "reports" => "reports#create", :constraints => { method: "POST" }
 			match "authors" => "authors#index"
 			match "authors/:id" => "authors#show"
 
