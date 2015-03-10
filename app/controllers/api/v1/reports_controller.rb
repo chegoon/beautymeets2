@@ -9,7 +9,7 @@ module API
 			def create
 				params[:report] = {title: "test", description: "test body"}
 				respond_to do |format|
-					report_result = GlobalMailer.report(@user, params[:report][:title], params[:report][:description])	
+					report_result = GlobalMailer.delay.report(@user, params[:report][:title], params[:report][:description])	
 					if report_result
 					#GlobalMailer.report(@user, "ttite", "des")	
 						format.json { render json: "", status: :created }
