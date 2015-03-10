@@ -5,7 +5,7 @@ class GlobalMailer < ActionMailer::Base
 	
 	def report(sender, title, description)
 		@sender = sender
-		@title = title
+		@title = "[User Report]" + title.to_s
 		@description = description
 
 		mail(:to => "hellobeauty@reallplay.com", :from => (@sender.email || @sender.name), :subject => @title, :description => @description)
