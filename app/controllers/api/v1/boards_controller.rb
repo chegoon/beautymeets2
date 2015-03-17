@@ -44,7 +44,12 @@ module API
 			# POST /boards.json
 			def create
 				if params[:image]
-					board_params = JSON.parse(params[:board])
+					if params[:board]
+						board_params = JSON.parse(params[:board]) #android
+					else
+						board_params = {title: params[:title], description: params[:description]}
+					end
+
 					@board = @user.boards.new({user_id: @user.id, title: board_params['title'],  description: board_params['description'], picture_attributes: {image: params[:image]}}) 
 				else
 					@board = @user.boards.create({title: params[:board][:title], description: params[:board][:description]})	
