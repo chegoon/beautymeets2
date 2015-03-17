@@ -53,7 +53,7 @@ module API
 			def create    
 				if params[:image]
 					if params[:comment] # android 
-						comment_params = JSON.parse(params[:comment])
+						comment_params = JSON.parse(params[:comment].to_json)
 						@comment = @commentable.comments.new({user_id: @user.id, body: comment_params['body'], picture_attributes: {image: params[:image]}}) 
 						@parent = Comment.find(comment_params['parent_id']) if comment_params['parent_id']
 					else
