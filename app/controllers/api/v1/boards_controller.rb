@@ -48,7 +48,7 @@ module API
 						board_params = JSON.parse(params[:board]) 
 						@board = @user.boards.new({user_id: @user.id, title: board_params['title'],  description: board_params['description'], picture_attributes: {image: params[:image]}}) 
 					else
-						@board = @user.boards.new({user_id: @user.id, title: JSON.parse(params[:title]),  description: JSON.parse(params[:description]), picture_attributes: {image: params[:image]}}) 
+						@board = @user.boards.new({user_id: @user.id, title: params[:title],  description: params[:description], picture_attributes: {image: params[:image]}}) 
 					end					
 				else
 					@board = @user.boards.create({title: params[:board][:title], description: params[:board][:description]})	
