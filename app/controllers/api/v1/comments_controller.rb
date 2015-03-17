@@ -58,7 +58,7 @@ module API
 						@parent = Comment.find(params[:comment][:parent_id]) if params[:parent_id]
 					else
 						@comment = @commentable.comments.new({user_id: @user.id, body: params[:body], picture_attributes: {image: params[:image]}}) 
-						@parent = Comment.find(JSON.parse(params[:parent_id])) if params[:parent_id]
+						@parent = Comment.find(params[:parent_id]) if params[:parent_id]
 					end
 				else
 					@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
