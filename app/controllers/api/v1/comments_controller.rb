@@ -54,12 +54,12 @@ module API
 				if params[:image]
 					if params[:comment] # android 
 						comment_params = JSON.parse(params[:comment])
+						@comment = @commentable.comments.new({user_id: @user.id, body: comment_params['body'], picture_attributes: {image: params[:image]}}) 
+						@parent = Comment.find(params[:comment][:parent_id]) if params[:parent_id]
 					else
-						comment_params = {body: params[:body]}
+						@comment = @commentable.comments.new({user_id: @user.id, body: JSON.parse(params[:body]), picture_attributes: {image: params[:image]}}) 
+						@parent = Comment.find(JSON.parse(params[:parent_id])) if params[:parent_id]
 					end
-					
-					@comment = @commentable.comments.new({user_id: @user.id, body: comment_params['body'], picture_attributes: {image: params[:image]}}) 
-					@parent = Comment.find(params[:parent_id]) if params[:parent_id]
 				else
 					@comment = @commentable.comments.new({user_id: @user.id, body: params[:comment][:body]})
 					@parent = Comment.find(params[:comment][:parent_id]) if params[:comment][:parent_id]
