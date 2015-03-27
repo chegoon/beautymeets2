@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 	def increment_page_view_count
 		puts "increment_page_view_count called"
 		session[:page_view_count] ||= 0
-		if (session[:page_view_count] > 4 && !user_signed_in?) && (controller_name != "sessions") && (controller_name != "registrations") && (controller_name != "authentications") && (controller_name != "passwords") 
+		if (session[:page_view_count] > 4 && !user_signed_in?) && (controller_name != "sessions") && (controller_name != "registrations") && (controller_name != "authentications") && (controller_name != "passwords") && (controller_name != "infos") 
 			#flash.now[:alert] = 'You need to login for forward'
 			@isGuest = true
 		else
