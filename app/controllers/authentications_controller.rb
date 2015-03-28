@@ -67,13 +67,8 @@ class AuthenticationsController < ApplicationController
 			@auth = authentication
 			
 			respond_to do |format|
-				#if (session[:request_format].present? && session[:request_format] == "json")
-					format.json { redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json", authentication_token: params[:authToken])}
-				#else 
-					format.html { sign_in_and_redirect(:user, authentication.user) }
-				#end
-				#format.json { redirect_to "authentications/" + authentication.id + "?request_format='json'&authentication_token=" + params[:authToken] }
-				#format.json { render json: {status: 200, success: true} }
+				format.json { redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json", authentication_token: params[:authToken])}
+				format.html { sign_in_and_redirect(:user, authentication.user) }
 			end	
 			
 		# user logged in previously, and trying to login with new authentication
