@@ -233,7 +233,7 @@
 
     // override these globally if you like (they are all optional)
     $.smartbanner.defaults = {
-        title: '더욱 빨라진 뷰티밋츠 앱', // What the title of the app should be in the banner (defaults to <title>)
+        title: '뷰티밋츠 앱', // What the title of the app should be in the banner (defaults to <title>)
         author: 'BEAUTYMEETS (New)', // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
         price: 'FREE', // Price of the app
         appStoreLanguage: 'us', // Language code for App Store

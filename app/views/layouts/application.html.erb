@@ -11,6 +11,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
     	<meta name="author" content="ReAllPlay">
 		<meta name="google-play-app" content="app-id=com.reallplay.beautymeets.app">
+    	<meta name="apple-itunes-app" content="app-id=962686789">
 		<link name="apple-touch-icon" rel="apple-touch-icon" href="apple-touch-icon.png">
 		<meta property="og:site_name" content="BEAUTYMEETS" />
 		<meta property="og:url" content="<%= request.original_url %>" />
@@ -196,7 +197,8 @@
 				<%= link_to image_tag("/assets/btn_login@2x.png", :alt => "로그인하기", :class => "left",  :style => "width:116px; height:40px;"), new_user_session_path  %><br/><br/>
 			</p>
 			<p style="margin-top:40px;">앱을 다운받으시면 더욱 편리하게 이용할 수 있습니다.</p>
-			<p><%= link_to image_tag("/assets/google_play.png", :style => "width:170px; height:auto;"), "http://bit.ly/BeautymeetsApp" %></p>
+			<p><%= link_to image_tag("/assets/google_play.png", :style => "width:170px; height:auto;"), "http://bit.ly/BeautymeetsApp" %>
+				<%= link_to image_tag("/assets/apple_appstore.png", :style => "width:170px; height:auto;"), "http://bit.ly/BeautymeetsiOS" %></p>
 		</div>
 		<script type="text/javascript">
 			(function() {
