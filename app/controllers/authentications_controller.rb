@@ -102,15 +102,17 @@ class AuthenticationsController < ApplicationController
 			# in case of facebook authentication, the below code might be needed
  			# user.email = omniauth['extra']['raw_info'].email
 			user.apply_omniauth(omniauth)
-			oauth_token = omniauth['credentials']['token']
- 			oauth_token_secret = omniauth['credentials']['secret']
- 			authentication = user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+			
 			puts "brand new user"
 			if user.save
 	      		UserMailer.welcome(user).deliver if user.email
 	      		user.profile = Member.create!
 	      		user.add_role :member
 				user.save
+
+				oauth_token = omniauth['credentials']['token']
+ 				oauth_token_secret = omniauth['credentials']['secret']
+ 				authentication = user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 
 				flash[:notice] = "Signed in successfully."
 
