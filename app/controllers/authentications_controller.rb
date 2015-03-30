@@ -110,8 +110,8 @@ class AuthenticationsController < ApplicationController
 	      		user.add_role :member
 				user.save
 
-				oauth_token = omniauth['credentials']['token']
- 				oauth_token_secret = omniauth['credentials']['secret']
+				#oauth_token = omniauth['credentials']['token']
+ 				#oauth_token_secret = omniauth['credentials']['secret']
  				authentication = user.authentications.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])#create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 
 				flash[:notice] = "Signed in successfully."
