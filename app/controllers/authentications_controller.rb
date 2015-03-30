@@ -102,6 +102,9 @@ class AuthenticationsController < ApplicationController
 			# in case of facebook authentication, the below code might be needed
  			# user.email = omniauth['extra']['raw_info'].email
 			user.apply_omniauth(omniauth)
+			oauth_token = omniauth['credentials']['token']
+ 			oauth_token_secret = omniauth['credentials']['secret']
+ 			authentication = user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
 			puts "brand new user"
 			if user.save
 	      		UserMailer.welcome(user).deliver if user.email
@@ -115,7 +118,10 @@ class AuthenticationsController < ApplicationController
 				sign_in(:user, user)
 				respond_to do |format|
 					#sign_in_and_redirect(:user, user)
-					format.html {redirect_to user_steps_url} #user_step에서 json format 처리
+					format.json {
+						redirect_to authentication_path(id: authentication.id, format: :json,  request_format: "json")
+					}
+					format.html {redirect_to user_steps_url} 
 				end
 			else
 				# save omniauth data in session for redirection without data needed
