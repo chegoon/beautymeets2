@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
 =end
 
 	def apply_omniauth(omniauth)
-		puts "omniauth #{omniauth}"
+		#puts "omniauth #{omniauth}"
 		self.email = omniauth['info']['email'] if email.blank?
 		self.username = omniauth['info']['name'] if username.blank?
 		self.remote_image_url = omniauth['info']['image'] if remote_image_url.blank?
