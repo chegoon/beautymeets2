@@ -13,6 +13,7 @@ module API
 					end
 					limit = params[:limit] || 12
 
+					params[:category] = "eye"
 					menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
 					@categories = menu ? Category.where(menu_id: menu.id) : nil
 =begin
