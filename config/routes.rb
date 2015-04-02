@@ -48,7 +48,13 @@ Beautymeets2::Application.routes.draw do
 	
 	# Set the default format to json
 	namespace :api,  defaults: {format: :json} do 
+
 		namespace :v1 do 
+
+			namespace :tv do 
+				match "posts" => "posts#index"
+				match "posts/:id" => "posts#show"
+			end
 
 			match "reports" => "reports#create", :constraints => { method: "POST" }
 			match "authors" => "authors#index"

@@ -24,11 +24,11 @@ module API
 				@connection = ActiveRecord::Base.establish_connection( 
 					:adapter => "mysql2",
 					:host => "localhost",
-					:database => "beautymeets2_production",
-					#:database => "beautymeets2_development",
+					#:database => "beautymeets2_production",
+					:database => "beautymeets2_development",
 					:username => "root",
-					#:password => "bd0516"
-					:password => "Reallplay0707"
+					:password => "bd0516"
+					#:password => "Reallplay0707"
 				)
 
 
