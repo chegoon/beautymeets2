@@ -1,27 +1,15 @@
 json.description post.description
-json.source tutorial_url(post)
+json.sources tutorial_url(post)
+json.card request.protocol + request.host_with_port + post.thumbnail.image_url
 json.background request.protocol + request.host_with_port + post.thumbnail.image_url
-json.title truncate(post.title, 24)
-if post_type == "Video"
-	json.studio post.video_group.name
-#elsif post_type  == "Tutorial"
-	json.studio post.author.username
-elsif post_type == "Item"
-	#json.name "#{post.tutorials.where(published: true).order("created_at DESC").first.try(:title)}"
-	if post.tutorials.present?
-		json.studio "#{post.tutorials.where(published: true).order("created_at DESC").first.try(:title)}"
-	else
-		json.studio "#{post.videos.where(published: true).order("created_at DESC").first.try(:title)}"
-	end
-else
-	json.studio "BEAUTYMEETS Editor"
-end
+json.title post.title
+json.studio post.author.username
 
 json.category post.categories.map(&:name)
 json.hits post.view_count
 
 
-json.card request.protocol + request.host_with_port + post.thumbnail.image_url
+
 
 
 if post.class.name.underscore.humanize == "Video"
@@ -29,8 +17,6 @@ if post.class.name.underscore.humanize == "Video"
 else
 	json.thumbUrl request.protocol + request.host_with_port + post.thumbnail.image_url
 end
-
-
 
 
 if post_type == "Tutorial"
