@@ -1,6 +1,8 @@
 json.description post.description
 json.sources do
-	json.array! tutorial_url(post)
+	ar = Array.new
+	ar << post.video_url
+	json.array! ar
 end
 json.card request.protocol + request.host_with_port + post.thumbnail.image_url
 json.background request.protocol + request.host_with_port + post.thumbnail.image_url
