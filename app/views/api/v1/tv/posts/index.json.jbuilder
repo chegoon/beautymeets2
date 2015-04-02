@@ -2,7 +2,7 @@ json.googlevideos do
 	json.array! @categories do |c|
 		json.category c.name
 		cats = Category.where(menu_id: c.id)
-		puts(cats)
+
 		sql = "SELECT posts.id as id, posts.post_type as post_type, posts.created_at as created_at
 				FROM ( 
 					SELECT 

@@ -11,7 +11,7 @@ module API
 					else
 						@offset = 0
 					end
-					@limit = params[:limit] || 12
+					@limit = params[:limit] || 30
 
 					#menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
 					#@categories = menu ? Category.where(menu_id: menu.id) : nil
