@@ -13,6 +13,8 @@ module API
 					end
 					limit = params[:limit] || 12
 
+					menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
+					@categories = menu ? Category.where(menu_id: menu.id) : nil
 =begin
 					@posts = Array.new
 					menu = Category.where(name: params[:category], parent_id: Category.find_by_name("menu").id).first
@@ -191,4 +193,4 @@ module API
 			end
 		end
 	end
-end
+end	

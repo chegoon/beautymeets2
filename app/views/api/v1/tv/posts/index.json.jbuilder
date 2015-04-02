@@ -1,6 +1,6 @@
 json.googlevideos do
-	json.array! do 
-		json.category "category"
+	json.array! @categories do |c|
+		json.category c.name
 		
 		json.videos do
 			json.array! @posts do |p|
