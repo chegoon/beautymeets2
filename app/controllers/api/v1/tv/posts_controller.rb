@@ -1,6 +1,6 @@
 module API
 	module V1
-		module Tv
+		module TV
 			class PostsController < API::V1::BaseController
 				#before_filter :authenticate_user!
 				
