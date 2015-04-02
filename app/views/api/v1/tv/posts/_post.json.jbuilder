@@ -1,5 +1,7 @@
 json.description post.description
-json.sources tutorial_url(post)
+json.sources do
+	json.array! tutorial_url(post)
+end
 json.card request.protocol + request.host_with_port + post.thumbnail.image_url
 json.background request.protocol + request.host_with_port + post.thumbnail.image_url
 json.title post.title
