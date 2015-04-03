@@ -28,6 +28,8 @@ else
 	json.studio post.author.username
 end
 
+json.category post.categories.map(&:name)
+
 if (post_type == "Post") || (post_type == "Item")
 	json.images do
 		ar = Array.new
@@ -38,5 +40,4 @@ if (post_type == "Post") || (post_type == "Item")
 	end
 end
 
-json.category post.categories.map(&:name)
 json.hits post.view_count
