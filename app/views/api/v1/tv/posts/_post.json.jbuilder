@@ -27,5 +27,16 @@ else
 	json.title post.title
 	json.studio post.author.username
 end
+
+if (post_type == "Post") || (post_type == "Item")
+	json.images do
+		ar = Array.new
+		post.pictures.each do |pic|
+			ar << request.protocol + request.host_with_port + pic.image_url if !pic.image_url.nil?
+		end
+		json.array! ar
+	end
+end
+
 json.category post.categories.map(&:name)
 json.hits post.view_count
