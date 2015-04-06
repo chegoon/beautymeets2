@@ -1,4 +1,4 @@
-json.googlevideos do
+json.tv_posts do
 	json.array! @categories do |c|
 		json.category c.name
 		cats = Category.where(menu_id: c.id)
@@ -53,7 +53,7 @@ json.googlevideos do
 		posts = @connection.connection.execute(sql)
 
 
-		json.videos do
+		json.posts do
 			json.array! posts do |p|
 				json.partial! 'api/v1/tv/posts/post', post: p[1].classify.constantize.find(p[0])
 			end
