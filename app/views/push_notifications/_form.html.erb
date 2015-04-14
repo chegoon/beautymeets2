@@ -8,6 +8,32 @@
     <%= f.input :sent %>
   </div>
 
+  <fieldset>
+      <legend> 눈모양 정보 </legend>
+    <%= f.input :eye_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("eye_types").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  
+    %>
+  </fieldset>
+  <fieldset>
+      <legend> 피부 타입 정보 </legend>
+    <%= f.input :skin_type_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_types").map(&:name), :hint => "Please check all that apply", :label => "", :item_wrapper_class => "form_input"  %>
+  </fieldset>
+  <fieldset>
+    <legend> 피부 밝기 정보 </legend>
+  <%= f.input :skin_brightness_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_brightnesses").map(&:name), :hint => "Please check all that apply", :label => ""  %>
+  </fieldset>
+  <fieldset>
+    <legend> 피부 톤 정보 </legend>
+  <%= f.input :skin_tone_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_tones").map(&:name), :hint => "Please check all that apply", :label => ""  %>
+  </fieldset>
+  <fieldset>
+    <legend> 피부 컬러 정보 </legend>
+  <%= f.input :skin_color_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_colors").map(&:name), :hint => "Please check all that apply", :label => ""  %>
+  </fieldset>
+  <fieldset>
+    <legend> 피부 트러블 정보 </legend>
+  <%= f.input :skin_trouble_list, :as => :check_boxes_label, :collection => Member.tag_counts_on("skin_troubles").map(&:name), :hint => "Please check all that apply", :label => "" %>
+  </fieldset>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

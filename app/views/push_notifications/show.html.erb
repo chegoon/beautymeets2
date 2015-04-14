@@ -20,6 +20,21 @@
   <b>Sent:</b>
   <%= @push_notification.sent %>
 </p>
+<%= @push_notification.eye_type_list %>
+<% 
+	members = Member.tagged_with(@push_notification.tag_list).all 
+	users = [];
+	members.each do |m|
+%>
+	<%= "#{m.user.id} &  #{m.eye_type_list}" %>
+<%
+		users << m.user
+	end
+	users.each do |u|
+%>
+
+<%= u.id %>
+<% end %>
 
 
 <%= link_to 'Edit', edit_push_notification_path(@push_notification) %> |
