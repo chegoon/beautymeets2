@@ -24,7 +24,9 @@
   <div class="small-12 medium-10 columns">
       
     <%= simple_format(@post.description, :style => "margin-bottom:4px;") %>
-    
+    <p>
+      뷰티밋츠 앱 다운 : <a href="http://bit.ly/beautymeets">http://bit.ly/beautymeets</a><br/>
+    </p>
     <p style="margin-top:0; margin-bottom:2px;">
       <% @post.tag_list.each do |t| %>
         <span class="label secondary radius"><%= t %></span>
