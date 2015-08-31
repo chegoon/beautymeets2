@@ -124,6 +124,7 @@ gem "nokogiri"
 
 gem 'bootstrap-datepicker-rails'
 
+gem 'yt'
 #gem 'recaptcha', :require => 'recaptcha/rails'
 =begin
 #gem 'therubyracer'

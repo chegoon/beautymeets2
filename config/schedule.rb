@@ -20,10 +20,10 @@
 # Learn more: http://github.com/javan/whenever
 #set :environment, "development"
 set :output, "log/cron_log.log"
-every 1.day, :at => '2:55 pm' do #db는 GMT +0이고 시스템 time도 동일
+#every 1.day, :at => '2:55 pm' do #db는 GMT +0이고 시스템 time도 동일
 #every 2.minutes do
-	runner "ChannelLog.update_log_details"
-end
+#	runner "ChannelLog.update_log_details"
+#end
 #every 2.minutes do
 #every 1.day, :at => '2:55 pm' do
 every 12.hours do

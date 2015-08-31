@@ -26,9 +26,27 @@ class VideoGroup < ActiveRecord::Base
   def self.update_groups
     vgs = VideoGroup.where(published: true).all
     vgs.each do |vg|
-      vg.update_group
+      #vg.update_group
+      yt_ch = Yt::Channel.new id: vg.ch_id
+      update_channel(vg, yt_ch)
     end
     
+  end
+
+  def update_channel(ch, yt_ch)
+    puts "update_channel is called id: #{ch.id} ch_id: #{ch.ch_id} ch_title: #{ch.title}"
+
+    ch.update(name: yt_ch.title, thumb_url: yt_ch.thumbnail_url, video_count: yt_ch.video_count, view_count: yt_ch.view_count)
+
+
+    yt_videos = yt_ch.videos
+    if yt_videos
+      yt_videos.each do |yt_v|
+        video = ch.videos.find_or_create_by(yt_vi_id: yt_v.id)              
+        video.update(title: yt_v.title, description: yt_v.description, published_at: yt_v.published_at, thumb_url: yt_v.thumbnail_url, view_count: yt_v.view_count)
+        
+      end
+    end           
   end
 
   def update_group

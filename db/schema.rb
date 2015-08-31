@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150308125600) do
+ActiveRecord::Schema.define(:version => 20150831164159) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -721,6 +721,8 @@ ActiveRecord::Schema.define(:version => 20150308125600) do
     t.datetime "join_date"
     t.integer  "subscribers"
     t.boolean  "published"
+    t.integer  "video_count"
+    t.string   "ch_id"
   end
 
   add_index "video_groups", ["slug"], :name => "index_video_groups_on_slug"
