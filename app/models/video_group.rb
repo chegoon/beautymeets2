@@ -6,7 +6,7 @@ class VideoGroup < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use:  [:slugged, :history]
   
-  attr_accessible :name, :home_url, :thumb_url, :image, :youtube_id, :header_bg_url, :view_count, :published
+  attr_accessible :name, :home_url, :thumb_url, :image, :youtube_id, :header_bg_url, :view_count, :published, :video_count, :ch_id
   has_many :videos, dependent: :destroy
 
   mount_uploader :image, ImageUploader
@@ -33,18 +33,18 @@ class VideoGroup < ActiveRecord::Base
     
   end
 
-  def update_channel(ch, yt_ch)
-    puts "update_channel is called id: #{ch.id} ch_id: #{ch.ch_id} ch_title: #{ch.title}"
+  def self.update_channel(ch, yt_ch)
+    puts "update_channel is called id: #{ch.id} ch_id: #{ch.ch_id} ch_title: #{ch.name}"
 
-    ch.update(name: yt_ch.title, thumb_url: yt_ch.thumbnail_url, video_count: yt_ch.video_count, view_count: yt_ch.view_count)
+    ch.update_attributes(name: yt_ch.title, thumb_url: yt_ch.thumbnail_url, video_count: yt_ch.video_count, view_count: yt_ch.view_count)
 
 
     yt_videos = yt_ch.videos
     if yt_videos
       yt_videos.each do |yt_v|
-        video = ch.videos.find_or_create_by(yt_vi_id: yt_v.id)              
-        video.update(title: yt_v.title, description: yt_v.description, published_at: yt_v.published_at, thumb_url: yt_v.thumbnail_url, view_count: yt_v.view_count)
-        
+        video = ch.videos.find_or_create_by_yt_vi_id(yt_v.id)              
+        if video.update_attributes(title: yt_v.title, video_url: "http://www.youtube.com/embed/#{yt_v.id}", thumb_url: "http://img.youtube.com/vi/#{yt_v.id}/0.jpg", description: yt_v.description, published_at: yt_v.published_at, thumb_url: yt_v.thumbnail_url, view_count: yt_v.view_count)
+        end
       end
     end           
   end
