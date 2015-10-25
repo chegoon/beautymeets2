@@ -19,7 +19,9 @@ class VideoGroup < ActiveRecord::Base
 
 
   def self.update_group(id)
-  	find(id).update_group
+  	#find(id).update_group
+    yt_ch = Yt::Channel.new id: vg.ch_id
+    find(id).update_channel(find(id), yt_ch)
   end
 
 
