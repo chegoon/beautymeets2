@@ -69,8 +69,13 @@ class VideoGroupsController < ApplicationController
 	# POST /video_groups
 	# POST /video_groups.json
 	def create
-		@video_group = VideoGroup.find_or_create_by_youtube_id(params[:video_group][:youtube_id])
-		@video_group.update_group
+		#@video_group = VideoGroup.find_or_create_by_youtube_id(params[:video_group][:youtube_id])
+		#@video_group.update_group
+		response = HTTParty.get("https://www.googleapis.com/youtube/v3/channels?key=AIzaSyCZT4tgs-exq5My9CaiMmf4N6rQ2WFNzIA&forUsername=#{params[:video_group][:youtube_id].to_s}&part=id")
+     	@video_group = VideoGroup.new(youtube_id: params[:video_group][:youtube_id], ch_id: params[:video_group][:ch_id])
+      	
+      	yt_ch = Yt::Channel.new id: @video_group.ch_id
+      	VideoGroup.update_channel(@video_group, yt_ch)
 		
 		respond_to do |format|
 			if @video_group.save
