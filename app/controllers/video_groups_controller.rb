@@ -34,7 +34,8 @@ class VideoGroupsController < ApplicationController
 		if (params[:order].present?) && (params[:order] == "popular")
 			@videos = @video_group.videos.where(published: true).order("view_count DESC").page(params[:page]).per_page(20)
 		else
-			@videos = @video_group.videos.where(published: true).order("created_at DESC").page(params[:page]).per_page(20)
+			@videos = @video_group.videos.where(published: true).order("published_at DESC").page(params[:page]).per_page(20)
+			#@videos = @video_group.videos.where(published: true).order("created_at DESC").page(params[:page]).per_page(20)
 		end
 		@categories = Category.where("parent_id IS NULL ").all
 		#@categories = Category.joins(:videos).where("videos.id in (?)", @videos.map(&:id))
@@ -105,7 +106,9 @@ class VideoGroupsController < ApplicationController
 		@video_groups = VideoGroup.where(published: true).all
 
 		@video_groups.each do |group|
-			VideoGroup.update_group(group.id)
+			#VideoGroup.update_group(group.id)
+      		yt_ch = Yt::Channel.new id: group.ch_id
+      		VideoGroup.update_channel(group, yt_ch)
 		end
 
 		redirect_to video_groups_path
