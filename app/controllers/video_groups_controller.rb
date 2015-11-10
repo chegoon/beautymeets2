@@ -29,12 +29,12 @@ class VideoGroupsController < ApplicationController
 	# GET /video_groups/1.json
 	def show
 		@video_group = VideoGroup.find(params[:id])
-		@video = @video_group.videos.where(published: true).order("view_count DESC").limit(20).sample(1).first
+		@video = @video_group.videos.where(published: true).order("view_count DESC").limit(18).sample(1).first
 
 		if (params[:order].present?) && (params[:order] == "popular")
-			@videos = @video_group.videos.where(published: true).order("view_count DESC").page(params[:page]).per_page(20)
+			@videos = @video_group.videos.where(published: true).order("view_count DESC").page(params[:page]).per_page(18)
 		else
-			@videos = @video_group.videos.where(published: true).order("published_at DESC").page(params[:page]).per_page(20)
+			@videos = @video_group.videos.where(published: true).order("published_at DESC").page(params[:page]).per_page(18)
 			#@videos = @video_group.videos.where(published: true).order("created_at DESC").page(params[:page]).per_page(20)
 		end
 		@categories = Category.where("parent_id IS NULL ").all

@@ -1,72 +1,9 @@
 <% page_title "Welcome to BEAUTYMEETS" %>
 <% page_desc "Discover, Learn, and Be beautiful in BEAUTYMEETS!!" %>
  	    	
-<div class="row ">
-	<div class="small-12 welcome-jumbo " >
-		
-				<div class="slider">
-					<ul class="slides">
-
-						<li class="slide"  style="padding:0;">
-							<%= render 'welcome_jumbo_watch' %>
-						</li>
-
-						<li class="slide"  style="padding:0;">
-							<%= render 'welcome_jumbo_check' %>
-						</li>
-
-						<li class="slide"  style="padding:0;">
-							<%= render 'welcome_jumbo_save' %>
-						</li>
-
-						<% if @events.present? %>
-							<% @events.each_with_index do |event, i| %>
-							<li class="slide"  style="padding:0;">
-								<%= render event %>
-							</li>
-							<% end %>	
-						<% end %>
-					</ul>
-				</div>
-	</div>
-</div>
-
-<div class="row" style="margin-bottom:30px;" >
-	<div class="small-12 medium-12 large-8 columns" style="">
-		<div class="welcome-tutorial-card-outter" style="">
-			<% if @latest_tutorials.present? %>
-			<div class="row" >
-				<div class="small-12 columns" >
-					<div class="welcome-tutorial-header" >
-					<%= image_tag "/assets/hdr_tutorial_latest
-					@2x.png", :style => "width:200px; height:50px;" %>
-					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "튜토리얼 더 살펴보기", :class => "welcome-tutorial-more right", :style => "width:80px; height:20px;"), {:controller => "tutorials", :order => "newly"} %>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="small-12 columns" >
-					<%= render partial: @latest_tutorials, locals: { cards_in_row: "2" } %>
-				</div>
-			</div>
-			<% end %>
-		</div>
-	</div>
-	<div class="small-12 medium-12 large-4 columns">
-		<div class="welcome-item-outter" style="">
-			<div class="row">
-				<div class="small-12 columns" >
-					<div class="" style="padding:0 0 20px 0;">
-					<%= render "latest_items" %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <% if @latest_videos.present? %>
-<div class="row"  style="margin-bottom:30px;">
+<div class="row"  style="margin-top:60px; margin-bottom:30px;">
 	<div class="small-12 columns" >
 		<div class="welcome-post-header" >
 			<%= image_tag "/assets/hdr_latest_video
@@ -80,40 +17,4 @@
 		</div>
 	</div>
 </div>
-<% end %>
-
-<% if @latest_collections.present? %>
-		<div class="row">
-			<div class="small-12 columns" >
-				<div class="welcome-post-header" >
-					<%= image_tag "/assets/hdr_latest_collection
-					@2x.png", :style => "width:auto; height:50px;" %>
-					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "콜렉션 더 살펴보기", :class => "hide-for-small-only right welcome-post-more"), {controller: "collections", order: "index"} %>
-					<%= link_to image_tag("/assets/btn_plus@2x.png", :alt => "콜렉션 더 살펴보기", :style => "width:14px; height:14px;", :class => "show-for-small-only right welcome-item-more"), {controller: "collections", order: "index"} %>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="small-12">
-				<%= render @latest_collections %>
-			</div>
-		</div>
-<% end %>
-
-<% if @latest_posts.present? %>
-		<div class="row">
-			<div class="small-12 columns" >
-				<div class="welcome-post-header" >
-					<%= image_tag "/assets/hdr_latest_post
-					@2x.png", :style => "width:auto; height:50px;" %>
-					<%= link_to image_tag("/assets/btn_more@2x.png", :alt => "포스트 더 살펴보기", :class => "hide-for-small-only right welcome-post-more"), posts_path %>
-					<%= link_to image_tag("/assets/btn_plus@2x.png", :alt => "포스트 더 살펴보기",:style => "width:14px; height:14px;",  :class => "show-for-small-only right welcome-item-more"), posts_path %>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="small-12">
-				<%= render @latest_posts %>
-			</div>
-		</div>
 <% end %>

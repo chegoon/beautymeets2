@@ -14,7 +14,7 @@
 					<div class="index-head-title" style="">
 					<div class="index-head-title-inner"  style="">
 						<h4 class="subheader " style="color:#FFF; line-height:106%; letter-spacing:-0.5px;"> 
-						뷰티 블로거들이 전하는
+						뷰티 크리에이들이 전하는
 						<strong>깨알같은 뷰티노하우</strong>를
 						만나보세요<br/>
 						<br/>
@@ -56,31 +56,10 @@
 
 <div class="row " style="">
 	<div class="small-12 small-centered columns" style="">
-			<div class="video-card-outter">
+		<div class="video-card-outter">
 				<div class="row " style="">
 
-						<% 
-							#announcement_index = rand(0..11) 
-							extra_card_count = (@videos.length % 4) == 0 ? 0 : 4 - (@videos.length % 4) 
-							notice_index = Array.new
-							extra_card_count.times do
-								notice_index << rand(0..(@videos.length-1)) 
-							end 
-						%>
-
 							<% @videos.each_with_index do |video, i| %>
-								<% notice_index.each do |an| %>
-									<% if i == an %>
-										<% if (i % 3) == 0 %>
-											<%= render partial: 'notices/makeup_request_in_video', locals: { cards_in_row: "4" } %>
-										<% elsif (i % 3) == 1 %>
-											<%= render partial: 'notices/link_in_video', locals: { cards_in_row: "4" }  %>
-										<% else %>
-											<%= render partial: 'notices/beautymodel_in_video', locals: { cards_in_row: "4" }  
-											%>
-										<% end %>
-									<% end %>
-								<% end %>
 
 								<%= render video %>
 								

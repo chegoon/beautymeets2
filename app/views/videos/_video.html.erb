@@ -1,4 +1,4 @@
-<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "4").to_i %>  columns " >
+<div class="small-12 medium-<%= 12 / (local_assigns[:cards_in_row] || "3").to_i %>  columns " >
   <div class="video-card">
     <div class="text-center " style="position: relative; ">
       <a class="video-card-thumb" href="<%= video_path(video) %>" style='background-image: url(<%= "#{video.thumb_url}" %>); '>
